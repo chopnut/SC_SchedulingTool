@@ -1,0 +1,28 @@
+{
+  "name": "boilerplate",
+  "description": "boiler plate for nice framework",
+  "main": "index.js",
+  "authors": [
+    "ernani danting"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "boiler",
+    "plate",
+    "php"
+  ],
+  "homepage": "https://github.com/chopnut/PHP-Boiler-Plate-Nice-Framework",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bourbon": "^4.3.4",
+    "jquery": "^3.2.1",
+    "normalize-css": "^7.0.0",
+    "bootstrap": "^3.3.7"
+  }
+}
