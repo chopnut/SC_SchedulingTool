@@ -15,7 +15,7 @@ $app = new Application();
 // Configure your routes
 $app->set('routes', function (RouteCollector $r) {
     $r->map('/', null, function () {
-        return new Response('Hello, world');
+        return new Response('Internal Reports front end stuff is on the way...');
     });
 
     $r->map('/hello/{name}', null, function ($name) {
