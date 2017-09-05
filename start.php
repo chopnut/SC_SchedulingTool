@@ -14,7 +14,9 @@ $app = new \Slim\Slim([
 ]);
 
 $view = $app->view();
-$view->setTemplatesDirectory('app/views');
+
+$view->setTemplatesDirectory('../app/views');
+
 $view->parserExtensions = [
 	new \Slim\Views\TwigExtension(),
 ];
