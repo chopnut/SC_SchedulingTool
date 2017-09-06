@@ -30,12 +30,14 @@
                     <div class="logo">
                         <img src="assets/logo-large-09.png" alt="Smartcomm">
                     </div>
-                    <div class="logo_left">
-                        STUFF HERE
-                    </div>
                 </div>
                 <div class="right">
-                    LEFTSTUFF HERE
+                    <table class="table-contain-header" width="100%">
+                        <tr>
+                            <td class="left">SCHEDULING TOOL</td>
+                            <td class="right">Hello HOME | ADMIN or EDIT PROFILE | LOGOUT</td>
+                        </tr>
+                    </table>
                 </div>
         
             </div>  <!-- END wrapper-container-header -->
