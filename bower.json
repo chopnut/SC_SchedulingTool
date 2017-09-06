@@ -11,7 +11,7 @@
     "plate",
     "php"
   ],
-  "homepage": "https://github.com/chopnut/PHP-Boiler-Plate-Nice-Framework",
+  "homepage": "https://github.com/chopnut/SC_InternalReports",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -23,6 +23,7 @@
     "bourbon": "^4.3.4",
     "jquery": "^3.2.1",
     "normalize-css": "^7.0.0",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "semantic": "semantic-ui#^2.2.13"
   }
 }

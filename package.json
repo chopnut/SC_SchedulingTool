@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chopnut/PHP-Boiler-Plate-Nice-Framework.git"
+    "url": "git+https://github.com/chopnut/SC_InternalReports.git"
   },
   "keywords": [
     "boiler",
@@ -18,9 +18,9 @@
   "author": "ernani danting",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/chopnut/PHP-Boiler-Plate-Nice-Framework/issues"
+    "url": "https://github.com/chopnut/SC_InternalReports/issues"
   },
-  "homepage": "https://github.com/chopnut/PHP-Boiler-Plate-Nice-Framework#readme",
+  "homepage": "https://github.com/chopnut/SC_InternalReports#readme",
   "devDependencies": {
     "bower": "^1.8.0",
     "gulp": "^3.9.1"
