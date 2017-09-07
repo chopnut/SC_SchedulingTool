@@ -4,7 +4,7 @@
 // Main route
 $app->get('/',function () use($app){
 
-	$app->render('index.php',array('v'=>'Hello world'));
+	$app->render('Hello world');
 });
 
 // Client Level
