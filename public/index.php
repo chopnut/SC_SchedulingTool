@@ -1,8 +1,17 @@
 <?php
 
-
 require ('../start.php');
-$app->get('/',function()use($app){
-	$app->render('index.php');
+
+
+// ------------- ALL BUSINES LOGIC FOR INTERNAL REPORTS HERE ----------------//
+$app->get('/',function()use($app,$areYouLoggedIn){
+	
+	$variables = array();
+	$variables['areYouLoggedIn'] = $areYouLoggedIn;
+
+	$app->render('index.php',$variables);
 });
+
+
+
 $app->run();

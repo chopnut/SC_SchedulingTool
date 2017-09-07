@@ -35,7 +35,9 @@
                     <table class="table-contain-header" width="100%">
                         <tr>
                             <td class="left">SCHEDULING TOOL</td>
-                            <td class="right">Hello HOME | ADMIN or EDIT PROFILE | LOGOUT</td>
+                            <td class="right">
+                                <?php include('../../views/header.php'); ?>
+                            </td>
                         </tr>
                     </table>
                 </div>
