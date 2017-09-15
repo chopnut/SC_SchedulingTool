@@ -7,15 +7,12 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
-        <link rel="stylesheet" href="../bower_components/semantic/dist/semantic.min.css">
-        <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css">
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-        <link rel="stylesheet" href="css/app.css">
+        <script src="assets/bundle.js" type="text/javascript"></script>
         <script src="js/app.js" type="text/javascript"></script>
+        <script src="../../common/common.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="../../common/common.css"> 
+        <link rel="stylesheet" href="css/app.css">
+
         <!--<link rel="stylesheet" href="css/main.css"> -->
     </head>
     <body>
@@ -53,10 +50,6 @@
         <div class="wrapper-view-content">
             <div class="container-view-content"></div>
         </div>
-        <script href="../bower_components/jquery/dist/jquery.min.js"></script>
-        <script href="../bower_components/semantic/dist/semantic.min.js"></script>
-
-       
 
         <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
         <script>

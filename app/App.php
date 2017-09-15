@@ -80,7 +80,7 @@ class App {
 		public function init(){
 			$this->logging_out();
 
-			// ---------------- PASS ALL YOUR INTERNAL REPORTS PROCESS HERE -----------------------//
+			// ---------------- PASS ALL YOUR SCHEDULING TOOL PROCESS HERE -----------------------//
 
 		}
 		private function check_hash($hash,$username){
