@@ -20,10 +20,7 @@
 .wrapper-header .container-header .left {
      flex-basis: 230px;
      flex-shrink: 0;
-    
-
 }
-
 .wrapper-header .container-header .left .logo {
     floaft: left;
 }
@@ -55,12 +52,41 @@
 
 .wrapper-header-option .container-header-option {
     border-top: 2px solid #66BDEE;
-
 }
-
 .wrapper-view-content {
     width: 100%;
     height: 100px;
 }
 
-.wrapper-view-content .container-view-content {}
+.wrapper-view-content .container-view-content {
+    padding: 5px;
+    background-color: #66BDEE;
+}
+/* -----------VIEW CONTAINER ------------ */
+.wrapper-view-content .container-view-content .ui.definition.table td{ padding: 0; border-right: 1px solid #ccc; }
+.wrapper-view-content .container-view-content .ui.definition.table td:last-child{ border-right: 0px solid #ccc; }
+.wrapper-view-content .container-view-content .ui.definition.table td:first-child{ border-right: 0px solid #ccc; }
+.wrapper-view-content .container-view-content .ui.definition.table th{ width: 15%;  }
+.wrapper-view-content .container-view-content .ui.definition.table th.department{ width: 100px;color: #000; font-weight: bold; }
+.wrapper-view-content .container-view-content .ui.definition.table th { text-align: center;}
+.wrapper-view-content .container-view-content .ui.definition.table td.label{ padding: 10px;}
+
+.wrapper-view-content .container-view-content .ui.definition.table td.label.insert{ padding: 0px;text-align: center; padding-top: 3px;padding-bottom: 3px; background-color: #7F5CA2; color:#fff;}
+.wrapper-view-content .container-view-content .ui.definition.table td.label.insert~ td{ background-color: #7F5CA2;border-right: 1px solid #7F5CA2; }
+
+.wrapper-view-content .container-view-content .ui.definition.table td.label.imaging{padding: 0px;text-align: center; padding-top: 3px;padding-bottom: 3px;background-color: #1F96DB;  color:#fff;}
+.wrapper-view-content .container-view-content .ui.definition.table td.label.imaging~ td{background-color: #1F96DB; border-right: 1px solid #1F96DB;}
+
+
+.header_text_control { display: flex; }
+.header_text_control div { flex: 1}
+.header_text_control .left{ }
+.header_text_control .middle{ flex: 0 0 50%;}
+.header_text_control .middle .date{ font-size: 30px; }
+.header_text_control .right{  flex: 0 0 200px; text-align: right; font-size: 20px;}
+.header_text_control .right .chooseDate{ font-size: 13px;}
+
+.menu{border: 0px solid #eee !important; }
+.menu a{border: 0px solid #eee !important;  color: #fff !important;}
+.menu a.active{ color: #000000 !important;}
+.tab{border: 0px solid #eee !important; }

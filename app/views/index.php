@@ -6,21 +6,17 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <script src="assets/bundle.js" type="text/javascript"></script>
-        <script src="js/app.js" type="text/javascript"></script>
-        <script src="../../common/common.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="../../common/common.css"> 
+        <link rel="stylesheet" href="../../common/common.css">
         <link rel="stylesheet" href="css/app.css">
-
-        <!--<link rel="stylesheet" href="css/main.css"> -->
     </head>
     <body>
+
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
         <!-- This will house the login/logout content -->
+
         <div class="wrapper-header">
             <div class="container-header">
                 <div class="left">
@@ -42,19 +38,32 @@
             </div>  <!-- END wrapper-container-header -->
         </div> <!-- END wrapper-header-->
 
-        <!-- this will house the option for the report -->
-        <div class="wrapper-header-option">
-            <div class="container-header-option"></div>
-        </div>    
+
         <!-- this will house the main view of the content -->
         <div class="wrapper-view-content">
-            <div class="container-view-content"></div>
+            <div class="container-view-content" id="app">
+
+            </div>
+           <?php
+
+                include("documentation.php");
+            ?>
         </div>
+
+
+
 
         <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
         <script>
             window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
             ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
         </script>
+
+        <script src="assets/bundle.js" type="text/javascript"></script>
+        <script src="../../common/common.js" type="text/javascript"></script>
+        <script src="js/app.js" type="text/javascript"></script>
+
+
+
     </body>
 </html>
