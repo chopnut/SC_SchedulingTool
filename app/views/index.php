@@ -41,9 +41,7 @@
 
         <!-- this will house the main view of the content -->
         <div class="wrapper-view-content">
-            <div class="container-view-content" id="app">
-
-            </div>
+            <div class="container-view-content" id="app"></div>
            <?php
 
                 include("documentation.php");
