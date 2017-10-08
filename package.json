@@ -2,6 +2,7 @@
   "scripts": {},
   "dependencies": {
     "axios": "^0.16.2",
+    "babel-polyfill": "^6.26.0",
     "bourbon": "^4.3.4",
     "es5-shim": "^4.5.9",
     "jquery": "^3.2.1",
@@ -26,7 +27,6 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
-    "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.7",

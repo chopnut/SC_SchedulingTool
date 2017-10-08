@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../../common/common.css">
-        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" href="assets/css/app.css">
     </head>
     <body>
 
@@ -34,7 +34,7 @@
                         </tr>
                     </table>
                 </div>
-        
+
             </div>  <!-- END wrapper-container-header -->
         </div> <!-- END wrapper-header-->
 
@@ -57,9 +57,9 @@
             ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
         </script>
 
-        <script src="assets/bundle.js" type="text/javascript"></script>
+        <script src="assets/js/bundle.js" type="text/javascript"></script>
         <script src="../../common/common.js" type="text/javascript"></script>
-        <script src="js/app.js" type="text/javascript"></script>
+        <script src="assets/js/app.js" type="text/javascript"></script>
 
 
 
