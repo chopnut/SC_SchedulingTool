@@ -1,22 +1,22 @@
-import("bourbon");
-/* ----------------HEADER ---------------------*/
+@import "../../../node_modules/bourbon/app/assets/stylesheets/bourbon";
+@import "../../../node_modules/bourbon-neat/app/assets/stylesheets/neat";
+
+/* ----------------HEADER START---------------------*/
 .wrapper-header {
   overflow: auto;
   padding: 5px;
   box-sizing: border-box;
   min-width: 700px;
 
+  .container-header {
+    vertical-align: middle;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
-.wrapper-header .container-header {
-  vertical-align: middle;
-  overflow: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-
-}
 
 .wrapper-header .container-header .left {
   flex-basis: 230px;
@@ -77,7 +77,6 @@ import("bourbon");
 
 .wrapper-view-content .container-view-content .ui.definition.table td.label.imaging{padding: 0px;text-align: center; padding-top: 3px;padding-bottom: 3px;background-color: #1F96DB;  color:#fff;}
 .wrapper-view-content .container-view-content .ui.definition.table td.label.imaging~ td{background-color: #1F96DB; border-right: 1px solid #1F96DB;}
-
 
 .header_text_control { display: flex; }
 .header_text_control div { flex: 1}
