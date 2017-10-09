@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../../common/common.css">
-        <link rel="stylesheet" href="css/app.css">
+
     </head>
     <body>
 
@@ -34,16 +34,14 @@
                         </tr>
                     </table>
                 </div>
-        
+
             </div>  <!-- END wrapper-container-header -->
         </div> <!-- END wrapper-header-->
 
 
         <!-- this will house the main view of the content -->
         <div class="wrapper-view-content">
-            <div class="container-view-content" id="app">
-
-            </div>
+            <div class="container-view-content" id="app"></div>
            <?php
 
                 include("documentation.php");
@@ -59,9 +57,9 @@
             ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
         </script>
 
-        <script src="assets/bundle.js" type="text/javascript"></script>
+        <script src="assets/js/bundle.js" type="text/javascript"></script>
         <script src="../../common/common.js" type="text/javascript"></script>
-        <script src="js/app.js" type="text/javascript"></script>
+        <script src="assets/js/app.js" type="text/javascript"></script>
 
 
 

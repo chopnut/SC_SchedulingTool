@@ -3,9 +3,10 @@ const webpack = require('webpack');
 
 
 module.exports = {
-    entry: "./entry.js",
+    entry: ["babel-polyfill","./entry.js"],
     output: {
-        path: __dirname+"/public/assets/",
+        path: __dirname+"/public/assets/js/",
+        publicPath: "/public/",
         filename: "bundle.js"
     },
     resolve: {
@@ -13,6 +14,7 @@ module.exports = {
     },
     module: {
         loaders: [
+            {test: /\.scss$/,loader: "style-loader!css-loader!resolve-url-loader!sass-loader"},
             { test: /\.css$/, loader: "style-loader!css-loader!resolve-url-loader" },
             { test: /\.(png|jpg|gif|eot|woff2|svg|ttf|woff)$/, loader: "url-loader?publicPath=assets/&limit=5000&name=img/img-[hash:6].[ext]"},
             { test: /\.js?$/, exclude: /node_modules/, loader: "babel-loader", query: { presets: ["react", "es2015"] }}
