@@ -56,7 +56,6 @@
             window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
             ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
         </script>
-
         <script src="assets/js/bundle.js" type="text/javascript"></script>
         <script src="../../common/common.js" type="text/javascript"></script>
         <script src="assets/js/app.js" type="text/javascript"></script>
