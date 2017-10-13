@@ -15,6 +15,9 @@ require("./node_modules/semantic-ui/dist/components/tab.js");
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Layout from './react/layouts/index';
+import {configureStore} from './react/store/configureStore';
+
+
 
 ReactDOM.render(<Layout /> ,document.getElementById('app'));
 
