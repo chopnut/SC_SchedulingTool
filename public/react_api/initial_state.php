@@ -8,7 +8,7 @@ foreach($settings as $setting){
     $temp[$key] = $val;
 }
 $jsonSettings       = json_encode($temp);
-$jsonUser   = json_encode($areYouLoggedIn);
+$jsonUser           = json_encode($areYouLoggedIn);
 
 echo "window.__initial_state__ = {settings: $jsonSettings, user_detail: $jsonUser}";
 

@@ -4,6 +4,7 @@ export default class Layout extends Component {
     // Do some initiliazing in the constructor
     constructor(props){
         super(props);
+        console.log("From constructor",store.getState());
     }
 
     render() {

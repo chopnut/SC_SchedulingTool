@@ -38,7 +38,7 @@ class Database {
         $this->capsule->addConnection($this->connection['mysql']);
         $this->capsule->addConnection($this->connection['sqlserver'],'sqlserver');
 
-        // Setup the Eloquent ORM… 
+        // Setup the Eloquent ORM…
         $this->capsule->setAsGlobal();
         $this->capsule->bootEloquent();
 
@@ -48,3 +48,5 @@ class Database {
     }
 
 }
+
+?>
