@@ -11,14 +11,25 @@ require("./node_modules/semantic-ui/dist/semantic.js");
 require("./node_modules/semantic-ui/dist/components/accordion.js");
 require("./node_modules/semantic-ui/dist/components/tab.js");
 
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Layout from './react/layouts/index';
-import {configureStore} from './react/store/configureStore';
+import store from './react/store/store';
 
 
+// Subscribe will fire everytime action is dispatched
+store.subscribe(()=>{
+    console.log(store.getState());
+});
 
-ReactDOM.render(<Layout /> ,document.getElementById('app'));
+// Try to dispatch an action
+// An action should hold your new state so reducer can act upon it.
+store.dispatch({
+    type: 'SAMPLE',
+    data:{
+        moreSample: 'Another hello world'
+    }
+});
+ReactDOM.render(<Layout store={store} /> ,document.getElementById('app'));
 
 

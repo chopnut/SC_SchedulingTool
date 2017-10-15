@@ -47,14 +47,10 @@
                 include("documentation.php");
             ?>
         </div>
-
-
-
-
-        <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
-        <script>
-            window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
-            ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
+        <script type="text/javascript">
+            <?php
+                include_once("react_api/initial_state.php");
+            ?>
         </script>
         <script src="assets/js/bundle.js" type="text/javascript"></script>
         <script src="../../common/common.js" type="text/javascript"></script>
