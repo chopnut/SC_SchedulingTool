@@ -49,7 +49,7 @@
 .wrapper-header-option {
   overflow: auto;
   .container-header-option {
-    border-top: 2px solid #66BDEE;
+    border-top: 0px solid #66BDEE;
   }
 }
 
@@ -85,11 +85,47 @@
   .right{  flex: 0 0 200px; text-align: right; font-size: 20px;}
   .right .chooseDate{ font-size: 13px;}
 }
-/* ----------- .menu  ------------ */
+/* ----------- Container, Menu and Pages  ------------ */
+.content_holder{
+  .page_holder{
+      background-color: white;
+      padding-top: 15px;
+      margin-top: 10px;
 
-.menu{border: 0px solid #eee !important;
-  a{border: 0px solid #eee !important;  color: #fff !important;}
-  a.active{ color: #000000 !important;}
+
+      /** PAGES GOES BELOW **/
+      .ManageJobsPage{
+        padding: 10px;
+      }
+      .ManageTasksPage{
+        padding: 10px;
+      }
+      .SchedulingSettingsPage{
+        padding: 10px;
+      }
+      .CalendarPage{
+        padding: 10px; 
+      }
+
+  }
+}
+.menu{
+   padding-top: 15px;
+  .RouterLink{
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 20px;
+
+  }
+  .RouterLinkSelected{
+    background-color: #fff;
+    color: #000;
+    border-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    padding-bottom: 15px;
+  }
+
+
 }
 
-.tab{border: 0px solid #eee !important; }

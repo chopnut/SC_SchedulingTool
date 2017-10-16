@@ -1,7 +1,7 @@
 <?php 
 use Models\Login;
 class App {
-	 public function check_if_logged_in(){
+	public function check_if_logged_in(){
  		// Check if user is logged in via session
 
  		if(isset($_SESSION['log'])){
@@ -16,7 +16,6 @@ class App {
  		return false;
 
  	}
-
 	private function check_password($password,$username,$genSession=false){
 	 			$user = Login::where('username','=',$username)->first();
 
@@ -66,29 +65,42 @@ class App {
 
 	 			}
 	 			return false;
-		}
-		public function logging_out(){
-			// Check if someone is trying to log out
-			if(isset($_GET['log']) && $_GET['log'] == 'out'){
+	}
+	public function logging_out(){
+		// Check if someone is trying to log out
+		if(isset($_GET['log']) && $_GET['log'] == 'out'){
 
-	 				session_destroy();
-	 				header('Location: '.ROOT_ADDRESS);
-	 				exit;
+ 				session_destroy();
+ 				header('Location: '.ROOT_ADDRESS);
+ 				exit;
 
-	 		}		
-		}
-		public function init(){
-			$this->logging_out();
+ 		}		
+	}
+	private function check_hash($hash,$username){
+		$user = Login::where('username','=',$username)
+		->where('password','=',$hash)->first();
 
-			// ---------------- PASS ALL YOUR SCHEDULING TOOL PROCESS HERE -----------------------//
+		return $user;
+	} 
+	public function init(){
+		$this->logging_out();
 
-		}
-		private function check_hash($hash,$username){
-	 			$user = Login::where('username','=',$username)
-	 			->where('password','=',$hash)->first();
+ 		// check if somebody is trying to log in 
+ 		if(isset($_POST['log']) && $_POST['log'] == 'log'){
+ 				$username = $_POST['username'];
+ 				$password = $_POST['password'];
 
-	 			return $user;
-		} 		
+ 				$b = $this->check_password($password,$username,true);
+
+ 				header('Location: '.SCHEDULING_URL);
+ 				exit;
+
+ 		}
+
+		// ---------------- PASS ALL YOUR SCHEDULING TOOL PROCESS HERE -----------------------//
+
+	}
+		
 }
 
  ?>

@@ -13,8 +13,10 @@ require("./node_modules/semantic-ui/dist/components/tab.js");
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Layout from './react/layouts/index';
+
+import MakeRouter from './react/route';
 import store from './react/store/store';
+
 
 
 // Subscribe will fire everytime action is dispatched
@@ -24,12 +26,15 @@ store.subscribe(()=>{
 
 // Try to dispatch an action
 // An action should hold your new state so reducer can act upon it.
+
 store.dispatch({
     type: 'SAMPLE',
     data:{
         moreSample: 'Another hello world'
     }
 });
-ReactDOM.render(<Layout store={store} /> ,document.getElementById('app'));
+
+const router = MakeRouter(store);
+ReactDOM.render(router,document.getElementById('app'));
 
 
