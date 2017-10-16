@@ -86,31 +86,75 @@
   .right .chooseDate{ font-size: 13px;}
 }
 /* ----------- Container, Menu and Pages  ------------ */
+$managejobs_border: 1px solid #eee;
+$managejobs_page_padding: 10px;
+
 .content_holder{
   .page_holder{
-      background-color: white;
-      padding-top: 15px;
       margin-top: 10px;
-
-
       /** PAGES GOES BELOW **/
+      .CalendarPage{
+          padding: 10px;
+          padding-top:15px;
+          background-color: white;
+          border-radius: 10px;
+            border-top-left-radius: 0px;
+      }
       .ManageJobsPage{
-        padding: 10px;
+          padding: 10px;
+          background-color: white;
+          border-radius: 10px;
+
+          .menu_sub{
+              margin-bottom: -0px;
+              a{
+                  color: #ccc;
+              }
+              .links{
+                  padding-right: 10px;
+                  padding-left: 10px;
+                  border: $managejobs_border;
+                  border-bottom: 0px;
+                  font-size: 20px;
+                  margin-right: 10px;
+                  @include border-top-radius(5px);
+              }
+              .selected{
+                  border-bottom: 2px solid #fff;
+                    position: relative;
+                  z-index: 99;
+                  color: #000;
+
+              }
+          }
+          .jobs{
+                border: $managejobs_border;
+                padding: $managejobs_page_padding;
+          }
+          .edit{
+              border: $managejobs_border;
+              padding: $managejobs_page_padding;
+
+          }
       }
       .ManageTasksPage{
         padding: 10px;
+          background-color: white;
+          border-radius: 10px;
+
       }
       .SchedulingSettingsPage{
         padding: 10px;
-      }
-      .CalendarPage{
-        padding: 10px; 
+          background-color: white;
+          border-radius: 10px;
+
+
       }
 
   }
 }
 .menu{
-   padding-top: 15px;
+   padding-top: 10px;
   .RouterLink{
     color: #fff;
     padding: 5px 10px;
@@ -120,7 +164,7 @@
   .RouterLinkSelected{
     background-color: #fff;
     color: #000;
-    border-radius: 5px;
+    border-radius: 10px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
     padding-bottom: 15px;

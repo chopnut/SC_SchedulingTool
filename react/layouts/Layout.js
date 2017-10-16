@@ -12,8 +12,6 @@ export default class Layout extends Component {
 
         this.state = {settings, userlog};
 
-       
-
     }
     // Render the Pages Links Tabs
     renderTabs(){
@@ -24,9 +22,13 @@ export default class Layout extends Component {
                 // Make the first one link to /
                 let defaultLinkto = '/';
                 if(i>0){
-                    defaultLinkto = defaultLinkto+item.id;
+                    defaultLinkto = '/'+item.id;
+                    return (<NavLink to={defaultLinkto} activeClassName="RouterLinkSelected" className="RouterLink">{item.label}</NavLink>);
+
+                }else{
+                    // This is for the base /
+                    return (<NavLink exact to={defaultLinkto} activeClassName="RouterLinkSelected" className="RouterLink">{item.label}</NavLink>);
                 }
-                return (<NavLink exact to={defaultLinkto} activeClassName="RouterLinkSelected" className="RouterLink">{item.label}</NavLink>);
               }
           )}
           </div>);
