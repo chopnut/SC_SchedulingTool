@@ -1,7 +1,13 @@
 @import "../../../node_modules/bourbon/app/assets/stylesheets/bourbon";
 @import "../../../node_modules/bourbon-neat/app/assets/stylesheets/neat";
 
+$main_header_link_size: 15px;
+$managejobs_border: 1px solid #eee;
+$managejobs_page_padding: 10px;
+$managejobs_border_radius: 5px;
+
 /* ----------------HEADER START---------------------*/
+
 .wrapper-header {
   overflow: auto;
   padding: 5px;
@@ -59,7 +65,7 @@
   height: 100px;
   .container-view-content {
     padding: 5px;
-    background-color: #66BDEE;
+    background-color: #7F5CA2;
   }
   .container-view-content .ui.definition.table td{ padding: 0; border-right: 1px solid #ccc; }
   .container-view-content .ui.definition.table td:last-child{ border-right: 0px solid #ccc; }
@@ -86,8 +92,7 @@
   .right .chooseDate{ font-size: 13px;}
 }
 /* ----------- Container, Menu and Pages  ------------ */
-$managejobs_border: 1px solid #eee;
-$managejobs_page_padding: 10px;
+
 
 .content_holder{
   .page_holder{
@@ -97,13 +102,13 @@ $managejobs_page_padding: 10px;
           padding: 10px;
           padding-top:15px;
           background-color: white;
-          border-radius: 10px;
+          border-radius: $managejobs_border_radius;
             border-top-left-radius: 0px;
       }
       .ManageJobsPage{
           padding: 10px;
           background-color: white;
-          border-radius: 10px;
+          border-radius: $managejobs_border_radius;
 
           .menu_sub{
               margin-bottom: -0px;
@@ -117,12 +122,12 @@ $managejobs_page_padding: 10px;
                   border-bottom: 0px;
                   font-size: 20px;
                   margin-right: 10px;
-                  @include border-top-radius(5px);
+                  @include border-top-radius($managejobs_border_radius);
               }
               .selected{
                   border-bottom: 2px solid #fff;
                     position: relative;
-                  z-index: 99;
+                 
                   color: #000;
 
               }
@@ -134,19 +139,25 @@ $managejobs_page_padding: 10px;
           .edit{
               border: $managejobs_border;
               padding: $managejobs_page_padding;
+              .job_bag_add_edit {
+                  width: 100%;
+                  td{
+                      padding: 0px;
+                  }
+              }
 
           }
       }
       .ManageTasksPage{
         padding: 10px;
           background-color: white;
-          border-radius: 10px;
+          border-radius: $managejobs_border_radius;
 
       }
       .SchedulingSettingsPage{
         padding: 10px;
           background-color: white;
-          border-radius: 10px;
+          border-radius: $managejobs_border_radius;
 
 
       }
@@ -158,17 +169,20 @@ $managejobs_page_padding: 10px;
   .RouterLink{
     color: #fff;
     padding: 5px 10px;
-    font-size: 20px;
+    font-size: $main_header_link_size;
 
   }
+
   .RouterLinkSelected{
     background-color: #fff;
     color: #000;
-    border-radius: 10px;
+    border-radius: $managejobs_border_radius;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
     padding-bottom: 15px;
+    border: 0px solid #2C7198 !important;
   }
+
 
 
 }

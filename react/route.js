@@ -14,11 +14,11 @@ export default function(store){
 	return (
 		<Router history={hashHistory}>
 		<Layout store={store}>
-				<Route exact path="/" render ={(props) => <CalendarPage store={store} /> } />
-				<Route path="/calendar"  render ={(props) => <CalendarPage store={store} /> }/>
-				<Route path="/managejobs" render ={(props) => <ManageJobsPage store={store} /> } />
-				<Route path="/managetasks" render ={(props) => <ManageTasksPage store={store} /> }/>
-				<Route path="/schedulingsettings" render ={(props) => <SchedulingSettingsPage store={store} /> }/>
+				<Route exact path="/" render ={(props) => <CalendarPage store={store}  {...props} /> } />
+				<Route path="/calendar"  render ={(props) => <CalendarPage store={store}  {...props} /> }/>
+				<Route path="/managejobs" render ={(props) => <ManageJobsPage store={store}  {...props} /> } />
+				<Route path="/managetasks" render ={(props) => <ManageTasksPage store={store} {...props}  /> }/>
+				<Route path="/schedulingsettings" render ={(props) => <SchedulingSettingsPage store={store}  {...props} /> }/>
 		</Layout>
 		</Router>
 	);

@@ -21,13 +21,20 @@ export default class Layout extends Component {
               {
                 // Make the first one link to /
                 let defaultLinkto = '/';
+                let icon  = item.icon;
+                let endClass = "";
+
+                if(tabs.length == i+1){
+                    endClass = "end";
+                }
                 if(i>0){
+                    // This is for the rest of the links
                     defaultLinkto = '/'+item.id;
-                    return (<NavLink to={defaultLinkto} activeClassName="RouterLinkSelected" className="RouterLink">{item.label}</NavLink>);
+                    return (<NavLink to={defaultLinkto} activeClassName="RouterLinkSelected" className={"RouterLink "+endClass}><i className={icon}></i> {item.label}</NavLink>);
 
                 }else{
-                    // This is for the base /
-                    return (<NavLink exact to={defaultLinkto} activeClassName="RouterLinkSelected" className="RouterLink">{item.label}</NavLink>);
+                    // This is for the base /home
+                    return (<NavLink exact to={defaultLinkto} activeClassName="RouterLinkSelected" className="RouterLink"><i className={icon}></i> {item.label} </NavLink> );
                 }
               }
           )}

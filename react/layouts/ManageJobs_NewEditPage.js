@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Form from '../components/AddEditJobForm';
 
 export default class ManageJobsPage extends Component {
     constructor(props){
@@ -7,12 +8,12 @@ export default class ManageJobsPage extends Component {
         const userlog  = state.user_detail;
 
         this.state = { userlog};
-
+        
     }
     render(){
         return(
             <div className="edit">
-                Edit new job
+                <Form />
             </div>
         );
     }
