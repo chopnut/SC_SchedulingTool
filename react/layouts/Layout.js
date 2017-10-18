@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import { NavLink ,IndexLink} from 'react-router-dom';
 
-
+// THE LAYOUT COMPONENT WILL BE THE ONE POLLING THE DATABASE FOR ANY CHANGES COMING FROM THE DATABASE
 export default class Layout extends Component {
     // Do some initiliazing in the constructor
     constructor(props){
@@ -9,8 +11,12 @@ export default class Layout extends Component {
         const state     = props.store.getState();
         const settings  = state.settings;
         const userlog   = state.user_detail;
-
         this.state = {settings, userlog};
+
+    }
+
+    // Function that will POLL the database for any changes
+    startPoll(){
 
     }
     // Render the Pages Links Tabs

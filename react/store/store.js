@@ -1,5 +1,6 @@
 import {createStore} from 'redux';
-import TabReducer from '../reducers/reducers';
+import AllReducers from '../reducers/reducers';
+
 
 
 const initialState =window.__initial_state__;

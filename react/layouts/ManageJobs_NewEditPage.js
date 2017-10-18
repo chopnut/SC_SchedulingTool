@@ -8,12 +8,12 @@ export default class ManageJobsPage extends Component {
         const userlog  = state.user_detail;
 
         this.state = { userlog};
-        
+
     }
     render(){
         return(
             <div className="edit">
-                <Form />
+                <Form store={this.props.store}/>
             </div>
         );
     }

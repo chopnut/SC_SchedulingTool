@@ -41,9 +41,9 @@
 
         <!-- this will house the main view of the content -->
         <div class="wrapper-view-content">
+
             <div class="container-view-content" id="app"></div>
            <?php
-
                 include("documentation.php");
             ?>
         </div>
@@ -56,6 +56,9 @@
         <script src="../../common/common.js" type="text/javascript"></script>
         <script src="assets/js/app.js" type="text/javascript"></script>
 
+
+
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 
 
     </body>

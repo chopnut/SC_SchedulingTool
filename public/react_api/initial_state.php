@@ -2,6 +2,7 @@
 
 $settings = $db->getCapsule()->table('sched_settings')->get();
 $temp     = array();
+
 foreach($settings as $setting){
     $key = $setting->setting_name;
     $val = $setting->setting_value;

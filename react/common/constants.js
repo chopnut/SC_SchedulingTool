@@ -1,0 +1,1 @@
+export const JOB_NEW_CREATED = 'JOB_NEW_CREATED';

@@ -15,7 +15,6 @@ export default class ManageJobsPage extends Component {
         const settings = state.settings;
 
         this.state = {settings, userlog};
-        console.log("From edit form hey: ",props.location);
 	}
 	renderTabs(){
 	    return (
