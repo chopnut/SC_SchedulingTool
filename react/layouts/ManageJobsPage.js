@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import { NavLink ,IndexLink} from 'react-router-dom';
 import {Route} from 'react-router-dom'
+import {connect} from 'react-redux';
 
 import RouteWrapper from './RouteWrapper';
 import ManageJobs_JobsPage from './ManageJobs_JobsPage';
 import ManageJobs_NewEditPage from './ManageJobs_NewEditPage';
 
 
-export default class ManageJobsPage extends Component {
+class ManageJobsPage extends Component {
 	constructor(props){
 		super(props);
-        const state = props.store.getState();
+        const state = props.store;
         const userlog  = state.user_detail;
         const settings = state.settings;
 
         this.state = {settings, userlog};
+        // console.log("From manage job page: ",props);
 	}
 	renderTabs(){
 	    return (
@@ -29,12 +31,18 @@ export default class ManageJobsPage extends Component {
 			<div className="ManageJobsPage">
                 {this.renderTabs()}
                 <RouteWrapper>
-                    <Route exact path="/managejobs" render ={(props) => <ManageJobs_JobsPage store={this.props.store} /> } />
-                    <Route path="/managejobs/jobs" render ={(props) => <ManageJobs_JobsPage store={this.props.store} /> }  />
-                    <Route path="/managejobs/newedit" render ={(props) => <ManageJobs_NewEditPage store={this.props.store}  /> } />
+                    <Route exact path="/managejobs" render ={(props) => <ManageJobs_JobsPage /> } />
+                    <Route path="/managejobs/jobs" render ={(props) => <ManageJobs_JobsPage  /> }  />
+                    <Route path="/managejobs/newedit" render ={(props) => <ManageJobs_NewEditPage /> } />
                 </RouteWrapper>
 
 			</div>
 		);
 	}
 }
+function mapStateToProps(state,ownprops) {
+    return{
+        store: state
+    }
+}
+export default connect(mapStateToProps,null)(ManageJobsPage);

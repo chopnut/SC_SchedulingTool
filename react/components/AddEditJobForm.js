@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import axios from 'axios';
 
-export default class AddEditJobForm extends Component {
+class AddEditJobForm extends Component {
     constructor(props){
         super(props);
 
@@ -13,7 +14,12 @@ export default class AddEditJobForm extends Component {
             isNew: true,
             id: 0
         };
+        let settings = this.props.settings;
 
+        this.api_folder = settings.react_api_folder;
+        this.job_status = settings.job_status;
+
+        // console.log("From addeditjobform ",settings);
         // DEVELOPER FUNCTIONS
 
         this.prepopulateFromPrism = this.prepopulateFromPrism.bind(this);
@@ -50,7 +56,6 @@ export default class AddEditJobForm extends Component {
     prepopulateFromPrism(event){
         this.setState({ isSearching: 1});
         let typeSearch = event.target.value;
-        const reactApiFolder = this.props.store.getState().settings.react_api_folder;
         let jobsFound = this.state.jobsFound;
 
 
@@ -61,7 +66,7 @@ export default class AddEditJobForm extends Component {
             var ms = 500;
             timer =setTimeout(()=>{
 
-                const reactApiPrePop = reactApiFolder+'manage_jobs_prepopulate.php?q='+typeSearch;
+                const reactApiPrePop = this.api_folder+'manage_jobs_prepopulate.php?q='+typeSearch;
                 const promiseJobResult = axios.get(reactApiPrePop);
 
                 promiseJobResult.then((res)=>{
@@ -111,8 +116,7 @@ export default class AddEditJobForm extends Component {
 
         // Get status for the job
 
-        let settings = this.props.store.getState().settings;
-        let job_status = JSON.parse(settings.job_status);
+        let job_status = JSON.parse(this.job_status);
 
         let SelectJobStatus = () =>{
             return (
@@ -240,3 +244,9 @@ export default class AddEditJobForm extends Component {
     }
 
 }
+function mapStateToProps(state,ownprops) {
+    return{
+        settings: state.settings
+    }
+}
+export default connect(mapStateToProps,null)(AddEditJobForm);

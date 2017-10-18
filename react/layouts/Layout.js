@@ -4,14 +4,18 @@ import {bindActionCreators} from 'redux';
 import { NavLink ,IndexLink} from 'react-router-dom';
 
 // THE LAYOUT COMPONENT WILL BE THE ONE POLLING THE DATABASE FOR ANY CHANGES COMING FROM THE DATABASE
-export default class Layout extends Component {
+
+class Layout extends Component {
+
     // Do some initiliazing in the constructor
     constructor(props){
         super(props);
-        const state     = props.store.getState();
-        const settings  = state.settings;
-        const userlog   = state.user_detail;
+
+
+        const settings  = props.store.settings;
+        const userlog   = settings.user_detail;
         this.state = {settings, userlog};
+        // console.log("From layout: ",settings);
 
     }
 
@@ -58,3 +62,10 @@ export default class Layout extends Component {
         );
     }
 }
+function mapStateToProps(state,ownprops) {
+    return{
+        store: state
+    }
+}
+export default connect(mapStateToProps,null)(Layout);
+

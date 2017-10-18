@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 
-
-export default class CalendarPage extends Component {
+class CalendarPage extends Component {
 	constructor(props){
 		super(props);
-        const state = props.store.getState();
-        const userlog  = state.user_detail;
 
+        const state = props.store;
+        const userlog  = state.user_detail;
         this.state = {userlog};
-      
+
 	}
 	render(){
 
@@ -135,3 +135,9 @@ export default class CalendarPage extends Component {
 		);
 	}
 }
+function mapStateToProps(state,ownprops) {
+    return{
+        store: state
+    }
+}
+export default connect(mapStateToProps,null)(CalendarPage);
