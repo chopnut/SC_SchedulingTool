@@ -22,7 +22,7 @@ import store from './react/store/store';
 
 // Subscribe will fire everytime action is dispatched
 store.subscribe(()=>{
-    console.log(store.getState());
+    console.log("From dispatch:",store.getState());
 });
 
 // Try to dispatch an action
