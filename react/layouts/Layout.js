@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { NavLink ,IndexLink} from 'react-router-dom';
+import { NavLink ,IndexLink,Link} from 'react-router-dom';
 
 // THE LAYOUT COMPONENT WILL BE THE ONE POLLING THE DATABASE FOR ANY CHANGES COMING FROM THE DATABASE
 
@@ -40,11 +40,11 @@ class Layout extends Component {
                 if(i>0){
                     // This is for the rest of the links
                     defaultLinkto = '/'+item.id;
-                    return (<NavLink to={defaultLinkto} activeClassName="RouterLinkSelected" className={"RouterLink "+endClass}><i className={icon}></i> {item.label}</NavLink>);
+                    return (<Link to={defaultLinkto} activeClassName="RouterLinkSelected" className={"RouterLink "+endClass}><i className={icon}></i> {item.label}</Link>);
 
                 }else{
                     // This is for the base /home
-                    return (<NavLink exact to={defaultLinkto} activeClassName="RouterLinkSelected" className="RouterLink"><i className={icon}></i> {item.label} </NavLink> );
+                    return (<Link exact to={defaultLinkto} activeClassName="RouterLinkSelected" className="RouterLink"><i className={icon}></i> {item.label} </Link> );
                 }
               }
           )}

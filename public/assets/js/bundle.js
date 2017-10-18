@@ -49669,7 +49669,7 @@ var Layout = function (_Component) {
                         // This is for the rest of the links
                         defaultLinkto = '/' + item.id;
                         return _react2.default.createElement(
-                            _reactRouterDom.NavLink,
+                            _reactRouterDom.Link,
                             { to: defaultLinkto, activeClassName: 'RouterLinkSelected', className: "RouterLink " + endClass },
                             _react2.default.createElement('i', { className: icon }),
                             ' ',
@@ -49678,7 +49678,7 @@ var Layout = function (_Component) {
                     } else {
                         // This is for the base /home
                         return _react2.default.createElement(
-                            _reactRouterDom.NavLink,
+                            _reactRouterDom.Link,
                             { exact: true, to: defaultLinkto, activeClassName: 'RouterLinkSelected', className: 'RouterLink' },
                             _react2.default.createElement('i', { className: icon }),
                             ' ',
