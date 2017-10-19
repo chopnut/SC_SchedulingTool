@@ -50288,9 +50288,9 @@ var AddEditJobForm = function (_Component) {
     }, {
         key: 'prepopulateSelect',
         value: function prepopulateSelect(jobsKey) {
-            var job = this.state.jobsFound[jobsKey];
+            var jobs = Object.assign({}, this.state.jobsFound);
+            var job = jobs[jobsKey];
             this.setState({ job: job });
-            this.prepopulateClear();
 
             // console.log("From onclick",job);
         }

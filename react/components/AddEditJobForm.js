@@ -83,9 +83,9 @@ class AddEditJobForm extends Component {
     }
     // Select and prepopulate the form with the selected jobbag
     prepopulateSelect(jobsKey){
-        let job = this.state.jobsFound[jobsKey];
+        let jobs = Object.assign({}, this.state.jobsFound);
+        let job  = jobs[jobsKey];
         this.setState({job});
-        this.prepopulateClear();
 
         // console.log("From onclick",job);
     }
