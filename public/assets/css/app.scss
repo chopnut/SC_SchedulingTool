@@ -1,8 +1,8 @@
 @import "../../../node_modules/bourbon/app/assets/stylesheets/bourbon";
 @import "../../../node_modules/bourbon-neat/app/assets/stylesheets/neat";
 
-$main_header_link_size: 15px;
-$managejobs_border: 1px solid #eee;
+$main_header_link_size: 20px;
+$managejobs_border: 1px solid #ccc;
 $managejobs_page_padding: 10px;
 $managejobs_border_radius: 5px;
 
@@ -111,32 +111,47 @@ $managejobs_border_radius: 5px;
           border-radius: $managejobs_border_radius;
 
           .menu_sub{
-              margin-bottom: -0px;
+              margin-bottom: 0px;
+              margin-top:  5px;
+              padding-bottom: 5px;
               a{
                   color: #ccc;
               }
               .links{
                   padding-right: 10px;
                   padding-left: 10px;
-                  border: $managejobs_border;
+                  padding-bottom: 6px;
+                  padding-top: 5px;
                   border-bottom: 0px;
-                  font-size: 20px;
+                  font-size: 18px;
                   margin-right: 10px;
                   @include border-top-radius($managejobs_border_radius);
+                  position: relative;
+                  z-index: 10;
+                  background-color: #777;
+                  color: white;
+
               }
               .selected{
+                  border: $managejobs_border;
                   border-bottom: 2px solid #fff;
-                    position: relative;
-                 
+                  position: relative;
                   color: #000;
+                  z-index: 30;
+                  background-color: #ffffff;
+
 
               }
           }
           .jobs{
-                border: $managejobs_border;
-                padding: $managejobs_page_padding;
+              z-index: 20;
+              position: relative;
+              border: $managejobs_border;
+              padding: $managejobs_page_padding;
           }
           .edit{
+              z-index: 20;
+              position: relative;
               border: $managejobs_border;
               padding: $managejobs_page_padding;
               .job_bag_add_edit {

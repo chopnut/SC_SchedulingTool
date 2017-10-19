@@ -71,10 +71,9 @@ class AddEditJobForm extends Component {
         const job = Object.assign(this.state.job,{});
         job[input_name] = input_value;
 
-
-        console.log("BEFORE: ", input_value);
+        // console.log("BEFORE: ", input_value);
         this.setState({job}); // Update the fields of the data
-        console.log("AFTER: ", job);
+        // console.log("AFTER: ", job);
 
 
     }
@@ -294,7 +293,7 @@ class AddEditJobForm extends Component {
                             </tr>
                             <tr>
                                 <td>
-
+                                    <br/>
                                     <button className={"positive ui button "+(this.state.isSaving?"loading":"")} onClick={this.saveOrEdit}><i className="save icon"></i> Save</button>
                                 </td>
                             </tr>

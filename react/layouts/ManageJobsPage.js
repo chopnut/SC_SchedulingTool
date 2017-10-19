@@ -22,8 +22,8 @@ class ManageJobsPage extends Component {
 	renderTabs(){
 	    return (
 	        <div className="menu_sub">
-                <NavLink exact to="/manageJobs" activeClassName="selected" className="links start"><i className="small cubes icon"></i> Jobs</NavLink>
-                <NavLink to="/manageJobs/newedit" activeClassName="selected" className="links end"><i className="small add circle icon"></i> New/Edit</NavLink>
+                <NavLink exact to="/manageJobs" activeClassName="selected" className="links start"><i className="small cubes icon"></i> Job Bags</NavLink>
+                <NavLink to="/manageJobs/newedit" activeClassName="selected" className="links end"><i className="small add circle icon"></i> New/Edit Job Bags</NavLink>
             </div>
         );
     }
