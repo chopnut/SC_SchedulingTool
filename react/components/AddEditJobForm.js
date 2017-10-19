@@ -6,33 +6,56 @@ class AddEditJobForm extends Component {
     constructor(props){
         super(props);
 
-        this.state = {
-            job: undefined ,
-            jobsFound: [],
-            isSaving: 0,
-            isSearching: 0,
-            isNew: true,
-            id: 0
-        };
         let settings = this.props.settings;
+        let user     = this.props.user;
 
         this.api_folder = settings.react_api_folder;
         this.job_status = settings.job_status;
+
+
+        this.state = {
+            job: {
+                job_recurrence_or_once: "once",
+                job_status: "",
+                job_title: "",
+                job_prism_number: "",
+                job_qty: "",
+                job_lodge_date: "",
+                job_print_date: "",
+                job_due_date: "",
+                job_comments: "",
+                job_created_by: user.log_id
+            } ,
+            jobsFound: [],
+            isSaving: 0,
+            isSearching: 0,
+            id: 0
+        };
+
 
         // console.log("From addeditjobform ",settings);
         // DEVELOPER FUNCTIONS
 
         this.prepopulateFromPrism = this.prepopulateFromPrism.bind(this);
         this.saveOrEdit = this.saveOrEdit.bind(this);
-        this.showSearching = this.showSearching.bind(this);
         this.prepopulateSelect = this.prepopulateSelect.bind(this);
         this.prepopulateClear  = this.prepopulateClear.bind(this);
-
+        this.changeValue       = this.changeValue.bind(this);
     }
+
+
     componentDidMount(){
-        $('#due_date').datepicker({dateFormat: "dd/mm/yy",setDate: new Date()});
-        $('#print_date').datepicker({dateFormat: "dd/mm/yy",setDate: new Date()});
-        $('#lodgement_date').datepicker({dateFormat: "dd/mm/yy",setDate: new Date()});
+        // Jquery DatePicker on change has to fire twice to update the ui
+        let changeCalendar = this.changeValue;
+        $('#job_due_date').datepicker({dateFormat: "dd/mm/yy",setDate: new Date()}).on("input change",function(e){
+            changeCalendar(e);
+        });
+        $('#job_print_date').datepicker({dateFormat: "dd/mm/yy",setDate: new Date()}).on("input change",function(e){
+            changeCalendar(e);
+        });
+        $('#job_lodge_date').datepicker({dateFormat: "dd/mm/yy",setDate: new Date()}).on("input change",function(e){
+            changeCalendar(e);
+        });
     }
 
     //-------------------------------------
@@ -41,8 +64,20 @@ class AddEditJobForm extends Component {
     saveOrEdit(){
 
     }
-    showSearching(){}
+    changeValue(e){
+        let input_name = e.target.name;
+        let input_value= e.target.value;
 
+        const job = Object.assign(this.state.job,{});
+        job[input_name] = input_value;
+
+
+        console.log("BEFORE: ", input_value);
+        this.setState({job}); // Update the fields of the data
+        console.log("AFTER: ", job);
+
+
+    }
     // clear the search result
     prepopulateClear() {
         this.setState({jobsFound: []});
@@ -51,7 +86,9 @@ class AddEditJobForm extends Component {
     prepopulateSelect(jobsKey){
         let job = this.state.jobsFound[jobsKey];
         this.setState({job});
-        console.log("From onclick",job);
+        this.prepopulateClear();
+
+        // console.log("From onclick",job);
     }
     prepopulateFromPrism(event){
         this.setState({ isSearching: 1});
@@ -71,7 +108,9 @@ class AddEditJobForm extends Component {
 
                 promiseJobResult.then((res)=>{
                     let jobs = res.data;
-                    this.setState ( { jobsFound: jobs});
+                    this.setState( { jobsFound: jobs});
+                    this.setState({ isSearching: 0});
+
                     // console.log(this.state.jobsFound);
                     }
                 )
@@ -81,7 +120,7 @@ class AddEditJobForm extends Component {
         }else if(jobsFound.length>0){
             if(typeSearch.length<=4){
                 this.setState ( { jobsFound: []});
-
+                this.setState({ isSearching: 0});
             }
         }
 
@@ -95,7 +134,7 @@ class AddEditJobForm extends Component {
                 }
                 return (<div className="search_selected">
                     <span>
-                        <a href="javascript:;" onClick={() => this.prepopulateSelect(i)}>{element.jobNum}{" - "}{element.title} - {element.addDate}</a>
+                        <a href="javascript:;" onClick={() => this.prepopulateSelect(i)}>{element.job_prism_number}{" - "}{element.job_title} - {element.job_due_date}</a>
                     </span>
                 </div>);
             }
@@ -117,19 +156,61 @@ class AddEditJobForm extends Component {
         // Get status for the job
 
         let job_status = JSON.parse(this.job_status);
+        let SelectJobStatus = (props) =>{
+            const selected = props.selected;
 
-        let SelectJobStatus = () =>{
             return (
-                <select>
-                    <option>Choose job status</option>
+                <select name="job_status" value={selected} onChange={this.changeValue}>
+                    <option value="">Choose job status</option>
                     { job_status.map(function(item,i){
-                        return (
-                            <option>{item}</option>
-                        );
+                        return (<option value={item}>{item}</option>);
                     })}
                 </select>
             );
         }
+
+
+        // Job type recurrence or once
+        this.jobTypeChanged = (e) =>{
+            let value = e.target.value;
+
+
+            const job     = Object.assign(this.state.job,{job_recurrence_or_once: value});
+            const state   = Object.assign(this.state,{job});
+
+            this.setState({state});
+
+        }
+
+        let SelectAndRadio = (props) => {
+            let selected = props.type;
+            let jobstatus   = props.status;
+
+
+            return(
+                <div className="inline fields">
+                    <div className="field">
+                        <label>Status</label>
+                        <SelectJobStatus selected = {jobstatus}/>
+                    </div>
+                    <div className="field">
+                        <label>Job Type</label>
+                        <div className="ui radio checkbox">
+                            <input type="radio" name="job_type" tabIndex="0" value="once" onChange={this.jobTypeChanged} checked={selected=="once"}/>
+                            <label>Once</label>
+                        </div>
+                    </div>
+                    <div className="field">
+                        <div className="ui radio checkbox">
+                            <input type="radio" name="job_type" tabIndex="0" value="recurrence"  onChange={this.jobTypeChanged} checked={selected=="recurrence"}/>
+                            <label>Recurring</label>
+                        </div>
+                    </div>
+                </div>
+
+            );
+        }
+
 
         return (
 
@@ -156,7 +237,7 @@ class AddEditJobForm extends Component {
                                         <label>
                                             Job Title
                                         </label>
-                                        <input type="text" name="job_title" placeholder="Job Title" id="job_title" value={this.state.job?this.state.job.title:''}/>
+                                        <input type="text" name="job_title" placeholder="Job Title" id="job_title" value={this.state.job.job_title} onChange={this.changeValue}/>
                                     </div>
                                 </td>
 
@@ -166,11 +247,11 @@ class AddEditJobForm extends Component {
                                     <div className="two fields">
                                         <div className="field">
                                             <label>Job bag number</label>
-                                            <input type="text" name="job_number" placeholder="Job Number" id="job_number" value={this.state.job?this.state.job.jobNum:''}/>
+                                            <input type="text" name="job_prism_number" placeholder="Job Number" id="job_prism_number" value={this.state.job.job_prism_number}  onChange={this.changeValue}/>
                                         </div>
                                         <div className="field">
                                             <label>Quantity</label>
-                                            <input type="text" name="job_qty" placeholder="Job Quantity" id="job_qty" value={this.state.job?this.state.job.jobQty:''}/>
+                                            <input type="text" name="job_qty" placeholder="Job Quantity" id="job_qty" value={this.state.job.job_qty} onChange={this.changeValue}/>
                                         </div>
 
                                     </div>
@@ -181,15 +262,15 @@ class AddEditJobForm extends Component {
                                     <div className="three fields">
                                         <div className="field">
                                             <label>Due date</label>
-                                            <input type="text" name="due_date" placeholder="DD/MM/YY" id="due_date" value={this.state.job?this.state.job.lodgeDate:''}/>
+                                            <input type="text" name="job_due_date" placeholder="DD/MM/YY" id="job_due_date" value={this.state.job.job_due_date}   />
                                         </div>
                                         <div className="field">
                                             <label>Print date</label>
-                                            <input type="text" name="print_date" placeholder="DD/MM/YY" id="print_date" value={this.state.job?this.state.job.printDate:''}/>
+                                            <input type="text" name="job_print_date" placeholder="DD/MM/YY" id="job_print_date" value={this.state.job.job_print_date}  />
                                         </div>
                                         <div className="field">
                                             <label>Lodgement date</label>
-                                            <input type="text" name="lodgement_date" placeholder="DD/MM/YY" id="lodgement_date" value={this.state.job?this.state.job.lodgeDate:''}/>
+                                            <input type="text" name="job_lodge_date" placeholder="DD/MM/YY" id="job_lodge_date" value={this.state.job.job_lodge_date} />
                                         </div>
 
                                     </div>
@@ -197,36 +278,18 @@ class AddEditJobForm extends Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <div className="inline fields">
-                                        <div className="field">
-                                            <label>Status</label>
-                                           <SelectJobStatus />
-                                        </div>
-                                        <div className="field">
-                                              <label>Job Type</label>
-                                              <div className="ui radio checkbox">
-                                                <input type="radio" name="job_type" tabIndex="0" />
-                                                <label>Once</label>
-                                              </div>
-                                        </div>
-                                        <div className="field">
-                                              <div className="ui radio checkbox">
-                                                <input type="radio" name="job_type" tabIndex="0" />
-                                                <label>Recurrence</label>
-                                              </div>
-                                        </div>
-
-                                    </div>
+                                    <SelectAndRadio type={this.state.job.job_recurrence_or_once} status={this.state.job.job_status} />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <div className="field">
                                         <label>Comments</label>
-                                        <textarea name="job_comments">
+                                        <textarea name="job_comments" onChange={this.changeValue} value={this.state.job.job_comments}>
 
                                         </textarea>
                                     </div>
+
                                 </td>
                             </tr>
                             <tr>
@@ -246,7 +309,8 @@ class AddEditJobForm extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return{
-        settings: state.settings
+        settings: state.settings,
+        user: state.user_detail
     }
 }
 export default connect(mapStateToProps,null)(AddEditJobForm);

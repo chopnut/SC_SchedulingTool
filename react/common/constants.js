@@ -1,1 +1,1 @@
-export const JOB_NEW_CREATED = 'JOB_NEW_CREATED';
+export const ADD_NEW_JOB = 'ADD_NEW_JOB';

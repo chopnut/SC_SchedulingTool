@@ -1,8 +1,8 @@
 require('../common/Constants');
 
-function addedNewJob(job){
+export function ADD_NEW_JOB(job){
     return {
-        type: JOB_NEW_CREATED,
+        type: ADD_NEW_JOB,
         job: job
     }
 }

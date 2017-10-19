@@ -27,12 +27,15 @@
             $addDate    = $job->QM_ADD_DATE;
 
             $temp[$counter] = array();
-            $temp[$counter]['title']        = trim($title);
-            $temp[$counter]['jobNum']       = trim($jobNum);
-            $temp[$counter]['jobQty']       = intval(trim($jobQty));
-            $temp[$counter]['lodgeDate']    = $u::getYmdHis($lodgeDate,"Y-m-d H:i:s","d/m/Y");
-            $temp[$counter]['printDate']    = $u::getYmdHis($printDate,"Y-m-d H:i:s","d/m/Y");
-            $temp[$counter]['addDate']      = $u::getYmdHis($addDate,"Y-m-d H:i:s","d/m/Y");
+            $temp[$counter]['job_title']         = trim($title);
+            $temp[$counter]['job_prism_number']  = trim($jobNum);
+            $temp[$counter]['job_qty']           = intval(trim($jobQty));
+            $temp[$counter]['job_lodge_date']    = $u::getYmdHis($lodgeDate,"Y-m-d H:i:s","d/m/Y");
+            $temp[$counter]['job_print_date']    = $u::getYmdHis($printDate,"Y-m-d H:i:s","d/m/Y");
+            $temp[$counter]['job_due_date']      = $u::getYmdHis($addDate,"Y-m-d H:i:s","d/m/Y");
+            $temp[$counter]['job_recurrence_or_once'] =  "once";
+            $temp[$counter]['job_status']         =  "";
+
 
             if($limit<$counter){
                 $left = count($jobs)-$limit;

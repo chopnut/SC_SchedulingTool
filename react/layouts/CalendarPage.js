@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
+
 class CalendarPage extends Component {
 	constructor(props){
 		super(props);
@@ -140,4 +141,4 @@ function mapStateToProps(state,ownprops) {
         store: state
     }
 }
-export default connect(mapStateToProps,null)(CalendarPage);
+export default connect(mapStateToProps,null,null,{pure: false})(CalendarPage);

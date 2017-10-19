@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 
 
-export default class SchedulingSettingsPage extends Component {
+class SchedulingSettingsPage extends Component {
 	render(){
 
 		return(
@@ -9,3 +10,10 @@ export default class SchedulingSettingsPage extends Component {
 		);
 	}
 }
+
+function mapStateToProps(state,ownprops) {
+    return{
+        store: state
+    }
+}
+export default connect(mapStateToProps,null,null,{pure: false})(SchedulingSettingsPage);

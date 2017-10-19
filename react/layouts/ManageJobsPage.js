@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import { NavLink ,IndexLink} from 'react-router-dom';
 import {Route} from 'react-router-dom'
-import {connect} from 'react-redux';
+
 
 import RouteWrapper from './RouteWrapper';
 import ManageJobs_JobsPage from './ManageJobs_JobsPage';
@@ -45,4 +46,4 @@ function mapStateToProps(state,ownprops) {
         store: state
     }
 }
-export default connect(mapStateToProps,null)(ManageJobsPage);
+export default connect(mapStateToProps,null,null,{pure: false})(ManageJobsPage);

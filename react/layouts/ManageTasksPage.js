@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 
 
-export default class ManageTasksPage extends Component {
+class ManageTasksPage extends Component {
 	render(){
 
 		return(
@@ -11,3 +12,10 @@ export default class ManageTasksPage extends Component {
 		);
 	}
 }
+
+function mapStateToProps(state,ownprops) {
+    return{
+        store: state
+    }
+}
+export default connect(mapStateToProps,null,null,{pure: false})(ManageTasksPage);
