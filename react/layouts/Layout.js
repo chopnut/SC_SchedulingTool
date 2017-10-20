@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { NavLink ,IndexLink,Link} from 'react-router-dom';
+import { NavLink,Route} from 'react-router-dom';
+import {withRouter } from 'react-router-dom';
 
+import CalendarPage from './CalendarPage';
+import ManageJobsPage from './ManageJobsPage';
+import ManageTasksPage from './ManageTasksPage';
+import SchedulingSettingsPage from './SchedulingSettingsPage';
 // THE LAYOUT COMPONENT WILL BE THE ONE POLLING THE DATABASE FOR ANY CHANGES COMING FROM THE DATABASE
 
 class Layout extends Component {
@@ -14,7 +19,11 @@ class Layout extends Component {
         const settings  = props.store.settings;
         const userlog   = settings.user_detail;
         this.state = {settings, userlog};
-        // console.log("From layout: ",settings);
+
+
+        // Get history
+
+
 
     }
 
@@ -42,7 +51,7 @@ class Layout extends Component {
                     return (<NavLink to={defaultLinkto} activeClassName="RouterLinkSelected" className={"RouterLink "+endClass}><i className={icon}></i> {item.label}</NavLink>);
                 }else{
                     // This is for the base /home
-                    return (<NavLink exact to={defaultLinkto} activeClassName="RouterLinkSelected" className="RouterLink"><i className={icon}></i> {item.label} </NavLink> );
+                    return (<NavLink to={defaultLinkto} activeClassName="RouterLinkSelected" className="RouterLink"><i className={icon}></i> {item.label} </NavLink> );
                 }
               }
           )}
@@ -55,7 +64,11 @@ class Layout extends Component {
                     {this.renderTabs()}
 
                    <div className="page_holder">
-                       {this.props.children}
+                       <Route exact path="/" render ={(props) => <CalendarPage /> } />
+                       <Route path="/calendar"  render ={(props) => <CalendarPage /> }/>
+                       <Route path="/managejobs" render ={(props) => <ManageJobsPage /> } />
+                       <Route path="/managetasks" render ={(props) => <ManageTasksPage  /> }/>
+                       <Route path="/schedulingsettings" render ={(props) => <SchedulingSettingsPage /> }/>
                     </div>
                 </div>
 
@@ -68,5 +81,5 @@ function mapStateToProps(state,ownprops) {
     }
 }
 // make sure you use {pure:false} is included when using router or use withRouter(connect(mapStateToProps));
-export default connect(mapStateToProps,null,null,{pure:false})(Layout);
+export default withRouter(connect(mapStateToProps,null,null,{pure:false})(Layout));
 

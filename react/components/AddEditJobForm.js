@@ -68,7 +68,7 @@ class AddEditJobForm extends Component {
         let input_name = e.target.name;
         let input_value= e.target.value;
 
-        const job = Object.assign(this.state.job,{});
+        let job = Object.assign(this.state.job,{});
         job[input_name] = input_value;
 
         // console.log("BEFORE: ", input_value);
@@ -83,7 +83,8 @@ class AddEditJobForm extends Component {
     }
     // Select and prepopulate the form with the selected jobbag
     prepopulateSelect(jobsKey){
-        let jobs = Object.assign({}, this.state.jobsFound);
+        let jobs = JSON.parse(JSON.stringify( this.state.jobsFound));
+
         let job  = jobs[jobsKey];
         this.setState({job});
 
@@ -99,8 +100,8 @@ class AddEditJobForm extends Component {
         var timer;
         if(typeSearch.length>4){
             clearTimeout(timer);
-            var ms = 500;
-            timer =setTimeout(()=>{
+            var ms = 200;
+            timer = setTimeout(()=>{
 
                 const reactApiPrePop = this.api_folder+'manage_jobs_prepopulate.php?q='+typeSearch;
                 const promiseJobResult = axios.get(reactApiPrePop);

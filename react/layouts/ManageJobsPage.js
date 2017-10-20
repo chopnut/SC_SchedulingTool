@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import { NavLink ,IndexLink} from 'react-router-dom';
-import {Route} from 'react-router-dom'
+import React from 'react';
+import {Route,NavLink, connect, Component} from "../common/Modules"
 
 
 import RouteWrapper from './RouteWrapper';
 import ManageJobs_JobsPage from './ManageJobs_JobsPage';
 import ManageJobs_NewEditPage from './ManageJobs_NewEditPage';
-
+import ManageJobs_SchedulePage from './ManageJobs_SchedulePage';
 
 class ManageJobsPage extends Component {
 	constructor(props){
@@ -22,8 +20,9 @@ class ManageJobsPage extends Component {
 	renderTabs(){
 	    return (
 	        <div className="menu_sub">
-                <NavLink exact to="/manageJobs" activeClassName="selected" className="links start"><i className="small cubes icon"></i> Job Bags</NavLink>
-                <NavLink to="/manageJobs/newedit" activeClassName="selected" className="links end"><i className="small add circle icon"></i> New/Edit Job Bags</NavLink>
+                <NavLink exact to="/manageJobs" activeClassName="selected" className="links start jobs_link"><i className="shopping bag icon"></i> Job Bags</NavLink>
+                <NavLink to="/manageJobs/schedule" activeClassName="selected" className="links end schedule_link"><i className="checked calendar icon"></i> Schedule</NavLink>
+                <NavLink to="/manageJobs/newedit" activeClassName="selected" className="links end newedit_link"><i className="small add circle icon"></i> New/Edit Job Bags</NavLink>
             </div>
         );
     }
@@ -35,6 +34,7 @@ class ManageJobsPage extends Component {
                     <Route exact path="/managejobs" render ={(props) => <ManageJobs_JobsPage /> } />
                     <Route path="/managejobs/jobs" render ={(props) => <ManageJobs_JobsPage  /> }  />
                     <Route path="/managejobs/newedit" render ={(props) => <ManageJobs_NewEditPage /> } />
+                    <Route path="/managejobs/schedule" render ={(props) => <ManageJobs_SchedulePage /> } />
                 </RouteWrapper>
 
 			</div>

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import {Route,NavLink,connect} from "../common/Modules"
+import RouteWrapper from './RouteWrapper';
 
+import Calendar_Manage from './Calendar_Manage';
+import Calendar_View from './Calendar_View';
 
 class CalendarPage extends Component {
 	constructor(props){
@@ -10,129 +13,37 @@ class CalendarPage extends Component {
         const userlog  = state.user_detail;
         this.state = {userlog};
 
+        // console.log("From calendar page: ",props.location);
+
 	}
+	renderLinkManager(){
+        return (
+            <div className="menu_sub">
+                <div className="left">
+                    LEFT
+                </div>
+                <div className="right">
+                    <NavLink to="/calendar/view" activeClassName="selected" className="links"><i className="shopping bag icon"></i> View </NavLink>
+                    <NavLink to="/calendar/manage" activeClassName="selected" className="links"><i className="checked calendar icon"></i> Manage</NavLink>
+                </div>
+            </div>
+        );
+    }
 	render(){
 
 		return(
-           <div className="CalendarPage">
-                <div className="header_text_control">
-                    <div className="left">
+           <article className="CalendarPage">
+               {this.renderLinkManager()}
 
-                    </div>
-                    <div className="middle">
-                        <span><a href="javascript:;">&larr;</a></span> <span className="date"> 02 Feb - 09 Feb</span> <span><a href="javascript:;">&rarr;</a></span>
+                <div className="body">
+                <RouteWrapper>
+                   <Route exact path="/" render ={(props) => <Calendar_View /> } />
+                   <Route path="/calendar/view" render ={(props) => <Calendar_View  /> }  />
+                   <Route path="/calendar/manage" render ={(props) => <Calendar_Manage /> } />
 
-                    </div>
-                    <div className="right"><span className="chooseDate"> <a href="">Change date</a></span> - 2017</div>
+               </RouteWrapper>
                 </div>
-                <table width="100%" className="ui definition table">
-                    <thead>
-                    <tr>
-                        <th className="department">Department &#x21F5; </th>
-                        <th>Monday</th>
-                        <th>Tuesday</th>
-                        <th>Wednesday</th>
-                        <th>Thursday</th>
-                        <th>Friday</th>
-                        <th>Saturday</th>
-                        <th>Sunday</th>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td className="label data">Data Programming</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-
-                    </tr>
-                    <tr>
-                        <td className="label insert">Inserting</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                    </tr>
-                    <tr>
-                        <td className="label">K1</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                    </tr>
-                    <tr>
-                        <td className="label">K2</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                    </tr>
-                    <tr>
-                        <td className="label">K3</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                    </tr>
-                    <tr>
-                        <td className="label imaging">Imaging</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                    </tr>
-                    <tr>
-                        <td className="label">Mono</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                    </tr>
-                    <tr>
-                        <td className="label">Colour</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                    </tr>
-
-                    </tbody>
-                </table>
-           </div>
+           </article>
 		);
 	}
 }

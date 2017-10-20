@@ -10,7 +10,9 @@ require("./node_modules/semantic-ui/dist/semantic.js");
 require("./node_modules/semantic-ui/dist/components/accordion.js");
 require("./node_modules/semantic-ui/dist/components/tab.js");
 
+require("./public/assets/js/app.js");
 require("./public/assets/css/app.scss");
+
 
 import React from 'react';
 import ReactDOM from 'react-dom';

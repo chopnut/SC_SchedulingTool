@@ -1,10 +1,7 @@
 @import "../../../node_modules/bourbon/app/assets/stylesheets/bourbon";
 @import "../../../node_modules/bourbon-neat/app/assets/stylesheets/neat";
-
-$main_header_link_size: 20px;
-$managejobs_border: 1px solid #ccc;
-$managejobs_page_padding: 10px;
-$managejobs_border_radius: 5px;
+@import "edmixins";
+@import "scheduling_variables";
 
 /* ----------------HEADER START---------------------*/
 
@@ -99,11 +96,33 @@ $managejobs_border_radius: 5px;
       margin-top: 10px;
       /** PAGES GOES BELOW **/
       .CalendarPage{
-          padding: 10px;
-          padding-top:15px;
+
           background-color: white;
           border-radius: $managejobs_border_radius;
-            border-top-left-radius: 0px;
+          border-top-left-radius: 0px;
+          border-top-right-radius:  0px;
+
+          .menu_sub{
+              display: flex;
+              background-color: #F9FAFB;
+
+
+              .left{
+                  @include make_children_flex();
+              }
+              .right{
+                  @include make_children_flex(225px);
+                  border: 1px solid #ccc;
+                  height: 50px;
+                  .links{
+                        padding: 5px;
+                        border: 1px solid #ccc;
+                  }
+              }
+          }
+          .body{
+              padding: 10px;
+          }
       }
       .ManageJobsPage{
           padding: 10px;
@@ -114,6 +133,7 @@ $managejobs_border_radius: 5px;
               margin-bottom: 0px;
               margin-top:  5px;
               padding-bottom: 5px;
+
               a{
                   color: #ccc;
               }
@@ -123,7 +143,7 @@ $managejobs_border_radius: 5px;
                   padding-bottom: 6px;
                   padding-top: 5px;
                   border-bottom: 0px;
-                  font-size: 18px;
+                  font-size: 15px;
                   margin-right: 10px;
                   @include border-top-radius($managejobs_border_radius);
                   position: relative;
@@ -139,21 +159,88 @@ $managejobs_border_radius: 5px;
                   color: #000;
                   z-index: 30;
                   background-color: #ffffff;
+              }
+              // This is for sub links of the manage jobs
+              .jobs_link{}
+              .schedule_link{}
+              .newedit_link{}
+          }
+          ._manage_job_page {
+              z-index: 20;
+              position: relative;
+              border: $managejobs_border;
+              padding: $managejobs_page_padding;
+          }
+          // MANAGE JOB - JOBS PAGE
+          .jobs{
+            @extend ._manage_job_page;
+              .main_container{
+                  display: flex;
+                  .left{
+                      @include make_div();
+                      @include make_children_flex(250px);
+                        text-align: center;
+                      // DATE PICKER LIVES IN THE LEFT CORNER
+                      .datepicker{
+                          width: 250px !important;
+                            @include make_middle();
+                      }
+                      .header{
+                            margin-bottom:  10px;
+                          .top{
+                              font-size: .8em;
+                          }
+                          .bottom{
+                              .day{ font-weight: bold; font-size: 18px;}
+                              .date{}
+                          }
+                      }
+                  }
+                  .right{
+                      @include make_div();
+                      @include make_children_flex(auto);
+                      // Template for content
+                      ._content{
+                          display:  flex;
+                          border-bottom: 1px solid #ccc;
+                          padding: 10px;
+                          .left{
+                              @include make_children_flex();
+                              text-align: left;
+                              font-size: 30px;
+                              font-family: "Times New Roman", Georgia,Serif;
+                          }
+                          .right{
+                              @include make_children_flex(200px);
+                          }
+                      }
 
+                      // Content for the schedules page
+                      .header.schedules{
+                          .content{
+                              @extend ._content;
 
+                          }
+
+                      }
+                      // Content fo rthe jobbags page
+                      .header.jobbags{
+                          .content{
+                              @extend ._content;
+
+                          }
+                      }
+
+                  }
               }
           }
-          .jobs{
-              z-index: 20;
-              position: relative;
-              border: $managejobs_border;
-              padding: $managejobs_page_padding;
+          // MANAGE JOB - SCHEDULE PAGE
+          .schedule{
+              @extend ._manage_job_page;
           }
+          // MANAGE JOB - ADD/NEW EDIT PAGE
           .edit{
-              z-index: 20;
-              position: relative;
-              border: $managejobs_border;
-              padding: $managejobs_page_padding;
+              @extend ._manage_job_page;
               .job_bag_add_edit {
                   width: 100%;
                   td{
@@ -162,6 +249,7 @@ $managejobs_border_radius: 5px;
               }
 
           }
+
       }
       .ManageTasksPage{
         padding: 10px;
