@@ -12,5 +12,6 @@ What tooling do you need.
 -- Set timeout polling
 -- Listening to dispatch
 
+
 Bulk Inserto CSV into SQL Server:
 https://stackoverflow.com/questions/15242757/import-csv-file-into-sql-server
