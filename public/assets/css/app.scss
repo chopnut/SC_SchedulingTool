@@ -104,25 +104,33 @@
 
           .menu_sub{
               display: flex;
-              background-color: #F9FAFB;
-
+              background-color: $calendar_page_selected_bg;
 
               .left{
                   @include make_children_flex();
               }
               .right{
-                  @include make_children_flex(225px);
-                  border: 1px solid #ccc;
-                  height: 50px;
+                  @include make_children_flex();
+                  text-align: right;
                   .links{
-                        padding: 5px;
-                        border: 1px solid #ccc;
+                        font-size: 15px;
+                        padding: 10px 20px;
+                        border: 0px solid #ccc;
                         display: inline-block;
+                      color: #fff;
+
                   }
+                  .selected{
+                      color: #000;
+                      background-color: #fff;
+
+                  }
+
               }
           }
           .body{
               padding: 10px;
+              padding-top:20px;
           }
       }
       .ManageJobsPage{
@@ -144,7 +152,7 @@
                   padding-bottom: 6px;
                   padding-top: 5px;
                   border-bottom: 0px;
-                  font-size: 15px;
+                  font-size: 16px;
                   margin-right: 10px;
                   @include border-top-radius($managejobs_border_radius);
                   position: relative;
@@ -171,6 +179,8 @@
               position: relative;
               border: $managejobs_border;
               padding: $managejobs_page_padding;
+              border-radius: $managejobs_border_radius;
+              border-top-left-radius: 0px;
           }
           // MANAGE JOB - JOBS PAGE
           .jobs{
@@ -286,6 +296,11 @@
     padding-bottom: 15px;
     border: 0px solid #2C7198 !important;
   }
+    .RouterLinkSelected.calendar{
+        background-color: $calendar_page_selected_bg;
+        color: #fff;
+
+    }
 
 
 

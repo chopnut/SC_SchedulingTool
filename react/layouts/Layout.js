@@ -20,11 +20,16 @@ class Layout extends Component {
         const userlog   = settings.user_detail;
         this.state = {settings, userlog};
 
+        // console.log("Constructor from layout", props);
 
-        // Get history
+    }
+    componentWillMount(){
+        const path = this.props.location.pathname;
+        const { history } = this.props;
 
-
-
+        if(path=='/'){
+            history.push('/calendar');
+        }
     }
 
     // Function that will POLL the database for any changes
@@ -37,21 +42,23 @@ class Layout extends Component {
         return (
           <div className="menu">{tabs.map( function (item , i)
               {
-                // Make the first one link to /
-                let defaultLinkto       = '/';
-                let icon                = item.icon;
-                let endClass            = "";
+                  // Make the first one link to /
+                  let className     = item.id;
+                  let defaultLinkto = '/'+className;
+
+                  let icon                = item.icon;
+                  let endClass            = "";
 
                 if(tabs.length == i+1){
                     endClass = "end";
                 }
                 if(i>0){
                     // This is for the rest of the links
-                    defaultLinkto = '/'+item.id;
-                    return (<NavLink to={defaultLinkto} activeClassName="RouterLinkSelected" className={"RouterLink "+endClass}><i className={icon}></i> {item.label}</NavLink>);
+
+                    return (<NavLink to={defaultLinkto} activeClassName="RouterLinkSelected" className={"RouterLink "+className+" "+endClass}><i className={icon}></i> {item.label}</NavLink>);
                 }else{
                     // This is for the base /home
-                    return (<NavLink to={defaultLinkto} activeClassName="RouterLinkSelected" className="RouterLink"><i className={icon}></i> {item.label} </NavLink> );
+                    return (<NavLink to={defaultLinkto} activeClassName="RouterLinkSelected" className={"RouterLink "+className}><i className={icon}></i> {item.label} </NavLink> );
                 }
               }
           )}

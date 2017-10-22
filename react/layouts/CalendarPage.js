@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Route,NavLink,connect} from "../common/Modules"
 import RouteWrapper from './RouteWrapper';
+import {withRouter } from 'react-router-dom';
 
 import Calendar_Manage from './Calendar_Manage';
 import Calendar_View from './Calendar_View';
@@ -20,10 +21,10 @@ class CalendarPage extends Component {
         return (
             <div className="menu_sub">
                 <div className="left">
-                    LEFT
+                    &nbsp;
                 </div>
                 <div className="right">
-                    <NavLink to="/calendar/view" activeClassName="selected" className="links"><i className="shopping bag icon"></i> View </NavLink>
+                    <NavLink exact to="/calendar" activeClassName="selected" className="links"><i className="grid layout icon"></i> View </NavLink>
                     <NavLink to="/calendar/manage" activeClassName="selected" className="links"><i className="checked calendar icon"></i> Manage</NavLink>
                 </div>
             </div>
@@ -37,8 +38,7 @@ class CalendarPage extends Component {
 
                 <div className="body">
                 <RouteWrapper>
-                   <Route exact path="/" render ={(props) => <Calendar_View /> } />
-                   <Route path="/calendar/view" render ={(props) => <Calendar_View  /> }  />
+                   <Route exact path="/calendar" render ={(props) => <Calendar_View /> } />
                    <Route path="/calendar/manage" render ={(props) => <Calendar_Manage /> } />
 
                </RouteWrapper>
@@ -52,4 +52,4 @@ function mapStateToProps(state,ownprops) {
         store: state
     }
 }
-export default connect(mapStateToProps,null,null,{pure: false})(CalendarPage);
+export default withRouter(connect(mapStateToProps,null,null,{pure: false})(CalendarPage));
