@@ -4,22 +4,20 @@
 
     use Models\Department;
 
-    $depts = Department::all()->sortBy("job_dp_order");
-	
+    $depts = Department::orderBy("job_dep_order")->get();
+
 	$temp 	 = array();
-	$parents = array();
 
 	foreach($depts as $dept){
 		$keyId = $dept->job_dept_id;
-		$temp[$keyId]= array();
-		$temp[$keyId]['parent'] = $dept->job_dep_parent;
-		$temp[$keyId]['data']   = $dept;
+		$temp[$keyId]= $dept->job_dep_parent;
 
-		$parents[$dept->job_dep_parent] = $keyId;
 	}
 
 
+var_dump($temp);
 
-	// $order = Department::getDepartmentParentKids($temp);
+	$order = Department::getDepartmentParentKids($temp);
+	print_r($order);
 
 ?>

@@ -19,6 +19,7 @@ class Calendar_View extends Component {
             saturday
         };
 
+
 	}
 	componentWillMount(){
 
@@ -48,6 +49,7 @@ class Calendar_View extends Component {
                        <div className="left">
                             <table className="ui purple celled table">
                                 <thead>
+                                    <tr>
                                     <th>Department</th>
                                     {
                                         this.state.calendar_page.days.map(function(item){
@@ -59,6 +61,7 @@ class Calendar_View extends Component {
                                             );
                                         })
                                     }
+                                    </tr>
                                 </thead>
                                 <tbody>
 

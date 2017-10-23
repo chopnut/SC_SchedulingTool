@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Models;
 
@@ -11,27 +11,66 @@ class Department extends Model
     protected $table = 'sched_department';
 
     static public function  getDepartmentParentKids($departments){
-    	$temp = array();
+        $tracker    = array();
 
     	foreach($departments as $id=>$val){
-    		$parent = intval($val['parent']);
+            $parent     = intval($val);
+             if($parent>0){
+                if(isset($tracker[$parent])){
+                    $tracker[$parent][$id] = array();
+                }else{
+                    $tracker[$parent]=array();
+                    $tracker[$parent][$id] = array() ;
 
-    		if($parent>0){
-    			// This is a child
-    			$thisData = array();
-    			Department::getMoreParents($id,$departments,&$thisData);
+                }
+                 $tracker = Department::getMoreParents($parent,$departments,"[$id]",$tracker,$id);
+             }else{
+                 if(!isset($tracker[$id])){
+                     $tracker[$id]= array();
+                 }
 
-    		}else{
-    			// This is a parent
-    			$temp[$id] = array();
-    			$temp[$id]["data"] = $val["data"];
-    			$temp[$id]["kids"] = array();
-
-    		}
+             }
     	}
-    }
-    static public function getMoreParents($thisId,$departments,$container){
 
+    	return($tracker);
+    }
+
+    static public function getMoreParents($thisId,$departments,$tracker="",$contain=null,$curid=0){
+        $temp = $contain;
+        if(isset($departments[$thisId])){
+
+            $parent = intval($departments[$thisId]);
+            if($parent>0) {
+                unset($temp[$thisId]);
+                $temp = Department::getMoreParents($parent, $departments, "[$thisId],".$tracker,$temp,$thisId);
+            }else{
+                $t        ="[$thisId],$tracker";
+                $tex      = explode(",",$t);
+                $tracking = "\$temp".implode('',$tex);
+                $eval = "\$b = isset($tracking);";
+                eval($eval);
+
+                if(!$b){
+                    $last = array_pop($tex);
+
+                    $tracking = "\$temp".implode('',$tex);
+                    $eval = $tracking." = array();";
+
+                    eval($eval);
+
+                    $tex[]= $last;
+                    $tracking = "\$temp".implode('',$tex);
+                    $eval = $tracking." = array();";
+                    eval($eval);
+
+
+                }
+
+
+
+            }
+        }
+        return $temp;
     }
 }
 
