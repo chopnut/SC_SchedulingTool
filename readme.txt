@@ -49,7 +49,11 @@ function mapStateToProps(state,ownprops) {
 }
 export default connect(mapStateToProps,null)(__RENAME_ME___);
 ########################################
-
+SetState:
+this.setState((prevState,props)=>{
+        return {prevState}
+    }
+);
 ------------------------------------------------------------------------
 Bulk Inserto CSV into SQL Server:
 https://stackoverflow.com/questions/15242757/import-csv-file-into-sql-server

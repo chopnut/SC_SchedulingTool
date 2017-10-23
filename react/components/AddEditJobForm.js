@@ -7,7 +7,7 @@ class AddEditJobForm extends Component {
         super(props);
 
         let settings = this.props.settings;
-        let user     = this.props.user;
+        let user_detail     = this.props.user_detail;
 
         this.api_folder = settings.react_api_folder;
         this.job_status = settings.job_status;
@@ -71,9 +71,11 @@ class AddEditJobForm extends Component {
         let job = Object.assign(this.state.job,{});
         job[input_name] = input_value;
 
-        // console.log("BEFORE: ", input_value);
-        this.setState({job}); // Update the fields of the data
-        // console.log("AFTER: ", job);
+        this.setState((prevState,props)=>{
+            return {job}
+            }
+        ); // Update the fields of the data
+
 
 
     }
@@ -84,9 +86,12 @@ class AddEditJobForm extends Component {
     // Select and prepopulate the form with the selected jobbag
     prepopulateSelect(jobsKey){
         let jobs = JSON.parse(JSON.stringify( this.state.jobsFound));
-
         let job  = jobs[jobsKey];
-        this.setState({job});
+
+        this.setState((prevState,props)=>{
+                return {job}
+            }
+        );
 
         // console.log("From onclick",job);
     }
@@ -108,9 +113,11 @@ class AddEditJobForm extends Component {
 
                 promiseJobResult.then((res)=>{
                     let jobs = res.data;
-                    this.setState( { jobsFound: jobs});
-                    this.setState({ isSearching: 0});
 
+                    this.setState((prevState,props)=>{
+                            return {jobsFound: jobs,isSearching: 0}
+                        }
+                    );
                     // console.log(this.state.jobsFound);
                     }
                 )
@@ -119,8 +126,10 @@ class AddEditJobForm extends Component {
 
         }else if(jobsFound.length>0){
             if(typeSearch.length<=4){
-                this.setState ( { jobsFound: []});
-                this.setState({ isSearching: 0});
+                this.setState((prevState,props)=>{
+                        return {jobsFound: [],isSearching: 0}
+                    }
+                );
             }
         }
 
@@ -176,9 +185,10 @@ class AddEditJobForm extends Component {
 
 
             const job     = Object.assign(this.state.job,{job_recurrence_or_once: value});
-            const state   = Object.assign(this.state,{job});
-
-            this.setState({state});
+            this.setState((prevState,props)=>{
+                    return {job}
+                }
+            );
 
         }
 
@@ -310,7 +320,7 @@ class AddEditJobForm extends Component {
 function mapStateToProps(state,ownprops) {
     return{
         settings: state.settings,
-        user: state.user_detail
+        user_detail: state.user_detail
     }
 }
 export default connect(mapStateToProps,null)(AddEditJobForm);
