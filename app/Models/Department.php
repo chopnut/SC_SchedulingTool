@@ -19,7 +19,7 @@ class Department extends Model
     		if($parent>0){
     			// This is a child
     			$thisData = array();
-    			Department::getMoreParents($parentId,$departments,&$thisData);
+    			Department::getMoreParents($id,$departments,&$thisData);
 
     		}else{
     			// This is a parent
@@ -30,7 +30,7 @@ class Department extends Model
     		}
     	}
     }
-    static public function getMoreParents($parentId,$departments,$container){
+    static public function getMoreParents($thisId,$departments,$container){
 
     }
 }
