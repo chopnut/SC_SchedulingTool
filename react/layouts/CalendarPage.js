@@ -10,9 +10,11 @@ class CalendarPage extends Component {
 	constructor(props){
 		super(props);
 
-        const state = props.store;
-        const userlog  = state.user_detail;
-        this.state = {userlog};
+        const state     = props.store;
+        const userlog   = state.user_detail;
+        this.state = {
+            userlog
+        };
 
         // console.log("From calendar page: ",props.location);
 
@@ -34,14 +36,14 @@ class CalendarPage extends Component {
 
 		return(
            <article className="CalendarPage">
+               {/*.menu_sub*/}
                {this.renderLinkManager()}
 
                 <div className="body">
-                <RouteWrapper>
-                   <Route exact path="/calendar" render ={(props) => <Calendar_View /> } />
-                   <Route path="/calendar/manage" render ={(props) => <Calendar_Manage /> } />
-
-               </RouteWrapper>
+                    <RouteWrapper>
+                       <Route exact path="/calendar" render ={(props) => <Calendar_View /> } />
+                       <Route path="/calendar/manage" render ={(props) => <Calendar_Manage /> } />
+                   </RouteWrapper>
                 </div>
            </article>
 		);

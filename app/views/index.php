@@ -19,7 +19,14 @@
         <![endif]-->
 
         <!-- This will house the login/logout content -->
+        <?php
 
+
+
+
+
+
+        ?>
         <div class="wrapper-header">
             <div class="container-header">
                 <div class="left">
@@ -55,6 +62,7 @@
                 include_once("react_api/initial_state.php");
             ?>
         </script>
+        <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
         <script src="assets/js/bundle.js" type="text/javascript"></script>
         <script src="../../common/common.js" type="text/javascript"></script>
 

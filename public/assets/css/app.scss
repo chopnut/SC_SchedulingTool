@@ -1,5 +1,6 @@
 @import "../../../node_modules/bourbon/app/assets/stylesheets/bourbon";
 @import "../../../node_modules/bourbon-neat/app/assets/stylesheets/neat";
+@import "~compass-mixins";
 @import "edmixins";
 @import "scheduling_variables";
 
@@ -38,32 +39,9 @@
   }
 }
 
-.table-contain-header{
-  .left{
-    width: 200px;
-    text-align: left;
-  }
-  .right{
-
-   }
-}
-
-/*-------------END HEADER ---------------------*/
-.wrapper-header-option {
-  overflow: auto;
-  .container-header-option {
-    border-top: 0px solid #66BDEE;
-  }
-}
-
- /*--------- Wrapper-view-content -----------*/
+ /*--------- This is for the main Header -----------*/
 .wrapper-view-content {
-  width: 100%;
-  height: 100px;
-  .container-view-content {
-    padding: 5px;
-    background-color: #7F5CA2;
-  }
+  .container-view-content {  padding: 5px;  background-color: #7F5CA2;}
   .container-view-content .ui.definition.table td{ padding: 0; border-right: 1px solid #ccc; }
   .container-view-content .ui.definition.table td:last-child{ border-right: 0px solid #ccc; }
   .container-view-content .ui.definition.table td:first-child{ border-right: 0px solid #ccc; }
@@ -77,17 +55,7 @@
   .container-view-content .ui.definition.table td.label.imaging~ td{background-color: #1F96DB; border-right: 1px solid #1F96DB;}
 }
 
-/* -----------header_text_control ------------ */
 
-.header_text_control {
-  display: flex;
-  div { flex: 1}
-  .left{ }
-  .middle{ flex: 0 0 50%;}
-  .middle .date{ font-size: 30px; }
-  .right{  flex: 0 0 200px; text-align: right; font-size: 20px;}
-  .right .chooseDate{ font-size: 13px;}
-}
 /* ----------- Container, Menu and Pages  ------------ */
 
 
@@ -131,6 +99,67 @@
           .body{
               padding: 10px;
               padding-top:20px;
+
+              // Calendar Main Page
+              .calendar_view{
+                    ._padding_between{
+                        margin: 5px;
+                    }
+                    .first{
+                        display: flex;
+                        .left{
+                            @extend ._padding_between;
+                            @include make_children_flex();
+                            .body{
+                                .range_date{
+                                    font-size: 17px;
+                                    font-weight: bold;
+                                }
+                            }
+
+                        }
+                        .right{
+                            @extend ._padding_between;
+                            @include make_children_flex(250px);
+
+
+                        }
+
+                    }
+                    .second{
+                        display: flex;
+                        // This is the main calendar itself
+                        .left{
+                            @extend ._padding_between;
+                            @include make_children_flex();
+                            table{
+                            }
+                        }
+                        // This is the side bar
+                        .right{
+                            @extend ._padding_between;
+                            @include make_children_flex(250px);
+
+
+                            header{
+                                padding: 10px;
+                                background-color: lighten($main_blue_color,30%);
+                                border-top: 2px solid darken($main_blue_color,30%);
+                                color: darken($main_blue_color,30%);
+
+                                .label{ font-weight: bold;}
+                                .range{ }
+                            }
+                            article{
+
+                            }
+                        }
+                    }
+
+              }
+              .calendar_manage{
+
+              }
           }
       }
       .ManageJobsPage{

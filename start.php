@@ -6,6 +6,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require ('../../config.php'); // This is getting the file from landing page DONT MOVE config.php
+require ('../../internalreports/app/MyUtil.php');
 require ('app/App.php');
 require ('vendor/autoload.php');
 

@@ -6,9 +6,9 @@ class Calendar_Manage extends Component {
 	constructor(props){
 		super(props);
 
-        const state = props.store;
-        const userlog  = state.user_detail;
-        this.state = {userlog};
+        const calendar_page  = props.calendar_page;
+        const user_detail    = props.user_detail;
+        this.state = {user_detail,calendar_page};
 
 	}
 	renderLinkManager(){
@@ -17,7 +17,7 @@ class Calendar_Manage extends Component {
 	render(){
 
 		return(
-           <div className="Calendar_Manage">
+           <div className="calendar_manage">
                Manage calendar
            </div>
 		);
@@ -25,7 +25,8 @@ class Calendar_Manage extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return{
-        store: state
+        user_detail: state.user_detail,
+        calendar_page: state.calendar_page
     }
 }
 export default connect(mapStateToProps,null,null,{pure: false})(Calendar_Manage);

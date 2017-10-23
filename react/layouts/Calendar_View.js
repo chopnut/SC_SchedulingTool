@@ -1,147 +1,89 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-
 class Calendar_View extends Component {
 	constructor(props){
 		super(props);
 
-        const state = props.store;
-        const userlog  = state.user_detail;
-        this.state = {userlog};
+        const calendar_page  = props.calendar_page;
+        const user_detail    = props.user_detail;
+
+        const sunday         = calendar_page.days[0];
+        const saturday       = calendar_page.days[6];
+        const today          = props.todays_date;
+
+        this.state = {user_detail,
+            calendar_page,
+            calendar_page_jobs: [],
+            sunday,
+            saturday
+        };
 
 	}
+	componentWillMount(){
+
+    }
 	renderLinkManager(){
 
     }
 	render(){
 
 		return(
-           <div className="CalendarPage">
-                <div className="header_text_control">
-                    <div className="left">
+               <div className="calendar_view">
+                   <div className="first">
+                       <div className="left">
+                           <div className="body">
+                               <span className="previous"> <i className="chevron circle left icon"></i> </span>
+                               <span className="range_date">
+                                   {this.state.sunday.date} - {this.state.saturday.date}
+                               </span>
+                               <span className="next"> <i className="chevron circle right icon"></i> </span>
+                           </div>
+                       </div>
+                       <div className="right">
 
-                    </div>
-                    <div className="middle">
-                        <span><a href="javascript:;">&larr;</a></span> <span className="date"> 02 Feb - 09 Feb</span> <span><a href="javascript:;">&rarr;</a></span>
+                       </div>
+                   </div>
+                   <div className="second">
+                       <div className="left">
+                            <table className="ui purple celled table">
+                                <thead>
+                                    <th>Department</th>
+                                    {
+                                        this.state.calendar_page.days.map(function(item){
+                                            return (
+                                                <th>
+                                                    <span>{item.day}</span><br/>
+                                                    <span>{item.date}</span><br/>
+                                                </th>
+                                            );
+                                        })
+                                    }
+                                </thead>
+                                <tbody>
 
-                    </div>
-                    <div className="right"><span className="chooseDate"> <a href="">Change date</a></span> - 2017</div>
-                </div>
-                <table width="100%" className="ui definition table">
-                    <thead>
-                    <tr>
-                        <th className="department">Department &#x21F5; </th>
-                        <th>Monday</th>
-                        <th>Tuesday</th>
-                        <th>Wednesday</th>
-                        <th>Thursday</th>
-                        <th>Friday</th>
-                        <th>Saturday</th>
-                        <th>Sunday</th>
+                                </tbody>
+                            </table>
+                       </div>
+                       <div className="right">
+                           <header>
+                               <span className="label">Prism Job Bags Available</span><br/>
+                               <span className="range">{this.state.sunday.date} - {this.state.saturday.date}</span>
+                           </header>
+                           <article>
 
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td className="label data">Data Programming</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-
-                    </tr>
-                    <tr>
-                        <td className="label insert">Inserting</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                    </tr>
-                    <tr>
-                        <td className="label">K1</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                    </tr>
-                    <tr>
-                        <td className="label">K2</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                    </tr>
-                    <tr>
-                        <td className="label">K3</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                    </tr>
-                    <tr>
-                        <td className="label imaging">Imaging</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                    </tr>
-                    <tr>
-                        <td className="label">Mono</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                    </tr>
-                    <tr>
-                        <td className="label">Colour</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                    </tr>
-
-                    </tbody>
-                </table>
-           </div>
+                           </article>
+                       </div>
+                   </div>
+               </div>
 		);
 	}
 }
 function mapStateToProps(state,ownprops) {
     return{
-        store: state
+        user_detail: state.user_detail,
+        calendar_page: state.calendar_page,
+        todays_date: state.todays_date
     }
 }
 export default connect(mapStateToProps,null,null,{pure: false})(Calendar_View);

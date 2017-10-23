@@ -18,7 +18,11 @@ class Layout extends Component {
 
         const settings  = props.store.settings;
         const userlog   = settings.user_detail;
-        this.state = {settings, userlog};
+
+        this.state = {
+            settings,
+            userlog
+        };
 
         // console.log("Constructor from layout", props);
 
