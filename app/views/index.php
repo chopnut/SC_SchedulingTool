@@ -21,11 +21,6 @@
         <!-- This will house the login/logout content -->
         <?php
 
-
-
-
-
-
         ?>
         <div class="wrapper-header">
             <div class="container-header">
