@@ -21,7 +21,8 @@ class Layout extends Component {
 
         this.state = {
             settings,
-            userlog
+            userlog,
+            isLoading: true
         };
 
         // console.log("Constructor from layout", props);
@@ -36,10 +37,6 @@ class Layout extends Component {
         }
     }
 
-    // Function that will POLL the database for any changes
-    startPoll(){
-
-    }
     // Render the Pages Links Tabs
     renderTabs(){
         let tabs = JSON.parse(this.state.settings.tabs);
@@ -72,7 +69,6 @@ class Layout extends Component {
         return (
                 <div className="content_holder">
                     {this.renderTabs()}
-
                    <div className="page_holder">
                        <Route exact path="/" render ={(props) => <CalendarPage /> } />
                        <Route path="/calendar"  render ={(props) => <CalendarPage /> }/>

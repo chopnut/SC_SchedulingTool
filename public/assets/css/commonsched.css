@@ -1,0 +1,8 @@
+.container-view-content {
+    padding: 5px;  background-color: #7F5CA2!important;
+}
+.container-view-content .loader{
+    border:1px solid #ccc;
+    display: table;
+    margin:100px auto;
+}

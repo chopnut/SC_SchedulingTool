@@ -14,7 +14,7 @@ class Calendar_View extends Component {
 
         const sunday         = calendar_page.days[0];
         const saturday       = calendar_page.days[6];
-        const today          = props.todays_date;
+
 
         this.state = {user_detail,
             calendar_page,
@@ -22,8 +22,7 @@ class Calendar_View extends Component {
             departments: [],
             departmentsOrder: [],
             sunday,
-            saturday,
-            today
+            saturday
         };
 
         this.renderDepartments = this.renderDepartments.bind(this);
@@ -74,6 +73,7 @@ class Calendar_View extends Component {
         });
     }
 	render(){
+	    let today = this.props.today;
 
 		return(
                <div className="calendar_view">
@@ -95,19 +95,16 @@ class Calendar_View extends Component {
                        <div className="left">
                             <table className="ui purple celled table">
                                 <thead>
-                                    <tr>
-                                    <th className="header_department_label"><i className="bicycle icon"></i> Department</th>
-                                    {
-                                        this.state.calendar_page.days.map(function(item){
-                                            return (
-                                                <th className="header_date">
+                                    <tr><th className="header_department_label"><i className="bicycle icon"></i> Department</th>{this.state.calendar_page.days.map(function(item){
+                                            let className = "header_date";
+                                            if(item.date == today){
+                                                className = className;
+                                            }
+                                            return (<th className={className}>
                                                     <span className="day_label">{item.day}</span><br/>
                                                     <span className="date_label">{item.date}</span><br/>
-                                                </th>
-                                            );
-                                        })
-                                    }
-                                    </tr>
+                                            </th>);
+                                        })}</tr>
                                 </thead>
                                 <tbody>
                                 {this.renderDepartments()}
@@ -133,7 +130,7 @@ function mapStateToProps(state,ownprops) {
         settings: state.settings,
         user_detail: state.user_detail,
         calendar_page: state.calendar_page,
-        todays_date: state.todays_date
+        today: state.todays_date
     }
 }
 export default connect(mapStateToProps,null,null,{pure: false})(Calendar_View);

@@ -10,7 +10,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../../common/common.css">
-
+        <link rel="stylesheet" href="assets/css/commonsched.css">
     </head>
     <body>
 
@@ -47,11 +47,14 @@
         <!-- this will house the main view of the content -->
         <div class="wrapper-view-content">
 
-            <div class="container-view-content" id="app"></div>
-           <?php
+            <div class="container-view-content" id="app">
+                <div class="loader">Loading...</a>
+            </div>
+
+        </div>
+         <?php
                 include("documentation.php");
             ?>
-        </div>
         <script type="text/javascript">
             <?php
                 include_once("react_api/initial_state.php");

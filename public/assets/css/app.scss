@@ -39,21 +39,6 @@
   }
 }
 
- /*--------- This is for the main Header -----------*/
-.wrapper-view-content {
-  .container-view-content {  padding: 5px;  background-color: #7F5CA2;}
-  .container-view-content .ui.definition.table td{ padding: 0; border-right: 1px solid #ccc; }
-  .container-view-content .ui.definition.table td:last-child{ border-right: 0px solid #ccc; }
-  .container-view-content .ui.definition.table td:first-child{ border-right: 0px solid #ccc; }
-  .container-view-content .ui.definition.table th{ width: 15%;  }
-  .container-view-content .ui.definition.table th.department{ width: 100px;color: #000; font-weight: bold; }
-  .container-view-content .ui.definition.table th { text-align: center;}
-  .container-view-content .ui.definition.table td.label{ padding: 10px;}
-  .container-view-content .ui.definition.table td.label.insert{ padding: 0px;text-align: center; padding-top: 3px;padding-bottom: 3px; background-color: #7F5CA2; color:#fff;}
-  .container-view-content .ui.definition.table td.label.insert~ td{ background-color: #7F5CA2;border-right: 1px solid #7F5CA2; }
-  .container-view-content .ui.definition.table td.label.imaging{padding: 0px;text-align: center; padding-top: 3px;padding-bottom: 3px;background-color: #1F96DB;  color:#fff;}
-  .container-view-content .ui.definition.table td.label.imaging~ td{background-color: #1F96DB; border-right: 1px solid #1F96DB;}
-}
 
 
 /* ----------- Container, Menu and Pages  ------------ */
@@ -146,7 +131,9 @@
                                 // Rows
                                 .parent_row{
                                     background-color: lighten($main_purple_color,40%);
-                                    color: #000;
+                                    font-weight: bold;
+                                }
+                                .child_row{
                                     font-weight: bold;
                                 }
                             }

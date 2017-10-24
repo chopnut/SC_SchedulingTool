@@ -18,24 +18,20 @@ class CalendarRow extends Component {
         const colspan = (this.props.isParent)?8:0;
         return(
             <tr>
-                <td colSpan={colspan} className={this.props.isParent?"parent_row":""}>
+                <td colSpan={colspan} className={this.props.isParent?"parent_row":"child_row"}>
                     <i className="cube icon"></i> {this.props.title}
-                </td>
-                {// if colspan is 0 that means department is a child
-                    (colspan==0)?this.props.days.map((item)=>{
-                    return(
-                        <td>
-                            DATA
-                        </td>
-                    );
-                    }):""
-                }
-            </tr>
-        );
+                </td>{this.props.days.map((item)=>{
+                    if(colspan==8){
+                        return;
+                    }
+                    return (<td></td>);
+                })
+            }</tr>);
     }
 }
 function mapStateToProps(state,ownprops) {
     return{
+        today: state.todays_date
     }
 }
 export default connect(mapStateToProps,null)(CalendarRow);
