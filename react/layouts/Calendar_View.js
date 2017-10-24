@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import axios from 'axios';
+
+// User define components
+import CalendarRow from "../components/CalendarRow";
 
 class Calendar_View extends Component {
 	constructor(props){
@@ -15,17 +19,59 @@ class Calendar_View extends Component {
         this.state = {user_detail,
             calendar_page,
             calendar_page_jobs: [],
+            departments: [],
+            departmentsOrder: [],
             sunday,
-            saturday
+            saturday,
+            today
         };
 
-
+        this.renderDepartments = this.renderDepartments.bind(this);
 	}
-	componentWillMount(){
+	// Render rows for the calendar
+    renderDepartments(){
+        const calendarDays = this.state.calendar_page.days;
+        let rowsCollection = [];
+
+	    function inlineRecursive(item,rowcollection){
+
+            const title     = item.title;
+            const id        = item.id;
+            const numkids   = item.kids.length;
+            const isParent  = (numkids>0);
+
+            if(numkids>0){
+                rowcollection.push(<CalendarRow title={title} isParent={isParent} days={calendarDays} departmentId={id}/>);
+
+                for(let value of item.kids){
+                    inlineRecursive(value,rowcollection);
+                }
+            }else{
+                rowcollection.push(<CalendarRow title={title} isParent={isParent} days={calendarDays} departmentId={id}/>);
+            }
+
+        }
+        this.state.departmentsOrder.map(function(item){
+            inlineRecursive(item,rowsCollection);
+        })
+        return (rowsCollection);
 
     }
-	renderLinkManager(){
+	componentDidMount(){
 
+	    // Get the departments from API Call from axios
+        // This will build the rows and cells based on the departments and calendar_page.days
+	    const calendar_department_api = this.props.settings.react_api_folder+"calendar_department_structure.php";
+        const promiseDepartments = axios.get(calendar_department_api);
+
+        promiseDepartments.then((res)=>{
+            const depsInfo          = res.data;
+            const departments       = depsInfo.departments;
+            const departmentsOrder  = depsInfo.departmentsOrder;
+
+            this.setState((prevState, props) => ({departments,departmentsOrder}));
+
+        });
     }
 	render(){
 
@@ -50,13 +96,13 @@ class Calendar_View extends Component {
                             <table className="ui purple celled table">
                                 <thead>
                                     <tr>
-                                    <th>Department</th>
+                                    <th className="header_department_label"><i className="bicycle icon"></i> Department</th>
                                     {
                                         this.state.calendar_page.days.map(function(item){
                                             return (
-                                                <th>
-                                                    <span>{item.day}</span><br/>
-                                                    <span>{item.date}</span><br/>
+                                                <th className="header_date">
+                                                    <span className="day_label">{item.day}</span><br/>
+                                                    <span className="date_label">{item.date}</span><br/>
                                                 </th>
                                             );
                                         })
@@ -64,7 +110,7 @@ class Calendar_View extends Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                {this.renderDepartments()}
                                 </tbody>
                             </table>
                        </div>
@@ -84,6 +130,7 @@ class Calendar_View extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return{
+        settings: state.settings,
         user_detail: state.user_detail,
         calendar_page: state.calendar_page,
         todays_date: state.todays_date

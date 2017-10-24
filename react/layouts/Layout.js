@@ -49,7 +49,6 @@ class Layout extends Component {
                   // Make the first one link to /
                   let className     = item.id;
                   let defaultLinkto = '/'+className;
-
                   let icon                = item.icon;
                   let endClass            = "";
 

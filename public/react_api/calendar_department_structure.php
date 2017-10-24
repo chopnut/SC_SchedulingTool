@@ -1,23 +1,28 @@
 <?php
     include('includes.php');
     $u = new MyUtil();
-
     use Models\Department;
 
     $depts = Department::orderBy("job_dep_order")->get();
 
-	$temp 	 = array();
-
+	$temp 	 	= array();
+	$depsTitle 	= array();
 	foreach($depts as $dept){
-		$keyId = $dept->job_dept_id;
-		$temp[$keyId]= $dept->job_dep_parent;
 
+		$keyId 				= $dept->job_dept_id;
+		$temp[$keyId]		= $dept->job_dep_parent;
+		$depsTitle[$keyId] 	= $dept->job_dept_desc;
 	}
 
+	$orders 	 = Department::getDepartmentParentKids($temp);
+	$departments = Department::reconstructDepartment($orders,$depsTitle);
 
-var_dump($temp);
+	$data 					  = array();
+	$data['departmentsOrder'] = $departments;
+	$data['departments']      = $depsTitle;
 
-	$order = Department::getDepartmentParentKids($temp);
-	print_r($order);
+	echo json_encode($data);
+
+
 
 ?>

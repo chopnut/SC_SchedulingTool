@@ -10,10 +10,10 @@ class CalendarPage extends Component {
 	constructor(props){
 		super(props);
 
-        const state     = props.store;
-        const userlog   = state.user_detail;
+        const settings      = props.settings;
+        const user_detail   = props.user_detail;
         this.state = {
-            userlog
+            user_detail,settings
         };
 
         // console.log("From calendar page: ",props.location);
@@ -51,7 +51,8 @@ class CalendarPage extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return{
-        store: state
+        settings: state.settings,
+        user_detail: state.user_detail
     }
 }
 export default withRouter(connect(mapStateToProps,null,null,{pure: false})(CalendarPage));

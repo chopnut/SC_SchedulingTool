@@ -130,15 +130,31 @@
                         display: flex;
                         // This is the main calendar itself
                         .left{
+
                             @extend ._padding_between;
                             @include make_children_flex();
                             table{
+                                font-size: 11px;
+
+                                .header_department_label{ font-size: 14px; width: 130px;}
+                                .header_date{
+                                    text-align:center;
+                                    .day_label{ font-size: 14px; }
+                                    .date_label{}
+                                }
+
+                                // Rows
+                                .parent_row{
+                                    background-color: lighten($main_purple_color,40%);
+                                    color: #000;
+                                    font-weight: bold;
+                                }
                             }
                         }
                         // This is the side bar
                         .right{
                             @extend ._padding_between;
-                            @include make_children_flex(250px);
+                            @include make_children_flex(200px);
 
 
                             header{

@@ -11,9 +11,6 @@ class Calendar_Manage extends Component {
         this.state = {user_detail,calendar_page};
 
 	}
-	renderLinkManager(){
-
-    }
 	render(){
 
 		return(
@@ -30,3 +27,5 @@ function mapStateToProps(state,ownprops) {
     }
 }
 export default connect(mapStateToProps,null,null,{pure: false})(Calendar_Manage);
+
+

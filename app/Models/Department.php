@@ -10,8 +10,12 @@ class Department extends Model
     protected $primaryKey = "job_dept_id";
     protected $table = 'sched_department';
 
+
+    // This restructure the departments to an array parent child
+    // for easy ordering
     static public function  getDepartmentParentKids($departments){
         $tracker    = array();
+
 
     	foreach($departments as $id=>$val){
             $parent     = intval($val);
@@ -48,8 +52,10 @@ class Department extends Model
                 $tex      = explode(",",$t);
                 $tracking = "\$temp".implode('',$tex);
                 $eval = "\$b = isset($tracking);";
-                eval($eval);
+                eval($eval); // This will set other array if $b is false that means the parent might not be set yet.
 
+                // This will set the array structure if the parent array is not set
+                // and set the child back again to restructure 
                 if(!$b){
                     $last = array_pop($tex);
 
@@ -69,6 +75,19 @@ class Department extends Model
 
 
             }
+        }
+        return $temp;
+    }
+
+    static public function reconstructDepartment($orders,$lookup){
+        $temp = array();
+        $i    = 0;
+        foreach($orders as $key=>$val){
+            $temp[$i]               = array();
+            $temp[$i]['id']         = $key;
+            $temp[$i]['title']      = $lookup[$key];
+            $temp[$i]['kids']       = Department::reconstructDepartment($val,$lookup);
+            $i++;
         }
         return $temp;
     }
