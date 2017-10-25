@@ -6,25 +6,37 @@ class CalendarRow extends Component {
     constructor(props){
         super(props);
 
-        // isDivider: props
-        // title: props
-        // department_id:props
-
+        this.state = {
+            isLoading: true
+        }
 
     }
 
-    componentDidMount(){}
+    componentDidMount(){
+        this.setState((prevState, props) => (   {
+            isLoading: false
+        }  ));
+    }
     render(){
         const colspan = (this.props.isParent)?8:0;
+        const today   = this.props.today;
+        const rowClassName = this.props.isParent?"parent_row":"child_row";
+
         return(
             <tr>
-                <td colSpan={colspan} className={this.props.isParent?"parent_row":"child_row"}>
+                <td colSpan={colspan} className={rowClassName}>
                     <i className="cube icon"></i> {this.props.title}
                 </td>{this.props.days.map((item)=>{
+                    const thisCellDate = item.date;
+                    let tdClassName  = "cell";
+
+                    if(thisCellDate == today){
+                        tdClassName = tdClassName+" today";
+                    }
                     if(colspan==8){
                         return;
                     }
-                    return (<td></td>);
+                    return (<td className={tdClassName}></td>);
                 })
             }</tr>);
     }

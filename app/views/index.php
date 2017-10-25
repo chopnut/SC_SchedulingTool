@@ -48,7 +48,10 @@
         <div class="wrapper-view-content">
 
             <div class="container-view-content" id="app">
-                <div class="loader">Loading...</a>
+                <div class="loader">
+                <img src="assets/img/loading.svg" height="50" width="50" /><br/>
+                    Loading...
+                </div>
             </div>
 
         </div>

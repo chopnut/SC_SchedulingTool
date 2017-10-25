@@ -81,6 +81,10 @@ this.getWordDate = function (){
     }
     return "undefined";
 }
+this.ucfirst = function(string)
+{
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 }
 const util = new MyUtil();

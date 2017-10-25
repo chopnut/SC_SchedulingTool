@@ -87,6 +87,7 @@
 
               // Calendar Main Page
               .calendar_view{
+                    font-size: 11px;
                     ._padding_between{
                         margin: 5px;
                     }
@@ -106,8 +107,7 @@
                         .right{
                             @extend ._padding_between;
                             @include make_children_flex(250px);
-
-
+                            border: 1px solid #ccc;
                         }
 
                     }
@@ -119,13 +119,19 @@
                             @extend ._padding_between;
                             @include make_children_flex();
                             table{
-                                font-size: 11px;
+
 
                                 .header_department_label{ font-size: 14px; width: 130px;}
                                 .header_date{
                                     text-align:center;
                                     .day_label{ font-size: 14px; }
                                     .date_label{}
+                                }
+                                .today{
+                                    background-color: lighten($main_orange_color,40%);
+                                    .day_label{
+                                        color: darken($main_blue_color,20%);
+                                    }
                                 }
 
                                 // Rows
@@ -141,8 +147,7 @@
                         // This is the side bar
                         .right{
                             @extend ._padding_between;
-                            @include make_children_flex(200px);
-
+                            @include make_children_flex(160px);
 
                             header{
                                 padding: 10px;
@@ -150,12 +155,35 @@
                                 border-top: 2px solid darken($main_blue_color,30%);
                                 color: darken($main_blue_color,30%);
 
-                                .label{ font-weight: bold;}
-                                .range{ }
+                                .label{ font-weight: bold; font-size: 12px; }
+                                .range{ font-size: 12px; }
                             }
+                            // This is the main content for the job bags in prism
                             article{
+                                margin-top: 7px;
+                                .aside_label{
+                                    border-bottom: 1px solid #ccc;
+                                    padding: 3px;
+                                    clear: both;
+                                    .day{ font-weight: bold; } .date{}
+                                }
+                                //This is for link on side prism job
+
+                                .aside_jobs{
+                                    width: 155px;
+                                    border: 1px solid #ccc;
+                                    overflow: hidden;
+                                    white-space: nowrap;
+                                    margin-bottom: 5px;
+                                    cursor: pointer;
+                                }
+                                .aside_jobs:hover{
+                                    background-color: #eee;
+                                }
+
 
                             }
+
                         }
                     }
 
@@ -300,6 +328,7 @@
           border-radius: $managejobs_border_radius;
 
       }
+
       .SchedulingSettingsPage{
         padding: 10px;
           background-color: white;
@@ -309,6 +338,10 @@
       }
 
   }
+}
+.popup{
+    position: relative;
+    margin-top: -100px!important;
 }
 .menu{
    padding-top: 10px;

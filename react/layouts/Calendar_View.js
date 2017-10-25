@@ -4,6 +4,7 @@ import axios from 'axios';
 
 // User define components
 import CalendarRow from "../components/CalendarRow";
+import CalendarPrismSidebar from "../components/CalendarPrismSidebar";
 
 class Calendar_View extends Component {
 	constructor(props){
@@ -11,14 +12,13 @@ class Calendar_View extends Component {
 
         const calendar_page  = props.calendar_page;
         const user_detail    = props.user_detail;
-
         const sunday         = calendar_page.days[0];
         const saturday       = calendar_page.days[6];
 
 
         this.state = {user_detail,
             calendar_page,
-            calendar_page_jobs: [],
+            calendar_jobs: [],
             departments: [],
             departmentsOrder: [],
             sunday,
@@ -88,7 +88,7 @@ class Calendar_View extends Component {
                            </div>
                        </div>
                        <div className="right">
-
+                            Change date in here
                        </div>
                    </div>
                    <div className="second">
@@ -98,12 +98,11 @@ class Calendar_View extends Component {
                                     <tr><th className="header_department_label"><i className="bicycle icon"></i> Department</th>{this.state.calendar_page.days.map(function(item){
                                             let className = "header_date";
                                             if(item.date == today){
-                                                className = className;
+                                                className = className+" today";
                                             }
                                             return (<th className={className}>
                                                     <span className="day_label">{item.day}</span><br/>
-                                                    <span className="date_label">{item.date}</span><br/>
-                                            </th>);
+                                                    <span className="date_label">{item.date}</span></th>);
                                         })}</tr>
                                 </thead>
                                 <tbody>
@@ -117,7 +116,7 @@ class Calendar_View extends Component {
                                <span className="range">{this.state.sunday.date} - {this.state.saturday.date}</span>
                            </header>
                            <article>
-
+                                <CalendarPrismSidebar days={this.state.calendar_page.days} calendar_jobs={this.state.calendar_jobs}/>
                            </article>
                        </div>
                    </div>

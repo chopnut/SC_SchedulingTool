@@ -2,7 +2,11 @@
     padding: 5px;  background-color: #7F5CA2!important;
 }
 .container-view-content .loader{
-    border:1px solid #ccc;
+    font-family: arial;
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
     display: table;
     margin:100px auto;
+    text-align: center;
 }
