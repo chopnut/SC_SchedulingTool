@@ -66,7 +66,7 @@ class CalendarPrismSidebar extends Component {
                         const title = vv.title;
 
                         return (<div>
-                                    <Popup trigger={<CalendarPrismBagTriggerPopUp></CalendarPrismBagTriggerPopUp>   } className="popup" position="left center" flowing offset={250} basic={true} on="click">
+                                    <Popup trigger={<div>{title}</div> } className="popup" position="left center" flowing offset={250} basic={true} on="click">
                                         <CalendarPrismBagPopUps  {...this.props} job={vv}  />
                                     </Popup>
                                 </div>
