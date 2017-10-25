@@ -24,6 +24,7 @@ $daysDate     = array();
 // Todays date 
 $todays_date  = date("d/m/Y",$todaysT);
 
+
 // If today is sunday or saturday make it todays range
 $todayDay   = date("l");
 if(strcasecmp($todayDay,"sunday")==0){

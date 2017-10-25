@@ -1,5 +1,6 @@
 <?php
 session_start();
+date_default_timezone_set('Australia/Brisbane');
 // remove later
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);

@@ -37,7 +37,7 @@ class CalendarPrismBagPopControl extends Component {
                    on="hover" open={this.state.isOpen}
                    onClose={this.handleClose}
                    onOpen={this.handleOpen}>
-                <CalendarPrismBagPopUps job={this.props.job}  />
+                <CalendarPrismBagPopUps job={this.props.job} days={this.props.days} />
             </Popup>
             );
         }
@@ -45,7 +45,8 @@ class CalendarPrismBagPopControl extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return{
-        user_detail: state.user_detail
+        user_detail: state.user_detail,
+        days: state.calendar_page.days
     }
 }
 function mapDispatchToProps(dispatch){
