@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import u from '../common/edlibrary';
-import CalendarPrismBagPopUps from '../components/CalendarPrismBagPopUps';
-import CalendarPrismBagTriggerPopUp from '../components/CalendarPrismBagTriggerPopUp';
-
-import {Popup} from 'semantic-ui-react';
+import PopUpControl from '../components/CalendarPrismBagPopControl';
 
 class CalendarPrismSidebar extends Component {
     constructor(props){
@@ -21,7 +18,8 @@ class CalendarPrismSidebar extends Component {
         // Grab prism job bags
         const from = this.props.days[0].date;
         const to   = this.props.days[6].date;
-        const req  =this.props.settings.react_api_folder+"calendar_prism_jobs_week.php?from="+from+"&to="+to;
+        // to be changed from and to api
+        const req  =this.props.settings.react_api_folder+"calendar_prism_jobs_week.php?from="+"01/10/2017"+"&to="+"07/10/2017";
 
         // Acquire from Prism get API
         const prismbagPromise = axios.get(req);
@@ -46,10 +44,10 @@ class CalendarPrismSidebar extends Component {
         let cells       = []
 
 
-        for(let v of this.props.days){
+        for(let d of this.props.days){
 
-            const day   = v.day.toLowerCase();
-            const date  = v.date;
+            const day   = d.day.toLowerCase();
+            const date  = d.date;
             const jobs  = this.state.jobsFound[day];
 
             if(jobs!= undefined){
@@ -59,16 +57,12 @@ class CalendarPrismSidebar extends Component {
                         <span className="date"> {date} </span>
                     </div>
                 );
-                for(let vv of jobs){
+                for(let job of jobs){
                     // For storing the cell info itself
 
                     const cell = ()=>{
-                        const title = vv.title;
-
                         return (<div>
-                                    <Popup trigger={<div>{title}</div> } className="popup" position="left center" flowing offset={250} basic={true} on="click">
-                                        <CalendarPrismBagPopUps  {...this.props} job={vv}  />
-                                    </Popup>
+                                    <PopUpControl job={job}/>
                                 </div>
                         );
                     }
@@ -86,7 +80,7 @@ class CalendarPrismSidebar extends Component {
     render(){
 
         if(this.state.isLoading){
-            return(<div style={{display: 'table', margin: '0 auto'}}>Loading...</div>);
+            return(<div style={{display: 'table', margin: '0 auto'}}>Fetching data...</div>);
         }else{
 
             return(

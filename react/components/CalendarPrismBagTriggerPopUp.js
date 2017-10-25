@@ -6,7 +6,7 @@ class CalendarPrismBagTriggerPopUp extends Component {
     constructor(props){
         super(props);
         this.state = {
-           isLoading: true
+           isLoading: true,
         }
     }
     componentDidMount(){
@@ -15,15 +15,18 @@ class CalendarPrismBagTriggerPopUp extends Component {
         });
     }
     render(){
+        let classname = "aside_jobs";
+        if(this.props.isOpen){
+            classname = classname+" selected";
+        }
 
         if(this.state.isLoading){
             return(<div>Loading...</div>);
         }else{
 
             return(
-            <div>
-                <div className="aside_jobs"><span>{this.props.title}</span></div>
-            </div>);
+                <div className={classname} ><span>{this.props.title}</span></div>
+           );
         }
     }
 }

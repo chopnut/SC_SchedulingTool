@@ -101,6 +101,9 @@
                                     font-size: 17px;
                                     font-weight: bold;
                                 }
+                                .next{  }
+                                .previous{}
+                                i{border: 0px solid #fff;}
                             }
 
                         }
@@ -171,13 +174,15 @@
 
                                 .aside_jobs{
                                     width: 155px;
-                                    border: 1px solid #ccc;
+                                    border-bottom: 1px solid #ccc;
                                     overflow: hidden;
                                     white-space: nowrap;
-                                    margin-bottom: 5px;
                                     cursor: pointer;
                                 }
                                 .aside_jobs:hover{
+                                    background-color: #eee;
+                                }
+                                .aside_jobs.selected{
                                     background-color: #eee;
                                 }
 
