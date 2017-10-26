@@ -26,7 +26,7 @@ class CalendarRow extends Component {
             <tr>
                 <td colSpan={colspan} className={rowClassName}>
                     <i className="cube icon"></i> {this.props.title}
-                </td>{this.props.days.map((item)=>{
+                </td>{this.props.days.map((item,i)=>{
                     const thisCellDate = item.date;
                     let tdClassName  = "cell";
 

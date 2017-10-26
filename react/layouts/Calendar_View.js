@@ -55,7 +55,7 @@ class Calendar_View extends Component {
             }
 
         }
-        this.state.departmentsOrder.map(function(item){
+        this.state.departmentsOrder.map(function(item,i){
             inlineRecursive(item,rowsCollection);
         })
         return (rowsCollection);
@@ -120,7 +120,7 @@ class Calendar_View extends Component {
                     <div className="left">
                         <table className="ui purple celled table">
                             <thead>
-                            <tr><th className="header_department_label"><i className="bicycle icon"></i> Department</th>{this.state.calendar_page.days.map(function(item){
+                            <tr><th className="header_department_label"><i className="bicycle icon"></i> Department</th>{this.state.calendar_page.days.map(function(item,i){
                                 let className = "header_date";
 
                                 if(item.date == this.props.web.today){
