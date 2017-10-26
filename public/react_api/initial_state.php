@@ -47,7 +47,7 @@ $firstDay  = json_encode($daysDate[0]);
 
 echo "window.__initial_state__ = {
   settings: $jsonSettings, 
-	calendar_page:{'days':$sevenDays },
+	calendar_page:{'days':$sevenDays ,'selected_date': '$todays_date','today':'$todayDay'}
 }";
 
 ?>
