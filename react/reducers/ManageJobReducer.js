@@ -1,9 +1,8 @@
-import Redux from 'redux';
-import * as CONS from '../common/Constants';
+import {MANAGE_JOB_ADD_NEW} from '../common/Constants';
 
 const ManageJobReducer = function (state = {}, action) {
     switch (action.type){
-        case CONS.ADD_NEW_JOB:
+        case MANAGE_JOB_ADD_NEW:
             console.log("Action triggered! State is: ", state);
             return state;
         default:

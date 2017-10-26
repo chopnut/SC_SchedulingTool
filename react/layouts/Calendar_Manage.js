@@ -7,8 +7,8 @@ class Calendar_Manage extends Component {
 		super(props);
 
         const calendar_page  = props.calendar_page;
-        const user_detail    = props.user_detail;
-        this.state = {user_detail,calendar_page};
+        const user_details    = props.user_details;
+        this.state = {user_details,calendar_page};
 
 	}
 	render(){
@@ -22,7 +22,7 @@ class Calendar_Manage extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return{
-        user_detail: state.user_detail,
+        user_details: state.user_details,
         calendar_page: state.calendar_page
     }
 }

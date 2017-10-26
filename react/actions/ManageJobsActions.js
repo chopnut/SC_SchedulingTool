@@ -1,8 +1,11 @@
-require('../common/Constants');
+import {MANAGE_JOB_ADD_NEW} from '../common/Constants';
 
-export function ADD_NEW_JOB(job){
-    return {
-        type: ADD_NEW_JOB,
-        job: job
+export function manage_job_add_new(job){
+    return dispatch =>{
+        dispatch ({
+            type: MANAGE_JOB_ADD_NEW
+        });
     }
 }
+
+

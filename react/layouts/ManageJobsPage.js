@@ -11,7 +11,7 @@ class ManageJobsPage extends Component {
 	constructor(props){
 		super(props);
         const state = props.store;
-        const userlog  = state.user_detail;
+        const userlog  = state.user_details;
         const settings = state.settings;
 
         this.state = {settings, userlog};

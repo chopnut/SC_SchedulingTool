@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { NavLink,Route} from 'react-router-dom';
+import {NavLink,Route} from 'react-router-dom';
 import {withRouter } from 'react-router-dom';
 
 import CalendarPage from './CalendarPage';
@@ -17,7 +17,7 @@ class Layout extends Component {
 
 
         const settings  = props.store.settings;
-        const userlog   = settings.user_detail;
+        const userlog   = settings.user_details;
 
         this.state = {
             settings,
@@ -28,6 +28,8 @@ class Layout extends Component {
         // console.log("Constructor from layout", props);
 
     }
+    // This is for redirecting using history props pass from router
+    // Otherwise the main menu wont update its state of selection.
     componentWillMount(){
         const path = this.props.location.pathname;
         const { history } = this.props;

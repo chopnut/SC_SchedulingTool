@@ -25,7 +25,7 @@ class CalendarPrismBagTriggerPopUp extends Component {
         }else{
 
             return(
-                <div className={classname} ><span>{this.props.title}</span></div>
+                <div className={classname} ><span>{this.props.job_title}</span></div>
            );
         }
     }

@@ -96,6 +96,15 @@
                         .left{
                             @extend ._padding_between;
                             @include make_children_flex();
+                            .title{
+                                font-size: 20px;
+                                margin: 0px;
+                                padding: 0px;
+                                img{
+                                    margin-bottom: -6px;
+
+                                }
+                            }
                             .body{
                                 .range_date{
                                     font-size: 17px;
@@ -103,14 +112,21 @@
                                 }
                                 .next{  }
                                 .previous{}
-                                i{border: 0px solid #fff;}
+                                i{border: 0px solid #fff; font-size: 15px;}
+                                .calendar_holder{
+                                    i{font-size:  15px; }
+                                    .change_range_label{
+                                        font-size:  15px;
+                                    }
+
+                                }
                             }
 
                         }
                         .right{
                             @extend ._padding_between;
-                            @include make_children_flex(250px);
-                            border: 1px solid #ccc;
+                            @include make_children_flex(270px);
+
                         }
 
                     }
@@ -165,10 +181,13 @@
                             article{
                                 margin-top: 7px;
                                 .aside_label{
-                                    border-bottom: 1px solid #ccc;
+                                    border-bottom: 2px solid darken($main_blue_color,30%);
                                     padding: 3px;
                                     clear: both;
-                                    .day{ font-weight: bold; } .date{}
+                                    .day{ font-weight: bold; }
+                                    .date{
+
+                                    }
                                 }
                                 //This is for link on side prism job
 
@@ -286,6 +305,7 @@
                               font-size: 30px;
                               font-family: "Times New Roman", Georgia,Serif;
                           }
+
                           .right{
                               @include make_children_flex(200px);
                           }
@@ -299,7 +319,7 @@
                           }
 
                       }
-                      // Content fo rthe jobbags page
+                      // Content fo the jobbags page
                       .header.jobbags{
                           .content{
                               @extend ._content;
@@ -344,9 +364,55 @@
 
   }
 }
+// Job card pop up
+.job_card_datepicker{
+    width: 130px;
+    font-size: 11px;
+}
 .popup{
     position: relative;
     margin-top: -100px!important;
+    padding: 0px!important;
+    // This is the job card
+    .job_card{
+
+        border-top: 2px solid darken($main_teal_color,35%)!important;
+
+        ._padding{
+            padding: 5px;
+        }
+        header{
+            background-color: lighten($main_teal_color,20%);
+            border-bottom: 1px solid #eee;
+            @extend ._padding;
+
+            .first{
+                table{
+                    width: 100%;
+                    td{ border: 0px solid #ccc; }
+                    .cell_qty{text-align: right; }
+                    .cell_prism_number{}
+                    .title{ font-weight: bold; font-size: 15px; color: darken($main_teal_color,30%)}
+                    .customer{ }
+                }
+
+            }
+        }
+        .body{
+            @extend ._padding;
+            table{
+                width: 100%;
+                td{ border-bottom: 1px solid #eee; }
+                .label{ font-weight: bold; }
+                .info{ border-bottom: 0px solid #ccc;}
+            }
+        }
+        footer{
+
+            @extend ._padding;
+
+        }
+    }
 }
 .menu{
    padding-top: 10px;
@@ -371,8 +437,6 @@
         color: #fff;
 
     }
-
-
 
 }
 

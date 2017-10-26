@@ -49,8 +49,9 @@
 
             <div class="container-view-content" id="app">
                 <div class="loader">
-                <img src="assets/img/loading.svg" height="50" width="50" /><br/>
-                    Loading...
+                <span style="font-size: 18px;">Smartcomm Scheduler v1.0.0</span><br/><br/>
+                <img src="assets/img/loading.svg" height="70" width="70" /><br/><br/>
+                <span style="font-size: 12px;">Please wait...</span>
                 </div>
             </div>
 

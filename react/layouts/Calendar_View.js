@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 
+// Calendar Date picker
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
+
 // User define components
 import CalendarRow from "../components/CalendarRow";
 import CalendarPrismSidebar from "../components/CalendarPrismSidebar";
@@ -11,21 +16,22 @@ class Calendar_View extends Component {
 		super(props);
 
         const calendar_page  = props.calendar_page;
-        const user_detail    = props.user_detail;
+        const user_details    = props.user_details;
         const sunday         = calendar_page.days[0];
         const saturday       = calendar_page.days[6];
 
 
-        this.state = {user_detail,
+        this.state = {user_details,
             calendar_page,
             calendar_jobs: [],
             departments: [],
             departmentsOrder: [],
             sunday,
-            saturday
+            saturday,
+            calendar_date: moment()
         };
 
-        this.renderDepartments = this.renderDepartments.bind(this);
+        this.handleCalendarFunction = this.handleCalendarFunction.bind(this);
 	}
 	// Render rows for the calendar
     renderDepartments(){
@@ -56,6 +62,12 @@ class Calendar_View extends Component {
         return (rowsCollection);
 
     }
+    // Calendar Function on right side
+    handleCalendarFunction(date){
+        this.setState(function(state,props){
+            return ({state,calendar_date: date});
+        });
+    }
 	componentDidMount(){
 
 	    // Get the departments from API Call from axios
@@ -73,61 +85,81 @@ class Calendar_View extends Component {
         });
     }
 	render(){
-	    let today = this.props.today;
-
-		return(
-               <div className="calendar_view">
-                   <div className="first">
-                       <div className="left">
-                           <div className="body">
-                               <span className="previous"> <i className="chevron circle left icon"></i> </span>
-                               <span className="range_date">
+        return(
+            <div className="calendar_view">
+                <div className="first">
+                    <div className="left">
+                        <h2 className="title">
+                            <img src="assets/img/scheduler_icon.svg" width="30" height="30" className="calendar_icon"/> Scheduler v1
+                        </h2>
+                        <div className="body">
+                            <span className="previous"> <i className="chevron circle left icon"></i> </span>
+                            <span className="range_date">
                                    {this.state.sunday.date} - {this.state.saturday.date}
                                </span>
-                               <span className="next"> <i className="chevron circle right icon"></i> </span>
-                           </div>
-                       </div>
-                       <div className="right">
-                            Change date in here
-                       </div>
-                   </div>
-                   <div className="second">
-                       <div className="left">
-                            <table className="ui purple celled table">
-                                <thead>
-                                    <tr><th className="header_department_label"><i className="bicycle icon"></i> Department</th>{this.state.calendar_page.days.map(function(item){
-                                            let className = "header_date";
-                                            if(item.date == today){
-                                                className = className+" today";
-                                            }
-                                            return (<th className={className}>
-                                                    <span className="day_label">{item.day}</span><br/>
-                                                    <span className="date_label">{item.date}</span></th>);
-                                        })}</tr>
-                                </thead>
-                                <tbody>
-                                {this.renderDepartments()}
-                                </tbody>
-                            </table>
-                       </div>
-                       <div className="right">
-                           <header>
-                               <span className="label">Prism Job Bags Available</span><br/>
-                               <span className="range">{this.state.sunday.date} - {this.state.saturday.date}</span>
-                           </header>
-                           <article>
-                                <CalendarPrismSidebar days={this.state.calendar_page.days} calendar_jobs={this.state.calendar_jobs}/>
-                           </article>
-                       </div>
-                   </div>
-               </div>
-		);
+                            <span className="next"> <i className="chevron circle right icon"></i> </span>
+
+                            <span className="calendar_holder">
+                                <i className="calendar outline icon"></i>
+                                <span className="change_range_label">Change date range </span>
+                                <span className="ui input">
+                               <DatePicker
+                                   selected={this.state.calendar_date}
+                                   onChange={this.handleCalendarFunction}
+                                   dateFormat="DD/MM/YYYY"
+                                   className = "mini_calendar_text_field"
+                               />
+                            </span>
+                        </span>
+                        </div>
+                    </div>
+                    <div className="right">
+
+                    </div>
+                </div>
+                <div className="second">
+                    <div className="left">
+                        <table className="ui purple celled table">
+                            <thead>
+                            <tr><th className="header_department_label"><i className="bicycle icon"></i> Department</th>{this.state.calendar_page.days.map(function(item){
+                                let className = "header_date";
+
+                                if(item.date == this.props.today){
+                                    className = className+" today";
+
+                                }
+                                return (<th className={className}>
+                                    <span className="day_label">{item.day}</span><br/>
+                                    <span className="date_label">{item.date}</span></th>);
+                            }.bind(this))}</tr>
+
+
+                            </thead>
+                            <tbody>
+                            {this.renderDepartments()}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="right">
+                        <header>
+                            <span className="label">Prism Job Bags Available</span><br/>
+                            <span className="range">{this.state.sunday.date} - {this.state.saturday.date}</span>
+                        </header>
+                        <article>
+                            <CalendarPrismSidebar days={this.state.calendar_page.days} calendar_jobs={this.state.calendar_jobs}/>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        );
+
+	    let today = this.props.today;
 	}
 }
 function mapStateToProps(state,ownprops) {
     return{
         settings: state.settings,
-        user_detail: state.user_detail,
+        user_details: state.user_details,
         calendar_page: state.calendar_page,
         today: state.todays_date
     }

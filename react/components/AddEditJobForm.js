@@ -7,7 +7,7 @@ class AddEditJobForm extends Component {
         super(props);
 
         let settings        = this.props.settings;
-        let user_detail     = this.props.user_detail;
+        let user_details     = this.props.user_details;
 
         this.api_folder = settings.react_api_folder;
         this.job_status = settings.job_status;
@@ -24,7 +24,7 @@ class AddEditJobForm extends Component {
                 job_print_date: "",
                 job_due_date: "",
                 job_comments: "",
-                job_created_by: user_detail.log_id
+                job_created_by: user_details.log_id
             } ,
             jobsFound: [],
             isSaving: 0,
@@ -320,7 +320,7 @@ class AddEditJobForm extends Component {
 function mapStateToProps(state,ownprops) {
     return{
         settings: state.settings,
-        user_detail: state.user_detail
+        user_details: state.user_details
     }
 }
 function maptDispatchToProps(dispatch){

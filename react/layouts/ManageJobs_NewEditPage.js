@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 class ManageJobs_NewEditPage extends Component {
     constructor(props){
         super(props);
-        const userlog  = props.store.user_detail;
+        const userlog  = props.store.user_details;
         this.state = { userlog};
     }
     render(){
