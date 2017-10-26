@@ -45,11 +45,9 @@ for($i = 0 ;$i<7;$i++){
 $sevenDays = json_encode($daysDate);
 $firstDay  = json_encode($daysDate[0]);
 
-echo "window.__initial_state__ = {settings: $jsonSettings, 
-	user_details: $jsonUser,
+echo "window.__initial_state__ = {
+  settings: $jsonSettings, 
 	calendar_page:{'days':$sevenDays },
-	todays_date: \"$todays_date\"
-
 }";
 
 ?>

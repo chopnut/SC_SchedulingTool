@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import {connect} from 'react-redux';
 
 // Calendar Date picker
@@ -102,12 +101,13 @@ class CalendarPrismBagPopUps extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return{
-        user_details: state.user_details
     }
 }
 function mapDispatchToProps(dispatch){
     return({
-        calendar_page_add_schedule_to
+        calendar_page_add_schedule_to: (data)=>{
+            dispatch(calendar_page_add_schedule_to(data));
+        }
     })
 }
 export default connect(mapStateToProps,mapDispatchToProps)(CalendarPrismBagPopUps);

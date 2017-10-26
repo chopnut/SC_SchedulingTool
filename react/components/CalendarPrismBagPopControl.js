@@ -42,7 +42,6 @@ class CalendarPrismBagPopControl extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return{
-        user_details: state.user_details,
         days: state.calendar_page.days
     }
 }

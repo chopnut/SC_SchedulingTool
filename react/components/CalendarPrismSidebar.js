@@ -19,16 +19,17 @@ class CalendarPrismSidebar extends Component {
         const from = this.props.days[0].date;
         const to   = this.props.days[6].date;
         // to be changed from and to api
-        const req  =this.props.settings.react_api_folder+"calendar_prism_jobs_week.php?from="+from+"&to="+to;
+        const req  =this.props.settings.react_api_folder+"calendar_prism_jobs_week.php?from=03/09/2017&to=09/09/2017";
 
         // Acquire from Prism get API
         const prismbagPromise = axios.get(req);
         prismbagPromise.then(function(res){
             const data = res.data;
+            // console.log("from prism aside ",data,req);
+
             this.setState(function(state,props){
                 return ({state,isLoading: false,jobsFound: data});
             });
-            // console.log("from prism aside ",data);
 
         }.bind(this))
 

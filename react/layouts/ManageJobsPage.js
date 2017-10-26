@@ -10,11 +10,8 @@ import ManageJobs_SchedulePage from './ManageJobs_SchedulePage';
 class ManageJobsPage extends Component {
 	constructor(props){
 		super(props);
-        const state = props.store;
-        const userlog  = state.user_details;
-        const settings = state.settings;
-
-        this.state = {settings, userlog};
+        const settings = props.settings;
+        this.state = {settings};
         // console.log("From manage job page: ",props);
 	}
 	renderTabs(){
@@ -43,7 +40,7 @@ class ManageJobsPage extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return{
-        store: state
+        settings: state.settings
     }
 }
 export default connect(mapStateToProps,null,null,{pure: false})(ManageJobsPage);

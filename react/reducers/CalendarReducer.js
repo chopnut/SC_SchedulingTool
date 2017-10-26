@@ -1,13 +1,10 @@
 import {CALENDAR_PAGE_ADD_SCHEDULE_TO} from '../common/Constants';
 
-const CalendarReducer = function (state={}, action) {
-    console.log("reducer called!",state);
-
-
+const CalendarReducer = function (state=[], action) {
     switch (action.type){
-
         case CALENDAR_PAGE_ADD_SCHEDULE_TO:
             return state;
+            break;
         default:
             return state;
     }

@@ -16,12 +16,11 @@ class Calendar_View extends Component {
 		super(props);
 
         const calendar_page  = props.calendar_page;
-        const user_details    = props.user_details;
         const sunday         = calendar_page.days[0];
         const saturday       = calendar_page.days[6];
 
 
-        this.state = {user_details,
+        this.state = {
             calendar_page,
             calendar_jobs: [],
             departments: [],
@@ -124,7 +123,7 @@ class Calendar_View extends Component {
                             <tr><th className="header_department_label"><i className="bicycle icon"></i> Department</th>{this.state.calendar_page.days.map(function(item){
                                 let className = "header_date";
 
-                                if(item.date == this.props.today){
+                                if(item.date == this.props.web.today){
                                     className = className+" today";
 
                                 }
@@ -153,15 +152,12 @@ class Calendar_View extends Component {
             </div>
         );
 
-	    let today = this.props.today;
 	}
 }
 function mapStateToProps(state,ownprops) {
     return{
         settings: state.settings,
-        user_details: state.user_details,
         calendar_page: state.calendar_page,
-        today: state.todays_date
     }
 }
 export default connect(mapStateToProps,null,null,{pure: false})(Calendar_View);

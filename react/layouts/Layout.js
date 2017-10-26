@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {NavLink,Route} from 'react-router-dom';
 import {withRouter } from 'react-router-dom';
 
+import app from '../modules/persistent';
 import CalendarPage from './CalendarPage';
 import ManageJobsPage from './ManageJobsPage';
 import ManageTasksPage from './ManageTasksPage';
@@ -15,17 +16,25 @@ class Layout extends Component {
     constructor(props){
         super(props);
 
-
-        const settings  = props.store.settings;
-        const userlog   = settings.user_details;
-
         this.state = {
-            settings,
-            userlog,
-            isLoading: true
+            isLoading: true,
+            web: {}
         };
 
         // console.log("Constructor from layout", props);
+
+    }
+    componentDidMount(){
+        // Get the persistent/readonly data
+        // userlog details , and todays date
+
+        const promise = app(this.props.settings);
+        promise.then((res)=>{
+            this.setState((state,prop)=>{
+                return ({state,web: res.data});
+            });
+
+        });
 
     }
     // This is for redirecting using history props pass from router
@@ -41,7 +50,7 @@ class Layout extends Component {
 
     // Render the Pages Links Tabs
     renderTabs(){
-        let tabs = JSON.parse(this.state.settings.tabs);
+        let tabs = JSON.parse(this.props.settings.tabs);
         return (
           <div className="menu">{tabs.map( function (item , i)
               {
@@ -72,11 +81,10 @@ class Layout extends Component {
                 <div className="content_holder">
                     {this.renderTabs()}
                    <div className="page_holder">
-                       <Route exact path="/" render ={(props) => <CalendarPage /> } />
-                       <Route path="/calendar"  render ={(props) => <CalendarPage /> }/>
-                       <Route path="/managejobs" render ={(props) => <ManageJobsPage /> } />
-                       <Route path="/managetasks" render ={(props) => <ManageTasksPage  /> }/>
-                       <Route path="/schedulingsettings" render ={(props) => <SchedulingSettingsPage /> }/>
+                       <Route path="/calendar"  render ={(props) => <CalendarPage web={this.state.web} {...this.props} /> }/>
+                       <Route path="/managejobs" render ={(props) => <ManageJobsPage web={this.state.web} {...this.props} /> } />
+                       <Route path="/managetasks" render ={(props) => <ManageTasksPage web={this.state.web} {...this.props} /> }/>
+                       <Route path="/schedulingsettings" render ={(props) => <SchedulingSettingsPage web={this.state.web} {...this.props} /> }/>
                     </div>
                 </div>
 
@@ -85,7 +93,7 @@ class Layout extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return{
-        store: state
+        settings: state.settings
     }
 }
 // make sure you use {pure:false} is included when using router or use withRouter(connect(mapStateToProps));

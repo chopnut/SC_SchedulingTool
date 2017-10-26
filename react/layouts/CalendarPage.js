@@ -10,10 +10,7 @@ class CalendarPage extends Component {
 	constructor(props){
 		super(props);
 
-        const settings       = props.settings;
-        const user_details   = props.user_details;
         this.state = {
-            user_details,settings
         };
 
         // console.log("From calendar page: ",props.location);
@@ -41,8 +38,8 @@ class CalendarPage extends Component {
 
                 <div className="body">
                     <RouteWrapper>
-                       <Route exact path="/calendar" render ={(props) => <Calendar_View /> } />
-                       <Route path="/calendar/manage" render ={(props) => <Calendar_Manage /> } />
+                       <Route exact path="/calendar" render ={(props) => <Calendar_View {...this.props}/> } />
+                       <Route path="/calendar/manage" render ={(props) => <Calendar_Manage {...this.props} /> } />
                    </RouteWrapper>
                 </div>
            </article>
@@ -51,8 +48,7 @@ class CalendarPage extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return{
-        settings: state.settings,
-        user_details: state.user_details
+        settings: state.settings
     }
 }
 export default withRouter(connect(mapStateToProps,null,null,{pure: false})(CalendarPage));

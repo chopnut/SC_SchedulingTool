@@ -31,10 +31,7 @@ store.subscribe(()=>{
 // An action should hold your new state so reducer can act upon it.
 
 store.dispatch({
-    type: 'ADD_NEW_JOB',
-    data:{
-        moreSample: 'Another hello world'
-    }
+    type: 'CURRENT STATE',
 });
 
 const router = MakeRouter(store);
