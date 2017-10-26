@@ -44,7 +44,7 @@ class CalendarPrismSidebar extends Component {
     renderJobs(){
         let cells       = []
 
-
+        let i = 0;
         for(let d of this.props.days){
 
             const day   = d.day.toLowerCase();
@@ -52,17 +52,20 @@ class CalendarPrismSidebar extends Component {
             const jobs  = this.state.jobsFound[day];
 
             if(jobs!= undefined){
+
                 cells.push(
-                    <div className="aside_label">
+                    <div className="aside_label" key={i}>
                         <span className="day"> {u.ucfirst(day)} </span>
                         <span className="date"> {date} </span>
                     </div>
                 );
+                i++;
                 for(let job of jobs){
                     // console.log(job);
+                    const id = job.job_prism_job_id;
                     // For storing the cell info itself
                     const cell = ()=>{
-                        return (<div>
+                        return (<div key={id}>
                                     <PopUpControl job={job}/>
                                 </div>
                         );

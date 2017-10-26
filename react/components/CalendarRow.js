@@ -36,7 +36,7 @@ class CalendarRow extends Component {
                     if(colspan==8){
                         return;
                     }
-                    return (<td className={tdClassName}></td>);
+                    return (<td key={i} className={tdClassName}></td>);
                 })
             }</tr>);
     }

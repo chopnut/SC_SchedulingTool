@@ -45,17 +45,17 @@ class Calendar_View extends Component {
             const isParent  = (numkids>0);
 
             if(numkids>0){
-                rowcollection.push(<CalendarRow title={title} isParent={isParent} days={calendarDays} departmentId={id}/>);
+                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent} days={calendarDays} departmentId={id}/>);
 
                 for(let value of item.kids){
                     inlineRecursive(value,rowcollection);
                 }
             }else{
-                rowcollection.push(<CalendarRow title={title} isParent={isParent} days={calendarDays} departmentId={id}/>);
+                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent} days={calendarDays} departmentId={id}/>);
             }
 
         }
-        this.state.departmentsOrder.map(function(item,i){
+        this.state.departmentsOrder.map(function(item){
             inlineRecursive(item,rowsCollection);
         })
         return (rowsCollection);
@@ -127,7 +127,7 @@ class Calendar_View extends Component {
                                     className = className+" today";
 
                                 }
-                                return (<th className={className}>
+                                return (<th className={className} key={i}>
                                     <span className="day_label">{item.day}</span><br/>
                                     <span className="date_label">{item.date}</span></th>);
                             }.bind(this))}</tr>

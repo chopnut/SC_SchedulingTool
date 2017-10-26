@@ -54,6 +54,7 @@ class Layout extends Component {
         return (
           <div className="menu">{tabs.map( function (item , i)
               {
+                  // console.log(item,i);
                   // Make the first one link to /
                   let className     = item.id;
                   let defaultLinkto = '/'+className;
@@ -66,10 +67,10 @@ class Layout extends Component {
                 if(i>0){
                     // This is for the rest of the links
 
-                    return (<NavLink to={defaultLinkto} activeClassName="RouterLinkSelected" className={"RouterLink "+className+" "+endClass}><i className={icon}></i> {item.label}</NavLink>);
+                    return (<NavLink key={i} to={defaultLinkto} activeClassName="RouterLinkSelected" className={"RouterLink "+className+" "+endClass}><i className={icon}></i> {item.label}</NavLink>);
                 }else{
                     // This is for the base /home
-                    return (<NavLink to={defaultLinkto} activeClassName="RouterLinkSelected" className={"RouterLink "+className}><i className={icon}></i> {item.label} </NavLink> );
+                    return (<NavLink key={i} to={defaultLinkto} activeClassName="RouterLinkSelected" className={"RouterLink "+className}><i className={icon}></i> {item.label} </NavLink> );
                 }
               }
           )}
