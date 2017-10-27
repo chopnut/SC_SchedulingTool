@@ -8,8 +8,8 @@ class AddEditJobForm extends Component {
 
         let settings        = this.props.settings;
 
-        this.api_folder = settings.react_api_folder;
-        this.job_status = settings.job_status;
+        this.api_folder = settings.setting.react_api_folder;
+        this.job_status = settings.setting.job_status;
 
 
         this.state = {

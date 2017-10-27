@@ -6,19 +6,18 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 
-// Get actions for calendar page
-import {calendar_page_add_schedule_to} from '../actions/CalendarActions';
+
 
 class CalendarPrismBagPopUps extends Component {
     constructor(props){
         super(props);
         this.state = {
-           isLoading: true,
-            isSaving: false,
+            isLoading: true,
             startDate: moment()
 
         }
-        this.handleChange = this.handleChange.bind(this);
+        this.handleChange  = this.handleChange.bind(this);
+
     }
     componentDidMount(){
         this.setState(function(state,props){
@@ -30,10 +29,19 @@ class CalendarPrismBagPopUps extends Component {
             return ({state,startDate: date});
         });
     }
+
     render(){
         if(this.state.isLoading){
             return(<div>Loading...</div>);
         }else{
+            let buttonSavingClass =  "ui mini button";
+            if(this.props.isSaving){
+                buttonSavingClass =  "ui mini loading button";
+            }
+            let buttonSaving      =  <button className={buttonSavingClass} onClick={()=>{ this.props.addToSchedule(this.state.startDate.format("DD/MM/YYYY") ) }}  >Schedule Job to</button>;
+            if(this.props.isAlreadyScheduled){
+                buttonSaving      =  <button className={buttonSavingClass} onClick={this.props.viewSchedule}  >View Job Schedule</button>;
+            }
 
             return(
             <div style={{width: '300px'}} className="job_card">
@@ -79,8 +87,7 @@ class CalendarPrismBagPopUps extends Component {
                 </div>
                 <footer>
                     <div className="two fields">
-                        <button className="ui mini button" onClick={()=>{this.props.calendar_page_add_schedule_to({test:"Hello world!"})}}  >Schedule Job to</button>
-
+                        {buttonSaving}
                         <span className="ui input">
                           <DatePicker
                               selected={this.state.startDate}
@@ -90,9 +97,8 @@ class CalendarPrismBagPopUps extends Component {
                               dateFormat="DD/MM/YYYY"
                               className="job_card_datepicker"
                           />
+
                         </span>
-
-
                     </div>
                 </footer>
             </div>);
@@ -105,9 +111,7 @@ function mapStateToProps(state,ownprops) {
 }
 function mapDispatchToProps(dispatch){
     return({
-        calendar_page_add_schedule_to: (data)=>{
-            dispatch(calendar_page_add_schedule_to(data));
-        }
+
     })
 }
 export default connect(mapStateToProps,mapDispatchToProps)(CalendarPrismBagPopUps);

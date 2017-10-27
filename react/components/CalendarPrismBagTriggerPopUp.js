@@ -19,6 +19,9 @@ class CalendarPrismBagTriggerPopUp extends Component {
         if(this.props.isOpen){
             classname = classname+" selected";
         }
+        if(this.props.isAlreadyScheduled){
+            classname = classname+" scheduled";
+        }
 
         if(this.state.isLoading){
             return(<div>Loading...</div>);

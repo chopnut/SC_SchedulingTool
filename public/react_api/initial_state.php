@@ -1,5 +1,11 @@
 <?php
 
+// If you are accesing this directly for debugging purposes
+if(!isset($db)){
+    include('includes.php');
+    $areYouLoggedIn = $user;
+}
+// REMOVE ABOVE AFTER DEBUG
 
 // Get Scheduling Settings and User Login
 $settings = $db->getCapsule()->table('sched_settings')->get();
@@ -45,9 +51,22 @@ for($i = 0 ;$i<7;$i++){
 $sevenDays = json_encode($daysDate);
 $firstDay  = json_encode($daysDate[0]);
 
+
+// Timestamp in every state needs to change to retrigger re-render
+// When the calendar page days changed make sure you change the calendar_jobs state
+// calendar_jobs reflects the jobs that are in there from the dates of the calendar page days.
+
 echo "window.__initial_state__ = {
-  settings: $jsonSettings, 
-	calendar_page:{'days':$sevenDays ,'selected_date': '$todays_date','today':'$todayDay'}
+  settings: {setting: $jsonSettings,'timestamp':'".time()."'}, 
+
+	calendar_page:{
+      'days':$sevenDays,
+      'selected_date': 
+      '$todays_date',
+      'today':'$todayDay',
+      'timestamp': '".time()."'},
+      
+  calendar_jobs: []
 }";
 
 ?>

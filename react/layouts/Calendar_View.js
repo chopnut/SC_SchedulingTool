@@ -71,7 +71,7 @@ class Calendar_View extends Component {
 
 	    // Get the departments from API Call from axios
         // This will build the rows and cells based on the departments and calendar_page.days
-	    const calendar_department_api = this.props.settings.react_api_folder+"calendar_department_structure.php";
+	    const calendar_department_api = this.props.settings.setting.react_api_folder+"calendar_department_structure.php";
         const promiseDepartments = axios.get(calendar_department_api);
 
         promiseDepartments.then((res)=>{

@@ -50,7 +50,7 @@ class Layout extends Component {
 
     // Render the Pages Links Tabs
     renderTabs(){
-        let tabs = JSON.parse(this.props.settings.tabs);
+        let tabs = JSON.parse(this.props.settings.setting.tabs);
         return (
           <div className="menu">{tabs.map( function (item , i)
               {
@@ -94,7 +94,8 @@ class Layout extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return{
-        settings: state.settings
+        settings: state.settings,
+        calendar_jobs: state.calendar_jobs
     }
 }
 // make sure you use {pure:false} is included when using router or use withRouter(connect(mapStateToProps));
