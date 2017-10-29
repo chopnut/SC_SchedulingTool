@@ -376,8 +376,11 @@
     // This is the job card
     .job_card{
         .schedule_to_container{
+            border: 1px solid #eee;
+            padding: 5px;
             .job_type {
                 padding-top: 5px !important;
+                padding-bottom: 5px !important;
             }
         }
         border-top: 2px solid darken($main_teal_color,35%)!important;

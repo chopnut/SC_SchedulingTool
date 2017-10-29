@@ -48,11 +48,21 @@ for($i = 0 ;$i<7;$i++){
     $daysDate[$i]['date'] = date("d/m/Y",$theTS);
 }
 
-$depts       = Department::getDepartmentsNoKids();
+// Restructure to be used in dropdown
+$depts                              = Department::getDepartmentsNoKids();
+$dropDownOptionsDepartment          = array();
+foreach($depts as $id=>$value){
+    $t2      = array();
+    $t2['key'] = $value->job_dept_desc;
+    $t2['text']= $value->job_dept_desc;
+    $t2['value']= $id;
+    $dropDownOptionsDepartment[] = $t2;
+}
 
+// Encode them now
 $sevenDays   = json_encode($daysDate);
 $firstDay    = json_encode($daysDate[0]);
-$departments = json_encode($depts);
+$departments = json_encode($dropDownOptionsDepartment);
 
 
 // Timestamp in every state needs to change to retrigger re-render
@@ -63,7 +73,7 @@ echo "window.__initial_state__ = {
     settings: {
         setting: $jsonSettings,
         timestamp:'".time()."',
-        departments: $departments},
+        departmentOptions: $departments},
 
     calendar_page:{
       days:$sevenDays,

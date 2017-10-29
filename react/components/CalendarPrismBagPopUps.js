@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
-import {showJobType} from "../common/JobBagCommonUI";
+import {showJobType,showDropDownDepartments} from "../common/JobBagCommonUI";
 
 
 
@@ -15,6 +15,7 @@ class CalendarPrismBagPopUps extends Component {
         this.state = {
             isLoading: true,
             jobType: "once",
+            departmentValue: [],
             startDate: moment()
 
         }
@@ -33,6 +34,9 @@ class CalendarPrismBagPopUps extends Component {
             return({jobType});
         });
     }
+    handleChangeDepartment(e,{value}){
+        this.setState({ departmentValue: value });
+    }
     handleChange(date){
         this.setState(function(state,props){
             return ({state,startDate: date});
@@ -43,9 +47,9 @@ class CalendarPrismBagPopUps extends Component {
         if(this.state.isLoading){
             return(<div>Loading...</div>);
         }else{
-            let buttonSavingClass =  "ui mini button";
+            let buttonSavingClass =  "ui small button";
             if(this.props.isSaving){
-                buttonSavingClass =  "ui mini loading button";
+                buttonSavingClass =  "ui small loading button";
             }
             let buttonSaving      =  <button className={buttonSavingClass} onClick={()=>{ this.props.addToSchedule(this.state.startDate.format("DD/MM/YYYY"),this.state.jobType ) }}  >Schedule Job to</button>;
             if(this.props.isAlreadyScheduled){
@@ -109,6 +113,9 @@ class CalendarPrismBagPopUps extends Component {
                                         </div>
 
                                         {showJobType(this.state.jobType,this.handleChangeJobType,true)}
+                                        <div className="departments">
+                                            {showDropDownDepartments(this.props.departmentOptions,[])}
+                                        </div>
                                     </div>
 
                                 </td>
@@ -122,6 +129,7 @@ class CalendarPrismBagPopUps extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return{
+        departmentOptions: state.settings.departmentOptions
     }
 }
 function mapDispatchToProps(dispatch){

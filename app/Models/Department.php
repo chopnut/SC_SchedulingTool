@@ -92,7 +92,7 @@ class Department extends Model
     }
     static public function getDepartmentsNoKids(){
         // Get the department that is not a parent with no kids
-        $depts 			= Department::all()->sortByDesc('job_dep_order');
+        $depts 			= Department::all()->sortBy('job_dept_id');
         $deptsKeyArray  = $depts->keyBy('job_dept_id')->all();
         $depts->filter(function($item) use(&$deptsKeyArray){
             if(isset($deptsKeyArray[$item->job_dep_parent])){
