@@ -19,7 +19,7 @@ class CalendarRow extends Component {
     }
     render(){
         const colspan = (this.props.isParent)?8:0;
-        const today   = this.props.today;
+        const today   = this.props.today_date;
         const rowClassName = this.props.isParent?"parent_row":"child_row";
 
         return(
@@ -29,6 +29,8 @@ class CalendarRow extends Component {
                 </td>{this.props.days.map((item,i)=>{
                     const thisCellDate = item.date;
                     let tdClassName  = "cell";
+
+                    // console.log("Selected cell: ",today, thisCellDate);
 
                     if(thisCellDate == today){
                         tdClassName = tdClassName+" today";

@@ -36,17 +36,18 @@
     			$temp[$day] 	= array();
     			$i 				= 0;
     		}
-    		$temp[$day][$i]['job_prism_job_id']		= $jobId;
 			$temp[$day][$i]['job_prism_number'] 	= trim($jobNum);
-    		$temp[$day][$i]['job_title'] 	= $title;
-			$temp[$day][$i]['job_due_date'] = $reqDate;
-			$temp[$day][$i]['job_qty'] 		= $qty;
-			
+			$temp[$day][$i]['job_prism_job_id']		= $jobId;
+			$temp[$day][$i]['job_title'] 			= $title;
+			$temp[$day][$i]['job_due_date'] 		= $reqDate;
+			$temp[$day][$i]['job_print_date']       = $datePrint;
+			$temp[$day][$i]['job_qty'] 				= round($qty);
+
 			// Miscellaneous fields
 			$temp[$day][$i]['job_added_date'] 		= $dateAdd;
-            $temp[$day][$i]['job_customer_code']    = $customerCode;
-            $temp[$day][$i]['job_customer_name']    = $customerName;
-            $temp[$day][$i]['job_print_date']       = $datePrint;
+			$temp[$day][$i]['job_customer_code']    = $customerCode;
+			$temp[$day][$i]['job_customer_name']    = $customerName;
+			$temp[$day][$i]['isPrism']    			= 1;
 
 
 

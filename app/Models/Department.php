@@ -15,8 +15,6 @@ class Department extends Model
     // for easy ordering
     static public function  getDepartmentParentKids($departments){
         $tracker    = array();
-
-
     	foreach($departments as $id=>$val){
             $parent     = intval($val);
              if($parent>0){
@@ -31,6 +29,7 @@ class Department extends Model
              }else{
                  if(!isset($tracker[$id])){
                      $tracker[$id]= array();
+                     
                  }
 
              }
@@ -90,6 +89,17 @@ class Department extends Model
             $i++;
         }
         return $temp;
+    }
+    static public function getDepartmentsNoKids(){
+        // Get the department that is not a parent with no kids
+        $depts 			= Department::all()->sortByDesc('job_dep_order');
+        $deptsKeyArray  = $depts->keyBy('job_dept_id')->all();
+        $depts->filter(function($item) use(&$deptsKeyArray){
+            if(isset($deptsKeyArray[$item->job_dep_parent])){
+                unset($deptsKeyArray[$item->job_dep_parent]);
+            }
+        });
+        return $deptsKeyArray;
     }
 }
 

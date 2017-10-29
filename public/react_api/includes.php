@@ -11,7 +11,7 @@ if(isset($folder_level)){
 // make sure to set the level of folders using include(?level=../)
 require ($level.'../../../config.php');
 require ($level.'../../vendor/autoload.php');
-require ($level.'../../../internalreports/app/MyUtil.php');
+require ($level.'../../app/MyUtil.php');
 require ($level.'global_variables.php');
 require ($level.'../../app/App.php');
 

@@ -35,6 +35,7 @@ class Calendar_View extends Component {
 	// Render rows for the calendar
     renderDepartments(){
         const calendarDays = this.state.calendar_page.days;
+        const today_date   = this.state.calendar_page.today_date;
         let rowsCollection = [];
 
 	    function inlineRecursive(item,rowcollection){
@@ -45,13 +46,13 @@ class Calendar_View extends Component {
             const isParent  = (numkids>0);
 
             if(numkids>0){
-                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent} days={calendarDays} departmentId={id}/>);
+                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent} days={calendarDays} departmentId={id} today_date={today_date}/>);
 
                 for(let value of item.kids){
                     inlineRecursive(value,rowcollection);
                 }
             }else{
-                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent} days={calendarDays} departmentId={id}/>);
+                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent} days={calendarDays} departmentId={id} today_date={today_date}/>);
             }
 
         }

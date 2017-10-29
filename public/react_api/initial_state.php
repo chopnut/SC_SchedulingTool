@@ -7,6 +7,8 @@ if(!isset($db)){
 }
 // REMOVE ABOVE AFTER DEBUG
 
+use Models\Department;
+
 // Get Scheduling Settings and User Login
 $settings = $db->getCapsule()->table('sched_settings')->get();
 $temp     = array();
@@ -39,8 +41,6 @@ if(strcasecmp($todayDay,"sunday")==0){
 if(strcasecmp($todayDay,"saturday")==0){
    $nextSaturdayT = $todaysT;
 }
-
-
 for($i = 0 ;$i<7;$i++){
     $theTS                = strtotime('+'.$i.' days', $lastSundayT);
     $daysDate[$i]         = array();
@@ -48,8 +48,11 @@ for($i = 0 ;$i<7;$i++){
     $daysDate[$i]['date'] = date("d/m/Y",$theTS);
 }
 
-$sevenDays = json_encode($daysDate);
-$firstDay  = json_encode($daysDate[0]);
+$depts       = Department::getDepartmentsNoKids();
+
+$sevenDays   = json_encode($daysDate);
+$firstDay    = json_encode($daysDate[0]);
+$departments = json_encode($depts);
 
 
 // Timestamp in every state needs to change to retrigger re-render
@@ -57,16 +60,19 @@ $firstDay  = json_encode($daysDate[0]);
 // calendar_jobs reflects the jobs that are in there from the dates of the calendar page days.
 
 echo "window.__initial_state__ = {
-  settings: {setting: $jsonSettings,'timestamp':'".time()."'}, 
+    settings: {
+        setting: $jsonSettings,
+        timestamp:'".time()."',
+        departments: $departments},
 
-	calendar_page:{
-      'days':$sevenDays,
-      'selected_date': 
-      '$todays_date',
-      'today':'$todayDay',
-      'timestamp': '".time()."'},
-      
-  calendar_jobs: []
+    calendar_page:{
+      days:$sevenDays,
+      selected_date: '$todays_date',
+      today:'$todayDay',
+      today_date: '$todays_date',
+      timestamp: '".time()."'},
+
+    calendar_jobs: []
 }";
 
 ?>

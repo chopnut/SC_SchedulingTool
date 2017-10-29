@@ -375,7 +375,11 @@
     padding: 0px!important;
     // This is the job card
     .job_card{
-
+        .schedule_to_container{
+            .job_type {
+                padding-top: 5px !important;
+            }
+        }
         border-top: 2px solid darken($main_teal_color,35%)!important;
 
         ._padding{

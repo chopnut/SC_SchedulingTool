@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
+import {showJobType} from "../common/JobBagCommonUI";
 
 
 
@@ -13,15 +14,23 @@ class CalendarPrismBagPopUps extends Component {
         super(props);
         this.state = {
             isLoading: true,
+            jobType: "once",
             startDate: moment()
 
         }
-        this.handleChange  = this.handleChange.bind(this);
+        this.handleChange        = this.handleChange.bind(this);
+        this.handleChangeJobType = this.handleChangeJobType.bind(this);
 
     }
     componentDidMount(){
         this.setState(function(state,props){
             return ({state,isLoading: false});
+        });
+    }
+    handleChangeJobType(e){
+        const jobType = e.target.value;
+        this.setState((prevState,props)=>{
+            return({jobType});
         });
     }
     handleChange(date){
@@ -38,7 +47,7 @@ class CalendarPrismBagPopUps extends Component {
             if(this.props.isSaving){
                 buttonSavingClass =  "ui mini loading button";
             }
-            let buttonSaving      =  <button className={buttonSavingClass} onClick={()=>{ this.props.addToSchedule(this.state.startDate.format("DD/MM/YYYY") ) }}  >Schedule Job to</button>;
+            let buttonSaving      =  <button className={buttonSavingClass} onClick={()=>{ this.props.addToSchedule(this.state.startDate.format("DD/MM/YYYY"),this.state.jobType ) }}  >Schedule Job to</button>;
             if(this.props.isAlreadyScheduled){
                 buttonSaving      =  <button className={buttonSavingClass} onClick={this.props.viewSchedule}  >View Job Schedule</button>;
             }
@@ -82,25 +91,31 @@ class CalendarPrismBagPopUps extends Component {
                             <tr>
                                 <td className="info" colSpan={2}>No information yet. </td>
                             </tr>
+                            <tr>
+                                <td className="info" colSpan={2}>
+                                    <div className="schedule_to_container">
+                                        <div className="two fields">
+                                            {buttonSaving}
+                                            <span className="ui input">
+                                              <DatePicker
+                                                  selected={this.state.startDate}
+                                                  onChange={this.handleChange}
+                                                  shouldCloseOnSelect={false}
+                                                  placeholderText="Pick a date to add to"
+                                                  dateFormat="DD/MM/YYYY"
+                                                  className="job_card_datepicker"
+                                              />
+                                            </span>
+                                        </div>
+
+                                        {showJobType(this.state.jobType,this.handleChangeJobType,true)}
+                                    </div>
+
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
-                <footer>
-                    <div className="two fields">
-                        {buttonSaving}
-                        <span className="ui input">
-                          <DatePicker
-                              selected={this.state.startDate}
-                              onChange={this.handleChange}
-                              shouldCloseOnSelect={false}
-                              placeholderText="Pick a date to add to"
-                              dateFormat="DD/MM/YYYY"
-                              className="job_card_datepicker"
-                          />
-
-                        </span>
-                    </div>
-                </footer>
             </div>);
         }
     }

@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 
+// UI Common functionality
+import {showJobType} from "../common/JobBagCommonUI";
+
 class AddEditJobForm extends Component {
     constructor(props){
         super(props);
@@ -14,7 +17,7 @@ class AddEditJobForm extends Component {
 
         this.state = {
             job: {
-                job_recurrence_or_once: "once",
+                job_type: "once",
                 job_status: "",
                 job_title: "",
                 job_prism_number: "",
@@ -39,8 +42,19 @@ class AddEditJobForm extends Component {
         this.prepopulateSelect      = this.prepopulateSelect.bind(this);
         this.prepopulateClear       = this.prepopulateClear.bind(this);
         this.changeValue            = this.changeValue.bind(this);
+        this.jobTypeChanged         = this.jobTypeChanged.bind(this);
     }
+    // Job type recurrence or once
+    jobTypeChanged(e){
+        let value = e.target.value;
+        // alert(value);
+        const job     = Object.assign(this.state.job,{job_type: value});
+        this.setState((prevState,props)=>{
+                return ({job});
+            }
+        );
 
+    }
 
     componentDidMount(){
         // Jquery DatePicker on change has to fire twice to update the ui
@@ -92,30 +106,18 @@ class AddEditJobForm extends Component {
                 <select name="job_status" value={selected} onChange={this.changeValue}>
                     <option value="">Choose job status</option>
                     { job_status.map(function(item,i){
-                        return (<option value={item}>{item}</option>);
+                        return (<option value={item} key={i}>{item}</option>);
                     })}
                 </select>
             );
         }
 
 
-        // Job type recurrence or once
-        this.jobTypeChanged = (e) =>{
-            let value = e.target.value;
 
-
-            const job     = Object.assign(this.state.job,{job_recurrence_or_once: value});
-            this.setState((prevState,props)=>{
-                    return {job}
-                }
-            );
-
-        }
 
         let SelectAndRadio = (props) => {
             let selected = props.type;
             let jobstatus   = props.status;
-
 
             return(
                 <div className="inline fields">
@@ -123,19 +125,7 @@ class AddEditJobForm extends Component {
                         <label>Status</label>
                         <SelectJobStatus selected = {jobstatus}/>
                     </div>
-                    <div className="field">
-                        <label>Job Type</label>
-                        <div className="ui radio checkbox">
-                            <input type="radio" name="job_type" tabIndex="0" value="once" onChange={this.jobTypeChanged} checked={selected=="once"}/>
-                            <label>Once</label>
-                        </div>
-                    </div>
-                    <div className="field">
-                        <div className="ui radio checkbox">
-                            <input type="radio" name="job_type" tabIndex="0" value="recurrence"  onChange={this.jobTypeChanged} checked={selected=="recurrence"}/>
-                            <label>Recurring</label>
-                        </div>
-                    </div>
+                    {showJobType(selected,this.jobTypeChanged,true)}
                 </div>
 
             );
@@ -208,7 +198,7 @@ class AddEditJobForm extends Component {
                         </tr>
                         <tr>
                             <td>
-                                <SelectAndRadio type={this.state.job.job_recurrence_or_once} status={this.state.job.job_status} />
+                                <SelectAndRadio type={this.state.job.job_type} status={this.state.job.job_status} />
                             </td>
                         </tr>
                         <tr>
