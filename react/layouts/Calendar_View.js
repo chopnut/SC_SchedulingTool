@@ -57,12 +57,16 @@ class Calendar_View extends Component {
         }else{
             _.times(7,function(n){
                 let mToday = moment(newDate);
-                let theDay = mToday.add(n,'days').format('dddd');
+                let theDay = mToday.add(n,'days').format('dddd').toLowerCase();
+
                 if(theDay=='saturday'){
                     nextSaturday = mToday;
+                    nextSunday   = moment(nextSaturday).subtract(6,'days');
+                    return false;
                 }
             });
         }
+
 
     }
     // Calendar Function on right side
