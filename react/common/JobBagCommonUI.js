@@ -26,15 +26,18 @@ export function showJobType(jobType,onChangeFunc,includeLabel=false){
             </span>
         </div>
     );
-
 }
 
-export function showDropDownDepartments(options,selections,onchangeFunction=()=>{}){
+export function showDropDownDepartments(options,selections,onchangeFunction){
     return(
-        <Dropdown placeholder='Pick departments' fluid multiple selection
-                  options= {options}
-                  value  = {selections}
-                  onChange={onchangeFunction}
+        <Dropdown placeholder='Pick departments'
+                  fluid
+                  floating
+                  multiple
+                  selection
+                  options   = {options}
+                  value     = {selections}
+                  onChange  = {onchangeFunction}
         />
     );
 }

@@ -2,14 +2,19 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 
+
 // Calendar Date picker
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
+import _ from 'lodash';
 
 // User define components
 import CalendarRow from "../components/CalendarRow";
 import CalendarPrismSidebar from "../components/CalendarPrismSidebar";
+
+// Get actions for calendar page
+import {calendar_page_change_days} from '../actions/CalendarActions';
 
 class Calendar_View extends Component {
 	constructor(props){
@@ -22,16 +27,79 @@ class Calendar_View extends Component {
 
         this.state = {
             calendar_page,
-            calendar_jobs: [],
             departments: [],
             departmentsOrder: [],
             sunday,
             saturday,
+            isLoading: false,
             calendar_date: moment()
         };
 
-        this.handleCalendarFunction = this.handleCalendarFunction.bind(this);
+        this.handleCalendarFunction     = this.handleCalendarFunction.bind(this);
+        this.handleChangeDates          = this.handleChangeDates.bind(this);
+        this.handleOnChangeDateRange    = this.handleOnChangeDateRange.bind(this);
 	}
+	/*
+	* Handle the date range when mini calendar has been selected
+	* query the new calendar_date state;
+	* */
+    handleOnChangeDateRange(newDate){
+        const today = newDate.format('dddd').toLowerCase();
+        let nextSunday, nextSaturday;
+
+        if(today=='sunday'){
+            nextSunday = newDate;
+            nextSaturday = moment(nextSunday).add(7,'days');
+
+        }else if(today =='saturday'){
+            nextSaturday  = newDate;
+            nextSaturday = moment(nextSaturday).subtract(7,'days');
+        }else{
+            _.times(7,function(n){
+                let mToday = moment(newDate);
+                let theDay = mToday.add(n,'days').format('dddd').toLowerCase();
+
+                if(theDay=='saturday'){
+                    nextSaturday = mToday;
+                    nextSunday   = moment(nextSaturday).subtract(6,'days');
+                    return false;
+                }
+            });
+        }
+
+
+    }
+    // Calendar Function on right side
+    handleCalendarFunction(date){
+        this.setState(function(state,props){
+            return ({state,calendar_date: date});
+        });
+        this.handleOnChangeDateRange(date);
+    }
+	/*
+	* Handle the change of dates which direction the press
+	* @direction left or right
+	* */
+    handleChangeDates(direction){
+        const msunday       = moment(this.state.sunday.date,'DD/MM/YYYY');
+        const msaturday     = moment(this.state.saturday.date,'DD/MM/YYYY');
+
+        let nextSunday    = moment(msunday);
+        let nextSaturday  = moment(msaturday);
+
+        if(direction=='left'){
+            nextSunday.subtract(7,'days');
+            nextSaturday.subtract(7, 'days');
+
+        }else{ // You are going right
+            nextSunday.add(7,'days');
+            nextSaturday.add(7, 'days');
+        }
+
+
+
+    }
+
 	// Render rows for the calendar
     renderDepartments(){
         const calendarDays = this.state.calendar_page.days;
@@ -62,12 +130,7 @@ class Calendar_View extends Component {
         return (rowsCollection);
 
     }
-    // Calendar Function on right side
-    handleCalendarFunction(date){
-        this.setState(function(state,props){
-            return ({state,calendar_date: date});
-        });
-    }
+
 	componentDidMount(){
 
 	    // Get the departments from API Call from axios
@@ -93,11 +156,17 @@ class Calendar_View extends Component {
                             <img src="assets/img/scheduler_icon.svg" width="30" height="30" className="calendar_icon"/> Scheduler v1
                         </h2>
                         <div className="body">
-                            <span className="previous"> <i className="chevron circle left icon"></i> </span>
-                            <span className="range_date">
-                                   {this.state.sunday.date} - {this.state.saturday.date}
-                               </span>
-                            <span className="next"> <i className="chevron circle right icon"></i> </span>
+                            <span className="previous">
+                                <a className="click_prev" onClick={()=>{ this.handleChangeDates('left'); }}><i className="chevron circle left icon"></i></a>
+                            </span>
+
+                            <span className="range_date">{this.state.sunday.date} - {this.state.saturday.date}</span>
+
+                            <span className="next">
+                                <a className="click_next" onClick={()=>{ this.handleChangeDates('right'); }}><i className="chevron circle right icon"></i></a>
+                            </span>
+
+
 
                             <span className="calendar_holder">
                                 <i className="calendar outline icon"></i>
@@ -105,7 +174,10 @@ class Calendar_View extends Component {
                                 <span className="ui input">
                                <DatePicker
                                    selected={this.state.calendar_date}
-                                   onChange={this.handleCalendarFunction}
+                                   onChange={(date)=>{
+                                            this.handleCalendarFunction(date);
+                                        }
+                                   }
                                    dateFormat="DD/MM/YYYY"
                                    className = "mini_calendar_text_field"
                                />
@@ -119,6 +191,9 @@ class Calendar_View extends Component {
                 </div>
                 <div className="second">
                     <div className="left">
+
+
+
                         <table className="ui purple celled table">
                             <thead>
                             <tr><th className="header_department_label"><i className="bicycle icon"></i> Department</th>{this.state.calendar_page.days.map(function(item,i){
@@ -139,6 +214,8 @@ class Calendar_View extends Component {
                             {this.renderDepartments()}
                             </tbody>
                         </table>
+
+
                     </div>
                     <div className="right">
                         <header>
@@ -146,7 +223,7 @@ class Calendar_View extends Component {
                             <span className="range">{this.state.sunday.date} - {this.state.saturday.date}</span>
                         </header>
                         <article>
-                            <CalendarPrismSidebar days={this.state.calendar_page.days} calendar_jobs={this.state.calendar_jobs}/>
+                            <CalendarPrismSidebar days={this.state.calendar_page.days}/>
                         </article>
                     </div>
                 </div>
@@ -161,4 +238,11 @@ function mapStateToProps(state,ownprops) {
         calendar_page: state.calendar_page,
     }
 }
-export default connect(mapStateToProps,null,null,{pure: false})(Calendar_View);
+function mapDispatchToProps(dispatch){
+    return({
+        calendar_page_change_days: (days)=>{
+            dispatch(calendar_page_change_days(days));
+        }
+    })
+}
+export default connect(mapStateToProps,mapDispatchToProps,null,{pure: false})(Calendar_View);

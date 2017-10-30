@@ -55,7 +55,7 @@ foreach($depts as $id=>$value){
     $t2      = array();
     $t2['key'] = $value->job_dept_desc;
     $t2['text']= $value->job_dept_desc;
-    $t2['value']= $id;
+    $t2['value']= $value->job_dept_id;
     $dropDownOptionsDepartment[] = $t2;
 }
 
@@ -72,17 +72,19 @@ $departments = json_encode($dropDownOptionsDepartment);
 echo "window.__initial_state__ = {
     settings: {
         setting: $jsonSettings,
-        timestamp:'".time()."',
-        departmentOptions: $departments},
+        departmentOptions: $departments,
+        timestamp:'".time()."'
+        },
 
     calendar_page:{
       days:$sevenDays,
       selected_date: '$todays_date',
       today:'$todayDay',
       today_date: '$todays_date',
-      timestamp: '".time()."'},
+      timestamp: '".time()."',
+      calendar_jobs: []
+      }
 
-    calendar_jobs: []
 }";
 
 ?>

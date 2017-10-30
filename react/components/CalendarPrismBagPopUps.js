@@ -15,13 +15,11 @@ class CalendarPrismBagPopUps extends Component {
         this.state = {
             isLoading: true,
             jobType: "once",
-            departmentValue: [],
             startDate: moment()
 
         }
-        this.handleChange        = this.handleChange.bind(this);
-        this.handleChangeJobType = this.handleChangeJobType.bind(this);
-
+        this.handleChange           = this.handleChange.bind(this);
+        this.handleChangeJobType    = this.handleChangeJobType.bind(this);
     }
     componentDidMount(){
         this.setState(function(state,props){
@@ -34,9 +32,7 @@ class CalendarPrismBagPopUps extends Component {
             return({jobType});
         });
     }
-    handleChangeDepartment(e,{value}){
-        this.setState({ departmentValue: value });
-    }
+
     handleChange(date){
         this.setState(function(state,props){
             return ({state,startDate: date});
@@ -114,7 +110,10 @@ class CalendarPrismBagPopUps extends Component {
 
                                         {showJobType(this.state.jobType,this.handleChangeJobType,true)}
                                         <div className="departments">
-                                            {showDropDownDepartments(this.props.departmentOptions,[])}
+                                            {showDropDownDepartments(
+                                                    this.props.departmentOptions,
+                                                    this.props.departmentValues,
+                                                    this.props.handleChangeDepartment)}
                                         </div>
                                     </div>
 

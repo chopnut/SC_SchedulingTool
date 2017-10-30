@@ -110,8 +110,12 @@
                                     font-size: 17px;
                                     font-weight: bold;
                                 }
-                                .next{  }
-                                .previous{}
+                                .next{
+                                    a{ cursor: pointer; }
+                                }
+                                .previous{
+                                    a{ cursor: pointer; }
+                                }
                                 i{border: 0px solid #fff; font-size: 15px;}
                                 .calendar_holder{
                                     i{font-size:  15px; }
@@ -353,7 +357,6 @@
           border-radius: $managejobs_border_radius;
 
       }
-
       .SchedulingSettingsPage{
         padding: 10px;
           background-color: white;
