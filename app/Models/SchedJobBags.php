@@ -29,7 +29,6 @@ class SchedJobBags extends Model
         $temp['job_type']         = \MyUtil::dd('job_type',$post,'once');
         $temp['job_status']       = \MyUtil::dd('job_status',$post,'stand by');
 
-
         $date 			  = \MyUtil::getYmdHis(\MyUtil::dd('job_bd_date',$post),"","Y-m-d");
         $departments      = \MyUtil::dd('job_departments',$post,[]);
 
