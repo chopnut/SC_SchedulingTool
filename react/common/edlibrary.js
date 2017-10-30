@@ -1,4 +1,5 @@
 // Get Parameter by name from the GET url
+import moment from 'moment';
 function MyUtil(){
 
 

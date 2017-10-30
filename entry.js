@@ -9,8 +9,6 @@ require("./node_modules/jquery-ui-dist/jquery-ui.js");
 require("./node_modules/semantic-ui/dist/semantic.js");
 require("./node_modules/semantic-ui/dist/components/accordion.js");
 require("./node_modules/semantic-ui/dist/components/tab.js");
-
-require("./public/assets/js/app.js");
 require("./public/assets/css/app.scss");
 
 

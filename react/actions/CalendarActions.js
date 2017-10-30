@@ -1,12 +1,13 @@
-import {CALENDAR_PAGE_ADD_SCHEDULE_TO} from '../common/Constants';
+import { CALENDAR_PAGE_ADD_SCHEDULE_TO, CALENDAR_PAGE_CHANGE_DAYS } from '../common/Constants';
 import app from '../modules/persistent';
 import axios from 'axios';
 
-// This is where your logic is going to go
-// Remember the name of the function is the ActionCreator, the action itself is what gets return.
-// Special Note: With the use of thunk middleware , normally action creators only return object of type: and payload
-// but with thunk you can pass a function
-export function calendar_page_add_schedule_to(settings,job,date,jobType){
+/*This is where your logic is going to go
+Remember the name of the function is the ActionCreator, the action itself is what gets return.
+Special Note: With the use of thunk middleware , normally action creators only return object of type: and payload
+but with thunk you can pass a function
+*/
+export function calendar_page_add_schedule_to(settings,job){
     return((dispatch)=>{
         const prom = app(settings);
         // Get user log first
@@ -21,10 +22,9 @@ export function calendar_page_add_schedule_to(settings,job,date,jobType){
             }
             // Data to send
             const data      = Object.assign({},job, {
-                job_bd_date: date,
-                job_created_by: user_id,
-                job_type: jobType
+                job_created_by: user_id
             });
+
             console.log(data);
             // If you have the authority proceed with the adding
             const req = axios.post(path_api,data);
@@ -36,4 +36,15 @@ export function calendar_page_add_schedule_to(settings,job,date,jobType){
         });
     });
 
+}
+
+/*
+* When calendar_page.days have change call all new job departments again to update all
+* @days the new days, jobs collection
+* */
+export function calendar_page_change_days(days){
+    return ((dispatch)=>{
+            dispatch({type: CALENDAR_PAGE_CHANGE_DAYS });
+        }
+    );
 }

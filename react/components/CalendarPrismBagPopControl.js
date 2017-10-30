@@ -13,17 +13,22 @@ import {calendar_page_add_schedule_to} from '../actions/CalendarActions';
 class CalendarPrismBagPopControl extends Component {
     constructor(props){
         super(props);
+
         this.state = {
             isOpen: false,
             isSaving: false,
             isAlreadyScheduled: false,
-            recurrence: "once"
+            recurrence: "once",
+            departmentValues: []
+
         }
         this.handleClose    = this.handleClose.bind(this);
         this.handleOpen     = this.handleOpen.bind(this);
         this.addToSchedule  = this.addToSchedule.bind(this);// add to schedule if it is not scheduledyet
         this.viewSchedule   = this.viewSchedule.bind(this); // View schedule instead of creating from button
         this.changeRecurrence = this.changeRecurrence.bind(this);
+        this.handleChangeDepartment = this.handleChangeDepartment.bind(this); // this is for updating departments to schedule
+
     }
     // Function that set states
     // Adding job to the scheduled date
@@ -32,14 +37,25 @@ class CalendarPrismBagPopControl extends Component {
         this.setState((prevState, props) => (
             {prevState,isSaving: true }
         ));
-
+        const postJob = Object.assign({}, this.props.job,{
+            job_bd_date: date,
+            job_type: jobType,
+            job_departments: this.state.departmentValues
+        });
         const promise = this.props.calendar_page_add_schedule_to(
             this.props.settings,
-            this.props.job,
-            date,
-            jobType);
+            postJob
+        );
     }
+    handleChangeDepartment(e,{value}){
+        console.log("Departments: ", this.state);
 
+        this.setState((prevState, props) => (
+            {departmentValues: value}
+        ));
+
+
+    }
     changeRecurrence(recurrence){
         this.setState((prevState,props)=>{
             return({recurrence});
@@ -48,8 +64,23 @@ class CalendarPrismBagPopControl extends Component {
     handleOpen(){
         this.setState({ isOpen: true })
     }
-    handleClose(){
-        this.setState({ isOpen: false })
+    handleClose(e, data){
+        // Do not close it if the target tagname is coming form I tag
+        // I tag is from the dropdown box
+        let tagName = false;
+        try{
+            tagName = e.target.tagName.toLowerCase();
+        }catch(x){
+            this.setState({ isOpen: false });
+            return;
+        }
+
+        if(tagName=='i'){
+            this.setState({ isOpen: true });
+            return;
+        }
+        this.setState({ isOpen: false });
+
     }
     //
     viewSchedule(){
@@ -62,8 +93,13 @@ class CalendarPrismBagPopControl extends Component {
             return(
 
             <Popup trigger={<div><CalendarPrismBagTriggerPopUp job_title={this.props.job.job_title} isOpen={this.state.isOpen} isAlreadyScheduled = {this.state.isAlreadyScheduled} /></div>}
-                   className="popup" position="left center" flowing offset={245} basic={true}
+                   className="popup"
+                   position="left center"
+                   flowing
+                   offset={245}
+                   basic={true}
                    hoverable
+                   id={this.props.job.job_title}
                    on="hover" open={this.state.isOpen}
                    onClose={this.handleClose}
                    onOpen={this.handleOpen}>
@@ -73,6 +109,9 @@ class CalendarPrismBagPopControl extends Component {
                                            isSaving={this.state.isSaving}
                                            isAlreadyScheduled = {this.state.isAlreadyScheduled}
                                            isRecurrence={this.state.recurrence}
+                                           handleChangeDepartment={this.handleChangeDepartment}
+                                           departmentValues={this.state.departmentValues}
+                                           id={this.props.job.job_title}
                    />
             </Popup>
             );
@@ -86,8 +125,8 @@ function mapStateToProps(state,ownprops) {
 }
 function mapDispatchToProps(dispatch){
     return({
-        calendar_page_add_schedule_to: (settings,job,date,jobType)=>{
-            dispatch(calendar_page_add_schedule_to(settings, job, date,jobType));
+        calendar_page_add_schedule_to: (settings,job)=>{
+            dispatch(calendar_page_add_schedule_to(settings, job));
         }
     })
 }
