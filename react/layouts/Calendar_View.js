@@ -38,7 +38,16 @@ class Calendar_View extends Component {
         this.handleCalendarFunction     = this.handleCalendarFunction.bind(this);
         this.handleChangeDates          = this.handleChangeDates.bind(this);
         this.handleOnChangeDateRange    = this.handleOnChangeDateRange.bind(this);
+        this.handleCalendarDateChange   = this.handleCalendarDateChange.bind(this);
 	}
+	/*
+	* When new sunday and saturday has been selected update state and ui
+	* @newSunday
+	* @newSaturday
+	* */
+    handleCalendarDateChange(newSunday,newSaturday){
+
+    }
 	/*
 	* Handle the date range when mini calendar has been selected
 	* query the new calendar_date state;
@@ -66,7 +75,7 @@ class Calendar_View extends Component {
                 }
             });
         }
-
+        this.handleCalendarDateChange(nextSunday,nextSaturday);
 
     }
     // Calendar Function on right side
@@ -95,8 +104,7 @@ class Calendar_View extends Component {
             nextSunday.add(7,'days');
             nextSaturday.add(7, 'days');
         }
-
-
+        this.handleCalendarDateChange(nextSunday,nextSaturday);
 
     }
 
