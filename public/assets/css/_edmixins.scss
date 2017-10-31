@@ -5,15 +5,15 @@
     border: $borderWidth $borderColor solid;
     padding: $padding;
 }
-@mixin make_children_flex($initialWidth: auto){
+@mixin make_children_flex($initialWidth: auto,$shrink: 1){
     // [FLEX GROW] [FLEX SHRINK] [FLEXBASIS]
     // Flex grow makes the div grow according to the width
     // Flex shrink how much shrink it needs to do defualt to 0 no shrink
     // Flex basis is the initial width
     @if $initialWidth == auto {
-        flex: 1 0 $initialWidth;
+        flex: 1 $shrink $initialWidth;
     } @else {
-        flex: 0 0 $initialWidth;
+        flex: 0 $shrink $initialWidth;
     }
 
 }

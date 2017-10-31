@@ -15,14 +15,15 @@ class __RENAME_ME___ extends Component {
         });
     }
     render(){
-
+        const jd = this.props.jd.dep;
+        const bg = this.props.jd.bag;
         if(this.state.isLoading){
             return(<div>Loading...</div>);
         }else{
 
             return(
-                <div>
-                    My Component here
+                <div className="cell" id={jd.job_dp_id}>
+                    {bg.job_title}
                 </div>);
         }
     }

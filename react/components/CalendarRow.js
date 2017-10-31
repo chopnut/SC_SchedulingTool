@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {reorder, reorderImmutable, reorderFromTo, reorderFromToImmutable } from 'react-reorder';
+import CalendarGroupCells from "./CalendarGroupCells";
 
 class CalendarRow extends Component {
     constructor(props){
@@ -19,7 +19,7 @@ class CalendarRow extends Component {
     }
     render(){
         const colspan = (this.props.isParent)?8:0;
-        const rowClassName = this.props.isParent?"parent_row":"child_row";
+        const rowClassName = this.props.isParent?"parent_dept":"child_dept";
         const today   = this.props.calendar_page.today_date;
 
         return(
@@ -29,9 +29,6 @@ class CalendarRow extends Component {
                 </td>{this.props.calendar_page.days.map((item,i)=>{
                     const thisCellDate = item.date;
                     let tdClassName  = "cell";
-
-                    // console.log("Selected cell: ",today, thisCellDate);
-
                     if(thisCellDate == today){
                         tdClassName = tdClassName+" today";
                     }
@@ -40,7 +37,7 @@ class CalendarRow extends Component {
                     }
                     return (
                         <td key={i} className={tdClassName}>
-                            {i}
+                            <CalendarGroupCells dayKey={i} departmentId={this.props.departmentId} />
                         </td>
                     );
                 })

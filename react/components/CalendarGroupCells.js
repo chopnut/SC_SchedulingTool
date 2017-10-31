@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import {connect} from 'react-redux';
+import CalendarCell from './CalendarCell';
 
-class __RENAME_ME___ extends Component {
+class CalendarGroupCells extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -15,26 +15,35 @@ class __RENAME_ME___ extends Component {
         });
     }
     render(){
+        // Calendar uses key value pair , not an array
+        // You have to loop through using keys
+        let allJobs = this.props.calendar_jobs[this.props.dayKey][this.props.departmentId];
 
         if(this.state.isLoading){
             return(<div>Loading...</div>);
         }else{
 
             return(
-            <div>
-            My Component here
+            <div className="group">
+                {Object.keys(allJobs).map((key,index)=>{
+                    return(
+                        <CalendarCell key={index} jd ={allJobs[key]} />
+                    );
+                }
+
+                )}<br/>
             </div>);
         }
     }
 }
 function mapStateToProps(state,ownprops) {
-    return{
-        state: state
-    }
+    return ({
+        calendar_jobs: state.calendar_page.calendar_jobs
+    });
 }
 function mapDispatchToProps(dispatch){
     return({
 
-    })
+    });
 }
-export default connect(mapStateToProps,mapDispatchToProps)(__RENAME_ME___);
+export default connect(mapStateToProps,mapDispatchToProps)(CalendarGroupCells);

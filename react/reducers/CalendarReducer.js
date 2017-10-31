@@ -16,6 +16,7 @@ const CalendarReducer = function (state=[], action) {
         //  FOR GETTING THE JOBS WHEN CALENDAR DAYS HAVE CHANGE
         case CALENDAR_PAGE_CHANGE_GET_JOBS:
             const jobs_state = Object.assign({},state,{calendar_jobs : action.calendar_jobs});
+            console.log("Calendar reducer ",action,action.calendar_jobs,jobs_state,state);
             return jobs_state;
             break;
         default:

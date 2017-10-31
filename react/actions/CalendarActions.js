@@ -61,7 +61,7 @@ export function calendar_page_change_days(settings,days){
                 path_api = path_api+ strParams;
 
                 // Check the api url for testing
-                // console.log("URL get jobs" , path_api);
+                console.log("URL get jobs" , path_api);
                 dispatch({type: CALENDAR_PAGE_CHANGE_DAYS , days });
 
 
@@ -69,7 +69,7 @@ export function calendar_page_change_days(settings,days){
                 const req = axios.get(path_api);
                 req.then((res)=>{
                     console.log("GET JOBS FROM CALENDAR ",res.data);
-                    dispatch({type: CALENDAR_PAGE_CHANGE_GET_JOBS ,calerndar_jobs: res.data });
+                    dispatch({type: CALENDAR_PAGE_CHANGE_GET_JOBS ,calendar_jobs: res.data });
 
                 });
 

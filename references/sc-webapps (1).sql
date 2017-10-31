@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 31, 2017 at 06:07 AM
+-- Generation Time: Oct 31, 2017 at 07:42 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -597,7 +597,10 @@ CREATE TABLE `sched_job_bags` (
 
 INSERT INTO `sched_job_bags` (`job_id`, `job_prism_job_id`, `job_prism_number`, `job_title`, `job_print_date`, `job_due_date`, `job_lodge_date`, `job_reports_ids`, `job_comments`, `job_status`, `job_created_by`, `created_at`, `updated_at`, `job_qty`, `job_type`) VALUES
 (24, 91807, 67382, 'Xmas appeal mailing                                                     ', '1970-01-01', '2017-10-31', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-10-31 15:09:03', '2017-10-31 15:09:03', '5000', 'recurring'),
-(23, 91806, 67381, 'Skoda UR                                                                ', '1970-01-01', '2017-11-01', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-10-31 15:08:46', '2017-10-31 15:08:46', '20', 'once');
+(23, 91806, 67381, 'Skoda UR                                                                ', '1970-01-01', '2017-11-01', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-10-31 15:08:46', '2017-10-31 15:08:46', '20', 'once'),
+(25, 407, 67067, 'PCYC - VIP #80  Mailings 031017                                         ', '2017-10-05', '2017-10-06', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-11-01 04:33:26', '2017-11-01 04:33:26', '7247', 'recurring'),
+(26, 413, 67063, 'SUN002 Warehousing - October 2017                                       ', '1970-01-01', '2017-10-04', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-11-01 04:34:27', '2017-11-01 04:34:27', '1', 'recurring'),
+(27, 411, 67065, 'GIO000 Warehousing - October 2017                                       ', '1970-01-01', '2017-10-04', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-11-01 05:23:14', '2017-11-01 05:23:14', '1', 'recurring');
 
 -- --------------------------------------------------------
 
@@ -633,7 +636,19 @@ INSERT INTO `sched_job_bag_department` (`job_dp_id`, `job_id`, `job_dp_dept`, `j
 (14, 23, 6, '2017-10-29', NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:08:46', '2017-10-31 15:08:46', NULL, NULL, 20),
 (13, 23, 1, '2017-10-29', NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:08:46', '2017-10-31 15:08:46', NULL, NULL, 20),
 (12, 23, 4, '2017-10-29', NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:08:46', '2017-10-31 15:08:46', NULL, NULL, 20),
-(17, 24, 1, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:09:03', '2017-10-31 15:09:03', NULL, NULL, 5000);
+(17, 24, 1, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:09:03', '2017-10-31 15:09:03', NULL, NULL, 5000),
+(18, 25, 4, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:33:26', '2017-11-01 04:33:26', NULL, NULL, 7247),
+(19, 25, 1, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:33:26', '2017-11-01 04:33:26', NULL, NULL, 7247),
+(20, 25, 5, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:33:26', '2017-11-01 04:33:26', NULL, NULL, 7247),
+(21, 25, 6, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:33:26', '2017-11-01 04:33:26', NULL, NULL, 7247),
+(22, 25, 8, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:33:26', '2017-11-01 04:33:26', NULL, NULL, 7247),
+(23, 26, 6, '2017-10-30', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:34:27', '2017-11-01 04:34:27', NULL, NULL, 1),
+(24, 26, 7, '2017-10-30', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:34:27', '2017-11-01 04:34:27', NULL, NULL, 1),
+(25, 26, 9, '2017-10-30', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:34:27', '2017-11-01 04:34:27', NULL, NULL, 1),
+(26, 26, 10, '2017-10-30', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:34:27', '2017-11-01 04:34:27', NULL, NULL, 1),
+(27, 27, 1, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 05:23:14', '2017-11-01 05:23:14', NULL, NULL, 1),
+(28, 27, 5, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 05:23:14', '2017-11-01 05:23:14', NULL, NULL, 1),
+(29, 27, 6, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 05:23:14', '2017-11-01 05:23:14', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -781,12 +796,12 @@ ALTER TABLE `sched_department`
 -- AUTO_INCREMENT for table `sched_job_bags`
 --
 ALTER TABLE `sched_job_bags`
-  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `sched_job_bag_department`
 --
 ALTER TABLE `sched_job_bag_department`
-  MODIFY `job_dp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `job_dp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `sched_settings`
 --

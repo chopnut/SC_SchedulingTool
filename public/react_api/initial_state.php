@@ -41,11 +41,15 @@ if(strcasecmp($todayDay,"sunday")==0){
 if(strcasecmp($todayDay,"saturday")==0){
    $nextSaturdayT = $todaysT;
 }
+
+$paramDates = array();
 for($i = 0 ;$i<7;$i++){
     $theTS                = strtotime('+'.$i.' days', $lastSundayT);
+    $mDate                = date("d/m/Y",$theTS);
     $daysDate[$i]         = array();
     $daysDate[$i]['day']  = MyUtil::getDayFromNum($i);
-    $daysDate[$i]['date'] = date("d/m/Y",$theTS);
+    $daysDate[$i]['date'] = $mDate;
+    $paramDates[]         = $mDate;
 }
 
 // Restructure to be used in dropdown
@@ -64,7 +68,9 @@ $sevenDays   = json_encode($daysDate);
 $firstDay    = json_encode($daysDate[0]);
 $departments = json_encode($dropDownOptionsDepartment);
 
-
+// Set the calendar jobs
+$paramDateString = implode(',',$paramDates);
+$calendarJobs    = json_encode(\Models\SchedJobBagDepartment::getCalendarJobs($paramDateString));
 // Timestamp in every state needs to change to retrigger re-render
 // When the calendar page days changed make sure you change the calendar_jobs state
 // calendar_jobs reflects the jobs that are in there from the dates of the calendar page days.
@@ -77,12 +83,12 @@ echo "window.__initial_state__ = {
         },
 
     calendar_page:{
-      days:$sevenDays,
+      days: $sevenDays,
       selected_date: '$todays_date',
-      today:'$todayDay',
+      today: '$todayDay',
       today_date: '$todays_date',
       timestamp: '".time()."',
-      calendar_jobs: []
+      calendar_jobs: $calendarJobs
       }
 
 }";

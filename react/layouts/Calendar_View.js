@@ -190,6 +190,7 @@ class Calendar_View extends Component {
             this.setState((prevState, props) => ({departments,departmentsOrder}));
 
         });
+        console.log("Starting jobs: ",this.props.calendar_page.calendar_jobs);
     }
 	render(){
         return(
@@ -236,10 +237,7 @@ class Calendar_View extends Component {
                 </div>
                 <div className="second">
                     <div className="left">
-
-
-
-                        <table className="ui purple celled table">
+                        <table className="ui fixed single purple celled table">
                             <thead>
                                 <tr><th className="header_department_label">
                                     <i className="bicycle icon"></i> Department</th>
@@ -250,7 +248,8 @@ class Calendar_View extends Component {
                                         className = className+" today";
                                     }
                                     return (<th className={className} key={i}>
-                                        <span className="day_label">{item.day} </span><br/>
+                                        <span className="day_label">{item.day} </span>
+                                        <span className="add_label"><i className="add circle icon"></i></span><br/>
                                         <span className="date_label">{item.date}</span></th>);
 
                                 }.bind(this))}

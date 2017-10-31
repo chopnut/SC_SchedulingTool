@@ -32,7 +32,7 @@ class SchedJobBags extends Model
         $date 			  = \MyUtil::getYmdHis(\MyUtil::dd('job_dp_date',$post),"","Y-m-d");
         $departments      = \MyUtil::dd('job_departments',$post,[]);
 
-        foreach($temp as $key=>$value){
+        foreach($post as $key=>$value){
             echo $key." = ".$value."\n";
         }
         // Check if the schedule bag is already there, but will allow recurring job

@@ -142,12 +142,12 @@
                             @extend ._padding_between;
                             @include make_children_flex();
                             table{
-
-
-                                .header_department_label{ font-size: 14px; width: 130px;}
+                                width:  100%;
+                                .header_department_label{ font-size: 14px;}
                                 .header_date{
                                     text-align:center;
                                     .day_label{ font-size: 14px; }
+                                    .add_label{ font-size: 14px; }
                                     .date_label{}
                                 }
                                 .today{
@@ -155,16 +155,34 @@
                                     .day_label{
                                         color: darken($main_blue_color,20%);
                                     }
+                                    .add_label{
+                                        color:darken($main_blue_color,20%);
+                                    }
                                 }
-
-                                // Rows
-                                .parent_row{
+                                // Department labels
+                                .parent_dept{
                                     background-color: lighten($main_purple_color,40%);
                                     font-weight: bold;
                                 }
-                                .child_row{
+                                .child_dept{
                                     font-weight: bold;
+                                    vertical-align: top;
+
                                 }
+                                // Individual cell data
+                                .cell{
+                                    vertical-align: top;
+                                    .group{
+                                        .cell{
+                                            border: 1px solid #ccc;
+                                            padding: 5px;
+                                            box-sizing: border-box;
+                                            white-space: nowrap;
+                                            overflow: hidden;
+                                        }
+                                    }
+                                }
+
                             }
                         }
                         // This is the side bar
