@@ -7,8 +7,9 @@ import PopUpControl from '../components/CalendarPrismBagPopControl';
 class CalendarPrismSidebar extends Component {
     constructor(props){
         super(props);
+
         this.state = {
-           isLoading: true,
+            isLoading: true,
             jobsFound: [],
             prismBagsPopID: []
         }

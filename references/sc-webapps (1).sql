@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 30, 2017 at 06:52 AM
+-- Generation Time: Oct 31, 2017 at 06:07 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -591,6 +591,14 @@ CREATE TABLE `sched_job_bags` (
   `job_type` enum('once','recurring') NOT NULL DEFAULT 'once'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `sched_job_bags`
+--
+
+INSERT INTO `sched_job_bags` (`job_id`, `job_prism_job_id`, `job_prism_number`, `job_title`, `job_print_date`, `job_due_date`, `job_lodge_date`, `job_reports_ids`, `job_comments`, `job_status`, `job_created_by`, `created_at`, `updated_at`, `job_qty`, `job_type`) VALUES
+(24, 91807, 67382, 'Xmas appeal mailing                                                     ', '1970-01-01', '2017-10-31', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-10-31 15:09:03', '2017-10-31 15:09:03', '5000', 'recurring'),
+(23, 91806, 67381, 'Skoda UR                                                                ', '1970-01-01', '2017-11-01', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-10-31 15:08:46', '2017-10-31 15:08:46', '20', 'once');
+
 -- --------------------------------------------------------
 
 --
@@ -601,7 +609,7 @@ CREATE TABLE `sched_job_bag_department` (
   `job_dp_id` int(11) NOT NULL,
   `job_id` int(11) DEFAULT NULL,
   `job_dp_dept` int(11) NOT NULL,
-  `job_db_date` date DEFAULT NULL,
+  `job_dp_date` date DEFAULT NULL,
   `job_dp_started_date` datetime DEFAULT NULL,
   `job_dp_finished_date` datetime DEFAULT NULL,
   `job_dp_proof_date` date DEFAULT NULL,
@@ -619,9 +627,13 @@ CREATE TABLE `sched_job_bag_department` (
 -- Dumping data for table `sched_job_bag_department`
 --
 
-INSERT INTO `sched_job_bag_department` (`job_dp_id`, `job_id`, `job_dp_dept`, `job_db_date`, `job_dp_started_date`, `job_dp_finished_date`, `job_dp_proof_date`, `job_dp_comments`, `job_dp_order`, `job_dp_minutes`, `created_at`, `updated_at`, `job_dp_allocated_to`, `job_dp_allocatee_comments`, `job_dp_qty`) VALUES
-(1, 16, 4, '2017-10-30', NULL, NULL, NULL, NULL, 0, NULL, '2017-10-30 13:36:54', '2017-10-30 13:36:54', NULL, NULL, 0),
-(2, 16, 6, '2017-10-30', NULL, NULL, NULL, NULL, 0, NULL, '2017-10-30 13:36:54', '2017-10-30 13:36:54', NULL, NULL, 0);
+INSERT INTO `sched_job_bag_department` (`job_dp_id`, `job_id`, `job_dp_dept`, `job_dp_date`, `job_dp_started_date`, `job_dp_finished_date`, `job_dp_proof_date`, `job_dp_comments`, `job_dp_order`, `job_dp_minutes`, `created_at`, `updated_at`, `job_dp_allocated_to`, `job_dp_allocatee_comments`, `job_dp_qty`) VALUES
+(16, 24, 4, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:09:03', '2017-10-31 15:09:03', NULL, NULL, 5000),
+(15, 24, 5, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:09:03', '2017-10-31 15:09:03', NULL, NULL, 5000),
+(14, 23, 6, '2017-10-29', NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:08:46', '2017-10-31 15:08:46', NULL, NULL, 20),
+(13, 23, 1, '2017-10-29', NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:08:46', '2017-10-31 15:08:46', NULL, NULL, 20),
+(12, 23, 4, '2017-10-29', NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:08:46', '2017-10-31 15:08:46', NULL, NULL, 20),
+(17, 24, 1, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:09:03', '2017-10-31 15:09:03', NULL, NULL, 5000);
 
 -- --------------------------------------------------------
 
@@ -769,12 +781,12 @@ ALTER TABLE `sched_department`
 -- AUTO_INCREMENT for table `sched_job_bags`
 --
 ALTER TABLE `sched_job_bags`
-  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `sched_job_bag_department`
 --
 ALTER TABLE `sched_job_bag_department`
-  MODIFY `job_dp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `job_dp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `sched_settings`
 --

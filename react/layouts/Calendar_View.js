@@ -20,17 +20,24 @@ class Calendar_View extends Component {
 	constructor(props){
 		super(props);
 
-        const calendar_page  = props.calendar_page;
-        const sunday         = calendar_page.days[0];
-        const saturday       = calendar_page.days[6];
+        const calendar_page  =  props.calendar_page;
+
+        // Deep cloning will not update the siebar date hopefully.
+        const sunday         = (calendar_page.days[0]);
+        const saturday       = (calendar_page.days[6]);
 
 
         this.state = {
             calendar_page,
             departments: [],
             departmentsOrder: [],
+
             sunday,
             saturday,
+
+            sidebarSunday: sunday,
+            sidebarSaturday: saturday,
+
             isLoading: false,
             calendar_date: moment()
         };
@@ -39,13 +46,34 @@ class Calendar_View extends Component {
         this.handleChangeDates          = this.handleChangeDates.bind(this);
         this.handleOnChangeDateRange    = this.handleOnChangeDateRange.bind(this);
         this.handleCalendarDateChange   = this.handleCalendarDateChange.bind(this);
+
+        // For testing purposes
+        this.test = this.test.bind(this);
 	}
+	test(){
+	    console.log("FROM TEST: " , this.state);
+    }
 	/*
 	* When new sunday and saturday has been selected update state and ui
 	* @newSunday
 	* @newSaturday
 	* */
     handleCalendarDateChange(newSunday,newSaturday){
+        // Need to fill up the dates in between
+        let dateArray = [];
+        dateArray.push({day: newSunday.format("dddd"), date: newSunday.format("DD/MM/YYYY") });
+        _.times(5,function(n){
+            const day = moment(newSunday).add(n+1,'days');
+            dateArray.push({day: day.format("dddd"), date: day.format("DD/MM/YYYY") });
+        });
+        dateArray.push({day: newSaturday.format("dddd"), date: newSaturday.format("DD/MM/YYYY") });
+
+        this.setState((prevState, props) => (
+            {sunday: dateArray[0], saturday: dateArray[6]}
+        ));
+
+        // Call the calendar action to update the main state
+        this.props.calendar_page_change_days(this.props.settings,dateArray);
 
     }
 	/*
@@ -58,11 +86,13 @@ class Calendar_View extends Component {
 
         if(today=='sunday'){
             nextSunday = newDate;
-            nextSaturday = moment(nextSunday).add(7,'days');
+            nextSaturday = moment(nextSunday).add(6,'days');
 
         }else if(today =='saturday'){
             nextSaturday  = newDate;
-            nextSaturday = moment(nextSaturday).subtract(7,'days');
+            nextSunday= moment(nextSaturday).subtract(6,'days');
+
+
         }else{
             _.times(7,function(n){
                 let mToday = moment(newDate);
@@ -75,15 +105,20 @@ class Calendar_View extends Component {
                 }
             });
         }
+
         this.handleCalendarDateChange(nextSunday,nextSaturday);
 
     }
-    // Calendar Function on right side
+
+    /*
+    * Handles on change from Mini calendar from in the center of the page
+    * */
     handleCalendarFunction(date){
         this.setState(function(state,props){
             return ({state,calendar_date: date});
         });
-        this.handleOnChangeDateRange(date);
+
+        this.handleOnChangeDateRange( date);
     }
 	/*
 	* Handle the change of dates which direction the press
@@ -110,8 +145,6 @@ class Calendar_View extends Component {
 
 	// Render rows for the calendar
     renderDepartments(){
-        const calendarDays = this.state.calendar_page.days;
-        const today_date   = this.state.calendar_page.today_date;
         let rowsCollection = [];
 
 	    function inlineRecursive(item,rowcollection){
@@ -122,19 +155,22 @@ class Calendar_View extends Component {
             const isParent  = (numkids>0);
 
             if(numkids>0){
-                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent} days={calendarDays} departmentId={id} today_date={today_date}/>);
+                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId={id} />);
 
                 for(let value of item.kids){
                     inlineRecursive(value,rowcollection);
                 }
             }else{
-                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent} days={calendarDays} departmentId={id} today_date={today_date}/>);
+                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId= {id}/>);
             }
 
         }
-        this.state.departmentsOrder.map(function(item){
+        this.state.departmentsOrder.map(function(item,i){
+
+
             inlineRecursive(item,rowsCollection);
         })
+
         return (rowsCollection);
 
     }
@@ -168,7 +204,7 @@ class Calendar_View extends Component {
                                 <a className="click_prev" onClick={()=>{ this.handleChangeDates('left'); }}><i className="chevron circle left icon"></i></a>
                             </span>
 
-                            <span className="range_date">{this.state.sunday.date} - {this.state.saturday.date}</span>
+                            <span className="range_date">{this.props.calendar_page.days[0].date } - {this.props.calendar_page.days[6].date}</span>
 
                             <span className="next">
                                 <a className="click_next" onClick={()=>{ this.handleChangeDates('right'); }}><i className="chevron circle right icon"></i></a>
@@ -189,6 +225,7 @@ class Calendar_View extends Component {
                                    dateFormat="DD/MM/YYYY"
                                    className = "mini_calendar_text_field"
                                />
+                                    <button onClick={this.test}>Test button</button>
                             </span>
                         </span>
                         </div>
@@ -204,19 +241,20 @@ class Calendar_View extends Component {
 
                         <table className="ui purple celled table">
                             <thead>
-                            <tr><th className="header_department_label"><i className="bicycle icon"></i> Department</th>{this.state.calendar_page.days.map(function(item,i){
-                                let className = "header_date";
+                                <tr><th className="header_department_label">
+                                    <i className="bicycle icon"></i> Department</th>
+                                    {this.props.calendar_page.days.map(function(item,i){
+                                    let className = "header_date";
 
-                                if(item.date == this.props.web.today){
-                                    className = className+" today";
+                                    if(item.date == this.props.web.today){
+                                        className = className+" today";
+                                    }
+                                    return (<th className={className} key={i}>
+                                        <span className="day_label">{item.day} </span><br/>
+                                        <span className="date_label">{item.date}</span></th>);
 
-                                }
-                                return (<th className={className} key={i}>
-                                    <span className="day_label">{item.day}</span><br/>
-                                    <span className="date_label">{item.date}</span></th>);
-                            }.bind(this))}</tr>
-
-
+                                }.bind(this))}
+                                </tr>
                             </thead>
                             <tbody>
                             {this.renderDepartments()}
@@ -228,7 +266,7 @@ class Calendar_View extends Component {
                     <div className="right">
                         <header>
                             <span className="label">Prism Job Bags Available</span><br/>
-                            <span className="range">{this.state.sunday.date} - {this.state.saturday.date}</span>
+                            <span className="range">{this.state.sidebarSunday.date} - {this.state.sidebarSaturday.date}</span>
                         </header>
                         <article>
                             <CalendarPrismSidebar days={this.state.calendar_page.days}/>
@@ -248,8 +286,8 @@ function mapStateToProps(state,ownprops) {
 }
 function mapDispatchToProps(dispatch){
     return({
-        calendar_page_change_days: (days)=>{
-            dispatch(calendar_page_change_days(days));
+        calendar_page_change_days: (settings, days)=>{
+            dispatch(calendar_page_change_days(settings, days));
         }
     })
 }

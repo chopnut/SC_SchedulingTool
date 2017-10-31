@@ -29,7 +29,7 @@ class SchedJobBags extends Model
         $temp['job_type']         = \MyUtil::dd('job_type',$post,'once');
         $temp['job_status']       = \MyUtil::dd('job_status',$post,'stand by');
 
-        $date 			  = \MyUtil::getYmdHis(\MyUtil::dd('job_bd_date',$post),"","Y-m-d");
+        $date 			  = \MyUtil::getYmdHis(\MyUtil::dd('job_dp_date',$post),"","Y-m-d");
         $departments      = \MyUtil::dd('job_departments',$post,[]);
 
         foreach($temp as $key=>$value){
@@ -57,7 +57,7 @@ class SchedJobBags extends Model
                 $jd  				 = new SchedJobBagDepartment();
                 $jd->job_id   = $job_bag->job_id;
                 $jd->job_dp_dept	 = $departmentId;
-                $jd->job_db_date	 = $date;
+                $jd->job_dp_date	 = $date;
                 $jd->job_dp_qty      = $temp['job_qty']  ;
                 $job_depts[]		  = $jd;
             }

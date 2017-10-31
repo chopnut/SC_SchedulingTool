@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import {connect} from 'react-redux';
+import {reorder, reorderImmutable, reorderFromTo, reorderFromToImmutable } from 'react-reorder';
 
 class CalendarRow extends Component {
     constructor(props){
@@ -19,14 +19,14 @@ class CalendarRow extends Component {
     }
     render(){
         const colspan = (this.props.isParent)?8:0;
-        const today   = this.props.today_date;
         const rowClassName = this.props.isParent?"parent_row":"child_row";
+        const today   = this.props.calendar_page.today_date;
 
         return(
             <tr>
                 <td colSpan={colspan} className={rowClassName}>
                     <i className="cube icon"></i> {this.props.title}
-                </td>{this.props.days.map((item,i)=>{
+                </td>{this.props.calendar_page.days.map((item,i)=>{
                     const thisCellDate = item.date;
                     let tdClassName  = "cell";
 
@@ -40,7 +40,7 @@ class CalendarRow extends Component {
                     }
                     return (
                         <td key={i} className={tdClassName}>
-
+                            {i}
                         </td>
                     );
                 })
@@ -49,7 +49,7 @@ class CalendarRow extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return{
-        today: state.todays_date
+        calendar_page: state.calendar_page
     }
 }
 export default connect(mapStateToProps,null)(CalendarRow);
