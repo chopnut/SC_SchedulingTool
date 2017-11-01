@@ -9,7 +9,6 @@ class CalendarRow extends Component {
         this.state = {
             isLoading: true
         }
-
     }
 
     componentDidMount(){
@@ -28,7 +27,7 @@ class CalendarRow extends Component {
                     <i className="cube icon"></i> {this.props.title}
                 </td>{this.props.calendar_page.days.map((item,i)=>{
                     const thisCellDate = item.date;
-                    let tdClassName  = "cell";
+                    let tdClassName  = "tdCell";
                     if(thisCellDate == today){
                         tdClassName = tdClassName+" today";
                     }
@@ -45,8 +44,9 @@ class CalendarRow extends Component {
     }
 }
 function mapStateToProps(state,ownprops) {
-    return{
-        calendar_page: state.calendar_page
-    }
+    return ({
+        calendar_page: state.calendar_page,
+        calendar_jobs: state.calendar_page.calendar_jobs
+    });
 }
 export default connect(mapStateToProps,null)(CalendarRow);

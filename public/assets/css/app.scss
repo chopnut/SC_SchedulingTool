@@ -141,6 +141,7 @@
 
                             @extend ._padding_between;
                             @include make_children_flex();
+
                             table{
                                 width:  100%;
                                 .header_department_label{ font-size: 14px;}
@@ -170,25 +171,61 @@
 
                                 }
                                 // Individual cell data
-                                .cell{
+                                .tdCell{
                                     vertical-align: top;
                                     .group{
                                         .cell{
-                                            border: 1px solid #ccc;
-                                            padding: 5px;
+
                                             box-sizing: border-box;
+                                            clear: both;
                                             white-space: nowrap;
                                             overflow: hidden;
+                                            margin-bottom: 10px;
+
+                                            .contain{
+                                                margin: 1px;
+
+
+                                                .cell_head{
+                                                    td{
+                                                        border: 0px solid #fff !important;
+                                                        padding: 0px !important;
+                                                        color: #fff;
+                                                        i{
+                                                            margin: 0px;
+                                                        }
+                                                    }
+                                                    ._arrow{ width: 18px;}
+                                                    .cell_left{
+                                                        @extend ._arrow;
+                                                        text-align: left;
+                                                        i{ cursor: pointer; }
+                                                    }
+                                                    .cell_middle{  text-align: center; }
+                                                    .cell_right{
+                                                        @extend ._arrow;
+                                                        text-align: right;
+                                                        i{ cursor: pointer; }
+
+                                                    }
+
+                                                }
+                                                .cell_title{
+                                                    background-color: #fff;
+                                                    padding: 5px;
+                                                }
+                                            }
+
                                         }
+
                                     }
                                 }
-
                             }
                         }
                         // This is the side bar
                         .right{
                             @extend ._padding_between;
-                            @include make_children_flex(160px);
+                            @include make_children_flex(160px,0);
 
                             header{
                                 padding: 10px;
@@ -384,6 +421,11 @@
       }
 
   }
+}
+// Below are CSS RULE for ui's
+.ui.popup {
+    border: 0;
+    padding: 5px !important;
 }
 // Job card pop up
 .job_card_datepicker{

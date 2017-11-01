@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 31, 2017 at 07:42 PM
+-- Generation Time: Nov 01, 2017 at 06:22 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -578,6 +578,7 @@ CREATE TABLE `sched_job_bags` (
   `job_prism_job_id` int(11) DEFAULT NULL,
   `job_prism_number` int(11) DEFAULT NULL,
   `job_title` varchar(250) NOT NULL,
+  `job_colour` varchar(7) DEFAULT NULL,
   `job_print_date` date DEFAULT NULL,
   `job_due_date` date DEFAULT NULL,
   `job_lodge_date` date DEFAULT NULL,
@@ -595,12 +596,12 @@ CREATE TABLE `sched_job_bags` (
 -- Dumping data for table `sched_job_bags`
 --
 
-INSERT INTO `sched_job_bags` (`job_id`, `job_prism_job_id`, `job_prism_number`, `job_title`, `job_print_date`, `job_due_date`, `job_lodge_date`, `job_reports_ids`, `job_comments`, `job_status`, `job_created_by`, `created_at`, `updated_at`, `job_qty`, `job_type`) VALUES
-(24, 91807, 67382, 'Xmas appeal mailing                                                     ', '1970-01-01', '2017-10-31', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-10-31 15:09:03', '2017-10-31 15:09:03', '5000', 'recurring'),
-(23, 91806, 67381, 'Skoda UR                                                                ', '1970-01-01', '2017-11-01', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-10-31 15:08:46', '2017-10-31 15:08:46', '20', 'once'),
-(25, 407, 67067, 'PCYC - VIP #80  Mailings 031017                                         ', '2017-10-05', '2017-10-06', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-11-01 04:33:26', '2017-11-01 04:33:26', '7247', 'recurring'),
-(26, 413, 67063, 'SUN002 Warehousing - October 2017                                       ', '1970-01-01', '2017-10-04', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-11-01 04:34:27', '2017-11-01 04:34:27', '1', 'recurring'),
-(27, 411, 67065, 'GIO000 Warehousing - October 2017                                       ', '1970-01-01', '2017-10-04', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-11-01 05:23:14', '2017-11-01 05:23:14', '1', 'recurring');
+INSERT INTO `sched_job_bags` (`job_id`, `job_prism_job_id`, `job_prism_number`, `job_title`, `job_colour`, `job_print_date`, `job_due_date`, `job_lodge_date`, `job_reports_ids`, `job_comments`, `job_status`, `job_created_by`, `created_at`, `updated_at`, `job_qty`, `job_type`) VALUES
+(24, 91807, 67382, 'Xmas appeal mailing                                                     ', NULL, '1970-01-01', '2017-10-31', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-10-31 15:09:03', '2017-10-31 15:09:03', '5000', 'recurring'),
+(23, 91806, 67381, 'Skoda UR                                                                ', NULL, '1970-01-01', '2017-11-01', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-10-31 15:08:46', '2017-10-31 15:08:46', '20', 'once'),
+(25, 407, 67067, 'PCYC - VIP #80  Mailings 031017                                         ', NULL, '2017-10-05', '2017-10-06', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-11-01 04:33:26', '2017-11-01 04:33:26', '7247', 'recurring'),
+(26, 413, 67063, 'SUN002 Warehousing - October 2017                                       ', NULL, '1970-01-01', '2017-10-04', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-11-01 04:34:27', '2017-11-01 04:34:27', '1', 'recurring'),
+(27, 411, 67065, 'GIO000 Warehousing - October 2017                                       ', NULL, '1970-01-01', '2017-10-04', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-11-01 05:23:14', '2017-11-01 05:23:14', '1', 'recurring');
 
 -- --------------------------------------------------------
 

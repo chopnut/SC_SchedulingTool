@@ -1,14 +1,19 @@
 import { CALENDAR_PAGE_ADD_SCHEDULE_TO,
          CALENDAR_PAGE_CHANGE_DAYS,
-         CALENDAR_PAGE_CHANGE_GET_JOBS } from '../common/Constants';
+         CALENDAR_PAGE_CHANGE_GET_JOBS,
+         CALENDAR_PAGE_MOVE_DEP_SIDE_BY_SIDE,
+         CALENDAR_PAGE_ADD_RECURRING_TO_DATE} from '../common/Constants';
 import app from '../modules/persistent';
 import _ from 'lodash';
 import axios from 'axios';
 
-/*This is where your logic is going to go
+/*
+
+This is where your logic is going to go
 Remember the name of the function is the ActionCreator, the action itself is what gets return.
 Special Note: With the use of thunk middleware , normally action creators only return object of type: and payload
-but with thunk you can pass a function
+but with thunk you can return a function
+
 */
 export function calendar_page_add_schedule_to(settings,job){
     return((dispatch)=>{
@@ -17,7 +22,6 @@ export function calendar_page_add_schedule_to(settings,job){
         prom.then((res)=>{
             const path_api  = settings.setting.react_api_folder+'/calendar_actions/calendar_page_add_schedule_to.php';
             const userlog   = res.data.userlog;
-
             let   user_id   = 0;
 
             if(userlog){
@@ -27,7 +31,6 @@ export function calendar_page_add_schedule_to(settings,job){
             const data      = Object.assign({},job, {
                 job_created_by: user_id
             });
-
             // If you have the authority proceed with the adding
             const req = axios.post(path_api,data);
             req.then((res)=>{
@@ -77,4 +80,25 @@ export function calendar_page_change_days(settings,days){
 
         }
     );
+}
+
+/*
+* This is to move the job side by side
+* @job_id one of the entry from the calendar_page.calendar_jobs
+* @day one of the entry from calendar_page.days
+* */
+export function calendar_page_move_dep_side_by_side(info){
+    return ((dispatch)=>{
+        dispatch({type: CALENDAR_PAGE_MOVE_DEP_SIDE_BY_SIDE , info});
+    });
+}
+
+/*
+* Create recurring jobs to the date selected, no duplicates of job will be created
+* job_departments will be based on number of the current jobs_deparments has been created in the past
+* */
+export function calendar_page_add_recurring_to_date(job){
+    return ((dispatch)=>{
+        dispatch({type: CALENDAR_PAGE_ADD_RECURRING_TO_DATE , job});
+    });
 }

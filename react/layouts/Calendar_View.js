@@ -148,7 +148,6 @@ class Calendar_View extends Component {
         let rowsCollection = [];
 
 	    function inlineRecursive(item,rowcollection){
-
             const title     = item.title;
             const id        = item.id;
             const numkids   = item.kids.length;
@@ -156,18 +155,14 @@ class Calendar_View extends Component {
 
             if(numkids>0){
                 rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId={id} />);
-
                 for(let value of item.kids){
                     inlineRecursive(value,rowcollection);
                 }
             }else{
                 rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId= {id}/>);
             }
-
         }
         this.state.departmentsOrder.map(function(item,i){
-
-
             inlineRecursive(item,rowsCollection);
         })
 
@@ -190,7 +185,7 @@ class Calendar_View extends Component {
             this.setState((prevState, props) => ({departments,departmentsOrder}));
 
         });
-        console.log("Starting jobs: ",this.props.calendar_page.calendar_jobs);
+        // console.log("Starting jobs: ",this.props.calendar_page.calendar_jobs);
     }
 	render(){
         return(
@@ -237,7 +232,7 @@ class Calendar_View extends Component {
                 </div>
                 <div className="second">
                     <div className="left">
-                        <table className="ui fixed single purple celled table">
+                        <table className="ui fixed single purple unstackable celled table" >
                             <thead>
                                 <tr><th className="header_department_label">
                                     <i className="bicycle icon"></i> Department</th>
@@ -256,7 +251,7 @@ class Calendar_View extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                            {this.renderDepartments()}
+                                 {this.renderDepartments()}
                             </tbody>
                         </table>
 

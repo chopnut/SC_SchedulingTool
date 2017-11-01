@@ -67,9 +67,12 @@ this.getDate = function (padding=true){
     }
     return d;
 }
-this.getWordDate = function (){
+this.getWordDate = function (dayNum=null){
     var now = new Date();
-    var d   = now.getDay();
+    var d   = dayNum;
+    if(dayNum!==null){
+        d   = now.getDay();
+    }
     switch (d){
         case 0: return "Sunday";
         case 1: return "Monday";

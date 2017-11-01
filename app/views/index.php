@@ -68,7 +68,5 @@
         <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
         <script src="assets/js/bundle.js" type="text/javascript"></script>
         <script src="../../common/common.js" type="text/javascript"></script>
-
-
     </body>
 </html>
