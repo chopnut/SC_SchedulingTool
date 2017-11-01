@@ -12,7 +12,6 @@ class ManageJobs_JobsPage extends Component {
         const day  = util.getWordDate();
 
         let selectedDate = {date,year,month,day};
-
         this.state = {
             selectedDate,
             jobsFound: []
@@ -20,6 +19,7 @@ class ManageJobs_JobsPage extends Component {
     }
     componentDidMount(){
         $("#datepicker").datepicker();
+
     }
     render(){
         return(

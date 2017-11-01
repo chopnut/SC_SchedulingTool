@@ -136,8 +136,10 @@
                     }
                     .second{
                         display: flex;
+
                         // This is the main calendar itself
                         .left{
+                            // Below are CSS RULE for ui's
 
                             @extend ._padding_between;
                             @include make_children_flex();
@@ -159,6 +161,9 @@
                                     .add_label{
                                         color:darken($main_blue_color,20%);
                                     }
+                                }
+                                .highlight_drag{
+                                    border: 2px dashed darken($main_blue_color,20%);
                                 }
                                 // Department labels
                                 .parent_dept{
@@ -422,17 +427,13 @@
 
   }
 }
-// Below are CSS RULE for ui's
-.ui.popup {
-    border: 0;
-    padding: 5px !important;
-}
+
 // Job card pop up
 .job_card_datepicker{
     width: 130px;
     font-size: 11px;
 }
-.popup{
+.prism_popup{
     position: relative;
     margin-top: -100px!important;
     padding: 0px!important;

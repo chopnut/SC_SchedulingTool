@@ -18,7 +18,7 @@ class CalendarGroupCells extends Component {
         // Calendar uses key value pair , not an array
         // You have to loop through using keys
 
-        const allJobs = this.props.calendar_jobs[this.props.dayKey][this.props.departmentId];
+        const allJobs     = this.props.calendar_jobs[this.props.dayKey][this.props.departmentId];
         const currDayKey  = this.props.dayKey;
 
         let prevDayKey  = currDayKey-1;
@@ -30,7 +30,7 @@ class CalendarGroupCells extends Component {
         if(nextDayKey>6){
             nextDayKey    = 6;
         }
-        console.log("Days", prevDayKey,currDayKey,nextDayKey);
+        // console.log("Days", prevDayKey,currDayKey,nextDayKey);
 
         const prevDate = this.props.days[prevDayKey];
         const nextDate = this.props.days[nextDayKey];
@@ -42,7 +42,8 @@ class CalendarGroupCells extends Component {
         }else{
 
             return(
-            <div className="group">
+            <div className="group"
+            >
                 {Object.keys(allJobs).map((key,index)=>{
                     return(
                         <CalendarCell key={index}
@@ -52,7 +53,10 @@ class CalendarGroupCells extends Component {
                                       prevDayKey={prevDayKey}
                                       nextDayKey={nextDayKey}
                                       origDate={currDate}
-                                      dayKey={this.props.dayKey}/>
+                                      dayKey={this.props.dayKey}
+                                      initDrag={this.props.initDrag}
+                                      initDragEnd = {this.props.initDragEnd}
+                        />
                     );
                 }
 

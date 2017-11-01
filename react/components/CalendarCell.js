@@ -41,21 +41,30 @@ class CalendarCell extends Component {
             return(<div>Loading...</div>);
         }else{
             return(
-                <div className="cell" id={jd.job_dp_id} style={{backgroundColor: "#8BC53E"}}>
+                <div className="cell"
+                     style={{backgroundColor: "#8BC53E"}}
+                     draggable={true}
+                     onDragStart={(e)=>{
+                         // pass the job department to the handler from row
+                         this.props.initDrag(e,this.props.jd,this.props.dayKey);
+                     }}
+                     onDragEnd={(e)=>{ this.props.initDragEnd(e) }}
+
+                >
                     <div className="contain">
                         <div className="cell_head">
                             <table width="100%" cellPadding={0} cellSpacing={0}>
                                 <tbody>
                                     <tr>
                                         <td className="cell_left">
-                                            <i className={leftArrowClass} data-content="Move previous day" data-variation="small" onClick={()=>{
+                                            <i className={leftArrowClass} data-content="Move previous day" data-variation="tiny" onClick={()=>{
                                                 this.actionChangeSideToSide(jd.job_dp_id, this.props.prevDate, this.props.prevDayKey );
                                                 }
                                             }></i>
                                         </td>
                                         <td className="cell_middle">{bg.job_prism_number}</td>
                                         <td className="cell_right">
-                                            <i className={rightArrowClass} data-content="Move next day" data-variation="small" onClick={()=>{
+                                            <i className={rightArrowClass} data-content="Move next day" data-variation="tiny" onClick={()=>{
                                                 this.actionChangeSideToSide(jd.job_dp_id, this.props.nextDate, this.props.nextDayKey);
                                                 }
                                             }></i>

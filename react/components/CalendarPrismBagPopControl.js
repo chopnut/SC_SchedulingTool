@@ -95,7 +95,7 @@ class CalendarPrismBagPopControl extends Component {
             return(
 
             <Popup trigger={<div><CalendarPrismBagTriggerPopUp job_title={this.props.job.job_title} isOpen={this.state.isOpen} isAlreadyScheduled = {this.state.isAlreadyScheduled} /></div>}
-                   className="popup"
+                   className="prism_popup"
                    position="left center"
                    flowing
                    offset={245}

@@ -1,5 +1,4 @@
 // Get Parameter by name from the GET url
-import moment from 'moment';
 function MyUtil(){
 
 
@@ -67,10 +66,10 @@ this.getDate = function (padding=true){
     }
     return d;
 }
-this.getWordDate = function (dayNum=null){
+this.getWordDate = function (dayNum=-1){
     var now = new Date();
     var d   = dayNum;
-    if(dayNum!==null){
+    if(dayNum<0){
         d   = now.getDay();
     }
     switch (d){
