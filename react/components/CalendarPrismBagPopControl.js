@@ -40,7 +40,6 @@ class CalendarPrismBagPopControl extends Component {
 
         const postJob = Object.assign({}, this.props.job,{
             job_type: jobType,
-
             job_dp_date: date,
             job_departments: this.state.departmentValues
         });

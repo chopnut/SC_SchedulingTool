@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 01, 2017 at 06:22 AM
+-- Generation Time: Nov 02, 2017 at 06:57 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -601,7 +601,9 @@ INSERT INTO `sched_job_bags` (`job_id`, `job_prism_job_id`, `job_prism_number`, 
 (23, 91806, 67381, 'Skoda UR                                                                ', NULL, '1970-01-01', '2017-11-01', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-10-31 15:08:46', '2017-10-31 15:08:46', '20', 'once'),
 (25, 407, 67067, 'PCYC - VIP #80  Mailings 031017                                         ', NULL, '2017-10-05', '2017-10-06', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-11-01 04:33:26', '2017-11-01 04:33:26', '7247', 'recurring'),
 (26, 413, 67063, 'SUN002 Warehousing - October 2017                                       ', NULL, '1970-01-01', '2017-10-04', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-11-01 04:34:27', '2017-11-01 04:34:27', '1', 'recurring'),
-(27, 411, 67065, 'GIO000 Warehousing - October 2017                                       ', NULL, '1970-01-01', '2017-10-04', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-11-01 05:23:14', '2017-11-01 05:23:14', '1', 'recurring');
+(27, 411, 67065, 'GIO000 Warehousing - October 2017                                       ', NULL, '1970-01-01', '2017-10-04', '1970-01-01', NULL, NULL, 'stand by', 0, '2017-11-01 05:23:14', '2017-11-01 05:23:14', '1', 'recurring'),
+(31, 91892, 67430, 'Daily Hospital Files - November', NULL, '1970-01-01', '2017-11-30', '2017-11-30', '', '', 'stand by', 1, '2017-11-02 16:11:07', '2017-11-02 16:11:07', '1', 'once'),
+(32, 91844, 67405, 'Daily Ticketing - NOVEMBER #274 S1', NULL, '2017-11-02', '2017-11-30', '2017-11-30', '', '', 'stand by', 1, '2017-11-02 16:15:21', '2017-11-02 16:15:21', '0', 'once');
 
 -- --------------------------------------------------------
 
@@ -614,9 +616,11 @@ CREATE TABLE `sched_job_bag_department` (
   `job_id` int(11) DEFAULT NULL,
   `job_dp_dept` int(11) NOT NULL,
   `job_dp_date` date DEFAULT NULL,
+  `job_dp_created_date` date DEFAULT NULL,
   `job_dp_started_date` datetime DEFAULT NULL,
   `job_dp_finished_date` datetime DEFAULT NULL,
   `job_dp_proof_date` date DEFAULT NULL,
+  `job_dp_status` varchar(50) DEFAULT NULL,
   `job_dp_comments` varchar(255) DEFAULT NULL,
   `job_dp_order` int(11) DEFAULT '0',
   `job_dp_minutes` int(11) DEFAULT NULL,
@@ -631,25 +635,25 @@ CREATE TABLE `sched_job_bag_department` (
 -- Dumping data for table `sched_job_bag_department`
 --
 
-INSERT INTO `sched_job_bag_department` (`job_dp_id`, `job_id`, `job_dp_dept`, `job_dp_date`, `job_dp_started_date`, `job_dp_finished_date`, `job_dp_proof_date`, `job_dp_comments`, `job_dp_order`, `job_dp_minutes`, `created_at`, `updated_at`, `job_dp_allocated_to`, `job_dp_allocatee_comments`, `job_dp_qty`) VALUES
-(16, 24, 4, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:09:03', '2017-10-31 15:09:03', NULL, NULL, 5000),
-(15, 24, 5, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:09:03', '2017-10-31 15:09:03', NULL, NULL, 5000),
-(14, 23, 6, '2017-10-29', NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:08:46', '2017-10-31 15:08:46', NULL, NULL, 20),
-(13, 23, 1, '2017-10-29', NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:08:46', '2017-10-31 15:08:46', NULL, NULL, 20),
-(12, 23, 4, '2017-10-29', NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:08:46', '2017-10-31 15:08:46', NULL, NULL, 20),
-(17, 24, 1, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:09:03', '2017-10-31 15:09:03', NULL, NULL, 5000),
-(18, 25, 4, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:33:26', '2017-11-01 04:33:26', NULL, NULL, 7247),
-(19, 25, 1, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:33:26', '2017-11-01 04:33:26', NULL, NULL, 7247),
-(20, 25, 5, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:33:26', '2017-11-01 04:33:26', NULL, NULL, 7247),
-(21, 25, 6, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:33:26', '2017-11-01 04:33:26', NULL, NULL, 7247),
-(22, 25, 8, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:33:26', '2017-11-01 04:33:26', NULL, NULL, 7247),
-(23, 26, 6, '2017-10-30', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:34:27', '2017-11-01 04:34:27', NULL, NULL, 1),
-(24, 26, 7, '2017-10-30', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:34:27', '2017-11-01 04:34:27', NULL, NULL, 1),
-(25, 26, 9, '2017-10-30', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:34:27', '2017-11-01 04:34:27', NULL, NULL, 1),
-(26, 26, 10, '2017-10-30', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:34:27', '2017-11-01 04:34:27', NULL, NULL, 1),
-(27, 27, 1, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 05:23:14', '2017-11-01 05:23:14', NULL, NULL, 1),
-(28, 27, 5, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 05:23:14', '2017-11-01 05:23:14', NULL, NULL, 1),
-(29, 27, 6, '2017-11-01', NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 05:23:14', '2017-11-01 05:23:14', NULL, NULL, 1);
+INSERT INTO `sched_job_bag_department` (`job_dp_id`, `job_id`, `job_dp_dept`, `job_dp_date`, `job_dp_created_date`, `job_dp_started_date`, `job_dp_finished_date`, `job_dp_proof_date`, `job_dp_status`, `job_dp_comments`, `job_dp_order`, `job_dp_minutes`, `created_at`, `updated_at`, `job_dp_allocated_to`, `job_dp_allocatee_comments`, `job_dp_qty`) VALUES
+(16, 24, 4, '2017-11-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:09:03', '2017-11-02 13:56:46', NULL, NULL, 5000),
+(15, 24, 5, '2017-11-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:09:03', '2017-11-02 14:41:24', NULL, NULL, 5000),
+(14, 23, 6, '2017-11-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:08:46', '2017-11-02 13:57:18', NULL, NULL, 20),
+(13, 23, 1, '2017-10-29', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:08:46', '2017-10-31 15:08:46', NULL, NULL, 20),
+(12, 23, 4, '2017-11-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:08:46', '2017-11-02 13:57:21', NULL, NULL, 20),
+(17, 24, 1, '2017-11-03', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-10-31 15:09:03', '2017-11-02 13:56:15', NULL, NULL, 5000),
+(18, 25, 4, '2017-11-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:33:26', '2017-11-02 13:56:48', NULL, NULL, 7247),
+(19, 25, 1, '2017-10-31', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:33:26', '2017-11-02 16:34:13', NULL, NULL, 7247),
+(20, 25, 5, '2017-11-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:33:26', '2017-11-02 13:56:43', NULL, NULL, 7247),
+(21, 25, 6, '2017-11-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:33:26', '2017-11-02 13:56:52', NULL, NULL, 7247),
+(22, 25, 8, '2017-10-30', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:33:26', '2017-11-02 13:57:04', NULL, NULL, 7247),
+(23, 26, 6, '2017-11-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:34:27', '2017-11-02 13:56:50', NULL, NULL, 1),
+(24, 26, 7, '2017-10-30', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:34:27', '2017-11-01 04:34:27', NULL, NULL, 1),
+(25, 26, 9, '2017-10-30', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:34:27', '2017-11-01 04:34:27', NULL, NULL, 1),
+(26, 26, 10, '2017-10-30', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 04:34:27', '2017-11-01 04:34:27', NULL, NULL, 1),
+(27, 27, 1, '2017-11-02', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 05:23:14', '2017-11-02 13:30:04', NULL, NULL, 1),
+(28, 27, 5, '2017-11-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 05:23:14', '2017-11-01 05:23:14', NULL, NULL, 1),
+(29, 27, 6, '2017-11-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-11-01 05:23:14', '2017-11-01 05:23:14', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -675,7 +679,7 @@ INSERT INTO `sched_settings` (`id`, `setting_name`, `setting_label`, `setting_va
 (4, 'job_types', 'Job Types', '[{"id": "once","text":"Once"},{"id": "recurring","text":"Recurring"}]'),
 (5, 'react_api_folder', 'Application Api Folder', 'http://localhost/webapps/schedulingtool/public/react_api/'),
 (6, 'react_public_folder', 'Main public folder', 'http://localhost/webapps/schedulingtool/public/'),
-(7, 'job_status', 'Main Job Status', '["stand by","work in progress","done"]');
+(7, 'job_status', 'Main Job Status', '["stand by","work in progress","done or closed","archieve"]');
 
 --
 -- Indexes for dumped tables
@@ -797,7 +801,7 @@ ALTER TABLE `sched_department`
 -- AUTO_INCREMENT for table `sched_job_bags`
 --
 ALTER TABLE `sched_job_bags`
-  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `sched_job_bag_department`
 --

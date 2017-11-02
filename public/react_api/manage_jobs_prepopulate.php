@@ -31,15 +31,15 @@
 
             $temp[$counter] = array();
 
+            // Only add fields that are relevant to the form
+            // dont add any fields that is likely to be edited by the user
+            $temp[$counter]['job_prism_job_id']  = intval(trim($id));
+            $temp[$counter]['job_prism_number']  = intval(trim($jobNum));
             $temp[$counter]['job_title']         = trim($title);
-            $temp[$counter]['job_prism_job_id']  = trim($id);
-            $temp[$counter]['job_prism_number']  = trim($jobNum);
-            $temp[$counter]['job_qty']           = intval(trim($jobQty));
-            $temp[$counter]['job_lodge_date']    = $u::getYmdHis($lodgeDate,"Y-m-d H:i:s","d/m/Y");
-            $temp[$counter]['job_due_date']      = $u::getYmdHis($lodgeDate,"Y-m-d H:i:s","d/m/Y");
             $temp[$counter]['job_print_date']    = $u::getYmdHis($printDate,"Y-m-d H:i:s","d/m/Y");
-            $temp[$counter]['job_recurrence_or_once'] =  "once";
-            $temp[$counter]['job_status']         =  "";
+            $temp[$counter]['job_due_date']      = $u::getYmdHis($lodgeDate,"Y-m-d H:i:s","d/m/Y");
+            $temp[$counter]['job_lodge_date']    = $u::getYmdHis($lodgeDate,"Y-m-d H:i:s","d/m/Y");
+            $temp[$counter]['job_qty']           = intval(trim($jobQty));
 
             // Miscellaneous fields
             $temp[$counter]['job_added_date']       = $u::getYmdHis($addDate,"Y-m-d H:i:s","d/m/Y");

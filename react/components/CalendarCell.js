@@ -23,7 +23,9 @@ class CalendarCell extends Component {
             deptId: this.props.jd.dep.job_dp_dept,
             dayKey: this.props.dayKey
         }
-        this.props.calendar_page_move_dep_side_by_side(info);
+
+        // Call the action creator to update state
+        this.props.calendar_page_move_dep_side_by_side(this.props.settings, info);
     }
     componentDidMount(){
         this.setState(function(state,props){
@@ -81,12 +83,14 @@ class CalendarCell extends Component {
     }
 }
 function mapStateToProps(state,ownprops) {
-    return({});
+    return({
+        settings: state.settings
+    });
 }
 function mapDispatchToProps(dispatch){
     return({
-        calendar_page_move_dep_side_by_side: (info)=>{
-            dispatch(calendar_page_move_dep_side_by_side(info));
+        calendar_page_move_dep_side_by_side: (settings,info)=>{
+            dispatch(calendar_page_move_dep_side_by_side(settings,info));
         }
     });
 }

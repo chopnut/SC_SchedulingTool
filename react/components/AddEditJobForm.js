@@ -3,7 +3,10 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 
 // UI Common functionality
-import {showJobType} from "../common/JobBagCommonUI";
+import {showJobType,showDropDownDepartments} from "../common/JobBagCommonUI";
+
+// Get actions to save/new/edit
+import {manage_job_add_new_edit} from '../actions/ManageJobsActions';
 
 class AddEditJobForm extends Component {
     constructor(props){
@@ -17,15 +20,21 @@ class AddEditJobForm extends Component {
 
         this.state = {
             job: {
-                job_type: "once",
-                job_status: "",
+                job_prism_job_id: 0,
+                job_prism_number: 0,
                 job_title: "",
-                job_prism_number: "",
-                job_qty: "",
-                job_lodge_date: "",
                 job_print_date: "",
                 job_due_date: "",
-                job_comments: ""
+                job_lodge_date: "",
+                job_reports_ids:"",
+                job_qty: "",
+
+                job_colour: "",
+                job_status: "",
+                job_comments: "",
+                job_type: "once",
+
+                job_departments: []
             } ,
             jobsFound: [],
             isSaving: 0,
@@ -43,6 +52,23 @@ class AddEditJobForm extends Component {
         this.prepopulateClear       = this.prepopulateClear.bind(this);
         this.changeValue            = this.changeValue.bind(this);
         this.jobTypeChanged         = this.jobTypeChanged.bind(this);
+        this.jobDepartmentChange    = this.jobDepartmentChange.bind(this);
+
+    }
+    // Initlialization happens below
+    componentDidUpdate(){
+        // do your validation down  here
+        // use semantic-ui validation
+    }
+    // Departments on change
+    jobDepartmentChange(e,{value}){
+        const job = Object.assign({},this.state.job,{job_departments: {value}.value });
+        // Do more processing so not to delete any departments that is already in the database
+
+        if(this.state.id==0){
+            this.setState((prevState, props) => ({job}));
+        }
+
     }
     // Job type recurrence or once
     jobTypeChanged(e){
@@ -56,6 +82,95 @@ class AddEditJobForm extends Component {
 
     }
 
+    //-------------------------------------
+    // User created function below
+    //-------------------------------------
+    saveOrEdit(e){
+
+        e.preventDefault(); // Prevent form to be submitted naturally
+        const jobData = Object.assign({},this.state.job,{id: this.state.id});
+        this.setState((prevState, props) => ({isSaving: 1}) );
+
+        this.props.manage_job_add_new_edit(this.props.settings,jobData);
+    }
+    changeValue(e){
+        let input_name = e.target.name;
+        let input_value= e.target.value;
+
+        let job = Object.assign(this.state.job,{});
+        job[input_name] = input_value;
+
+        this.setState((prevState,props)=>{
+                return ({job});
+            }
+        ); // Update the fields of the data
+    }
+    // clear the search result
+    prepopulateClear() {
+        this.setState(function(prevState,props){
+            return ({jobsFound: [] });
+        });
+    }
+    // Select and prepopulate the form with the selected jobbag
+    prepopulateSelect(jobsKey){
+        let jobs = JSON.parse(JSON.stringify( this.state.jobsFound));
+        let job  = jobs[jobsKey];
+        const newJob = Object.assign({},job,{
+            job_comments: this.state.job.comments,
+            job_type: this.state.job.job_type,
+            job_departments: this.state.job.job_departments
+        });
+
+        this.setState((prevState,props)=>{
+                return ({job: newJob})
+            }
+        );
+
+        // job_status: "",
+        //     job_comments: "",
+        //     job_type: "once",
+        //
+        //     job_departments: []
+        // console.log("From onclick",job);
+    }
+    prepopulateFromPrism(event){
+
+        this.setState({ isSearching: 1});
+        let typeSearch = event.target.value;
+        let jobsFound = this.state.jobsFound;
+
+
+        // Create a delay when typing
+        var timer;
+        if(typeSearch.length>4){
+            clearTimeout(timer);
+            var ms = 200;
+            timer = setTimeout(()=>{
+
+                const reactApiPrePop = this.api_folder+'manage_jobs_prepopulate.php?q='+typeSearch;
+                const promiseJobResult = axios.get(reactApiPrePop);
+
+                promiseJobResult.then((res)=>{
+                        let jobs = res.data;
+                        this.setState((prevState,props)=>{
+                                return {jobsFound: jobs,isSearching: 0}
+                            }
+                        );
+                    }
+                )
+            },ms);
+
+
+        }else if(jobsFound.length>0){
+            if(typeSearch.length<=4){
+                this.setState((prevState,props)=>{
+                        return {jobsFound: [],isSearching: 0}
+                    }
+                );
+            }
+        }
+
+    }
     componentDidMount(){
         // Jquery DatePicker on change has to fire twice to update the ui
         let changeCalendar = this.changeValue;
@@ -120,9 +235,9 @@ class AddEditJobForm extends Component {
             let jobstatus   = props.status;
 
             return(
-                <div className="inline fields">
+                <div className="inline three fields">
                     <div className="field">
-                        <label>Status</label>
+                        <label><i className="fa fa-heart" aria-hidden="true"></i> Status</label>
                         <SelectJobStatus selected = {jobstatus}/>
                     </div>
                     {showJobType(selected,this.jobTypeChanged,true)}
@@ -135,7 +250,7 @@ class AddEditJobForm extends Component {
         return (
 
             <div>
-                <form className="ui form">
+                <form className="ui form" onSubmit={(e)=>{ e.preventDefault(); }}>
                     <input type="hidden" name="job_id" value={this.state.id || 0} />
                     <table className="job_bag_add_edit">
                         <tbody>
@@ -166,7 +281,7 @@ class AddEditJobForm extends Component {
                             <td>
                                 <div className="two fields">
                                     <div className="field">
-                                        <label>Job bag number</label>
+                                        <label><i className="fa fa-shopping-bag" aria-hidden="true"></i> Job bag number</label>
                                         <input type="text" name="job_prism_number" placeholder="Job Number" id="job_prism_number" value={this.state.job.job_prism_number}  onChange={this.changeValue}/>
                                     </div>
                                     <div className="field">
@@ -181,15 +296,16 @@ class AddEditJobForm extends Component {
                             <td>
                                 <div className="three fields">
                                     <div className="field">
-                                        <label>Due date</label>
+
+                                        <label><i className="calendar icon"></i> Due date </label>
                                         <input type="text" name="job_due_date" placeholder="DD/MM/YY" id="job_due_date" value={this.state.job.job_due_date}   />
                                     </div>
                                     <div className="field">
-                                        <label>Print date</label>
+                                        <label><i className="calendar icon"></i> Print date </label>
                                         <input type="text" name="job_print_date" placeholder="DD/MM/YY" id="job_print_date" value={this.state.job.job_print_date}  />
                                     </div>
                                     <div className="field">
-                                        <label>Lodgement date</label>
+                                        <label><i className="calendar icon"></i> Lodgement date </label>
                                         <input type="text" name="job_lodge_date" placeholder="DD/MM/YY" id="job_lodge_date" value={this.state.job.job_lodge_date} />
                                     </div>
 
@@ -204,10 +320,18 @@ class AddEditJobForm extends Component {
                         <tr>
                             <td>
                                 <div className="field">
-                                    <label>Comments</label>
-                                    <textarea name="job_comments" onChange={this.changeValue} value={this.state.job.job_comments}>
-
-                                        </textarea>
+                                    <label><i className="fa fa-tasks" aria-hidden="true"></i> Create Department Tasks</label>
+                                    {showDropDownDepartments(this.props.settings.departmentOptions,
+                                        this.state.job.job_departments,
+                                        this.jobDepartmentChange)}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div className="field">
+                                    <label><i className="fa fa-comment" aria-hidden="true"></i> Comments</label>
+                                    <textarea name="job_comments" onChange={this.changeValue} value={this.state.job.job_comments}></textarea>
                                 </div>
 
                             </td>
@@ -215,10 +339,10 @@ class AddEditJobForm extends Component {
                         <tr>
                             <td>
                                 <br/>
-                                <button className={"positive ui button "+(this.state.isSaving?"loading":"")} onClick={this.saveOrEdit}><i className="save icon"></i> Save</button>
+                                <button className={"positive ui button "+(this.state.isSaving?"loading":"")}
+                                        onClick={this.saveOrEdit}><i className="save icon"></i> Save</button>
                             </td>
                         </tr>
-
                         </tbody>
                     </table>
                 </form>
@@ -226,83 +350,6 @@ class AddEditJobForm extends Component {
         );
     }
 
-    //-------------------------------------
-    // User created function below
-    //-------------------------------------
-    saveOrEdit(){
-
-    }
-    changeValue(e){
-        let input_name = e.target.name;
-        let input_value= e.target.value;
-
-        let job = Object.assign(this.state.job,{});
-        job[input_name] = input_value;
-
-        this.setState((prevState,props)=>{
-            return ({job});
-            }
-        ); // Update the fields of the data
-
-
-
-    }
-    // clear the search result
-    prepopulateClear() {
-        this.setState(function(prevState,props){
-           return ({jobsFound: [] });
-        });
-    }
-    // Select and prepopulate the form with the selected jobbag
-    prepopulateSelect(jobsKey){
-        let jobs = JSON.parse(JSON.stringify( this.state.jobsFound));
-        let job  = jobs[jobsKey];
-
-        this.setState((prevState,props)=>{
-                return ({job})
-            }
-        );
-
-        // console.log("From onclick",job);
-    }
-    prepopulateFromPrism(event){
-        this.setState({ isSearching: 1});
-        let typeSearch = event.target.value;
-        let jobsFound = this.state.jobsFound;
-
-
-        // Create a delay whenever sometime on something for a few milliseconds
-        var timer;
-        if(typeSearch.length>4){
-            clearTimeout(timer);
-            var ms = 200;
-            timer = setTimeout(()=>{
-
-                const reactApiPrePop = this.api_folder+'manage_jobs_prepopulate.php?q='+typeSearch;
-                const promiseJobResult = axios.get(reactApiPrePop);
-
-                promiseJobResult.then((res)=>{
-                    let jobs = res.data;
-                    this.setState((prevState,props)=>{
-                            return {jobsFound: jobs,isSearching: 0}
-                        }
-                    );
-                    // console.log(this.state.jobsFound);
-                    }
-                )
-            },ms);
-
-
-        }else if(jobsFound.length>0){
-            if(typeSearch.length<=4){
-                this.setState((prevState,props)=>{
-                        return {jobsFound: [],isSearching: 0}
-                    }
-                );
-            }
-        }
-
-    }
 
 }
 function mapStateToProps(state,ownprops) {
@@ -312,8 +359,9 @@ function mapStateToProps(state,ownprops) {
 }
 function maptDispatchToProps(dispatch){
     return{
-        addNew: function(payload){ },
-        save: function(payload){}
+        manage_job_add_new_edit: (settings, job)=>{
+            dispatch(manage_job_add_new_edit(settings, job));
+        }
     }
 }
 export default connect(mapStateToProps,maptDispatchToProps)(AddEditJobForm);

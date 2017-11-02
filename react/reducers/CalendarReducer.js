@@ -2,7 +2,8 @@ import {CALENDAR_PAGE_ADD_SCHEDULE_TO,
         CALENDAR_PAGE_CHANGE_DAYS,
         CALENDAR_PAGE_CHANGE_GET_JOBS,
         CALENDAR_PAGE_ADD_RECURRING_TO_DATE,
-        CALENDAR_PAGE_MOVE_DEP_SIDE_BY_SIDE } from '../common/Constants';
+        CALENDAR_PAGE_MOVE_DEP_SIDE_BY_SIDE ,
+        CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB} from '../common/Constants';
 import moment from 'moment';
 
 const CalendarReducer = function (state=[], action) {
@@ -24,6 +25,12 @@ const CalendarReducer = function (state=[], action) {
             return jobs_state;
             break;
 
+        //  FOR UPDATING JOB BAG DEPARTMENT IN THE DATABASE
+        //  AT THE MOMENT ITS JUST HERE FOR FUTURE PURPOSES
+        case CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB:
+
+            return state;
+            break;
         case CALENDAR_PAGE_ADD_RECURRING_TO_DATE:
 
             return state;

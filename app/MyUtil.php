@@ -147,6 +147,18 @@ class MyUtil{
 		}
 		return $string;
 	}
+	static function debugPost($data){
+		// For debugging purposes
+		foreach($data as $key=>$value){
+			if(is_array($value)){
+				foreach($value as $key2=> $value2){
+					echo "$key |$key2| = $value2 \n";
+				}
+				continue;
+			}
+			echo "$key = $value \n";
+		}
+	}
 	// Return array but not last but if the value count is 1 return the default array which is 1
 	static function returnButLast($array){
 		$temp = array();

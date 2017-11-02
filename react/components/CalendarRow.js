@@ -39,8 +39,8 @@ class CalendarRow extends Component {
             dayKey: dayKey
         }
 
-        // Trigger the side to side functionality with drag and drop
-        this.props.calendar_page_move_dep_side_by_side(info);
+        // Trigger the action creator side to side functionality with drag and drop
+        this.props.calendar_page_move_dep_side_by_side(this.props.settings, info);
     }
     handleDragOver(e,departmentId){
         let dpIdfromBag = 0;
@@ -174,13 +174,14 @@ class CalendarRow extends Component {
 function mapStateToProps(state,ownprops) {
     return ({
         calendar_page: state.calendar_page,
-        calendar_jobs: state.calendar_page.calendar_jobs
+        calendar_jobs: state.calendar_page.calendar_jobs,
+        settings: state.settings
     });
 }
 function mapDispatchToProps(dispatch){
     return({
-        calendar_page_move_dep_side_by_side: (info)=>{
-            dispatch(calendar_page_move_dep_side_by_side(info));
+        calendar_page_move_dep_side_by_side: (settings, info)=>{
+            dispatch(calendar_page_move_dep_side_by_side(settings, info));
         }
     });
 }
