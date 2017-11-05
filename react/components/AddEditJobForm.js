@@ -42,7 +42,6 @@ class AddEditJobForm extends Component {
             id: 0
         };
 
-
         // console.log("From addeditjobform ",settings);
         // DEVELOPER FUNCTIONS
 
@@ -54,6 +53,12 @@ class AddEditJobForm extends Component {
         this.jobTypeChanged         = this.jobTypeChanged.bind(this);
         this.jobDepartmentChange    = this.jobDepartmentChange.bind(this);
 
+    }
+    // This will trigger when receiving a state change from global
+    componentWillReceiveProps(nextProps){
+        if (nextProps.manage_job_add_new_edit) {
+            console.log("Fired up!",nextProps);
+        }
     }
     // Initlialization happens below
     componentDidUpdate(){
@@ -355,6 +360,7 @@ class AddEditJobForm extends Component {
 function mapStateToProps(state,ownprops) {
     return{
         settings: state.settings,
+        manage_jobs: state.manage_jobs
     }
 }
 function maptDispatchToProps(dispatch){

@@ -8,6 +8,7 @@ import SchedulingToolSettingsReducer from '../reducers/SchedulingToolSettingsRed
 
 const reducers = combineReducers({
     calendar_page: CalendarReducer,
-    settings: SettingsReducer
+    settings: SettingsReducer,
+    manage_jobs: ManageJobReducer
 });
 export default reducers;

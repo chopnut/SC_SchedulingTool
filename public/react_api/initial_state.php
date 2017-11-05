@@ -89,7 +89,14 @@ echo "window.__initial_state__ = {
       today_date: '$todays_date',
       timestamp: '".time()."',
       calendar_jobs: $calendarJobs
-      }
+      },
+
+    manage_jobs :{
+
+    },
+
+    manage_tasks:{
+    }
 
 }";
 
