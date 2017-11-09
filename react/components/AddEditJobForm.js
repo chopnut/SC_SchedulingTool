@@ -308,7 +308,6 @@ class AddEditJobForm extends Component {
                                         <input type="text" name="job_dp_date" placeholder="DD/MM/YY" id="job_dp_date" value={this.state.job.job_dp_date} />
                                     </div>
                                     <div className="field">
-
                                         <label><i className="calendar icon"></i> Due date </label>
                                         <input type="text" name="job_due_date" placeholder="DD/MM/YY" id="job_due_date" value={this.state.job.job_due_date}   />
                                     </div>
@@ -320,7 +319,6 @@ class AddEditJobForm extends Component {
                                         <label><i className="calendar icon"></i> Lodgement date </label>
                                         <input type="text" name="job_lodge_date" placeholder="DD/MM/YY" id="job_lodge_date" value={this.state.job.job_lodge_date} />
                                     </div>
-
                                 </div>
                             </td>
                         </tr>
