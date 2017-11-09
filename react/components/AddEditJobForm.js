@@ -28,13 +28,13 @@ class AddEditJobForm extends Component {
                 job_lodge_date: "",
                 job_reports_ids:"",
                 job_qty: "",
-
+                job_dp_date: "",
                 job_colour: "",
-                job_status: "",
+                job_status: "stand by",
                 job_comments: "",
                 job_type: "once",
-
                 job_departments: []
+
             } ,
             jobsFound: [],
             isSaving: 0,
@@ -104,6 +104,7 @@ class AddEditJobForm extends Component {
 
         let job = Object.assign(this.state.job,{});
         job[input_name] = input_value;
+
 
         this.setState((prevState,props)=>{
                 return ({job});
@@ -187,6 +188,9 @@ class AddEditJobForm extends Component {
         });
         $('#job_lodge_date').datepicker({dateFormat: "dd/mm/yy",setDate: new Date()}).on("input change",function(e){
             changeCalendar(e);
+        })
+        ;$('#job_dp_date').datepicker({dateFormat: "dd/mm/yy",setDate: new Date()}).on("input change",function(e){
+            changeCalendar(e);
         });
     }
     render(){
@@ -235,17 +239,16 @@ class AddEditJobForm extends Component {
 
 
 
-        let SelectAndRadio = (props) => {
-            let selected = props.type;
-            let jobstatus   = props.status;
+        let SelectAndRadio = () => {
 
             return(
                 <div className="inline three fields">
                     <div className="field">
                         <label><i className="fa fa-heart" aria-hidden="true"></i> Status</label>
-                        <SelectJobStatus selected = {jobstatus}/>
+                        <SelectJobStatus selected = {this.state.job.job_status}/>
                     </div>
-                    {showJobType(selected,this.jobTypeChanged,true)}
+                    {showJobType(this.state.job.job_type,this.jobTypeChanged,true)}
+
                 </div>
 
             );
@@ -299,7 +302,11 @@ class AddEditJobForm extends Component {
                         </tr>
                         <tr>
                             <td>
-                                <div className="three fields">
+                                <div className="four fields">
+                                    <div className="field">
+                                        <label><i className="calendar icon"></i> Scheduled Date </label>
+                                        <input type="text" name="job_dp_date" placeholder="DD/MM/YY" id="job_dp_date" value={this.state.job.job_dp_date} />
+                                    </div>
                                     <div className="field">
 
                                         <label><i className="calendar icon"></i> Due date </label>
@@ -319,7 +326,7 @@ class AddEditJobForm extends Component {
                         </tr>
                         <tr>
                             <td>
-                                <SelectAndRadio type={this.state.job.job_type} status={this.state.job.job_status} />
+                                <SelectAndRadio />
                             </td>
                         </tr>
                         <tr>

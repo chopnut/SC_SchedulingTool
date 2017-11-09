@@ -134,6 +134,17 @@ class MyUtil{
 		}
 		return $defaultvalue;
 	}
+	// Return the value from the data if empty
+	static function dde($name,$data,$defaultvalue=""){
+
+		if(isset($data[$name]) && !empty(trim($data[$name]))){
+
+
+			return $data[$name];
+		}
+
+		return $defaultvalue;
+	}
 	/* Get filename from string */
 	static function getFilename($string){
 		$explode = explode('.',$string);

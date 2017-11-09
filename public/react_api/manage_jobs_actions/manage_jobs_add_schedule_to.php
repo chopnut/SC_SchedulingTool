@@ -18,6 +18,8 @@ $temp['job_created_by'] = ($user)?$user->login_id: 0;
 $departments = $extracted['job_departments'];
 $id          = $extracted['id'];
 
+
+
 // Edit
 if($id){
     echo "You are editing $id.";
@@ -33,6 +35,7 @@ if($id){
     if(!SchedJobBags::isBagExist($prism_job_id,$prism_job_number)){
 
         $job_bag = SchedJobBags::create($temp);
+
         if($job_bag->exists()){
             // Create the departments after succesfully creating it.
             $jobId = $job_bag->job_id;

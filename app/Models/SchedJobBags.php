@@ -33,9 +33,9 @@ class SchedJobBags extends Model
         $temp['job_prism_job_id'] = intval(\MyUtil::dd('job_prism_job_id',$data));
         $temp['job_prism_number'] = intval(\MyUtil::dd('job_prism_number',$data));
         $temp['job_title']        = \MyUtil::dd('job_title',$data);
-        $temp['job_print_date']   = \MyUtil::getYmdHis(\MyUtil::dd('job_print_date',$data),"","Y-m-d");
-        $temp['job_due_date']     = \MyUtil::getYmdHis(\MyUtil::dd('job_due_date',$data),"","Y-m-d");
-        $temp['job_lodge_date']   = \MyUtil::getYmdHis(\MyUtil::dd('job_lodge_date',$data,"01/01/1970"),"","Y-m-d");
+        $temp['job_print_date']   = \MyUtil::getYmdHis(\MyUtil::dde('job_print_date',$data,""),"","Y-m-d");
+        $temp['job_due_date']     = \MyUtil::getYmdHis(\MyUtil::dde('job_due_date',$data,""),"","Y-m-d");
+        $temp['job_lodge_date']   = \MyUtil::getYmdHis(\MyUtil::dde('job_lodge_date',$data,""),"","Y-m-d");
         $temp['job_qty']          = \MyUtil::dd('job_qty',$data);
         $temp['job_created_by']   = \MyUtil::dd('job_created_by',$data);
         $temp['job_colour']       = \MyUtil::dd('job_colour',$data,'');
@@ -43,7 +43,6 @@ class SchedJobBags extends Model
         $temp['job_reports_ids']  = \MyUtil::dd('job_reports_ids',$data,'');
         $temp['job_comments']     = \MyUtil::dd('job_comments',$data,'');
         $temp['job_type']         = \MyUtil::dd('job_type',$data,'once');
-
         $date 			         = \MyUtil::getYmdHis(\MyUtil::dd('job_dp_date',$data),"","Y-m-d");
         $departments             = \MyUtil::dd('job_departments',$data,[]);
 
@@ -51,6 +50,25 @@ class SchedJobBags extends Model
         $extracted['job_departments'] = $departments;
         $extracted['job_dp_date']     = $date;
         $extracted['id']              = \MyUtil::dd('job_departments',$data,0);
+
+        // Unsetting fields you dont need
+        if(empty($temp['job_print_date'])){
+            unset($temp['job_print_date']);
+        }
+        if(empty($temp['job_due_date'])){
+            unset($temp['job_due_date']);
+        }
+        if(empty($temp['job_lodge_date'])){
+            unset($temp['job_lodge_date']);
+        }
+
+        // Prism Job id and number
+        if(empty($temp['job_prism_job_id'])){
+            unset($temp['job_prism_job_id']);
+        }
+        if(empty($temp['job_prism_number'])){
+            unset($temp['job_prism_number']);
+        }
 
         return $temp;
 
