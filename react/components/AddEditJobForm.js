@@ -109,10 +109,11 @@ class AddEditJobForm extends Component {
 
         // e.preventDefault(); // Prevent form to be submitted naturally
         const jobData = Object.assign({},this.state.job,{id: this.state.id});
-        this.setState((prevState, props) => ({isSaving: 1}) );
+
 
         // Validate your Job creation here
-        if(!$('.ui.form').form("is valid")){
+        if($('.ui.form').form("is valid")){
+            this.setState((prevState, props) => ({isSaving: 1}) );
             this.props.manage_job_add_new_edit(this.props.settings,jobData);
         }
 
