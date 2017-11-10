@@ -7,7 +7,7 @@ import {showJobType,showDropDownDepartments} from "../common/JobBagCommonUI";
 
 // Get actions to save/new/edit
 import {manage_job_add_new_edit} from '../actions/ManageJobsActions';
-
+let c = 0;
 class AddEditJobForm extends Component {
     constructor(props){
         super(props);
@@ -27,7 +27,7 @@ class AddEditJobForm extends Component {
                 job_due_date: "",
                 job_lodge_date: "",
                 job_reports_ids:"",
-                job_qty: "",
+                job_qty: 0,
                 job_dp_date: "",
                 job_colour: "",
                 job_status: "stand by",
@@ -36,10 +36,14 @@ class AddEditJobForm extends Component {
                 job_departments: []
 
             } ,
-            jobsFound: [],
-            isSaving: 0,
             isSearching: 0,
-            id: 0
+            jobsFound: [],
+
+            isSaving: 0,
+            id: 0,
+
+            err: 0,
+            msg: ""
         };
 
         // console.log("From addeditjobform ",settings);
@@ -56,8 +60,19 @@ class AddEditJobForm extends Component {
     }
     // This will trigger when receiving a state change from global
     componentWillReceiveProps(nextProps){
+
         if (nextProps.manage_job_add_new_edit) {
-            console.log("Fired up!",nextProps);
+            const state= nextProps.manage_jobs.resp;
+            const job  = state.job;
+            const msg  = state.msg;
+            const err  = state.err;
+
+            console.log("HEY JOB",state);
+            // const newJob = Object.assign({},job,{ job_departments: deps });
+            // this.setState((prevState, props) => (
+            //     {job: newJob ,id: job.job_id }
+            // ));
+
         }
     }
     // Initlialization happens below
@@ -92,11 +107,15 @@ class AddEditJobForm extends Component {
     //-------------------------------------
     saveOrEdit(e){
 
-        e.preventDefault(); // Prevent form to be submitted naturally
+        // e.preventDefault(); // Prevent form to be submitted naturally
         const jobData = Object.assign({},this.state.job,{id: this.state.id});
         this.setState((prevState, props) => ({isSaving: 1}) );
 
-        this.props.manage_job_add_new_edit(this.props.settings,jobData);
+        // Validate your Job creation here
+        if(!$('.ui.form').form("is valid")){
+            this.props.manage_job_add_new_edit(this.props.settings,jobData);
+        }
+
     }
     changeValue(e){
         let input_name = e.target.name;
@@ -192,6 +211,56 @@ class AddEditJobForm extends Component {
         ;$('#job_dp_date').datepicker({dateFormat: "dd/mm/yy",setDate: new Date()}).on("input change",function(e){
             changeCalendar(e);
         });
+
+        // Validation form inititialization
+        $('.ui.form')
+            .form({
+                on: 'blur',
+                fields: {
+                    job_title: {
+                        identifier: 'job_title',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Please enter job title'
+                            }
+                        ]
+                    },
+                    job_departments: {
+                        identifier: 'job_departments',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Please choose at least one departments.'
+                            }
+                        ]
+                    },
+                    job_dp_date: {
+                        identifier: 'job_dp_date',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'You must enter a scheduled date.'
+                            }
+                        ]
+                    }
+                }
+            });
+    }
+    showHeader(){
+        if(this.state.id>0){
+            return (
+                <header className="manage_page_ce_header">
+                    <span className="head edit">Editing</span>
+                </header>
+            );
+        }else{
+            return (
+                <header className="manage_page_ce_header">
+                    <span className="head new">Creating new job</span>
+                </header>
+            );
+        }
     }
     render(){
         let elements = this.state.jobsFound.map(
@@ -248,7 +317,6 @@ class AddEditJobForm extends Component {
                         <SelectJobStatus selected = {this.state.job.job_status}/>
                     </div>
                     {showJobType(this.state.job.job_type,this.jobTypeChanged,true)}
-
                 </div>
 
             );
@@ -257,13 +325,17 @@ class AddEditJobForm extends Component {
 
         return (
 
-            <div>
-                <form className="ui form" onSubmit={(e)=>{ e.preventDefault(); }}>
+            <div className="manage_job_ce_container">
+                <form className="ui form" >
                     <input type="hidden" name="job_id" value={this.state.id || 0} />
+                    {
+                        this.showHeader()
+                    }
                     <table className="job_bag_add_edit">
                         <tbody>
                         <tr>
                             <td >
+                                <div className="ui error message"></div>
                                 <div className="field">
                                     <label>
                                         Search for Job by Number or Title from PRISM to link and pre-populate the fields [OPTIONAL]
@@ -293,7 +365,7 @@ class AddEditJobForm extends Component {
                                         <input type="text" name="job_prism_number" placeholder="Job Number" id="job_prism_number" value={this.state.job.job_prism_number}  onChange={this.changeValue}/>
                                     </div>
                                     <div className="field">
-                                        <label>Quantity</label>
+                                        <label><i className="calculator icon"></i> Quantity</label>
                                         <input type="text" name="job_qty" placeholder="Job Quantity" id="job_qty" value={this.state.job.job_qty} onChange={this.changeValue}/>
                                     </div>
 
@@ -331,6 +403,7 @@ class AddEditJobForm extends Component {
                             <td>
                                 <div className="field">
                                     <label><i className="fa fa-tasks" aria-hidden="true"></i> Create Department Tasks</label>
+                                    <input type="hidden" name="job_departments" id="job_departments" value={this.state.job.job_departments}/>
                                     {showDropDownDepartments(this.props.settings.departmentOptions,
                                         this.state.job.job_departments,
                                         this.jobDepartmentChange)}
@@ -350,7 +423,7 @@ class AddEditJobForm extends Component {
                             <td>
                                 <br/>
                                 <button className={"positive ui button "+(this.state.isSaving?"loading":"")}
-                                        onClick={this.saveOrEdit}><i className="save icon"></i> Save</button>
+                                        onClick={this.saveOrEdit} ><i className="save icon"></i> Save</button>
                             </td>
                         </tr>
                         </tbody>

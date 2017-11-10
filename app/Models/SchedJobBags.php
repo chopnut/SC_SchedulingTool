@@ -49,7 +49,7 @@ class SchedJobBags extends Model
         // Extracted below
         $extracted['job_departments'] = $departments;
         $extracted['job_dp_date']     = $date;
-        $extracted['id']              = \MyUtil::dd('job_departments',$data,0);
+        $extracted['id']              = \MyUtil::dd('id',$data,0);
 
         // Unsetting fields you dont need
         if(empty($temp['job_print_date'])){
@@ -95,7 +95,8 @@ class SchedJobBags extends Model
             $job_depts[]		     = $jd;
         }
         // Now create the job_departments you currently have set up.
-        return $job_bag->dept()->saveMany($job_depts);
+        $job_bag->dept()->saveMany($job_depts);
+        return $job_bag->dept;
     }
     static public function addScheduleTo($post){
         $extracted = array();
@@ -105,13 +106,24 @@ class SchedJobBags extends Model
         $departments      = \MyUtil::dd('job_departments',$post,[]);
 
         if(SchedJobBags::isBagExist($temp['job_prism_job_id'],$temp['job_prism_number'] )){
-            echo "Its already created";
+            echo '{ msg: "JOB BAG ALREADY EXIST",error: 1 }';
         }else{
             // Create the job bag first
             $job_bag   = SchedJobBags::create($temp);
             SchedJobBags::createDepartments($job_bag,$departments,$date);
 
         }
+    }
+
+    // Mutator Date
+    public function getJobPrintDateAttribute($value){
+        return $value;
+    }
+    public function getJobDueDateAttribute($value){
+        return $value;
+    }
+    public function getJobLodgeDateAttribute($value){
+        return $value;
     }
 }
 

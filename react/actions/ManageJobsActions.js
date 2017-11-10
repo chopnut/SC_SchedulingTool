@@ -15,9 +15,10 @@ export function manage_job_add_new_edit(settings, job){
             // If you have the authority proceed with the adding
             const req = axios.post(path_api,job);
             req.then((res)=>{
+                let returndata = res.data;
 
-                console.log("MESSAGE HERE: ",job, res.data);
-                dispatch ({type: MANAGE_JOB_ADD_NEW_EDIT , timestamp: new Date().getTime() });
+                console.log("INPUT:  ", job );
+                dispatch ({type: MANAGE_JOB_ADD_NEW_EDIT , timestamp: new Date().getTime() ,resp: returndata });
             });
         });
     });

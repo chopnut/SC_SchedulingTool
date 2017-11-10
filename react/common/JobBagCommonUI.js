@@ -35,6 +35,8 @@ export function showDropDownDepartments(options,selections,onchangeFunction){
                   floating
                   multiple
                   selection
+                  id        = "job_departments"
+                  name      = "job_departments"
                   options   = {options}
                   value     = {selections}
                   onChange  = {onchangeFunction}
