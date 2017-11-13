@@ -7,8 +7,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import {showJobType,showDropDownDepartments} from "../common/JobBagCommonUI";
 
-
-
 class CalendarPrismBagPopUps extends Component {
     constructor(props){
         super(props);
@@ -151,9 +149,6 @@ class CalendarPrismBagPopUps extends Component {
 
                                     {
                                         (this.props.job.isAdded? viewSchedule() : addSchedule())
-                                    }
-                                    {
-                                        showErrorMessages()
                                     }
 
                                 </td>
