@@ -28,9 +28,9 @@ class CalendarPrismBagPopControl extends Component {
         this.viewSchedule   = this.viewSchedule.bind(this); // View schedule instead of creating from button
         this.changeRecurrence = this.changeRecurrence.bind(this);
         this.handleChangeDepartment = this.handleChangeDepartment.bind(this); // this is for updating departments to schedule
-
+        this.handleCheckError   = this.handleCheckError.bind(this);
     }
-    // Function that set states
+
     // Adding job to the scheduled date
     //---------------------------------
     addToSchedule(date,jobType){
@@ -43,10 +43,23 @@ class CalendarPrismBagPopControl extends Component {
             job_dp_date: date,
             job_departments: this.state.departmentValues
         });
-        const promise = this.props.calendar_page_add_schedule_to(
+        this.props.calendar_page_add_schedule_to(
             this.props.settings,
             postJob
         );
+    }
+
+    // Function that set states
+    handleCheckError(){
+        // Pass this function to check if all the value is set and have at least amount of the valut to the popup card itself
+        // return object of msg
+        let msgs = [];
+        let err  =  0;
+        if(this.state.departmentValues.length<=0){
+            msgs.push("You need atleast 1 department to schedule a job bag.");
+            err  =  1;
+        }
+        return {err: err , msg: msgs }
     }
     handleChangeDepartment(e,{value}){
         console.log("Departments: ", this.state);
@@ -93,7 +106,7 @@ class CalendarPrismBagPopControl extends Component {
 
             return(
 
-            <Popup trigger={<div><CalendarPrismBagTriggerPopUp job_title={this.props.job.job_title} isOpen={this.state.isOpen} isAlreadyScheduled = {this.state.isAlreadyScheduled} /></div>}
+            <Popup trigger={<div><CalendarPrismBagTriggerPopUp job_title={this.props.job.job_title} isOpen={this.state.isOpen} isAlreadyScheduled = {this.props.job.isAdded} /></div>}
                    className="prism_popup"
                    position="left center"
                    flowing
@@ -104,14 +117,16 @@ class CalendarPrismBagPopControl extends Component {
                    on="hover" open={this.state.isOpen}
                    onClose={this.handleClose}
                    onOpen={this.handleOpen}>
-                   <CalendarPrismBagPopUps job={this.props.job} days={this.props.days}
-                                           addToSchedule={this.addToSchedule} viewSchedule={this.viewSchedule}
-                                           changeRecurrence={this.changeRecurrence}
-                                           isSaving={this.state.isSaving}
-                                           isAlreadyScheduled = {this.state.isAlreadyScheduled}
-                                           isRecurrence={this.state.recurrence}
-                                           handleChangeDepartment={this.handleChangeDepartment}
-                                           departmentValues={this.state.departmentValues}
+                   <CalendarPrismBagPopUps job={this.props.job}
+                                           days                  ={this.props.days}
+                                           addToSchedule         ={this.addToSchedule}
+                                           viewSchedule          ={this.viewSchedule}
+                                           changeRecurrence      ={this.changeRecurrence}
+                                           isSaving              ={this.state.isSaving}
+                                           isRecurrence          ={this.state.recurrence}
+                                           handleChangeDepartment= {this.handleChangeDepartment}
+                                           handleCheckError      = {this.handleCheckError}
+                                           departmentValues      = {this.state.departmentValues}
                                            id={this.props.job.job_title}
                    />
             </Popup>

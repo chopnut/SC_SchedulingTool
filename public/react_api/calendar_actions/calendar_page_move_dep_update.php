@@ -23,7 +23,7 @@ foreach($_POST as $key=>$value){
 $schedJob  = SchedJobBagDepartment::find($_POST['jobId']);
 if($schedJob->exists()){
     $newDate               = $_POST['day']['date'];
-    $schedJob->job_dp_date = $u::getYmdHis($newDate,"d/m/Y","Y-m-d");
+    $schedJob->job_dp_date = $newDate;
     $schedJob->save();
      echo "UPDATED SUCCESSFULLY";
 }

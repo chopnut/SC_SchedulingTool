@@ -4,6 +4,7 @@ namespace Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class SchedJobBags extends Model
 {
     //
@@ -43,13 +44,15 @@ class SchedJobBags extends Model
         $temp['job_reports_ids']  = \MyUtil::dd('job_reports_ids',$data,'');
         $temp['job_comments']     = \MyUtil::dd('job_comments',$data,'');
         $temp['job_type']         = \MyUtil::dd('job_type',$data,'once');
-        $date 			         = \MyUtil::getYmdHis(\MyUtil::dd('job_dp_date',$data),"","Y-m-d");
-        $departments             = \MyUtil::dd('job_departments',$data,[]);
+
 
         // Extracted below
-        $extracted['job_departments'] = $departments;
-        $extracted['job_dp_date']     = $date;
-        $extracted['id']              = \MyUtil::dd('id',$data,0);
+        $date 			                = \MyUtil::dd('job_dp_date',$data);
+        $departments                    = \MyUtil::dd('job_departments',$data,[]);
+        $extracted['id']                = \MyUtil::dd('id',$data,0);
+        $extracted['job_departments']   = $departments;
+        $extracted['job_dp_date']       = $date;
+
 
         // Unsetting fields you dont need
         if(empty($temp['job_print_date'])){
@@ -64,32 +67,43 @@ class SchedJobBags extends Model
 
         // Prism Job id and number
         if(empty($temp['job_prism_job_id'])){
-            unset($temp['job_prism_job_id']);
+            $temp['job_prism_job_id'] = null;
         }
         if(empty($temp['job_prism_number'])){
-            unset($temp['job_prism_number']);
+            $temp['job_prism_number'] = null;
         }
-
         return $temp;
 
     }
     static public function isBagExist($prism_job_id,$prism_number){
         // Check if the schedule bag is already there, but will allow recurring job
         // Only one recurring type is allowed in that day
-        $job_bag  = SchedJobBags::where(function($q) use($prism_job_id,$prism_number){
+        $job_bag  = SchedJobBags::where(function($q) use($prism_job_id){
             $q->where("job_prism_job_id","=",$prism_job_id)
-                ->orWhere("job_prism_number","=",$prism_number);
+                ->WhereNotNull("job_prism_job_id");
+
+        })->orWhere(function($q) use($prism_number){
+            $q->where("job_prism_number","=",$prism_number)
+                ->WhereNotNull("job_prism_number");
         });
+
         return $job_bag->exists();
     }
+
+
     static public function createDepartments($job_bag,$departments,$date){
         // Create the bags department for each
         $job_depts = array();
+
+
+
+
         foreach($departments as $departmentId){
             $jd  				      = new SchedJobBagDepartment();
             $jd->job_id              = $job_bag->job_id;
             $jd->job_dp_dept	     = $departmentId;
-            $jd->job_dp_date	     = $date;
+            // This must call mutator when date is being set
+            $jd->job_dp_date	     = trim($date);
             $jd->job_dp_qty          = $job_bag->job_qty;
             $jd->job_dp_created_date = date("Y-m-d",time());
             $job_depts[]		     = $jd;
@@ -102,8 +116,10 @@ class SchedJobBags extends Model
         $extracted = array();
         $temp = SchedJobBags::fillData($post,$extracted);
 
-        $date 			  = \MyUtil::getYmdHis(\MyUtil::dd('job_dp_date',$post),"","Y-m-d");
+        $date 			  = \MyUtil::dd('job_dp_date',$post, null);
         $departments      = \MyUtil::dd('job_departments',$post,[]);
+
+
 
         if(SchedJobBags::isBagExist($temp['job_prism_job_id'],$temp['job_prism_number'] )){
             echo '{ msg: "JOB BAG ALREADY EXIST",error: 1 }';
@@ -114,16 +130,54 @@ class SchedJobBags extends Model
 
         }
     }
+    // ----------------------------------------------
+    // Mutator, when a variable is being set. Mutate to a different form.
 
-    // Mutator Date
+    public function setJobPrintDateAttribute($value)
+    {
+        $d = \DateTime::createFromFormat('d-m-Y', $value);
+        $newDate = date("Y-m-d",$d);
+        $this->attributes['job_print_date'] = $newDate;
+    }
+    public function setJobDueDateAttribute($value)
+    {
+        $d = \DateTime::createFromFormat('d-m-Y', $value);
+        $newDate = date("Y-m-d",$d);
+        $this->attributes['job_due_date'] = $newDate;
+    }
+
+    public function setJobLodgeDateAttribute($value)
+    {
+        $d = \DateTime::createFromFormat('d-m-Y', $value);
+        $newDate = date("Y-m-d",$d);
+        $this->attributes['job_lodge_date'] = $newDate;
+    }
+    // ----------------------------------------------
+    // Accessor
+
     public function getJobPrintDateAttribute($value){
-        return $value;
+        if(is_null($value)){
+            return $value;
+        }
+        $originalDate = $value;
+        $newDate = date("d-m-Y", strtotime($originalDate));
+        return $newDate;
     }
     public function getJobDueDateAttribute($value){
-        return $value;
+        if(is_null($value)){
+            return $value;
+        }
+        $originalDate = $value;
+        $newDate = date("d-m-Y", strtotime($originalDate));
+        return $newDate;
     }
     public function getJobLodgeDateAttribute($value){
-        return $value;
+        if(is_null($value)){
+            return $value;
+        }
+        $originalDate = $value;
+        $newDate = date("d-m-Y", strtotime($originalDate));
+        return $newDate;
     }
 }
 

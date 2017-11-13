@@ -1,10 +1,15 @@
 <?php
     include('includes.php');
     $u = new MyUtil();
+
+
     use Models\PrismJobBag;
+	use Models\SchedJobBagDepartment;
+	use Models\SchedJobBags;
     // Query variable
     // from and to must be present
     if($u::areTheseSetAndNotEmpty('g','from','to')){
+
     	$from = $u::getYmdHis($u::de('from'),'','Y-m-d 00:00:00');
     	$to   = $u::getYmdHis($u::de('to'),'','Y-m-d 00:00:00');
 
@@ -12,15 +17,17 @@
     	$prismJobBags = $capsule::connection('sqlserver')->select($sql);
     
 
-    	$temp = array();
-		$i = 0;
+    	$temp 		= array();
+		$i 			= 0;
 
     	foreach($prismJobBags as $bag){
 
     		$qty    = $bag->QM_JOB_QTY;
     		$title	= $bag->QM_TITLE;
-    		$jobNum = $bag->QM_JOB_NUM;
-    		$jobId	= $bag->JOB_ID;
+
+    		$jobNum = intval(trim($bag->QM_JOB_NUM));
+    		$jobId	= intval(trim($bag->JOB_ID));
+
  			$customerCode = $bag->QM_CUST_CODE;  // Customer code
  			$customerName = $bag->RM_NAME;
  	
@@ -36,7 +43,8 @@
     			$temp[$day] 	= array();
     			$i 				= 0;
     		}
-			$temp[$day][$i]['job_prism_number'] 	= trim($jobNum);
+
+			$temp[$day][$i]['job_prism_number'] 	= $jobNum;
 			$temp[$day][$i]['job_prism_job_id']		= $jobId;
 			$temp[$day][$i]['job_title'] 			= $title;
 			$temp[$day][$i]['job_due_date'] 		= $reqDate;
@@ -49,11 +57,19 @@
 			$temp[$day][$i]['job_customer_name']    = $customerName;
 			$temp[$day][$i]['isPrism']    			= 1;
 
-
+			// Get jobs from mysql
+			$schedBag                               = SchedJobBags::where("job_prism_job_id",$jobId);
+			if($schedBag->exists()){
+				$temp[$day][$i]['isAdded'] = 1;
+			}else{
+				$temp[$day][$i]['isAdded'] = 0;
+			}
 
 			$i++;
     	}
-    	echo json_encode($temp);
+
+
+    	echo "{ \"jobs\": ".json_encode($temp)." }";
 
     }
 

@@ -39,8 +39,9 @@ class SchedJobBagDepartment extends Model
             $temp[] = \MyUtil::getYmdHis($d,$format = "d/m/Y",$returnFormat="Y-m-d");
         }
 
-        $dates          = $temp;
         $flipped_dates  = array_flip($dates);
+
+
 
         // Now grab the records according to the date that was generated.
         $job_departments = SchedJobBagDepartment::whereIn('job_dp_date',$temp)->get();
@@ -52,10 +53,15 @@ class SchedJobBagDepartment extends Model
             $job_date       = $deps->job_dp_date;
             $job_dept_id    = $deps->job_dp_dept;
 
+
+
             // What to put in the data itself
             // Now allocate the record to the flipped array, and use the value as the key
 
+
             if(isset($flipped_dates[$job_date])){
+//                echo $job_date;
+//                var_dump($dates);
                 $key    = $flipped_dates[$job_date];
 
                 // Create the 0-6 Array holder
@@ -79,6 +85,8 @@ class SchedJobBagDepartment extends Model
             }
         }
 
+
+
         // Fill up all the empty days in the master array also the dept ids
         $depts = Department::orderBy("job_dep_order")->get();
 
@@ -99,6 +107,19 @@ class SchedJobBagDepartment extends Model
             }
         }
         return $master_array;
+    }
+    // Mutator and Accesso
+    // Accessor
+    public function getJobDpDateAttribute($value){
+        $originalDate = $value;
+        $newDate = date("d/m/Y", strtotime($originalDate));
+        return $newDate;
+    }
+
+    // Mutator
+    public function setJobDpDateAttribute($value){
+        $d = \DateTime::createFromFormat('d/m/Y', $value);
+        $this->attributes['job_dp_date'] = $d->format('Y-m-d');
     }
 }
 

@@ -32,11 +32,12 @@ export function calendar_page_add_schedule_to(settings,job){
             const data      = Object.assign({},job, {
                 job_created_by: user_id
             });
+
+            console.log("POST CREATION SCHEDULE: SENDING ",data);
             // If you have the authority proceed with the adding
             const req = axios.post(path_api,data);
             req.then((res)=>{
-
-                console.log("POST CREATION SCHEDULE: ",res.data);
+                console.log("POST CREATION SCHEDULE: RECEIVED ",res.data);
                 dispatch({type: CALENDAR_PAGE_ADD_SCHEDULE_TO, job: data });
             });
 
@@ -99,10 +100,11 @@ export function calendar_page_move_dep_side_by_side(settings, info){
             let path_api = settings.setting.react_api_folder + '/calendar_actions/calendar_page_move_dep_update.php';
 
 
+            console.log("POST SIDE BY SIDE: SENDING ",data);
             // Only update when post is successful
             const req = axios.post(path_api,data);
             req.then((res)=>{
-                console.log("POST UPDATE BAG: ",data,res.data);
+                console.log("POST SIDE BY SIDE: RECEIVED ",res.data);
 
                 dispatch({type: CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB, ok: true });
                 // Update the state of the calendar now

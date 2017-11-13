@@ -15,8 +15,8 @@ class CalendarPrismBagPopUps extends Component {
         this.state = {
             isLoading: true,
             jobType: "once",
-            startDate: moment()
-
+            startDate: moment(),
+            checkError: { err: 0 , msg: []}
         }
         this.handleChange           = this.handleChange.bind(this);
         this.handleChangeJobType    = this.handleChangeJobType.bind(this);
@@ -47,26 +47,81 @@ class CalendarPrismBagPopUps extends Component {
             if(this.props.isSaving){
                 buttonSavingClass =  "ui small loading button";
             }
-            let buttonSaving      =  <button className={buttonSavingClass} onClick={()=>{ this.props.addToSchedule(this.state.startDate.format("DD/MM/YYYY"),this.state.jobType ) }}  >Schedule Job to</button>;
-            if(this.props.isAlreadyScheduled){
-                buttonSaving      =  <button className={buttonSavingClass} onClick={this.props.viewSchedule}  >View Job Schedule</button>;
+            let buttonSaving      =  <button className={buttonSavingClass} onClick={
+                (e)=>{
+                    e.preventDefault();
+                    const checkError = this.props.handleCheckError();
+
+                    // If there is no error submit otherwise show error
+                    if(checkError.err == 0){
+                        this.props.addToSchedule(this.state.startDate.format("DD/MM/YYYY"),this.state.jobType )
+                    }else{
+
+                        // Update the state to show error and re-render
+                        this.setState((prevState, props) => (
+                            {checkError }
+                        ));
+                    }
+
+                }
+            }  >Schedule Job to</button>;
+
+            if(this.props.job.isAdded){
+                buttonSaving      =  <button className={buttonSavingClass} onClick={this.props.viewSchedule}  >View/Edit Job Bag</button>;
             }
 
+            const addSchedule = ()=>{
+                return(
+                    <div className="schedule_to_container">
+                        <div className="two fields">
+                            {buttonSaving}
+                            <span className="ui input">
+                                              <DatePicker
+                                                  selected={this.state.startDate}
+                                                  onChange={this.handleChange}
+                                                  shouldCloseOnSelect={false}
+                                                  placeholderText="Pick a date to add to"
+                                                  dateFormat="DD/MM/YYYY"
+                                                  className="job_card_datepicker"
+                                              />
+                                            </span>
+                        </div>
+                        {showJobType(this.state.jobType,this.handleChangeJobType,true)}
+
+                        <div className="departments">
+                            <input type="hidden" name={"job_departments"} id={"job_departments"} value={this.props.departmentValues} />
+                            {showDropDownDepartments(
+                                this.props.departmentOptions,
+                                this.props.departmentValues,
+                                this.props.handleChangeDepartment)}
+                        </div>
+
+                    </div>
+                );
+            }
+
+            const viewSchedule = ()=>{
+                return (
+                    <div className="schedule_to_container">
+                        {buttonSaving}
+                    </div>
+                );
+            }
             return(
             <div style={{width: '300px'}} className="job_card">
+
                 <header>
                     <div className="first">
                         <table>
                             <tbody>
                                 <tr>
-                                    <td className="cell_prism_number">{this.props.job.job_prism_number} </td>
+                                    <td className="cell_prism_number">JOB NUMBER: {this.props.job.job_prism_number} </td>
                                     <td className="cell_qty"><span className="job_qty"> {Math.round(parseInt(this.props.job.job_qty))}</span></td>
                                 </tr>
                                 <tr><td colSpan="3" className="title">{this.props.job.job_title}</td></tr>
                                 <tr><td colSpan="3" className="customer">{this.props.job.job_customer_name}</td></tr>
                             </tbody>
                         </table>
-
                     </div>
 
                 </header>
@@ -93,35 +148,20 @@ class CalendarPrismBagPopUps extends Component {
                             </tr>
                             <tr>
                                 <td className="info" colSpan={2}>
-                                    <div className="schedule_to_container">
-                                        <div className="two fields">
-                                            {buttonSaving}
-                                            <span className="ui input">
-                                              <DatePicker
-                                                  selected={this.state.startDate}
-                                                  onChange={this.handleChange}
-                                                  shouldCloseOnSelect={false}
-                                                  placeholderText="Pick a date to add to"
-                                                  dateFormat="DD/MM/YYYY"
-                                                  className="job_card_datepicker"
-                                              />
-                                            </span>
-                                        </div>
 
-                                        {showJobType(this.state.jobType,this.handleChangeJobType,true)}
-                                        <div className="departments">
-                                            {showDropDownDepartments(
-                                                    this.props.departmentOptions,
-                                                    this.props.departmentValues,
-                                                    this.props.handleChangeDepartment)}
-                                        </div>
-                                    </div>
+                                    {
+                                        (this.props.job.isAdded? viewSchedule() : addSchedule())
+                                    }
+                                    {
+                                        showErrorMessages()
+                                    }
 
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
             </div>);
         }
     }

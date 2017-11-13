@@ -256,19 +256,28 @@
                                 //This is for link on side prism job
 
                                 .aside_jobs{
-                                    width: 155px;
-                                    border-bottom: 1px solid #ccc;
+                                    width: 160px;
+                                    border-bottom: 1px solid #eee;
                                     overflow: hidden;
                                     white-space: nowrap;
                                     cursor: pointer;
+                                    padding-left: 5px;
                                 }
                                 .aside_jobs:hover{
-                                    background-color: #eee;
+
                                 }
                                 .aside_jobs.selected{
-                                    background-color: #eee;
-                                }
+                                    background-color: lighten($main_orange_color,35%);
+                                    color: darken($main_orange_color,30%);
+                                    font-weight: bold;
+                                    border-bottom: 1px solid #fff;
 
+                                }
+                                .aside_jobs.scheduled{
+                                    background-color: lighten($main_teal_color,15%);
+                                    color: #000;
+                                    border-bottom: 1px solid #fff;
+                                }
 
                             }
 
@@ -438,7 +447,7 @@
 
 // Job card pop up
 .job_card_datepicker{
-    width: 130px;
+    width: 135px!important;
     font-size: 11px;
 }
 .prism_popup{
@@ -467,9 +476,10 @@
 
             .first{
                 table{
+                    font-size: 10px;
                     width: 100%;
                     td{ border: 0px solid #ccc; }
-                    .cell_qty{text-align: right; }
+                    .cell_qty{text-align: right;  }
                     .cell_prism_number{}
                     .title{ font-weight: bold; font-size: 15px; color: darken($main_teal_color,30%)}
                     .customer{ }

@@ -52,6 +52,7 @@ for($i = 0 ;$i<7;$i++){
     $paramDates[]         = $mDate;
 }
 
+
 // Restructure to be used in dropdown
 $depts                              = Department::getDepartmentsNoKids();
 $dropDownOptionsDepartment          = array();
@@ -64,12 +65,14 @@ foreach($depts as $id=>$value){
 }
 
 // Encode them now
+
 $sevenDays   = json_encode($daysDate);
 $firstDay    = json_encode($daysDate[0]);
 $departments = json_encode($dropDownOptionsDepartment);
 
 // Set the calendar jobs
 $paramDateString = implode(',',$paramDates);
+
 $calendarJobs    = json_encode(\Models\SchedJobBagDepartment::getCalendarJobs($paramDateString));
 // Timestamp in every state needs to change to retrigger re-render
 // When the calendar page days changed make sure you change the calendar_jobs state

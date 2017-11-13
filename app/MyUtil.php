@@ -127,7 +127,7 @@ class MyUtil{
 		}
 		return $val;
 	}
-	// Return the value from the data if empty
+	// Return the value, regarless of if its empty or not
 	static function dd($name,$data,$defaultvalue=""){
 		if(isset($data[$name])){
 			return $data[$name];

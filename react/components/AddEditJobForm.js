@@ -131,6 +131,7 @@ class AddEditJobForm extends Component {
             }
         ); // Update the fields of the data
     }
+
     // clear the search result
     prepopulateClear() {
         this.setState(function(prevState,props){

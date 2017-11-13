@@ -3,6 +3,7 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import u from '../common/edlibrary';
 import PopUpControl from '../components/CalendarPrismBagPopControl';
+import moment from 'moment';
 
 class CalendarPrismSidebar extends Component {
     constructor(props){
@@ -11,7 +12,7 @@ class CalendarPrismSidebar extends Component {
         this.state = {
             isLoading: true,
             jobsFound: [],
-            prismBagsPopID: []
+            timestamp: moment()
         }
 
     }
@@ -21,7 +22,7 @@ class CalendarPrismSidebar extends Component {
         const to   = this.props.days[6].date;
         // to be changed from and to api
         const req  =this.props.settings.setting.react_api_folder+'calendar_prism_jobs_week.php?from='+from+'&to='+to;
-
+        console.log("GETTING CALENDAR SIDE PRISM: "+ req);
 
         // Acquire from Prism get API
         const prismbagPromise = axios.get(req);
@@ -30,14 +31,14 @@ class CalendarPrismSidebar extends Component {
             // console.log("from prism aside ",data,req);
 
             this.setState(function(state,props){
-                return ({state,isLoading: false,jobsFound: data});
+                return ({state,isLoading: false, jobsFound: data.jobs});
             });
 
         }.bind(this))
 
         // Trigger pop up if finished loading
         if(!this.state.isLoading){
-            console.log("setting up pop up",this.state.prismBagsPopID);
+
 
         }
 
@@ -54,7 +55,6 @@ class CalendarPrismSidebar extends Component {
             const jobs  = this.state.jobsFound[day];
 
             if(jobs!= undefined){
-
                 cells.push(
                     <div className="aside_label" key={i}>
                         <span className="day"> {u.ucfirst(day)} </span>
