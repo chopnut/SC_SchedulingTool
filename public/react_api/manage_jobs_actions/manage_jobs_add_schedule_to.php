@@ -39,8 +39,6 @@ if($id){
 
         $jsonBag        = $job_bag->ToJson();
         echo '{ "msg": "Successfully edited.","error": 0 , "job": '.$jsonBag.' }';
-    }else{
-        // JOB BAG DOES NOT EXIST
     }
 
 // New
