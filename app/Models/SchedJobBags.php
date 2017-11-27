@@ -25,6 +25,8 @@ class SchedJobBags extends Model
         'job_qty',
         'job_type'];
 
+
+    public $timestamps       = true;
   public function dept()
   {
     return $this->hasMany('Models\SchedJobBagDepartment','job_id');
@@ -49,12 +51,14 @@ class SchedJobBags extends Model
         // Extracted below
         $date 			                = \MyUtil::dd('job_dp_date',$data);
         $departments                    = \MyUtil::dd('job_departments',$data,[]);
-        $extracted['id']                = \MyUtil::dd('id',$data,0);
+        $extracted['job_id']            = \MyUtil::dd('job_id',$data,0);
         $extracted['job_departments']   = $departments;
         $extracted['job_dp_date']       = $date;
 
 
-        // Unsetting fields you dont need
+        // Unsetting fields you dont need and will be null
+        // when queried to the database
+
         if(empty($temp['job_print_date'])){
             unset($temp['job_print_date']);
         }
@@ -67,10 +71,11 @@ class SchedJobBags extends Model
 
         // Prism Job id and number
         if(empty($temp['job_prism_job_id'])){
-            $temp['job_prism_job_id'] = null;
+            unset($temp['job_prism_job_id']);
+
         }
         if(empty($temp['job_prism_number'])){
-            $temp['job_prism_number'] = null;
+            unset($temp['job_prism_number']);
         }
         return $temp;
 
@@ -87,7 +92,7 @@ class SchedJobBags extends Model
                 ->WhereNotNull("job_prism_number");
         });
 
-        return $job_bag->exists();
+        return $job_bag;
     }
 
 
@@ -95,22 +100,21 @@ class SchedJobBags extends Model
         // Create the bags department for each
         $job_depts = array();
 
-
-
-
         foreach($departments as $departmentId){
             $jd  				      = new SchedJobBagDepartment();
             $jd->job_id              = $job_bag->job_id;
             $jd->job_dp_dept	     = $departmentId;
+
             // This must call mutator when date is being set
-            $jd->job_dp_date	     = trim($date);
+            $jd->job_dp_date	     = $date;
             $jd->job_dp_qty          = $job_bag->job_qty;
             $jd->job_dp_created_date = date("Y-m-d",time());
             $job_depts[]		     = $jd;
         }
+
         // Now create the job_departments you currently have set up.
         $job_bag->dept()->saveMany($job_depts);
-        return $job_bag->dept;
+        return $job_bag->dept();
     }
     static public function addScheduleTo($post){
         $extracted = array();

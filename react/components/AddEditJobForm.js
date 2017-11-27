@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import _ from 'lodash';
 import axios from 'axios';
 
 // UI Common functionality
@@ -20,6 +21,7 @@ class AddEditJobForm extends Component {
 
         this.state = {
             job: {
+                job_id: 0,
                 job_prism_job_id: 0,
                 job_prism_number: 0,
                 job_title: "",
@@ -38,12 +40,10 @@ class AddEditJobForm extends Component {
             } ,
             isSearching: 0,
             jobsFound: [],
-
             isSaving: 0,
-            id: 0,
-
             err: 0,
-            msg: ""
+            msg: "",
+            job_deparments_original: []
         };
 
         // console.log("From addeditjobform ",settings);
@@ -63,15 +63,27 @@ class AddEditJobForm extends Component {
 
         if (nextProps.manage_job_add_new_edit) {
             const state= nextProps.manage_jobs.resp;
+
             const job  = state.job;
             const msg  = state.msg;
             const err  = state.err;
 
-            console.log("HEY JOB",state);
-            // const newJob = Object.assign({},job,{ job_departments: deps });
-            // this.setState((prevState, props) => (
-            //     {job: newJob ,id: job.job_id }
-            // ));
+
+            let depIds = _.map(job.dept, 'job_dp_dept');
+
+            // UPDATE THE STATE NOW TO THE NEWLY CREATED JOB
+            const newJob                        = Object.assign({},job,{job_departments: depIds});
+            const job_deparments_original       = _.cloneDeep(newJob.job_departments);
+
+
+            this.setState((prevState, props) => (
+                {job: newJob ,
+                    isSaving: 0,
+                    msg,
+                    err,
+                    job_deparments_original
+                }
+            ));
 
         }
     }
@@ -82,12 +94,55 @@ class AddEditJobForm extends Component {
     }
     // Departments on change
     jobDepartmentChange(e,{value}){
-        const job = Object.assign({},this.state.job,{job_departments: {value}.value });
-        // Do more processing so not to delete any departments that is already in the database
+        const prevJobDepartments = _.cloneDeep(this.state.job.job_departments);
+        const curJobDepartments  = {value}.value;
 
-        if(this.state.id==0){
-            this.setState((prevState, props) => ({job}));
+        const job = Object.assign({},this.state.job,{job_departments: curJobDepartments });
+
+        // DO NOT ALLOW TO REMOVE ALREADY PRESENT DEPARTMENT
+        if(this.state.job.job_id > 0){
+            const origJobDepartments = _.cloneDeep(this.state.job_deparments_original);
+
+            const prevLength = prevJobDepartments.length;
+            const curLength  = curJobDepartments.length;
+            const origLength = origJobDepartments.length;
+
+            // DO NOT ALLOW IF THE CURRENT SELECTION WILL BE LESS THAN PREVIOUS OPTIONS.
+            // FILTER GET ALL ORIGINAL ONES
+
+            if(curLength<origLength){
+
+                console.log("You cannot delete the original departments. You can only add");
+
+            }else {
+                // CHECK IF THE ORIGINAL DEPARTMENTS IS STILL IN THE ARRAY
+
+                const checkWithOriginal = curJobDepartments.filter((a)=>{
+                    for(var i = 0; i<origJobDepartments.length; i++){
+                        var b = origJobDepartments[i];
+                        if(b==a){
+                            return true;
+                            break;
+                        }
+                    }
+                    return false;
+                });
+
+
+                // IF CHECKWITHORIGINAL HAS THE SAME NUMBER TO THE ORIGINAL, YOU CAN REMOVE/ADD AND CHANGE THE DEPARTMENTS
+                if(checkWithOriginal.length==origJobDepartments.length){
+                    // IF YOU ARE ADDING MORE YOU CAN
+                    this.setState((prevState, props) => ({job}));
+
+                }
+            }
+        }else{
+            // IF YOU ARE CREATING A NEW JOB, YOU CAN ADD AND DELETE AS MANY AS YOU LIKE
+            if(this.state.job.job_id==0){
+                this.setState((prevState, props) => ({job}));
+            }
         }
+
 
     }
     // Job type recurrence or once
@@ -108,7 +163,7 @@ class AddEditJobForm extends Component {
     saveOrEdit(e){
 
         // e.preventDefault(); // Prevent form to be submitted naturally
-        const jobData = Object.assign({},this.state.job,{id: this.state.id});
+        const jobData = Object.assign({},this.state.job);
 
 
         // Validate your Job creation here
@@ -233,7 +288,7 @@ class AddEditJobForm extends Component {
                         rules: [
                             {
                                 type   : 'empty',
-                                prompt : 'Please choose at least one departments.'
+                                prompt : 'Please choose at least one department.'
                             }
                         ]
                     },
@@ -250,16 +305,20 @@ class AddEditJobForm extends Component {
             });
     }
     showHeader(){
-        if(this.state.id>0){
+        if(this.state.job.job_id>0){
             return (
                 <header className="manage_page_ce_header">
-                    <span className="head edit">Editing</span>
+                    <span className="head manage_edit">
+                        Editing
+                    </span>
                 </header>
             );
         }else{
             return (
                 <header className="manage_page_ce_header">
-                    <span className="head new">Creating new job</span>
+                    <span className="head manage_new">
+                        Creating new job
+                    </span>
                 </header>
             );
         }
@@ -328,8 +387,8 @@ class AddEditJobForm extends Component {
         return (
 
             <div className="manage_job_ce_container">
-                <form className="ui form" >
-                    <input type="hidden" name="job_id" value={this.state.id || 0} />
+                <form className="ui form" onSubmit={(e)=>{  e.preventDefault();  }} method="post">
+                    <input type="hidden" name="job_id" value={this.state.job.job_id} />
                     {
                         this.showHeader()
                     }
@@ -370,7 +429,6 @@ class AddEditJobForm extends Component {
                                         <label><i className="calculator icon"></i> Quantity</label>
                                         <input type="text" name="job_qty" placeholder="Job Quantity" id="job_qty" value={this.state.job.job_qty} onChange={this.changeValue}/>
                                     </div>
-
                                 </div>
                             </td>
                         </tr>

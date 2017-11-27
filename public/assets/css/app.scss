@@ -419,7 +419,9 @@
               // This is the container of the main create/edit job page
               .manage_job_ce_container{
                   .manage_page_ce_header{
-                      .head{ font-size: 25px; }
+                      .head{
+                          font-size: 25px;
+                      }
                       margin-bottom: 10px;
                       border-bottom: 1px solid #eee;
                       padding: 10px;

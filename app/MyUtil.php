@@ -2,7 +2,19 @@
 
 
 class MyUtil{
+	// Return any type of request data, if any request data is empty, check from the raw input of php parser
+	static function getRequestData(){
+		$postData= array();
+		if(count($_REQUEST)>=0){
+			$postData = $_REQUEST;
+		}
+		if(count($postData)<=0){
+			$postData      = json_decode(file_get_contents('php://input'), true);
+		}
 
+		return $postData;
+
+	}
 	static function areTheseSet(){
 		$count = func_num_args();
 		$type = strtolower(func_get_arg(0));
