@@ -61,6 +61,7 @@ if($id){
             // Create the departments after succesfully creating it.
             SchedJobBags::createDepartments($job_bag,$departments,$date);
 
+            var_dump($job_bag);
             $jsonBag        = $job_bag->ToJson();
             echo '{ "msg": "Successfully created.","error": 0 , "job": '.$jsonBag.' }';
         }
