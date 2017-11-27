@@ -11,6 +11,8 @@ class SchedJobBags extends Model
     protected $primaryKey   = "job_id";
     protected $table        = 'sched_job_bags';
     protected $guarded      = 'job_id';
+    protected $with         = array('dept');
+
     protected $fillable     = [
         'job_prism_job_id',
         'job_prism_number',
@@ -25,8 +27,8 @@ class SchedJobBags extends Model
         'job_qty',
         'job_type'];
 
-
     public $timestamps       = true;
+
   public function dept()
   {
     return $this->hasMany('Models\SchedJobBagDepartment','job_id');
