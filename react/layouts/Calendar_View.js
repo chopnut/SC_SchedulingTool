@@ -44,7 +44,9 @@ class Calendar_View extends Component {
             sidebarSaturday: saturday,
 
             isLoading: false,
-            calendar_date: moment()
+            calendar_date: moment(),
+
+            sidebarReRender: 1
         };
 
         this.handleCalendarFunction     = this.handleCalendarFunction.bind(this);
@@ -175,15 +177,17 @@ class Calendar_View extends Component {
 
     }
 
-    shouldComponentUpdate(nextProps, nextState){
-        return true;
-    }
+    shouldComponentUpdate(nextProps, nextState){ return true;    }
+
     componentWillReceiveProps(nextProps){
         // REFRESH THE PAGE
         const act = nextProps.calendar_page.action;
         if(act.type!="" && act.type==CALENDAR_PAGE_ADD_SCHEDULE_TO){
             this.props.reset_all_action();
             this.props.calendar_page_refresh(this.props.settings,this.state.sunday.date, this.state.saturday.date);
+        }
+        // CAUSE TO RE-RENDER THE PRISM-RIGHT-BAR
+        if(nextProps.calendar_page_refresh){
         }
     }
 	componentDidMount(){
@@ -279,7 +283,7 @@ class Calendar_View extends Component {
                             <span className="range">{this.state.sidebarSunday.date} - {this.state.sidebarSaturday.date}</span>
                         </header>
                         <article>
-                            <CalendarPrismSidebar days={this.state.calendar_page.days}/>
+                            <CalendarPrismSidebar days={this.state.calendar_page.days} reRender = {this.state.sidebarReRender }/>
                         </article>
                     </div>
                 </div>

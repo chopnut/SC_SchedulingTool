@@ -124,9 +124,9 @@ class CalendarPrismBagPopControl extends Component {
                                            changeRecurrence      ={this.changeRecurrence}
                                            isSaving              ={this.state.isSaving}
                                            isRecurrence          ={this.state.recurrence}
-                                           handleChangeDepartment= {this.handleChangeDepartment}
-                                           handleCheckError      = {this.handleCheckError}
-                                           departmentValues      = {this.state.departmentValues}
+                                           handleChangeDepartment={this.handleChangeDepartment}
+                                           handleCheckError      ={this.handleCheckError}
+                                           departmentValues      ={this.state.departmentValues}
                                            id                    ={this.props.job.job_title}
                    />
             </Popup>

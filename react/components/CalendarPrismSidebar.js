@@ -16,6 +16,9 @@ class CalendarPrismSidebar extends Component {
         }
 
     }
+    componentWillReceiveProps(nextProps){
+        console.log("RERENDERING NOW",nextProps);
+    }
     componentDidMount(){
         // Grab prism job bags
         const from = this.props.days[0].date;
@@ -101,7 +104,8 @@ class CalendarPrismSidebar extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return{
-        settings: state.settings
+        settings: state.settings,
+        calendar_jobs: state.calendar_page.calendar_jobs
     }
 }
 function mapDispatchToProps(dispatch){
