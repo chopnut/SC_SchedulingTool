@@ -3,7 +3,10 @@ import { CALENDAR_PAGE_ADD_SCHEDULE_TO,
          CALENDAR_PAGE_CHANGE_GET_JOBS,
          CALENDAR_PAGE_MOVE_DEP_SIDE_BY_SIDE,
          CALENDAR_PAGE_ADD_RECURRING_TO_DATE,
-         CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB  } from '../common/Constants';
+         CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB,
+         CALENDAR_PAGE_REFRESH,
+         RESET_ALL_ACTION} from '../common/Constants';
+
 import app from '../modules/persistent';
 import _ from 'lodash';
 import axios from 'axios';
@@ -33,12 +36,16 @@ export function calendar_page_add_schedule_to(settings,job){
                 job_created_by: user_id
             });
 
-            console.log("POST CREATION SCHEDULE: SENDING ",data);
+            console.log("ADD TO SCHEDULE: SENDING ",data);
             // If you have the authority proceed with the adding
+
             const req = axios.post(path_api,data);
+
             req.then((res)=>{
-                console.log("POST CREATION SCHEDULE: RECEIVED ",res.data);
-                dispatch({type: CALENDAR_PAGE_ADD_SCHEDULE_TO, job: data });
+                console.log("POST ADD TO SCHEDULE: RECEIVED ",res.data);
+                dispatch({type: CALENDAR_PAGE_ADD_SCHEDULE_TO, action:{ type: CALENDAR_PAGE_ADD_SCHEDULE_TO, payload: res.data }} );
+
+
             });
 
         });
@@ -71,6 +78,7 @@ export function calendar_page_change_days(settings,days){
 
                 // If you have the authority proceed with the adding
                 const req = axios.get(path_api);
+
                 req.then((res)=>{
                     console.log("GET JOBS FROM CALENDAR ",res.data);
                     dispatch({type: CALENDAR_PAGE_CHANGE_GET_JOBS ,calendar_jobs: res.data });
@@ -103,10 +111,13 @@ export function calendar_page_move_dep_side_by_side(settings, info){
             console.log("POST SIDE BY SIDE: SENDING ",data);
             // Only update when post is successful
             const req = axios.post(path_api,data);
+
             req.then((res)=>{
                 console.log("POST SIDE BY SIDE: RECEIVED ",res.data);
 
-                dispatch({type: CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB, ok: true });
+                // This is to update the database itself
+                dispatch({type: CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB });
+
                 // Update the state of the calendar now
                 dispatch({type: CALENDAR_PAGE_MOVE_DEP_SIDE_BY_SIDE , info});
             });
@@ -114,7 +125,40 @@ export function calendar_page_move_dep_side_by_side(settings, info){
         });
     });
 }
+/*
+* This is for anything the main calendar page to update its view for any action that will need it.
+* @from - date for sunday
+* @to   - date for saturday
+* */
+export function calendar_page_refresh(settings, from, to){
+    return ((dispatch)=>{
+        // Get app settings first, and get the react api folder
+        // Update the database first upon moving
+        const prom = app(settings);
 
+        prom.then((res)=> {
+            const path_api = settings.setting.react_api_folder + '/calendar_actions/calendar_page_refresh.php?from='+from+'&to='+to;
+            const req = axios.get(path_api);
+
+            req.then((res)=>{
+                console.log("CALENDAR REFRESHED! ",res.data);
+                dispatch({type: CALENDAR_PAGE_REFRESH ,calendar_jobs: res.data });
+
+            });
+        })
+
+
+    });
+}
+/*
+* For resetting all actions when finished, so it doesnt call unneccessary action
+* */
+export function reset_all_action(){
+    return ((dispatch)=>{
+        const action = { type:'',payload:{} };
+        dispatch({type: RESET_ALL_ACTION, action });
+    });
+}
 /*
 * Create recurring jobs to the date selected, no duplicates of job will be created
 * job_departments will be based on number of the current jobs_deparments has been created in the past
@@ -133,3 +177,4 @@ export function calendar_page_move_dep_sbs_update_db(info){
         dispatch({type: CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB , job});
     });
 }
+

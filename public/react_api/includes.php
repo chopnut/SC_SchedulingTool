@@ -19,4 +19,5 @@ $db      = new Models\Database();
 $capsule = $db->getCapsule();
 $app     = new App();
 $user    = $app->check_if_logged_in();
+$u 		 = new MyUtil();
 ?>

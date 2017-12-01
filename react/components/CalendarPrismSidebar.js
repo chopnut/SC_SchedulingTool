@@ -21,7 +21,7 @@ class CalendarPrismSidebar extends Component {
         const from = this.props.days[0].date;
         const to   = this.props.days[6].date;
         // to be changed from and to api
-        const req  =this.props.settings.setting.react_api_folder+'calendar_prism_jobs_week.php?from='+from+'&to='+to;
+        const req  = this.props.settings.setting.react_api_folder+'calendar_prism_jobs_week.php?from='+from+'&to='+to;
         console.log("GETTING CALENDAR SIDE PRISM: "+ req);
 
         // Acquire from Prism get API
@@ -65,6 +65,7 @@ class CalendarPrismSidebar extends Component {
                 for(let job of jobs){
                     // console.log(job);
                     const id = job.job_prism_job_id;
+
                     // For storing the cell info itself
                     const cell = ()=>{
                         return (<div key={id}>

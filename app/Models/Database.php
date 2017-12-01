@@ -9,6 +9,7 @@ class Database {
     private $def;
 
     function __construct($def='mysql') {
+
         $this->capsule = new Capsule;
         $this->def = $def;
 
@@ -33,8 +34,6 @@ class Database {
         $this->connection['sqlserver']['collation'] =  "utf8_unicode_ci";
         $this->connection['sqlserver']['prefix'] = "";
 
-
-
         $this->capsule->addConnection($this->connection['mysql']);
         $this->capsule->addConnection($this->connection['sqlserver'],'sqlserver');
 
@@ -42,8 +41,13 @@ class Database {
         $this->capsule->setAsGlobal();
         $this->capsule->bootEloquent();
 
+        // FOR DEBUGGING
+        Capsule::enableQueryLog();
+
     }
     function getCapsule(){
+        // Enable this to use getQueryLog();
+
         return $this->capsule;
     }
 

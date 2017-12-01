@@ -1,7 +1,5 @@
 <?php
     include('includes.php');
-    $u = new MyUtil();
-
 
     use Models\PrismJobBag;
 	use Models\SchedJobBagDepartment;

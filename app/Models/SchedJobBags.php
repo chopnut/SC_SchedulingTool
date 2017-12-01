@@ -5,6 +5,7 @@ namespace Models;
 use Illuminate\Database\Eloquent\Model;
 
 
+
 class SchedJobBags extends Model
 {
     //
@@ -72,27 +73,31 @@ class SchedJobBags extends Model
         }
 
         // Prism Job id and number
-        if(empty($temp['job_prism_job_id'])){
+        if(empty($temp['job_prism_job_id']) && $temp['job_prism_job_id']<=0){
             unset($temp['job_prism_job_id']);
-
         }
-        if(empty($temp['job_prism_number'])){
+        if(empty($temp['job_prism_number']) && $temp['job_prism_job_id']<=0){
             unset($temp['job_prism_number']);
         }
         return $temp;
 
     }
     static public function isBagExist($prism_job_id,$prism_number){
+
         // Check if the schedule bag is already there, but will allow recurring job
         // Only one recurring type is allowed in that day
+
         $job_bag  = SchedJobBags::where(function($q) use($prism_job_id){
             $q->where("job_prism_job_id","=",$prism_job_id)
+                ->where("job_prism_job_id","!=",0)
                 ->WhereNotNull("job_prism_job_id");
 
         })->orWhere(function($q) use($prism_number){
             $q->where("job_prism_number","=",$prism_number)
+                ->where("job_prism_number","!=",0)
                 ->WhereNotNull("job_prism_number");
         });
+
 
         return $job_bag;
     }
@@ -127,13 +132,18 @@ class SchedJobBags extends Model
 
 
 
-        if(SchedJobBags::isBagExist($temp['job_prism_job_id'],$temp['job_prism_number'] )){
-            echo '{ msg: "JOB BAG ALREADY EXIST",error: 1 }';
+        $jobBag = SchedJobBags::isBagExist($temp['job_prism_job_id'],$temp['job_prism_number'] );
+
+
+
+        if($jobBag->exists()){
+            echo '{ msg: "Job bag already exist. ",error: 1 ,data: {} }';
         }else{
             // Create the job bag first
             $job_bag   = SchedJobBags::create($temp);
             SchedJobBags::createDepartments($job_bag,$departments,$date);
 
+            echo '{ msg: "Job bag scheduled successfully.", error: 0 , data:{} }';
         }
     }
     // ----------------------------------------------

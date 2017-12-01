@@ -1,6 +1,5 @@
 <?php
     include('includes.php');
-    $u = new MyUtil();
 
     if($u::areTheseSetAndNotEmpty('g','q')){
         $query    = $u::de('q');

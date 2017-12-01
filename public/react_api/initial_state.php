@@ -82,23 +82,23 @@ echo "window.__initial_state__ = {
     settings: {
         setting: $jsonSettings,
         departmentOptions: $departments,
-        timestamp:'".time()."'
+        action: { type:'',payload:{} }
         },
-
     calendar_page:{
       days: $sevenDays,
       selected_date: '$todays_date',
       today: '$todayDay',
       today_date: '$todays_date',
-      timestamp: '".time()."',
+      action: { type:'',payload:{} },
       calendar_jobs: $calendarJobs
       },
 
     manage_jobs :{
-
+        action: { type:'',payload:{} }
     },
 
     manage_tasks:{
+        action: { type:'',payload:{} }
     }
 
 }";

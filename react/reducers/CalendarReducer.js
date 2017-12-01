@@ -3,14 +3,22 @@ import {CALENDAR_PAGE_ADD_SCHEDULE_TO,
         CALENDAR_PAGE_CHANGE_GET_JOBS,
         CALENDAR_PAGE_ADD_RECURRING_TO_DATE,
         CALENDAR_PAGE_MOVE_DEP_SIDE_BY_SIDE ,
-        CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB} from '../common/Constants';
-import moment from 'moment';
+        CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB,
+        CALENDAR_PAGE_REFRESH,
+        RESET_ALL_ACTION} from '../common/Constants';
 
 const CalendarReducer = function (state=[], action) {
     switch (action.type){
         // ADD FROM CALENDAR TO SCHEDULER RIGHT SIDE BAR
         case CALENDAR_PAGE_ADD_SCHEDULE_TO:
-            return state;
+            const action_state = Object.assign({},state,{action: action.action });
+            return action_state;
+            break;
+
+        // REFRESH THE CALENDAR PAGE
+        case CALENDAR_PAGE_REFRESH:
+            const calendar_state_job = Object.assign({},state,{calendar_jobs: action.calendar_jobs });
+            return calendar_state_job;
             break;
 
         // FOR UPDATING CALENDAR DAYS
@@ -28,13 +36,12 @@ const CalendarReducer = function (state=[], action) {
         //  FOR UPDATING JOB BAG DEPARTMENT IN THE DATABASE
         //  AT THE MOMENT ITS JUST HERE FOR FUTURE PURPOSES
         case CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB:
-
             return state;
             break;
         case CALENDAR_PAGE_ADD_RECURRING_TO_DATE:
-
             return state;
             break;
+
         // FOR MOVING JOB DEPARTMENTS  TO DIFFERENT JOB
         case CALENDAR_PAGE_MOVE_DEP_SIDE_BY_SIDE:
             // This clones the calendar_job itself, removes the old position and set it to the new position
@@ -47,6 +54,12 @@ const CalendarReducer = function (state=[], action) {
 
             const  newCJobsState = Object.assign({},state,{calendar_jobs : newCalendarJobs});
             return newCJobsState;
+            break;
+
+        case RESET_ALL_ACTION:
+            // RESET ALL ACTION IF NEEDED
+            const  newState = Object.assign({},state,{ action: action.action });
+            return newState;
             break;
         default:
             return state;

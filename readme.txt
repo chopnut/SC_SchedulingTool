@@ -54,6 +54,18 @@ this.setState((prevState,props)=>{
         return {prevState}
     }
 );
+
+// REMOVED FROM manage_jobs_create_edit.php
+<?php
+include('includes.php');
+$u = new MyUtil();
+
+if($u::areTheseSetAndNotEmpty('p','id')){
+
+    $jsonDecode = json_encode($temp);
+    echo $jsonDecode;
+}
+?>
 ------------------------------------------------------------------------
 Bulk Inserto CSV into SQL Server:
 https://stackoverflow.com/questions/15242757/import-csv-file-into-sql-server

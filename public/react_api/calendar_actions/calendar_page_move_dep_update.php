@@ -2,7 +2,6 @@
 
 $folder_level = '../';
 include('../includes.php');
-$u = new MyUtil();
 
 use Models\SchedJobBagDepartment;
 

@@ -18,7 +18,7 @@ export function manage_job_add_new_edit(settings, job){
 
             req.then((res)=>{
                 let returndata = res.data;
-                dispatch ({type: MANAGE_JOB_ADD_NEW_EDIT , timestamp: new Date().getTime() ,resp: returndata });
+                dispatch ({type: MANAGE_JOB_ADD_NEW_EDIT ,resp: returndata });
             });
         });
     });

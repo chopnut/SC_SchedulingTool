@@ -1,6 +1,5 @@
 <?php
     include('includes.php');
-    $u = new MyUtil();
     use Models\Department;
 
     $depts = Department::orderBy("job_dep_order")->get();

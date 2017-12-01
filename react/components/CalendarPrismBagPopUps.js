@@ -52,6 +52,7 @@ class CalendarPrismBagPopUps extends Component {
 
                     // If there is no error submit otherwise show error
                     if(checkError.err == 0){
+
                         this.props.addToSchedule(this.state.startDate.format("DD/MM/YYYY"),this.state.jobType )
                     }else{
 
@@ -59,6 +60,7 @@ class CalendarPrismBagPopUps extends Component {
                         this.setState((prevState, props) => (
                             {checkError }
                         ));
+                        alert("Add atleast one department.");
                     }
 
                 }

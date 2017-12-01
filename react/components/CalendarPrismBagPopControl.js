@@ -34,6 +34,7 @@ class CalendarPrismBagPopControl extends Component {
     // Adding job to the scheduled date
     //---------------------------------
     addToSchedule(date,jobType){
+
         this.setState((prevState, props) => (
             {prevState,isSaving: true }
         ));
@@ -96,7 +97,6 @@ class CalendarPrismBagPopControl extends Component {
         this.setState({ isOpen: false });
 
     }
-    //
     viewSchedule(){
     }
     render(){
@@ -127,7 +127,7 @@ class CalendarPrismBagPopControl extends Component {
                                            handleChangeDepartment= {this.handleChangeDepartment}
                                            handleCheckError      = {this.handleCheckError}
                                            departmentValues      = {this.state.departmentValues}
-                                           id={this.props.job.job_title}
+                                           id                    ={this.props.job.job_title}
                    />
             </Popup>
             );

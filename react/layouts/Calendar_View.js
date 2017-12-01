@@ -14,7 +14,12 @@ import CalendarRow from "../components/CalendarRow";
 import CalendarPrismSidebar from "../components/CalendarPrismSidebar";
 
 // Get actions for calendar page
-import {calendar_page_change_days} from '../actions/CalendarActions';
+import {calendar_page_change_days,
+        calendar_page_refresh,
+        reset_all_action } from '../actions/CalendarActions';
+
+// Get constants for action
+import {CALENDAR_PAGE_ADD_SCHEDULE_TO } from '../common/Constants';
 
 class Calendar_View extends Component {
 	constructor(props){
@@ -170,6 +175,17 @@ class Calendar_View extends Component {
 
     }
 
+    shouldComponentUpdate(nextProps, nextState){
+        return true;
+    }
+    componentWillReceiveProps(nextProps){
+        // REFRESH THE PAGE
+        const act = nextProps.calendar_page.action;
+        if(act.type!="" && act.type==CALENDAR_PAGE_ADD_SCHEDULE_TO){
+            this.props.reset_all_action();
+            this.props.calendar_page_refresh(this.props.settings,this.state.sunday.date, this.state.saturday.date);
+        }
+    }
 	componentDidMount(){
 
 	    // Get the departments from API Call from axios
@@ -282,6 +298,12 @@ function mapDispatchToProps(dispatch){
     return({
         calendar_page_change_days: (settings, days)=>{
             dispatch(calendar_page_change_days(settings, days));
+        },
+        calendar_page_refresh: (settings, from, to)=>{
+            dispatch(calendar_page_refresh(settings, from, to));
+        },
+        reset_all_action: ()=>{
+            dispatch(reset_all_action());
         }
     })
 }
