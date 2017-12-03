@@ -14,39 +14,33 @@ class CalendarPrismSidebar extends Component {
             jobsFound: [],
             timestamp: moment()
         }
+        this.getPrismJobs = this.getPrismJobs.bind(this);
+    }
+    getPrismJobs(){
 
-    }
-    componentWillReceiveProps(nextProps){
-        console.log("RERENDERING NOW",nextProps);
-    }
-    componentDidMount(){
         // Grab prism job bags
         const from = this.props.days[0].date;
         const to   = this.props.days[6].date;
-        // to be changed from and to api
+
         const req  = this.props.settings.setting.react_api_folder+'calendar_prism_jobs_week.php?from='+from+'&to='+to;
-        console.log("GETTING CALENDAR SIDE PRISM: "+ req);
 
         // Acquire from Prism get API
-        const prismbagPromise = axios.get(req);
-        prismbagPromise.then(function(res){
-            const data = res.data;
-            // console.log("from prism aside ",data,req);
-
+        axios.get(req).then(function(res){
             this.setState(function(state,props){
-                return ({state,isLoading: false, jobsFound: data.jobs});
+                return ({state,isLoading: false, jobsFound: res.data.jobs});
             });
 
         }.bind(this))
-
-        // Trigger pop up if finished loading
-        if(!this.state.isLoading){
-
-
-        }
-
     }
-
+    shouldComponentUpdate(){ return true; }
+    componentWillReceiveProps(nextProps){
+        console.log("updating prismsidebar: ",this.props);
+        this.getPrismJobs();
+    }
+    componentDidUpdate(){}
+    componentDidMount(){
+        this.getPrismJobs();
+    }
     renderJobs(){
         let cells       = []
 
@@ -105,7 +99,7 @@ class CalendarPrismSidebar extends Component {
 function mapStateToProps(state,ownprops) {
     return{
         settings: state.settings,
-        calendar_jobs: state.calendar_page.calendar_jobs
+        calendar_page: state.calendar_page
     }
 }
 function mapDispatchToProps(dispatch){

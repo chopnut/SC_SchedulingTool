@@ -11,6 +11,10 @@
     	$from = $u::getYmdHis($u::de('from'),'','Y-m-d 00:00:00');
     	$to   = $u::getYmdHis($u::de('to'),'','Y-m-d 00:00:00');
 
+		// CHANGE THIS
+		$from = '2017-10-01';
+		$to   = '2017-10-07';
+
         $sql = "SELECT ".JOBBAGS_FIELDNAMES_WITH_CUSTOMER_INFO." FROM qmi1 ".WITH_CUSTOMER_INFO."  WHERE qm_add_date>='$from' AND qm_add_date<='$to' ORDER BY qm_add_date DESC";
     	$prismJobBags = $capsule::connection('sqlserver')->select($sql);
     

@@ -48,6 +48,9 @@ class CalendarPrismBagPopControl extends Component {
             this.props.settings,
             postJob
         );
+        this.setState((prevState, props) => (
+            {prevState,isSaving: false }
+        ));
     }
 
     // Function that set states
