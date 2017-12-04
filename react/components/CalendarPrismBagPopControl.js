@@ -79,11 +79,11 @@ class CalendarPrismBagPopControl extends Component {
             return({recurrence});
         });
     }
-    handleOpen(){
+    handleOpen(e){
         this.setState({ isOpen: true })
     }
     handleClose(e, data){
-        // Do not close it if the target tagname is coming form I tag
+        // Do not close it if the target tagname is coming from I tag
         // I tag is from the dropdown box
         let tagName = false;
         try{

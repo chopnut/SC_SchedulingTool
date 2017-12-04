@@ -108,7 +108,7 @@ class SchedJobBagDepartment extends Model
         }
         return $master_array;
     }
-    // Mutator and Accesso
+    // Mutator and Accessor
     // Accessor
     public function getJobDpDateAttribute($value){
         $originalDate = $value;
@@ -120,6 +120,10 @@ class SchedJobBagDepartment extends Model
     public function setJobDpDateAttribute($value){
         $d = \DateTime::createFromFormat('d/m/Y', $value);
         $this->attributes['job_dp_date'] = $d->format('Y-m-d');
+    }
+    public function setJobDpCreatedDateAttribute($value){
+        $d = \DateTime::createFromFormat('d/m/Y', $value);
+        $this->attributes['job_dp_created_date'] = $d->format('Y-m-d');
     }
 }
 

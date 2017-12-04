@@ -9,9 +9,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import _ from 'lodash';
 
+
 // User define components
 import CalendarRow from "../components/CalendarRow";
 import CalendarPrismSidebar from "../components/CalendarPrismSidebar";
+import CalendarAddRecurring from "../components/CalendarAddRecurring";
+import BottomLegend from "../layouts/BottomLegend";
 
 // Get actions for calendar page
 import {calendar_page_change_days,
@@ -44,9 +47,7 @@ class Calendar_View extends Component {
             sidebarSaturday: saturday,
 
             isLoading: true,
-            calendar_date: moment(),
-
-            sidebarReRender: 1
+            calendar_date: moment()
         };
 
         this.handleCalendarFunction     = this.handleCalendarFunction.bind(this);
@@ -176,11 +177,6 @@ class Calendar_View extends Component {
         return (rowsCollection);
 
     }
-
-    shouldComponentUpdate(nextProps, nextState){
-        return true;
-    }
-
     componentWillReceiveProps(nextProps){
         // REFRESH THE PAGE
         const act = nextProps.calendar_page.action;
@@ -212,20 +208,16 @@ class Calendar_View extends Component {
                 <div className="first">
                     <div className="left">
                         <h2 className="title">
-                            <img src="assets/img/scheduler_icon.svg" width="30" height="30" className="calendar_icon"/> Scheduler v1
+                            <img src="assets/img/scheduler_icon.svg" width="30" height="30" className="calendar_icon"/> Scheduled Jobs
                         </h2>
                         <div className="body">
                             <span className="previous">
                                 <a className="click_prev" onClick={()=>{ this.handleChangeDates('left'); }}><i className="chevron circle left icon"></i></a>
                             </span>
-
                             <span className="range_date">{this.props.calendar_page.days[0].date } - {this.props.calendar_page.days[6].date}</span>
-
                             <span className="next">
                                 <a className="click_next" onClick={()=>{ this.handleChangeDates('right'); }}><i className="chevron circle right icon"></i></a>
                             </span>
-
-
 
                             <span className="calendar_holder">
                                 <i className="calendar outline icon"></i>
@@ -251,30 +243,36 @@ class Calendar_View extends Component {
                 </div>
                 <div className="second">
                     <div className="left">
-                        <table className="ui fixed single purple unstackable celled table" >
-                            <thead>
-                                <tr><th className="header_department_label">
-                                    <i className="bicycle icon"></i> Department</th>
-                                    {this.props.calendar_page.days.map(function(item,i){
-                                    let className = "header_date";
+                        <div>
+                            <table className="ui fixed single purple unstackable celled table" >
+                                <thead>
+                                    <tr><th className="header_department_label">
+                                        <i className="bicycle icon"></i> Department</th>
+                                        {this.props.calendar_page.days.map(function(item,i){
+                                        let className = "header_date";
 
-                                    if(item.date == this.props.web.today){
-                                        className = className+" today";
-                                    }
-                                    return (<th className={className} key={i}>
-                                        <span className="day_label">{item.day} </span>
-                                        <span className="add_label"><i className="add circle icon"></i></span><br/>
-                                        <span className="date_label">{item.date}</span></th>);
+                                        if(item.date == this.props.web.today){
+                                            className = className+" today";
+                                        }
+                                        return (<th className={className} key={i}>
+                                            <span className="day_label">{item.day} </span>
+                                            <span className="add_label">
+                                                <CalendarAddRecurring day ={item} />
+                                            </span>
+                                            <br/>
+                                            <span className="date_label">{item.date}</span></th>);
 
-                                }.bind(this))}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                 {this.renderDepartments()}
-                            </tbody>
-                        </table>
-
-
+                                    }.bind(this))}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                     {this.renderDepartments()}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <BottomLegend />
+                        </div>
                     </div>
                     <div className="right">
                         <header>

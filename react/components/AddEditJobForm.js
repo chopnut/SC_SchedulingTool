@@ -4,7 +4,7 @@ import _ from 'lodash';
 import axios from 'axios';
 
 // UI Common functionality
-import {showJobType,showDropDownDepartments} from "../common/JobBagCommonUI";
+import {showJobType,showDropDown} from "../common/JobBagCommonUI";
 
 // Get actions to save/new/edit
 import {manage_job_add_new_edit} from '../actions/ManageJobsActions';
@@ -464,9 +464,12 @@ class AddEditJobForm extends Component {
                                 <div className="field">
                                     <label><i className="fa fa-tasks" aria-hidden="true"></i> Create Department Tasks</label>
                                     <input type="hidden" name="job_departments" id="job_departments" value={this.state.job.job_departments}/>
-                                    {showDropDownDepartments(this.props.settings.departmentOptions,
+                                    {showDropDown(this.props.settings.departmentOptions,
                                         this.state.job.job_departments,
-                                        this.jobDepartmentChange)}
+                                        this.jobDepartmentChange,
+                                        "Pick departments",
+                                        "job_departments"
+                                    )}
                                 </div>
                             </td>
                         </tr>

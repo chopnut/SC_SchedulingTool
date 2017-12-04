@@ -153,6 +153,12 @@
                                     .add_label{ font-size: 14px; }
                                     .date_label{}
                                 }
+                                .add_label{
+                                    cursor: pointer;
+                                }
+                                .add_label:hover{
+                                    color: $main_purple_color;
+                                }
                                 .today{
                                     background-color: lighten($main_orange_color,40%);
                                     .day_label{
@@ -160,6 +166,7 @@
                                     }
                                     .add_label{
                                         color:darken($main_blue_color,20%);
+                                        cursor: pointer;
                                     }
                                 }
                                 .highlight_drag{
@@ -286,7 +293,24 @@
 
               }
               .calendar_manage{
+                  font-size:  11px;
+                  .first{
+                      display: flex;
+                      .left{
+                          @include make_children_flex();
+                          .title{
+                              font-size: 20px;
+                              margin: 0px;
+                              padding: 0px;
+                          }
+                      }
+                      .right{
+                          @include make_children_flex(270px);
+                      }
+                  }
+                  .second{
 
+                  }
               }
           }
       }
@@ -446,7 +470,25 @@
 
   }
 }
+// Add recurring window
+.add_recurring{
+    position: relative;
+    margin-right: 35px!important;
+    padding: 5px!important;
+    .add_recurring_window{
+        width: 200px;
 
+        table{
+            width: 100%;
+            td{padding: 6px;}
+            .head{ color: #fff; background-color: darken($main_blue_color,0%); }
+            .day{ font-weight: bold; font-size: 22px; padding-bottom: 0px !important; }
+            .date{ font-size: 11px;  border-bottom: 0px solid #ccc; padding-top: 0px !important; }
+            .body{ }
+            .button{}
+        }
+    }
+}
 // Job card pop up
 .job_card_datepicker{
     width: 135px!important;

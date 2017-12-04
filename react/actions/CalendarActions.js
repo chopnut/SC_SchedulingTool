@@ -100,6 +100,7 @@ export function calendar_page_move_dep_side_by_side(settings, info){
     return ((dispatch)=>{
         // Update the database first upon moving
         const prom = app(settings);
+
         prom.then((res)=> {
             // Do it when settings returns data
             // Set the api path to update the position
@@ -163,9 +164,22 @@ export function reset_all_action(){
 * Create recurring jobs to the date selected, no duplicates of job will be created
 * job_departments will be based on number of the current jobs_deparments has been created in the past
 * */
-export function calendar_page_add_recurring_to_date(job){
+export function calendar_page_add_recurring_to_date(settings,jobsIds,date){
     return ((dispatch)=>{
-        dispatch({type: CALENDAR_PAGE_ADD_RECURRING_TO_DATE , job});
+        const prom = app(settings); // Get the promise settings
+
+        prom.then((res)=> {
+            const path_api = settings.setting.react_api_folder + '/calendar_actions/calendar_page_recurring_add.php?date=&job_ids=';
+            const data     = {job_ids: jobsIds ,date: date};
+
+            const req = axios.post(path_api,data);
+            console.log("Sending recurring job: ",data);
+            req.then((res)=>{
+                dispatch({type: CALENDAR_PAGE_ADD_RECURRING_TO_DATE });
+
+            });
+        })
+
     });
 }
 /*

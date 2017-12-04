@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
-import {showJobType,showDropDownDepartments} from "../common/JobBagCommonUI";
+import {showJobType,showDropDown} from "../common/JobBagCommonUI";
 
 class CalendarPrismBagPopUps extends Component {
     constructor(props){
@@ -90,10 +90,13 @@ class CalendarPrismBagPopUps extends Component {
 
                         <div className="departments">
                             <input type="hidden" name={"job_departments"} id={"job_departments"} value={this.props.departmentValues} />
-                            {showDropDownDepartments(
+                            {showDropDown(
                                 this.props.departmentOptions,
                                 this.props.departmentValues,
-                                this.props.handleChangeDepartment)}
+                                this.props.handleChangeDepartment,
+                                "Pick departments",
+                                "job_departments"
+                            )}
                         </div>
 
                     </div>

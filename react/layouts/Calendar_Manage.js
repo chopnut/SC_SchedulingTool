@@ -14,7 +14,22 @@ class Calendar_Manage extends Component {
 
 		return(
            <div className="calendar_manage">
-               Manage calendar
+               <div className="first">
+                   <div className="left">
+                       <h2 className="title">
+                           <i className="settings icon"></i> Manage Scheduled Jobs
+                       </h2>
+                       <div className="body">
+
+                       </div>
+                   </div>
+                   <div className="right">
+                        RIGHT
+                   </div>
+               </div>
+               <div className="second">
+
+               </div>
            </div>
 		);
 	}

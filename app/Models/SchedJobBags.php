@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class SchedJobBags extends Model
 {
-    //
     protected $primaryKey   = "job_id";
     protected $table        = 'sched_job_bags';
     protected $guarded      = 'job_id';
-    protected $with         = array('dept');
+//  protected $with         = array('');
 
     protected $fillable     = [
         'job_prism_job_id',
@@ -26,14 +25,16 @@ class SchedJobBags extends Model
         'job_status',
         'job_created_by',
         'job_qty',
-        'job_type'];
+        'job_type',
+        'job_departments'
+    ];
 
     public $timestamps       = true;
 
-  public function dept()
-  {
-    return $this->hasMany('Models\SchedJobBagDepartment','job_id');
-  }
+    public function dept($date="")
+    {
+        return $this->hasMany('Models\SchedJobBagDepartment','job_id');
+    }
     static public function fillData($data,&$extracted){
         $temp = array();
         $temp['job_prism_job_id'] = intval(\MyUtil::dd('job_prism_job_id',$data));
@@ -54,10 +55,13 @@ class SchedJobBags extends Model
         // Extracted below
         $date 			                = \MyUtil::dd('job_dp_date',$data);
         $departments                    = \MyUtil::dd('job_departments',$data,[]);
+
         $extracted['job_id']            = \MyUtil::dd('job_id',$data,0);
         $extracted['job_departments']   = $departments;
         $extracted['job_dp_date']       = $date;
 
+        // Also add the departments
+        $temp['job_departments']        = implode(',',$departments);
 
         // Unsetting fields you dont need and will be null
         // when queried to the database
@@ -114,8 +118,8 @@ class SchedJobBags extends Model
 
             // This must call mutator when date is being set
             $jd->job_dp_date	     = $date;
+            $jd->job_dp_created_date = $date;
             $jd->job_dp_qty          = $job_bag->job_qty;
-            $jd->job_dp_created_date = date("Y-m-d",time());
             $job_depts[]		     = $jd;
         }
 
@@ -125,24 +129,20 @@ class SchedJobBags extends Model
     }
     static public function addScheduleTo($post){
         $extracted = array();
-        $temp = SchedJobBags::fillData($post,$extracted);
+        $temp               = SchedJobBags::fillData($post,$extracted);
+        $jobBag             = SchedJobBags::isBagExist($temp['job_prism_job_id'],$temp['job_prism_number'] );
 
-        $date 			  = \MyUtil::dd('job_dp_date',$post, null);
-        $departments      = \MyUtil::dd('job_departments',$post,[]);
-
-
-
-        $jobBag = SchedJobBags::isBagExist($temp['job_prism_job_id'],$temp['job_prism_number'] );
-
-
+        $date 			    = \MyUtil::dd('job_dp_date',$post, null);
+        $departments        = \MyUtil::dd('job_departments',$post,[]);
 
         if($jobBag->exists()){
             echo '{ msg: "Job bag already exist. ",error: 1 ,data: {} }';
         }else{
+
             // Create the job bag first
             $job_bag   = SchedJobBags::create($temp);
-            SchedJobBags::createDepartments($job_bag,$departments,$date);
 
+            SchedJobBags::createDepartments($job_bag,$departments,$date);
             echo '{ msg: "Job bag scheduled successfully.", error: 0 , data:{} }';
         }
     }

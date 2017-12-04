@@ -38,6 +38,8 @@ const CalendarReducer = function (state=[], action) {
         case CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB:
             return state;
             break;
+
+        // SCHEDULLING ALL RECURRING JOBS TO THE SCHEDULE
         case CALENDAR_PAGE_ADD_RECURRING_TO_DATE:
             return state;
             break;
