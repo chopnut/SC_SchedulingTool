@@ -15,7 +15,8 @@ class CalendarAddRecurring extends Component {
             isOpen: false,
             jobsRecurring: [],
             jobsSelected: [],
-            buttonLabel: "Add"
+            buttonLabel: "Add",
+            className: "ui small button"
         }
         this.getJobs            = this.getJobs.bind(this);
         this.handleOpen         = this.handleOpen.bind(this);
@@ -38,14 +39,29 @@ class CalendarAddRecurring extends Component {
             });
         }.bind(this))
     }
+    componentWillReceiveProps(nextprops){
+        console.log("Recurring will receive props triggered.");
+        this.getJobs();
+
+        // When finished adding
+        if(nextprops.calendar_page_add_recurring_to_date){
+
+        }
+    }
     componentDidMount(){
         this.getJobs();
     }
     handleAdd(){
-        if(this.state.jobsSelected.length<=0){
-            alert("Select atleast one job");
-        }else{
-            this.props.calendar_page_add_recurring_to_date(this.props.settings,this.state.jobsSelected,this.props.day.date);
+        if(this.state.isAdding== false){
+
+            if(this.state.jobsSelected.length<=0){
+                alert("Select atleast one job");
+            }else{
+                this.setState((prevState,props)=>{
+                    return({isAdding:true, className: "ui small loading button" });
+                });
+                this.props.calendar_page_add_recurring_to_date(this.props.settings,this.state.jobsSelected,this.props.day.date);
+            }
         }
     }
     handleOpen(e){ this.setState({ isOpen: true }) }
@@ -98,6 +114,7 @@ class CalendarAddRecurring extends Component {
                         buttonLabel  = {this.state.buttonLabel}
                         jobsOption   = {this.state.jobsRecurring}
                         jobsSelected = {this.state.jobsSelected}
+                        className    = {this.state.className}
                         day          = {this.props.day}
                     />
                 </Popup>
@@ -107,7 +124,8 @@ class CalendarAddRecurring extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return{
-        settings: state.settings
+        settings: state.settings,
+        action: state.calendar_page.action
     }
 }
 function mapDispatchToProps(dispatch){

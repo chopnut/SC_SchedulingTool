@@ -169,13 +169,17 @@ export function calendar_page_add_recurring_to_date(settings,jobsIds,date){
         const prom = app(settings); // Get the promise settings
 
         prom.then((res)=> {
-            const path_api = settings.setting.react_api_folder + '/calendar_actions/calendar_page_recurring_add.php?date=&job_ids=';
+            const path_api = settings.setting.react_api_folder + '/calendar_actions/calendar_page_recurring_add.php';
             const data     = {job_ids: jobsIds ,date: date};
 
             const req = axios.post(path_api,data);
             console.log("Sending recurring job: ",data);
             req.then((res)=>{
-                dispatch({type: CALENDAR_PAGE_ADD_RECURRING_TO_DATE });
+                const payload = res.data;
+                const action = {action: CALENDAR_PAGE_ADD_RECURRING_TO_DATE, payload: payload};
+                
+                console.log("Post recurring job ",payload);
+                dispatch({type: CALENDAR_PAGE_ADD_RECURRING_TO_DATE,action });
 
             });
         })

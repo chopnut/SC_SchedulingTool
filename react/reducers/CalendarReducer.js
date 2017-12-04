@@ -41,7 +41,9 @@ const CalendarReducer = function (state=[], action) {
 
         // SCHEDULLING ALL RECURRING JOBS TO THE SCHEDULE
         case CALENDAR_PAGE_ADD_RECURRING_TO_DATE:
-            return state;
+            const nextAction  = action.action;
+            const add_recur_state    = {...state,action: nextAction};
+            return add_recur_state;
             break;
 
         // FOR MOVING JOB DEPARTMENTS  TO DIFFERENT JOB
