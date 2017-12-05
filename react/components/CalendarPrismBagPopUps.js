@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import {NavLink,Route} from 'react-router-dom';
+import {withRouter } from 'react-router-dom';
 
 // Calendar Date picker
 import DatePicker from 'react-datepicker';
@@ -18,6 +20,7 @@ class CalendarPrismBagPopUps extends Component {
         }
         this.handleChange           = this.handleChange.bind(this);
         this.handleChangeJobType    = this.handleChangeJobType.bind(this);
+        this.handleViewEdit         = this.handleViewEdit.bind(this);
     }
     componentDidMount(){
         this.setState(function(state,props){
@@ -30,13 +33,16 @@ class CalendarPrismBagPopUps extends Component {
             return({jobType});
         });
     }
-
     handleChange(date){
         this.setState(function(state,props){
             return ({state,startDate: date});
         });
     }
-
+    // Redirect to the view/edit page.
+    handleViewEdit(){
+        const { history } = this.props;
+        history.push('/managejobs/newedit/'+this.props.job.job_id);
+    }
     render(){
         if(this.state.isLoading){
             return(<div>Loading...</div>);
@@ -67,7 +73,7 @@ class CalendarPrismBagPopUps extends Component {
             }  >Schedule Job to</button>;
 
             if(this.props.job.isAdded){
-                buttonSaving      =  <button className={buttonSavingClass} onClick={this.props.viewSchedule}  >View/Edit Job Bag</button>;
+                buttonSaving      =  <button className={buttonSavingClass} onClick={this.handleViewEdit}  >View/Edit Job Bag</button>;
             }
 
             const addSchedule = ()=>{
@@ -176,4 +182,4 @@ function mapDispatchToProps(dispatch){
 
     })
 }
-export default connect(mapStateToProps,mapDispatchToProps)(CalendarPrismBagPopUps);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(CalendarPrismBagPopUps));

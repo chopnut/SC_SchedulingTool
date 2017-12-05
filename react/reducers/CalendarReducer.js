@@ -5,7 +5,8 @@ import {CALENDAR_PAGE_ADD_SCHEDULE_TO,
         CALENDAR_PAGE_MOVE_DEP_SIDE_BY_SIDE ,
         CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB,
         CALENDAR_PAGE_REFRESH,
-        RESET_ALL_ACTION} from '../common/Constants';
+        RESET_ALL_ACTION,
+        IS_WORKING} from '../common/Constants';
 
 const CalendarReducer = function (state=[], action) {
     switch (action.type){
@@ -42,7 +43,7 @@ const CalendarReducer = function (state=[], action) {
         // SCHEDULLING ALL RECURRING JOBS TO THE SCHEDULE
         case CALENDAR_PAGE_ADD_RECURRING_TO_DATE:
             const nextAction  = action.action;
-            const add_recur_state    = {...state,action: nextAction};
+            const add_recur_state    = Object.assign({},state,{ action: nextAction });
             return add_recur_state;
             break;
 
@@ -64,6 +65,10 @@ const CalendarReducer = function (state=[], action) {
             // RESET ALL ACTION IF NEEDED
             const  newState = Object.assign({},state,{ action: action.action });
             return newState;
+            break;
+        case IS_WORKING:
+            const  isWorkingState = Object.assign({},state,{ isWorking: action.isWorking });
+            return isWorkingState;
             break;
         default:
             return state;

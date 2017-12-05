@@ -148,13 +148,12 @@ class MyUtil{
 	}
 	// Return the value from the data if empty
 	static function dde($name,$data,$defaultvalue=""){
-
-		if(isset($data[$name]) && !empty(trim($data[$name]))){
-
-
-			return $data[$name];
+		if(isset($data[$name])){
+			$str = trim($data[$name]);
+			if(!empty($str)){
+				return $data[$name];
+			}
 		}
-
 		return $defaultvalue;
 	}
 	/* Get filename from string */

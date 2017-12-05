@@ -13,5 +13,6 @@ export const MANAGE_JOB_ADD_NEW_EDIT              = 'MANAGE_JOB_ADD_NEW_EDIT';
 
 // GLOBAL CONSTANT
 export const RESET_ALL_ACTION                     = 'RESET_ALL_ACTION';
+export const IS_WORKING                           = 'IS_WORKING';
 
 

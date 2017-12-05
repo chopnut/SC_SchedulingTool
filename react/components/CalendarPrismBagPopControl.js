@@ -25,7 +25,6 @@ class CalendarPrismBagPopControl extends Component {
         this.handleClose    = this.handleClose.bind(this);
         this.handleOpen     = this.handleOpen.bind(this);
         this.addToSchedule  = this.addToSchedule.bind(this);// add to schedule if it is not scheduledyet
-        this.viewSchedule   = this.viewSchedule.bind(this); // View schedule instead of creating from button
         this.changeRecurrence = this.changeRecurrence.bind(this);
         this.handleChangeDepartment = this.handleChangeDepartment.bind(this); // this is for updating departments to schedule
         this.handleCheckError   = this.handleCheckError.bind(this);
@@ -100,8 +99,7 @@ class CalendarPrismBagPopControl extends Component {
         this.setState({ isOpen: false });
 
     }
-    viewSchedule(){
-    }
+
     render(){
         if(this.state.isLoading){
             return(<div>Loading...</div>);
@@ -123,14 +121,12 @@ class CalendarPrismBagPopControl extends Component {
                    <CalendarPrismBagPopUps job={this.props.job}
                                            days                  ={this.props.days}
                                            addToSchedule         ={this.addToSchedule}
-                                           viewSchedule          ={this.viewSchedule}
                                            changeRecurrence      ={this.changeRecurrence}
                                            isSaving              ={this.state.isSaving}
                                            isRecurrence          ={this.state.recurrence}
                                            handleChangeDepartment={this.handleChangeDepartment}
                                            handleCheckError      ={this.handleCheckError}
                                            departmentValues      ={this.state.departmentValues}
-                                           id                    ={this.props.job.job_title}
                    />
             </Popup>
             );

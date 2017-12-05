@@ -2,6 +2,10 @@
 session_start();
 date_default_timezone_set('Australia/Brisbane');
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // set $folder_level to the includer for the includes to work right
 $level     = "";
 if(isset($folder_level)){
@@ -9,11 +13,18 @@ if(isset($folder_level)){
 }
 
 // make sure to set the level of folders using include(?level=../)
-require ($level.'../../../config.php');
-require ($level.'../../vendor/autoload.php');
-require ($level.'../../app/MyUtil.php');
-require ($level.'global_variables.php');
-require ($level.'../../app/App.php');
+$config  	= $level.'../../../config.php';
+$autoload 	= $level.'../../vendor/autoload.php';
+$myutil     = $level.'../../app/MyUtil.php';
+$globalvar  = $level.'global_variables.php';
+$myapp      = $level.'../../app/App.php';
+
+
+require ($config);
+require ($autoload);
+require ($myutil);
+require ($globalvar);
+require ($myapp);
 
 $db      = new Models\Database();
 $capsule = $db->getCapsule();

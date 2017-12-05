@@ -82,7 +82,8 @@ echo "window.__initial_state__ = {
     settings: {
         setting: $jsonSettings,
         departmentOptions: $departments,
-        action: { type:'',payload:{} }
+        action: { type:'',payload:{} },
+        isWorking: false
         },
     calendar_page:{
       days: $sevenDays,
@@ -90,15 +91,20 @@ echo "window.__initial_state__ = {
       today: '$todayDay',
       today_date: '$todays_date',
       action: { type:'',payload:{} },
-      calendar_jobs: $calendarJobs
+      calendar_jobs: $calendarJobs,
+      isWorking: false
       },
 
     manage_jobs :{
-        action: { type:'',payload:{} }
+        action: { type:'',payload:{} },
+        isWorking: false
+
     },
 
     manage_tasks:{
-        action: { type:'',payload:{} }
+        action: { type:'',payload:{} },
+        isWorking: false
+
     }
 
 }";

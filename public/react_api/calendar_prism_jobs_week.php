@@ -12,8 +12,8 @@
     	$to   = $u::getYmdHis($u::de('to'),'','Y-m-d 00:00:00');
 
 		// CHANGE THIS
-		$from = '2017-10-01';
-		$to   = '2017-10-07';
+//		$from = '2017-10-01';
+//		$to   = '2017-10-07';
 
         $sql = "SELECT ".JOBBAGS_FIELDNAMES_WITH_CUSTOMER_INFO." FROM qmi1 ".WITH_CUSTOMER_INFO."  WHERE qm_add_date>='$from' AND qm_add_date<='$to' ORDER BY qm_add_date DESC";
     	$prismJobBags = $capsule::connection('sqlserver')->select($sql);
@@ -45,7 +45,7 @@
     			$temp[$day] 	= array();
     			$i 				= 0;
     		}
-
+			$temp[$day][$i]['job_id'] 				= 0;
 			$temp[$day][$i]['job_prism_number'] 	= $jobNum;
 			$temp[$day][$i]['job_prism_job_id']		= $jobId;
 			$temp[$day][$i]['job_title'] 			= $title;
@@ -60,9 +60,11 @@
 			$temp[$day][$i]['isPrism']    			= 1;
 
 			// Get jobs from mysql
-			$schedBag                               = SchedJobBags::where("job_prism_job_id",$jobId);
-			if($schedBag->exists()){
-				$temp[$day][$i]['isAdded'] = 1;
+			$schedBag                               = SchedJobBags::where("job_prism_job_id",  $jobId)->first();
+			if($schedBag){
+				$temp[$day][$i]['isAdded']  = 1;
+				$temp[$day][$i]['job_id'] 	= $schedBag->job_id;
+
 			}else{
 				$temp[$day][$i]['isAdded'] = 0;
 			}

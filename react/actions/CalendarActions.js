@@ -5,7 +5,7 @@ import { CALENDAR_PAGE_ADD_SCHEDULE_TO,
          CALENDAR_PAGE_ADD_RECURRING_TO_DATE,
          CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB,
          CALENDAR_PAGE_REFRESH,
-         RESET_ALL_ACTION} from '../common/Constants';
+         RESET_ALL_ACTION,IS_WORKING} from '../common/Constants';
 
 import app from '../modules/persistent';
 import _ from 'lodash';
@@ -24,6 +24,11 @@ export function calendar_page_add_schedule_to(settings,job){
         const prom = app(settings);
         // Get user log first
         prom.then((res)=>{
+            //  SET THE IS_WORKING VARIABLES FOR EVERY ACTION
+
+            dispatch({type: IS_WORKING, isWorking: true });
+
+            // DO PROCESSING BELOW
             const path_api  = settings.setting.react_api_folder+'/calendar_actions/calendar_page_add_schedule_to.php';
             const userlog   = res.data.userlog;
             let   user_id   = 0;
@@ -44,7 +49,7 @@ export function calendar_page_add_schedule_to(settings,job){
             req.then((res)=>{
                 console.log("POST ADD TO SCHEDULE: RECEIVED ",res.data);
                 dispatch({type: CALENDAR_PAGE_ADD_SCHEDULE_TO, action:{ type: CALENDAR_PAGE_ADD_SCHEDULE_TO, payload: res.data }} );
-
+                dispatch({type: IS_WORKING, isWorking: false });
 
             });
 
@@ -60,6 +65,12 @@ export function calendar_page_add_schedule_to(settings,job){
 export function calendar_page_change_days(settings,days){
 
     return ((dispatch)=>{
+            //  SET THE IS_WORKING VARIABLES FOR EVERY ACTION
+
+            dispatch({type: IS_WORKING, isWorking: true });
+
+            // DO PROCESSING BELOW
+
             const prom = app(settings);
             // Get user log first
             prom.then((res)=> {
@@ -82,6 +93,7 @@ export function calendar_page_change_days(settings,days){
                 req.then((res)=>{
                     console.log("GET JOBS FROM CALENDAR ",res.data);
                     dispatch({type: CALENDAR_PAGE_CHANGE_GET_JOBS ,calendar_jobs: res.data });
+                    dispatch({type: IS_WORKING, isWorking: false });
 
                 });
 
@@ -98,6 +110,11 @@ export function calendar_page_change_days(settings,days){
 * */
 export function calendar_page_move_dep_side_by_side(settings, info){
     return ((dispatch)=>{
+        //  SET THE IS_WORKING VARIABLES FOR EVERY ACTION
+
+        dispatch({type: IS_WORKING, isWorking: true });
+
+        // DO PROCESSING BELOW
         // Update the database first upon moving
         const prom = app(settings);
 
@@ -121,6 +138,8 @@ export function calendar_page_move_dep_side_by_side(settings, info){
 
                 // Update the state of the calendar now
                 dispatch({type: CALENDAR_PAGE_MOVE_DEP_SIDE_BY_SIDE , info});
+                dispatch({type: IS_WORKING, isWorking: false });
+
             });
 
         });
@@ -133,6 +152,10 @@ export function calendar_page_move_dep_side_by_side(settings, info){
 * */
 export function calendar_page_refresh(settings, from, to){
     return ((dispatch)=>{
+        //  SET THE IS_WORKING VARIABLES FOR EVERY ACTION
+        dispatch({type: IS_WORKING, isWorking: true });
+        // DO PROCESSING BELOW
+
         // Get app settings first, and get the react api folder
         // Update the database first upon moving
         const prom = app(settings);
@@ -144,6 +167,8 @@ export function calendar_page_refresh(settings, from, to){
             req.then((res)=>{
                 console.log("CALENDAR REFRESHED! ",res.data);
                 dispatch({type: CALENDAR_PAGE_REFRESH ,calendar_jobs: res.data });
+                dispatch({type: IS_WORKING, isWorking: false });
+
 
             });
         })
@@ -166,6 +191,12 @@ export function reset_all_action(){
 * */
 export function calendar_page_add_recurring_to_date(settings,jobsIds,date){
     return ((dispatch)=>{
+        //  SET THE IS_WORKING VARIABLES FOR EVERY ACTION
+
+        dispatch({type: IS_WORKING, isWorking: true });
+
+        // DO PROCESSING BELOW
+
         const prom = app(settings); // Get the promise settings
 
         prom.then((res)=> {
@@ -176,10 +207,12 @@ export function calendar_page_add_recurring_to_date(settings,jobsIds,date){
             console.log("Sending recurring job: ",data);
             req.then((res)=>{
                 const payload = res.data;
-                const action = {action: CALENDAR_PAGE_ADD_RECURRING_TO_DATE, payload: payload};
-                
+                const action = {type: CALENDAR_PAGE_ADD_RECURRING_TO_DATE, payload: payload};
+
                 console.log("Post recurring job ",payload);
                 dispatch({type: CALENDAR_PAGE_ADD_RECURRING_TO_DATE,action });
+                dispatch({type: IS_WORKING, isWorking: false });
+
 
             });
         })

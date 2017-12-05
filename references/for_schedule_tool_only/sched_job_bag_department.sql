@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2017 at 09:24 PM
+-- Generation Time: Dec 05, 2017 at 05:11 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -35,7 +35,7 @@ CREATE TABLE `sched_job_bag_department` (
   `job_dp_started_date` datetime DEFAULT NULL,
   `job_dp_finished_date` datetime DEFAULT NULL,
   `job_dp_proof_date` date DEFAULT NULL,
-  `job_dp_status` varchar(50) DEFAULT 'stand by',
+  `job_dp_status` varchar(50) DEFAULT NULL,
   `job_dp_comments` varchar(255) DEFAULT NULL,
   `job_dp_order` int(11) DEFAULT '0',
   `job_dp_minutes` int(11) DEFAULT NULL,

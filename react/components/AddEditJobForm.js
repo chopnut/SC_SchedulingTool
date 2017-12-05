@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 import axios from 'axios';
+import {NavLink,Route} from 'react-router-dom';
+import {withRouter } from 'react-router-dom';
 
 // UI Common functionality
 import {showJobType,showDropDown} from "../common/JobBagCommonUI";
@@ -25,19 +27,18 @@ class AddEditJobForm extends Component {
                 job_prism_job_id: 0,
                 job_prism_number: 0,
                 job_title: "",
+                job_colour: "",
                 job_print_date: "",
                 job_due_date: "",
                 job_lodge_date: "",
                 job_reports_ids:"",
-                job_qty: 0,
-                job_dp_date: "",
-                job_colour: "",
-                job_status: "stand by",
                 job_comments: "",
+                job_status: "stand by",
+                job_qty: 0,
                 job_type: "once",
-                job_departments: []
-
-            } ,
+                job_departments: [],
+                job_dp_date: ""
+            },
             isSearching: 0,
             jobsFound: [],
             isSaving: 0,
@@ -56,6 +57,7 @@ class AddEditJobForm extends Component {
         this.changeValue            = this.changeValue.bind(this);
         this.jobTypeChanged         = this.jobTypeChanged.bind(this);
         this.jobDepartmentChange    = this.jobDepartmentChange.bind(this);
+        this.prepopulateJobBag      = this.prepopulateJobBag.bind(this);
 
     }
     // This will trigger when receiving a state change from global
@@ -86,11 +88,6 @@ class AddEditJobForm extends Component {
             ));
 
         }
-    }
-    // Initlialization happens below
-    componentDidUpdate(){
-        // do your validation down  here
-        // use semantic-ui validation
     }
     // Departments on change
     jobDepartmentChange(e,{value}){
@@ -164,8 +161,6 @@ class AddEditJobForm extends Component {
 
         // e.preventDefault(); // Prevent form to be submitted naturally
         const jobData = Object.assign({},this.state.job);
-
-
         // Validate your Job creation here
         if($('.ui.form').form("is valid")){
             this.setState((prevState, props) => ({isSaving: 1}) );
@@ -187,6 +182,41 @@ class AddEditJobForm extends Component {
         ); // Update the fields of the data
     }
 
+    prepopulateJobBag(){
+        console.log("Edit form initialize: ",this.props);
+        const {history,location} = this.props;
+
+        const splitPathname = location.pathname.split('/');
+        const jobId         = parseInt(splitPathname[splitPathname.length-1]);
+
+        // CHECK IF THE JOB ID IS A NUMBER
+        if(jobId!="NaN" && jobId>0){
+            const req  = this.props.settings.setting.react_api_folder+'/manage_jobs_actions/manage_jobs_get.php?job_id='+jobId;
+
+            // Acquire from Prism get API
+            axios.get(req).then(function(res){
+                const data = res.data;
+
+                // CONTINUE WITH EDITING EXISTING
+                if(data.error==0 ){
+                    this.setState((prevState, props) => (
+                        {job: data.job}
+                    ));
+                    console.log("THIS IS JOB: ",res.data.job);
+                }else{
+                // NO AVAILABLE JOB WITH THE PARTICULAR JOB ID REDIRECT
+                    history.push('/managejobs/newedit/');
+                }
+
+
+
+            }.bind(this))
+        // If length of the path name is 4, somebody is trying to edit something that doesnt exist.
+        // redirec them
+
+        }
+
+    }
     // clear the search result
     prepopulateClear() {
         this.setState(function(prevState,props){
@@ -254,6 +284,9 @@ class AddEditJobForm extends Component {
 
     }
     componentDidMount(){
+        // Get job bag from url ID
+        this.prepopulateJobBag();
+
         // Jquery DatePicker on change has to fire twice to update the ui
         let changeCalendar = this.changeValue;
         $('#job_due_date').datepicker({dateFormat: "dd/mm/yy",setDate: new Date()}).on("input change",function(e){
@@ -309,7 +342,7 @@ class AddEditJobForm extends Component {
             return (
                 <header className="manage_page_ce_header">
                     <span className="head manage_edit">
-                        Editing
+                        Editing <span className="title">{this.state.job.job_title}</span>
                     </span>
                 </header>
             );
@@ -351,7 +384,6 @@ class AddEditJobForm extends Component {
         }
 
         // Get status for the job
-
         let job_status = JSON.parse(this.job_status);
         let SelectJobStatus = (props) =>{
             const selected = props.selected;
@@ -366,11 +398,7 @@ class AddEditJobForm extends Component {
             );
         }
 
-
-
-
         let SelectAndRadio = () => {
-
             return(
                 <div className="inline three fields">
                     <div className="field">
@@ -385,7 +413,6 @@ class AddEditJobForm extends Component {
 
 
         return (
-
             <div className="manage_job_ce_container">
                 <form className="ui form" onSubmit={(e)=>{  e.preventDefault();  }} method="post">
                     <input type="hidden" name="job_id" value={this.state.job.job_id} />
@@ -406,7 +433,6 @@ class AddEditJobForm extends Component {
                                 {(SearchResult)?<SearchResult />:""}
                             </td>
                         </tr>
-
                         <tr>
                             <td >
                                 <div className="field">
@@ -511,4 +537,4 @@ function maptDispatchToProps(dispatch){
         }
     }
 }
-export default connect(mapStateToProps,maptDispatchToProps)(AddEditJobForm);
+export default withRouter(connect(mapStateToProps,maptDispatchToProps)(AddEditJobForm));

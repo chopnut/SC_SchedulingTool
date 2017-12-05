@@ -35,6 +35,7 @@ class CalendarAddRecurring extends Component {
             const ds = res.data;
             this.setState(function(state,props){
                 const buttonLabel = (ds.jobs.length<=0)?"No daily jobs to schedule":"Add";
+
                 return ({...state, isLoading: false, jobsRecurring: ds.jobs, buttonLabel});
             });
         }.bind(this))
@@ -45,7 +46,9 @@ class CalendarAddRecurring extends Component {
 
         // When finished adding
         if(nextprops.calendar_page_add_recurring_to_date){
-
+            this.setState((prevState, props) => (
+                {isAdding: false, className: "ui small button"}
+            ));
         }
     }
     componentDidMount(){
@@ -53,14 +56,13 @@ class CalendarAddRecurring extends Component {
     }
     handleAdd(){
         if(this.state.isAdding== false){
-
             if(this.state.jobsSelected.length<=0){
                 alert("Select atleast one job");
             }else{
-                this.setState((prevState,props)=>{
-                    return({isAdding:true, className: "ui small loading button" });
-                });
                 this.props.calendar_page_add_recurring_to_date(this.props.settings,this.state.jobsSelected,this.props.day.date);
+                this.setState((prevState,props)=>{
+                    return({isAdding:true, className: "ui small loading button",jobsSelected: [] });
+                });
             }
         }
     }

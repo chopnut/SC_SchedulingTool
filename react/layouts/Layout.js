@@ -8,6 +8,7 @@ import CalendarPage from './CalendarPage';
 import ManageJobsPage from './ManageJobsPage';
 import ManageTasksPage from './ManageTasksPage';
 import SchedulingSettingsPage from './SchedulingSettingsPage';
+
 // THE LAYOUT COMPONENT WILL BE THE ONE POLLING THE DATABASE FOR ANY CHANGES COMING FROM THE DATABASE
 
 class Layout extends Component {

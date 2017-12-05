@@ -44,7 +44,7 @@ class SchedJobBagDepartment extends Model
 
 
         // Now grab the records according to the date that was generated.
-        $job_departments = SchedJobBagDepartment::whereIn('job_dp_date',$temp)->get();
+        $job_departments = SchedJobBagDepartment::whereIn('job_dp_date',$temp)->orderBy('job_dp_order','DESC')->get();
 
         // Restructure the JSON file to be return to the application
         $master_array = array();

@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import u from '../common/edlibrary';
 import PopUpControl from '../components/CalendarPrismBagPopControl';
 import moment from 'moment';
+import {NavLink,Route} from 'react-router-dom';
+import {withRouter } from 'react-router-dom';
 
 class CalendarPrismSidebar extends Component {
     constructor(props){
@@ -40,6 +42,7 @@ class CalendarPrismSidebar extends Component {
     componentDidUpdate(){}
     componentDidMount(){
         this.getPrismJobs();
+        console.log("Did update: ",this.props);
     }
     renderJobs(){
         let cells       = []
@@ -107,4 +110,4 @@ function mapDispatchToProps(dispatch){
 
     })
 }
-export default connect(mapStateToProps,mapDispatchToProps)(CalendarPrismSidebar);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(CalendarPrismSidebar));

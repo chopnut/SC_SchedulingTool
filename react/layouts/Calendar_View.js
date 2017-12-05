@@ -22,7 +22,10 @@ import {calendar_page_change_days,
         reset_all_action } from '../actions/CalendarActions';
 
 // Get constants for action
-import {CALENDAR_PAGE_ADD_SCHEDULE_TO } from '../common/Constants';
+import {
+    CALENDAR_PAGE_ADD_SCHEDULE_TO,
+    CALENDAR_PAGE_ADD_RECURRING_TO_DATE
+} from '../common/Constants';
 
 class Calendar_View extends Component {
 	constructor(props){
@@ -39,13 +42,10 @@ class Calendar_View extends Component {
             calendar_page,
             departments: [],
             departmentsOrder: [],
-
             sunday,
             saturday,
-
             sidebarSunday: sunday,
             sidebarSaturday: saturday,
-
             isLoading: true,
             calendar_date: moment()
         };
@@ -177,10 +177,12 @@ class Calendar_View extends Component {
         return (rowsCollection);
 
     }
+
     componentWillReceiveProps(nextProps){
+
         // REFRESH THE PAGE
         const act = nextProps.calendar_page.action;
-        if(act.type!="" && act.type==CALENDAR_PAGE_ADD_SCHEDULE_TO){
+        if(act.type == CALENDAR_PAGE_ADD_RECURRING_TO_DATE || act.type == CALENDAR_PAGE_ADD_SCHEDULE_TO){
             this.props.calendar_page_refresh(this.props.settings,this.state.sunday.date, this.state.saturday.date);
             this.props.reset_all_action();
         }
@@ -203,108 +205,114 @@ class Calendar_View extends Component {
         });
     }
 	render(){
-        return(
-            <div className="calendar_view">
-                <div className="first">
-                    <div className="left">
-                        <h2 className="title">
-                            <img src="assets/img/scheduler_icon.svg" width="30" height="30" className="calendar_icon"/> Scheduled Jobs
-                        </h2>
-                        <div className="body">
-                            <span className="previous">
-                                <a className="click_prev" onClick={()=>{ this.handleChangeDates('left'); }}><i className="chevron circle left icon"></i></a>
-                            </span>
-                            <span className="range_date">{this.props.calendar_page.days[0].date } - {this.props.calendar_page.days[6].date}</span>
-                            <span className="next">
-                                <a className="click_next" onClick={()=>{ this.handleChangeDates('right'); }}><i className="chevron circle right icon"></i></a>
-                            </span>
+	    if(this.state.isLoading){
+            return (<div className="calendar_view center"><div className="ui active inline loader"></div></div>);
+        }else{
+            return(
+                <div className="calendar_view">
+                    <div className="first">
+                        <div className="left">
+                            <h2 className="title">
+                                <img src="assets/img/scheduler_icon.svg" width="30" height="30" className="calendar_icon"/> Scheduled Jobs
+                            </h2>
+                            <div className="body">
 
-                            <span className="calendar_holder">
-                                <i className="calendar outline icon"></i>
-                                <span className="change_range_label">Change date range </span>
-                                <span className="ui input">
-                               <DatePicker
-                                   selected={this.state.calendar_date}
-                                   onChange={(date)=>{
-                                            this.handleCalendarFunction(date);
-                                        }
-                                   }
-                                   dateFormat="DD/MM/YYYY"
-                                   className = "mini_calendar_text_field"
-                               />
-                                    <button onClick={this.test}>Test button</button>
+                                <span className="previous">
+                                    <a className="click_prev" onClick={()=>{ this.handleChangeDates('left'); }}><i className="chevron circle left icon"></i></a>
+                                </span>
+                                    <span className="range_date">{this.props.calendar_page.days[0].date } - {this.props.calendar_page.days[6].date}</span>
+                                    <span className="next">
+                                    <a className="click_next" onClick={()=>{ this.handleChangeDates('right'); }}><i className="chevron circle right icon"></i></a>
+                                </span>
+
+                                    <span className="calendar_holder">
+                                    <i className="calendar outline icon"></i>
+                                    <span className="change_range_label">Change date range </span>
+                                    <span className="ui input">
+                                   <DatePicker
+                                       selected={this.state.calendar_date}
+                                       onChange={(date)=>{
+                                           this.handleCalendarFunction(date);
+                                       }
+                                       }
+                                       dateFormat="DD/MM/YYYY"
+                                       className = "mini_calendar_text_field"
+                                   />
+                                    <div className="ui active tiny inline loader" style={ {marginLeft: '10px', marginTop: '7px',display: (this.props.calendar_page.isWorking)?"inline-block":"none"}}></div>
                             </span>
                         </span>
+                            </div>
+                        </div>
+                        <div className="right">
+
                         </div>
                     </div>
-                    <div className="right">
-
-                    </div>
-                </div>
-                <div className="second">
-                    <div className="left">
-                        <div>
-                            <table className="ui fixed single purple unstackable celled table" >
-                                <thead>
+                    <div className="second">
+                        <div className="left">
+                            <div>
+                                <table className="ui fixed single purple unstackable celled table" >
+                                    <thead>
                                     <tr><th className="header_department_label">
                                         <i className="bicycle icon"></i> Department</th>
                                         {this.props.calendar_page.days.map(function(item,i){
-                                        let className = "header_date";
+                                            let className = "header_date";
 
-                                        if(item.date == this.props.web.today){
-                                            className = className+" today";
-                                        }
-                                        return (<th className={className} key={i}>
-                                            <span className="day_label">{item.day} </span>
-                                            <span className="add_label">
+                                            if(item.date == this.props.web.today){
+                                                className = className+" today";
+                                            }
+                                            return (<th className={className} key={i}>
+                                                <span className="day_label">{item.day} </span>
+                                                <span className="add_label">
                                                 <CalendarAddRecurring day ={item} />
                                             </span>
-                                            <br/>
-                                            <span className="date_label">{item.date}</span></th>);
+                                                <br/>
+                                                <span className="date_label">{item.date}</span></th>);
 
-                                    }.bind(this))}
+                                        }.bind(this))}
                                     </tr>
-                                </thead>
-                                <tbody>
-                                     {this.renderDepartments()}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    {this.renderDepartments()}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div>
+                                <BottomLegend />
+                            </div>
                         </div>
-                        <div>
-                            <BottomLegend />
+                        <div className="right">
+                            <header>
+                                <span className="label">Prism Job Bags Available</span><br/>
+                                <span className="range">{this.state.sidebarSunday.date} - {this.state.sidebarSaturday.date}</span>
+                            </header>
+                            <article>
+                                <CalendarPrismSidebar days={this.state.calendar_page.days} isLoading = {this.state.isLoading }/>
+                            </article>
                         </div>
-                    </div>
-                    <div className="right">
-                        <header>
-                            <span className="label">Prism Job Bags Available</span><br/>
-                            <span className="range">{this.state.sidebarSunday.date} - {this.state.sidebarSaturday.date}</span>
-                        </header>
-                        <article>
-                            <CalendarPrismSidebar days={this.state.calendar_page.days} isLoading = {this.state.isLoading }/>
-                        </article>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        }
+
 
 	}
 }
 function mapStateToProps(state,ownprops) {
     return{
         settings: state.settings,
-        calendar_page: state.calendar_page,
+        calendar_page: state.calendar_page
     }
 }
 function mapDispatchToProps(dispatch){
     return({
         calendar_page_change_days: (settings, days)=>{
-            dispatch(calendar_page_change_days(settings, days));
+             dispatch(calendar_page_change_days(settings, days));
         },
         calendar_page_refresh: (settings, from, to)=>{
-            dispatch(calendar_page_refresh(settings, from, to));
+             dispatch(calendar_page_refresh(settings, from, to));
         },
         reset_all_action: ()=>{
-            dispatch(reset_all_action());
+             dispatch(reset_all_action());
         }
     })
 }

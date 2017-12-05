@@ -86,7 +86,12 @@
               padding-top:20px;
 
               // Calendar Main Page
+              .calendar_view.center{
+                  text-align: center;
+                  margin: 20px;
+              }
               .calendar_view{
+
                     font-size: 11px;
                     ._padding_between{
                         margin: 5px;
@@ -445,6 +450,10 @@
                   .manage_page_ce_header{
                       .head{
                           font-size: 25px;
+
+                          .title{
+                              color: darken($main_blue_color,15%);
+                          }
                       }
                       margin-bottom: 10px;
                       border-bottom: 1px solid #eee;
