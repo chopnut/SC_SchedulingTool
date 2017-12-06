@@ -40,8 +40,8 @@ class AddEditJobForm extends Component {
                 job_dp_date: ""
             },
             isSearching: 0,
-            jobsFound: [],
             isSaving: 0,
+            jobsFound: [],
             err: 0,
             msg: "",
             job_deparments_original: []
@@ -64,22 +64,23 @@ class AddEditJobForm extends Component {
     componentWillReceiveProps(nextProps){
 
         if (nextProps.manage_job_add_new_edit) {
-            const state= nextProps.manage_jobs.resp;
+            const newData    = nextProps.manage_jobs.resp;
+            const currentJob = this.state.job;
 
-            const job  = state.job;
-            const msg  = state.msg;
-            const err  = state.err;
+            console.log("Component will received from api: ",newData);
+            const job  = newData.job;
+            const msg  = newData.msg;
+            const err  = newData.err;
 
-
+            // GRABS ALL THE DEPARTMENT IDS USING LODASH MAP
             let depIds = _.map(job.dept, 'job_dp_dept');
 
             // UPDATE THE STATE NOW TO THE NEWLY CREATED JOB
             const newJob                        = Object.assign({},job,{job_departments: depIds});
             const job_deparments_original       = _.cloneDeep(newJob.job_departments);
-
-
             this.setState((prevState, props) => (
-                {job: newJob ,
+                {
+                    job: newJob ,
                     isSaving: 0,
                     msg,
                     err,
@@ -89,68 +90,67 @@ class AddEditJobForm extends Component {
 
         }
     }
-    // Departments on change
-    jobDepartmentChange(e,{value}){
-        const prevJobDepartments = _.cloneDeep(this.state.job.job_departments);
-        const curJobDepartments  = {value}.value;
+    componentDidMount(){
+        // Get job bag from url ID
+        this.prepopulateJobBag();
 
-        const job = Object.assign({},this.state.job,{job_departments: curJobDepartments });
+        // Jquery DatePicker on change has to fire twice to update the ui
+        let changeCalendar = this.changeValue;
+        $('#job_due_date').datepicker({dateFormat: "dd/mm/yy",setDate: new Date()}).on("input change",function(e){
+            changeCalendar(e);
+        });
+        $('#job_print_date').datepicker({dateFormat: "dd/mm/yy",setDate: new Date()}).on("input change",function(e){
+            changeCalendar(e);
+        });
+        $('#job_lodge_date').datepicker({dateFormat: "dd/mm/yy",setDate: new Date()}).on("input change",function(e){
+            changeCalendar(e);
+        })
+        ;$('#job_dp_date').datepicker({dateFormat: "dd/mm/yy",setDate: new Date()}).on("input change",function(e){
+            changeCalendar(e);
+        });
+        // ----------------------------------------------------------------------------
+        // Note: Creating and Editing a job is different.
+        // Creating a job: When creating a job you need to allocate department date,
+        // for the department tasks needs to be  present.
+        // Editing a job: You dont need scheduled date
+        // Apply the validation rule when creating a new job turn into editing mode.
+        // ----------------------------------------------------------------------------
 
-        // DO NOT ALLOW TO REMOVE ALREADY PRESENT DEPARTMENT
-        if(this.state.job.job_id > 0){
-            const origJobDepartments = _.cloneDeep(this.state.job_deparments_original);
-
-            const prevLength = prevJobDepartments.length;
-            const curLength  = curJobDepartments.length;
-            const origLength = origJobDepartments.length;
-
-            // DO NOT ALLOW IF THE CURRENT SELECTION WILL BE LESS THAN PREVIOUS OPTIONS.
-            // FILTER GET ALL ORIGINAL ONES
-
-            if(curLength<origLength){
-
-                console.log("You cannot delete the original departments. You can only add");
-
-            }else {
-                // CHECK IF THE ORIGINAL DEPARTMENTS IS STILL IN THE ARRAY
-
-                const checkWithOriginal = curJobDepartments.filter((a)=>{
-                    for(var i = 0; i<origJobDepartments.length; i++){
-                        var b = origJobDepartments[i];
-                        if(b==a){
-                            return true;
-                            break;
-                        }
+        // VALIDATION INITIALIZATION 1: FOR CREATING
+        $('.ui.form')
+            .form({
+                on: 'blur',
+                fields: {
+                    job_title: {
+                        identifier: 'job_title',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Please enter job title'
+                            }
+                        ]
+                    },
+                    job_departments: {
+                        identifier: 'job_departments',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Please choose at least one department.'
+                            }
+                        ]
+                    },
+                    job_dp_date: {
+                        identifier: 'job_dp_date',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'You must enter a scheduled date.'
+                            }
+                        ]
                     }
-                    return false;
-                });
-
-
-                // IF CHECKWITHORIGINAL HAS THE SAME NUMBER TO THE ORIGINAL, YOU CAN REMOVE/ADD AND CHANGE THE DEPARTMENTS
-                if(checkWithOriginal.length==origJobDepartments.length){
-                    // IF YOU ARE ADDING MORE YOU CAN
-                    this.setState((prevState, props) => ({job}));
-
                 }
-            }
-        }else{
-            // IF YOU ARE CREATING A NEW JOB, YOU CAN ADD AND DELETE AS MANY AS YOU LIKE
-            if(this.state.job.job_id==0){
-                this.setState((prevState, props) => ({job}));
-            }
-        }
+            });
 
-
-    }
-    // Job type recurrence or once
-    jobTypeChanged(e){
-        let value = e.target.value;
-        // alert(value);
-        const job     = Object.assign(this.state.job,{job_type: value});
-        this.setState((prevState,props)=>{
-                return ({job});
-            }
-        );
 
     }
 
@@ -161,6 +161,7 @@ class AddEditJobForm extends Component {
 
         // e.preventDefault(); // Prevent form to be submitted naturally
         const jobData = Object.assign({},this.state.job);
+
         // Validate your Job creation here
         if($('.ui.form').form("is valid")){
             this.setState((prevState, props) => ({isSaving: 1}) );
@@ -195,35 +196,78 @@ class AddEditJobForm extends Component {
 
             // Acquire from Prism get API
             axios.get(req).then(function(res){
-                const data = res.data;
+                const job = res.data.job;
 
                 // CONTINUE WITH EDITING EXISTING
-                if(data.error==0 ){
+                if(res.data.error==0 ){
+                    const job_deparments_original       = _.cloneDeep(job.job_departments);
                     this.setState((prevState, props) => (
-                        {job: data.job}
+                        {
+                            job: job,
+                            job_deparments_original: job_deparments_original
+                        }
                     ));
                     console.log("THIS IS JOB: ",res.data.job);
+
+
+                    // VALIDATION INITIALIZATION 2: FOR EDITING
+                    $('.ui.form')
+                        .form({
+                            on: 'blur',
+                            fields: {
+                                job_title: {
+                                    identifier: 'job_title',
+                                    rules: [
+                                        {
+                                            type   : 'empty',
+                                            prompt : 'Please enter job title'
+                                        }
+                                    ]
+                                },
+                                job_departments: {
+                                    identifier: 'job_departments',
+                                    rules: [
+                                        {
+                                            type   : 'empty',
+                                            prompt : 'Please choose at least one department.'
+                                        }
+                                    ]
+                                }
+                            }
+                        });
                 }else{
                 // NO AVAILABLE JOB WITH THE PARTICULAR JOB ID REDIRECT
                     history.push('/managejobs/newedit/');
                 }
 
-
-
             }.bind(this))
-        // If length of the path name is 4, somebody is trying to edit something that doesnt exist.
-        // redirec them
 
+        // If length of the path name is 4, somebody is trying to edit something that doesnt exist.
+        // redirect them
         }
 
     }
-    // clear the search result
-    prepopulateClear() {
-        this.setState(function(prevState,props){
-            return ({jobsFound: [] });
-        });
+    // Departments on change
+    jobDepartmentChange(e,{value}){
+        const prevJobDepartments = _.cloneDeep(this.state.job.job_departments);
+        const curJobDepartments  = {value}.value;
+        const job = Object.assign({},this.state.job,{job_departments: curJobDepartments });
+
+        this.setState((prevState, props) => ({job}));
+
     }
-    // Select and prepopulate the form with the selected jobbag
+    // Job type recurrence or once
+    jobTypeChanged(e){
+        let value = e.target.value;
+        // alert(value);
+        const job     = Object.assign(this.state.job,{job_type: value});
+        this.setState((prevState,props)=>{
+                return ({job});
+            }
+        );
+
+    }
+    // Select and prepopulate the form with the selected jobbag from prism
     prepopulateSelect(jobsKey){
         let jobs = JSON.parse(JSON.stringify( this.state.jobsFound));
         let job  = jobs[jobsKey];
@@ -238,12 +282,6 @@ class AddEditJobForm extends Component {
             }
         );
 
-        // job_status: "",
-        //     job_comments: "",
-        //     job_type: "once",
-        //
-        //     job_departments: []
-        // console.log("From onclick",job);
     }
     prepopulateFromPrism(event){
 
@@ -271,8 +309,6 @@ class AddEditJobForm extends Component {
                     }
                 )
             },ms);
-
-
         }else if(jobsFound.length>0){
             if(typeSearch.length<=4){
                 this.setState((prevState,props)=>{
@@ -283,60 +319,12 @@ class AddEditJobForm extends Component {
         }
 
     }
-    componentDidMount(){
-        // Get job bag from url ID
-        this.prepopulateJobBag();
-
-        // Jquery DatePicker on change has to fire twice to update the ui
-        let changeCalendar = this.changeValue;
-        $('#job_due_date').datepicker({dateFormat: "dd/mm/yy",setDate: new Date()}).on("input change",function(e){
-            changeCalendar(e);
+    prepopulateClear() {
+        this.setState(function(prevState,props){
+            return ({jobsFound: [] });
         });
-        $('#job_print_date').datepicker({dateFormat: "dd/mm/yy",setDate: new Date()}).on("input change",function(e){
-            changeCalendar(e);
-        });
-        $('#job_lodge_date').datepicker({dateFormat: "dd/mm/yy",setDate: new Date()}).on("input change",function(e){
-            changeCalendar(e);
-        })
-        ;$('#job_dp_date').datepicker({dateFormat: "dd/mm/yy",setDate: new Date()}).on("input change",function(e){
-            changeCalendar(e);
-        });
-
-        // Validation form inititialization
-        $('.ui.form')
-            .form({
-                on: 'blur',
-                fields: {
-                    job_title: {
-                        identifier: 'job_title',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Please enter job title'
-                            }
-                        ]
-                    },
-                    job_departments: {
-                        identifier: 'job_departments',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Please choose at least one department.'
-                            }
-                        ]
-                    },
-                    job_dp_date: {
-                        identifier: 'job_dp_date',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'You must enter a scheduled date.'
-                            }
-                        ]
-                    }
-                }
-            });
     }
+    // clear the search result
     showHeader(){
         if(this.state.job.job_id>0){
             return (

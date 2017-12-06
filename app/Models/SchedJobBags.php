@@ -80,7 +80,7 @@ class SchedJobBags extends Model
         if(empty($temp['job_prism_job_id']) && $temp['job_prism_job_id']<=0){
             unset($temp['job_prism_job_id']);
         }
-        if(empty($temp['job_prism_number']) && $temp['job_prism_job_id']<=0){
+        if(empty($temp['job_prism_number']) && $temp['job_prism_number']<=0){
             unset($temp['job_prism_number']);
         }
         return $temp;
@@ -173,7 +173,7 @@ class SchedJobBags extends Model
 
     public function getJobPrintDateAttribute($value){
         if(is_null($value)){
-            return $value;
+            return "";
         }
         $originalDate = $value;
         $newDate = date("d-m-Y", strtotime($originalDate));
@@ -181,7 +181,7 @@ class SchedJobBags extends Model
     }
     public function getJobDueDateAttribute($value){
         if(is_null($value)){
-            return $value;
+            return "";
         }
         $originalDate = $value;
         $newDate = date("d-m-Y", strtotime($originalDate));
@@ -189,12 +189,18 @@ class SchedJobBags extends Model
     }
     public function getJobLodgeDateAttribute($value){
         if(is_null($value)){
-            return $value;
+            return "";
         }
         $originalDate = $value;
         $newDate = date("d-m-Y", strtotime($originalDate));
         return $newDate;
     }
+    public function getJobColourAttribute($value){
+        if(is_null($value)){
+            return "";
+        }
+    }
+
 }
 
 

@@ -24,7 +24,7 @@ if($u::areTheseSet('get','job_id')){
         $t['job_print_date']    = ($schedBag->job_print_date)?  $schedBag->job_print_date:'';
         $t['job_due_date']      = ($schedBag->job_due_date)?    $schedBag->job_due_date:'';
         $t['job_lodge_date']    = ($schedBag->job_lodge_date)?  $schedBag->job_lodge_date:'';
-        $t['job_reports_ids']   = $schedBag->job_status;
+        $t['job_reports_ids']   = $schedBag->job_reports_ids;
         $t['job_comments']      = $schedBag->job_comments;
         $t['job_status']        = $schedBag->job_status;
         $t['job_qty']           = $schedBag->job_qty;

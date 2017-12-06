@@ -8,15 +8,17 @@ use Models\SchedJobBags;
 
 $postData= $u::getRequestData();
 
-$extracted = array();
-$temp = SchedJobBags::fillData($postData,$extracted);
-$temp['job_created_by'] = ($user)?$user->login_id: 0;
+$extracted              = array();
+$temp                   = SchedJobBags::fillData($postData,$extracted);
+$temp['job_created_by'] =($user)?$user->login_id: 0;
 
 $departments = $extracted['job_departments'];
 $id          = $extracted['job_id'];
 $date        = $extracted['job_dp_date'];
 
-// Edit
+
+
+// Edit,  you are not adding any job bag departments here
 if($id){
 
     $job_bag = SchedJobBags::find($id);
@@ -25,22 +27,15 @@ if($id){
         // UNSET THE UNNEEDED VARIABLES
         unset($temp['job_created_by']);
 
-        $deps       = $job_bag->dept()->get();
-        $depKeys    = $deps->keyBy("job_dp_dept")->keys()->toArray();
-
         // FILL UP THE DATA
         $job_bag->fill($temp);
         $job_bag->save();
 
-        // GET THE DIFFERENCE FORM THE DEPARTMENTS
-        $departments   = array_map('intval',$departments);
-        $newDepartments = array_diff($departments,$depKeys); // Only returns the difference from first array parameter
-
-        $jsonBag        = $job_bag->ToJson();
+        $jsonBag = $job_bag->toJson();
         echo '{ "msg": "Successfully edited.","error": 0 , "job": '.$jsonBag.' }';
     }
 
-// New
+// New,  you are adding new departments here
 }else{
     // Check first if prism_job_number or prism_job_id has been created already
     $prism_job_id       = $u::dd('job_prism_job_id', $postData,0);
