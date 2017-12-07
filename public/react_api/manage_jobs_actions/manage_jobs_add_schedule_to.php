@@ -55,10 +55,7 @@ if($id){
             // Create the departments after succesfully creating it.
             SchedJobBags::createDepartments($job_bag,$departments,$date);
 
-
-            $jsonBag        = SchedJobBags::find($job_bag->job_id);
-            $json           = $jsonBag->toJson();
-            echo '{ "msg": "Successfully created.","error": 0 , "job": '.$json.' }';
+            echo '{ "msg": "Successfully created.","error": 0 , "job": '.$job_bag->toJson().' }';
         }
 
     // A job bag link to this prism bag already exist notify the user that its already existed

@@ -72,15 +72,12 @@ class AddEditJobForm extends Component {
             const msg  = newData.msg;
             const err  = newData.err;
 
-            // GRABS ALL THE DEPARTMENT IDS USING LODASH MAP
-            let depIds = _.map(job.dept, 'job_dp_dept');
 
             // UPDATE THE STATE NOW TO THE NEWLY CREATED JOB
-            const newJob                        = Object.assign({},job,{job_departments: depIds});
-            const job_deparments_original       = _.cloneDeep(newJob.job_departments);
+            const job_deparments_original       = _.cloneDeep(job.job_departments);
             this.setState((prevState, props) => (
                 {
-                    job: newJob ,
+                    job: job ,
                     isSaving: 0,
                     msg,
                     err,
@@ -414,7 +411,7 @@ class AddEditJobForm extends Component {
                                 <div className="ui error message"></div>
                                 <div className="field">
                                     <label>
-                                        Search for Job by Number or Title from PRISM to link and pre-populate the fields [OPTIONAL]
+                                        Search for Job bag by Number or Title from PRISM to link and pre-populate the fields [OPTIONAL]
                                     </label>
                                     <input type="text" name="job_search" placeholder="Type Job Number or Title to pre-populate or leave empty." id="job_search" onChange={this.prepopulateFromPrism} />
                                 </div>
@@ -478,7 +475,8 @@ class AddEditJobForm extends Component {
                                 <div className="field">
                                     <label><i className="fa fa-tasks" aria-hidden="true"></i> Create Department Tasks</label>
                                     <input type="hidden" name="job_departments" id="job_departments" value={this.state.job.job_departments}/>
-                                    {showDropDown(this.props.settings.departmentOptions,
+                                    {showDropDown(
+                                        this.props.settings.departmentOptions,
                                         this.state.job.job_departments,
                                         this.jobDepartmentChange,
                                         "Pick departments",

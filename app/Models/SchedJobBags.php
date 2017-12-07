@@ -40,9 +40,9 @@ class SchedJobBags extends Model
         $temp['job_prism_job_id'] = intval(\MyUtil::dd('job_prism_job_id',$data));
         $temp['job_prism_number'] = intval(\MyUtil::dd('job_prism_number',$data));
         $temp['job_title']        = \MyUtil::dd('job_title',$data);
-        $temp['job_print_date']   = \MyUtil::getYmdHis(\MyUtil::dde('job_print_date',$data,""),"","Y-m-d");
-        $temp['job_due_date']     = \MyUtil::getYmdHis(\MyUtil::dde('job_due_date',$data,""),"","Y-m-d");
-        $temp['job_lodge_date']   = \MyUtil::getYmdHis(\MyUtil::dde('job_lodge_date',$data,""),"","Y-m-d");
+        $temp['job_print_date']   = \MyUtil::dde('job_print_date',$data,"");
+        $temp['job_due_date']     = \MyUtil::dde('job_due_date',$data,"");
+        $temp['job_lodge_date']   = \MyUtil::dde('job_lodge_date',$data,"");
         $temp['job_qty']          = \MyUtil::dd('job_qty',$data);
         $temp['job_created_by']   = \MyUtil::dd('job_created_by',$data);
         $temp['job_colour']       = \MyUtil::dd('job_colour',$data,'');
@@ -151,23 +151,24 @@ class SchedJobBags extends Model
 
     public function setJobPrintDateAttribute($value)
     {
-        $d = \DateTime::createFromFormat('d-m-Y', $value);
-        $newDate = date("Y-m-d",$d);
+        $d = \DateTime::createFromFormat('d/m/Y', $value);
+        $newDate = date("Y-m-d",$d->getTimestamp());
         $this->attributes['job_print_date'] = $newDate;
     }
     public function setJobDueDateAttribute($value)
     {
-        $d = \DateTime::createFromFormat('d-m-Y', $value);
-        $newDate = date("Y-m-d",$d);
+        $d = \DateTime::createFromFormat('d/m/Y', $value);
+        $newDate = date("Y-m-d",$d->getTimestamp());
         $this->attributes['job_due_date'] = $newDate;
     }
 
     public function setJobLodgeDateAttribute($value)
     {
-        $d = \DateTime::createFromFormat('d-m-Y', $value);
-        $newDate = date("Y-m-d",$d);
+        $d = \DateTime::createFromFormat('d/m/Y', $value);
+        $newDate = date("Y-m-d",$d->getTimestamp());
         $this->attributes['job_lodge_date'] = $newDate;
     }
+
     // ----------------------------------------------
     // Accessor
 
@@ -176,7 +177,7 @@ class SchedJobBags extends Model
             return "";
         }
         $originalDate = $value;
-        $newDate = date("d-m-Y", strtotime($originalDate));
+        $newDate = date("d/m/Y", strtotime($originalDate));
         return $newDate;
     }
     public function getJobDueDateAttribute($value){
@@ -184,7 +185,7 @@ class SchedJobBags extends Model
             return "";
         }
         $originalDate = $value;
-        $newDate = date("d-m-Y", strtotime($originalDate));
+        $newDate = date("d/m/Y", strtotime($originalDate));
         return $newDate;
     }
     public function getJobLodgeDateAttribute($value){
@@ -192,15 +193,31 @@ class SchedJobBags extends Model
             return "";
         }
         $originalDate = $value;
-        $newDate = date("d-m-Y", strtotime($originalDate));
+        $newDate = date("d/m/Y", strtotime($originalDate));
         return $newDate;
     }
     public function getJobColourAttribute($value){
         if(is_null($value)){
             return "";
         }
+        return $value;
     }
-
+    public function getJobPrismJobId($value){
+        if(is_null($value)){
+            return "";
+        }
+        return $value;
+    }
+    public function getJobPrismNumberAttribute($value){
+        if(is_null($value)){
+            return "";
+        }
+        return $value;
+    }
+    public function getJobDepartmentsAttribute($value){
+        $deps  = (empty($value))?[]:array_map('intval', explode(',',$value));
+        return $deps;
+    }
 }
 
 
