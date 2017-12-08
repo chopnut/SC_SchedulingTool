@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {NavLink,Route} from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React,{ Component }  from 'react';
+import {connect}            from 'react-redux';
+import {NavLink,Route}      from 'react-router-dom';
+import PropTypes            from 'prop-types';
 
 // User created module
-import DaysView from './manage/DaysView';
-import DepartmentView from './manage/DepartmentView';
+import DaysView             from './manage/DaysView';
+import DepartmentView       from './manage/DepartmentView';
 
 class Calendar_Manage extends Component {
 	constructor(props){

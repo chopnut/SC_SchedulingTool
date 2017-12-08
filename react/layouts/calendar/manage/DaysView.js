@@ -35,9 +35,7 @@ function mapStateToProps(state,ownprops) {
     })
 }
 function mapDispatchToProps(dispatch){
-    return({
-
-    })
+    return({})
 }
 DaysView.propTypes = {
     web: PropTypes.object // web is storage for user_log information
