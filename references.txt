@@ -3,3 +3,6 @@ https://hacker0x01.github.io/react-datepicker/
 
 moment.js documentation:
 https://momentjs.com/docs/#/displaying/
+
+A step by step understanding of React/
+https://www.andrewhfarmer.com/build-your-own-starter/#0-intro
