@@ -66,18 +66,31 @@ class Department extends Model
                     $tex[]= $last;
                     $tracking = "\$temp".implode('',$tex);
                     $eval = $tracking." = array();";
+
                     eval($eval);
-
-
                 }
-
-
-
             }
         }
         return $temp;
     }
+    static public function  getKids($departments,$carry = null){
+        $temp = $carry;
+        if(!$temp){
+            $temp = array();
+        }
+        foreach($departments as $dep){
+            $id     = $dep['id'];
+            $title  = $dep['title'];
 
+            if(count($dep['kids'])>0){
+                $temp      = Department::getKids($dep['kids'], $temp);
+            }else{
+                $temp[$id] = array();
+                $temp[$id]['title'] = $title;
+            }
+        }
+        return $temp;
+    }
     static public function reconstructDepartment($orders,$lookup){
         $temp = array();
         $i    = 0;

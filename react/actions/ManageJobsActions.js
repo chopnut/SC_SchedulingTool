@@ -16,6 +16,7 @@ export function manage_job_add_new_edit(settings, job){
             console.log("CALLING: ",path_api,job);
             req.then((res)=>{
                 let returndata = res.data;
+                console.log("PROMISE GET: ",returndata);
                 dispatch ({type: MANAGE_JOB_ADD_NEW_EDIT ,resp: returndata });
             });
         });

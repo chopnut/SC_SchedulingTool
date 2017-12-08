@@ -1,0 +1,5 @@
+React-Dateicker documentation:
+https://hacker0x01.github.io/react-datepicker/
+
+moment.js documentation:
+https://momentjs.com/docs/#/displaying/

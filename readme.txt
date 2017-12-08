@@ -13,6 +13,8 @@ What tooling do you need.
 -- JsonApi Calls
 -- Set timeout polling
 -- Listening to dispatch
+
+
 ========================================================================
 AHK Automation According to this project:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

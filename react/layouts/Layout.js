@@ -31,8 +31,9 @@ class Layout extends Component {
 
         const promise = app(this.props.settings);
         promise.then((res)=>{
+            console.log("From Layout Web: ",res.data);
             this.setState((state,prop)=>{
-                return ({state,web: res.data});
+                return ({state,web: res.data,isLoading: false});
             });
 
         });
@@ -79,18 +80,24 @@ class Layout extends Component {
         );
     }
     render() {
-        return (
+        if(!this.state.isLoading){
+            return (
                 <div className="content_holder">
                     {this.renderTabs()}
-                   <div className="page_holder">
-                       <Route path="/calendar"  render ={(props) => <CalendarPage web={this.state.web} {...this.props} /> }/>
-                       <Route path="/managejobs" render ={(props) => <ManageJobsPage web={this.state.web} {...this.props} /> } />
-                       <Route path="/managetasks" render ={(props) => <ManageTasksPage web={this.state.web} {...this.props} /> }/>
-                       <Route path="/schedulingsettings" render ={(props) => <SchedulingSettingsPage web={this.state.web} {...this.props} /> }/>
+                    <div className="page_holder">
+                        <Route path="/calendar"  render ={(props) => <CalendarPage web={this.state.web} {...this.props} /> }/>
+                        <Route path="/managejobs" render ={(props) => <ManageJobsPage web={this.state.web} {...this.props} /> } />
+                        <Route path="/managetasks" render ={(props) => <ManageTasksPage web={this.state.web} {...this.props} /> }/>
+                        <Route path="/usersettings" render ={(props) => <SchedulingSettingsPage web={this.state.web} {...this.props} /> }/>
+                        <Route path="/schedulingsettings" render ={(props) => <SchedulingSettingsPage web={this.state.web} {...this.props} /> }/>
                     </div>
                 </div>
 
-        );
+            )
+        }else{
+            return (<div className="content_holder"></div>);
+        }
+
     }
 }
 function mapStateToProps(state,ownprops) {

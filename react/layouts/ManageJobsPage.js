@@ -1,11 +1,11 @@
 import React from 'react';
 import {Route,NavLink, connect, Component} from "../common/Modules"
+import PropTypes from 'prop-types';
 
-
-import RouteWrapper from './RouteWrapper';
-import ManageJobs_JobsPage from './ManageJobs_JobsPage';
-import ManageJobs_NewEditPage from './ManageJobs_NewEditPage';
-import ManageJobs_SchedulePage from './ManageJobs_SchedulePage';
+import RouteWrapper from './common/RouteWrapper';
+import ManageJobs_JobsPage from './manage_jobs/JobsPage';
+import ManageJobs_NewEditPage from './manage_jobs/NewEditPage';
+import ManageJobs_SchedulePage from './manage_jobs/SchedulePage';
 
 class ManageJobsPage extends Component {
 	constructor(props){

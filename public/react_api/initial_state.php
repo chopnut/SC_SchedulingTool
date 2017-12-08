@@ -94,17 +94,20 @@ echo "window.__initial_state__ = {
       calendar_jobs: $calendarJobs,
       isWorking: false
       },
-
     manage_jobs :{
         action: { type:'',payload:{} },
         isWorking: false
 
     },
-
     manage_tasks:{
         action: { type:'',payload:{} },
         isWorking: false
 
+    },
+    user_settings:{
+        action: { type:'',payload:{} },
+        isWorking: false,
+        setting: {}
     }
 
 }";

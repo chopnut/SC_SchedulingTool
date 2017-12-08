@@ -60,7 +60,15 @@
               background-color: $calendar_page_selected_bg;
 
               .left{
-                  @include make_children_flex();
+                  @include make_children_flex(58%);
+
+
+                  .current_date{
+                      color: lighten($main_blue_color,30%);
+                      font-size: 12px;
+                      padding: 10px;
+                      float: left;
+                  }
               }
               .right{
                   @include make_children_flex();
@@ -103,43 +111,52 @@
                             @include make_children_flex();
                             .title{
                                 font-size: 20px;
-                                margin: 0px;
                                 padding: 0px;
                                 img{
                                     margin-bottom: -6px;
-
                                 }
                             }
-                            .body{
-                                .range_date{
-                                    font-size: 17px;
-                                    font-weight: bold;
-                                }
-                                .next{
-                                    a{ cursor: pointer; }
-                                }
-                                .previous{
-                                    a{ cursor: pointer; }
-                                }
-                                i{border: 0px solid #fff; font-size: 15px;}
-                                .calendar_holder{
-                                    i{font-size:  15px; }
-                                    .change_range_label{
-                                        font-size:  15px;
-                                    }
 
-                                }
-                            }
 
                         }
                         .right{
                             @extend ._padding_between;
-                            @include make_children_flex(270px);
+                            @include make_children_flex(200px);
+                            .mini_calendar_text_field{
+                                width: 200px;
+                            }
+                            i{
+                                margin-top: 5px;
+                            }
 
                         }
 
                     }
                     .second{
+                        text-align:  center;
+                        margin-bottom: 10px;
+
+                        .date_range{
+                            .range_date{
+                                font-size: 17px;
+
+                            }
+                            .next{
+                                a{ cursor: pointer; }
+                            }
+                            .previous{
+                                a{ cursor: pointer; }
+                            }
+                            i{border: 0px solid #fff; font-size: 17px;}
+                            .calendar_holder{
+                                .change_range_label{
+                                    font-size:  15px;
+                                }
+
+                            }
+                        }
+                    }
+                    .third{
                         display: flex;
 
                         // This is the main calendar itself
@@ -154,11 +171,18 @@
                                 .header_department_label{ font-size: 14px;}
                                 .header_date{
                                     text-align:center;
-                                    .day_label{ font-size: 14px; }
+                                    .day_label{
+                                        font-size: 14px;
+                                        cursor: pointer;
+                                    }
+                                    .day_label a:hover{
+                                        color: $main_purple_color;
+                                    }
                                     .add_label{ font-size: 14px; }
                                     .date_label{}
                                 }
                                 .add_label{
+                                    color: $main_blue_color;
                                     cursor: pointer;
                                 }
                                 .add_label:hover{
@@ -186,6 +210,12 @@
                                     font-weight: bold;
                                     vertical-align: top;
 
+                                }
+                                .child_dept a{
+                                    cursor: pointer;
+                                }
+                                .child_dept a:hover{
+                                    color: $main_purple_color;
                                 }
                                 // Individual cell data
                                 .tdCell{
@@ -314,7 +344,10 @@
                       }
                   }
                   .second{
-
+                    background-color: blanchedalmond;
+                  }
+                  .third{
+                      background-color: #A9D6CB;
                   }
               }
           }
@@ -328,6 +361,7 @@
               margin-bottom: 0px;
               margin-top:  5px;
               padding-bottom: 5px;
+
 
               a{
                   color: #ccc;
