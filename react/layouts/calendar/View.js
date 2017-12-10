@@ -56,7 +56,6 @@ class Calendar_View extends Component {
         this.handleChangeDates          = this.handleChangeDates.bind(this);
         this.handleOnChangeDateRange    = this.handleOnChangeDateRange.bind(this);
         this.handleCalendarDateChange   = this.handleCalendarDateChange.bind(this);
-
         this.handleViewDays             = this.handleViewDays.bind(this);
 
 
@@ -181,7 +180,6 @@ class Calendar_View extends Component {
         return (rowsCollection);
 
     }
-
     componentWillReceiveProps(nextProps){
 
         // REFRESH THE PAGE

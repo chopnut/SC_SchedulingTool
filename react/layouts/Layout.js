@@ -44,7 +44,7 @@ class Layout extends Component {
     componentWillMount(){
         const path = this.props.location.pathname;
         const { history } = this.props;
-
+        console.log("Layout comp props",this.props);
         if(path=='/'){
             history.push('/calendar');
         }

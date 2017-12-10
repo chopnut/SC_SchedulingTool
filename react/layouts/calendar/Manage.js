@@ -1,7 +1,8 @@
 import React,{ Component }  from 'react';
 import {connect}            from 'react-redux';
-import {Route}      from 'react-router-dom';
+import {Route,NavLink}      from 'react-router-dom';
 import PropTypes            from 'prop-types';
+import {withRouter }        from 'react-router-dom';
 
 // User created module
 import DaysView             from './manage/DaysView';
@@ -14,7 +15,11 @@ class Calendar_Manage extends Component {
 		this.state = {
 		    isLoading: true
         }
+        this.redirectTo = this.redirectTo.bind(this);
 	}
+	redirectTo(loc){
+	    this.props.history.push(loc);
+    }
 	componentDidMount(){
 
 	    // const routing = helper.getDaysOrDepartments();
@@ -30,11 +35,10 @@ class Calendar_Manage extends Component {
         }else{
 
             return(
-                <RouteWrapper>
-                    <Route exact path="/calendar/manage/"   render ={(props) => <DaysView web={this.props.web} dep={this.props.dep} {...props}  /> } />
-                    <Route path="/calendar/manage/days/:date/:job_dp_id" render ={(props) => <DaysView web={this.props.web} dep={this.props.dep} {...props} /> } />
-                    <Route path="/calendar/manage/departments/:id" render ={(props) => <DepartmentView web={this.props.web} {...props} /> } />
-                </RouteWrapper>
+                <div>
+                    <Route path="/calendar/manage/days/:date?/:job_dp_id?" render ={(props) => <DaysView web={this.props.web} dep={this.props.dep} redirectTo={this.redirectTo} {...props} /> } />
+                    <Route path="/calendar/manage/departments/:id" render ={(props) => <DepartmentView web={this.props.web} redirectTo={this.redirectTo} {...props} /> } />
+                </div>
             );
         }
 
@@ -49,6 +53,6 @@ Calendar_Manage.propTypes = {
     web: PropTypes.object, // web is storage for user_log information
     dep: PropTypes.object  // information about departments
 }
-export default connect(mapStateToProps,null,null,{pure: false})(Calendar_Manage);
+export default withRouter(connect(mapStateToProps,null,null,{pure: false})(Calendar_Manage));
 
 

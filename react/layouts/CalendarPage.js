@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {Route,NavLink,connect} from "../common/Modules"
+import {Route,NavLink} from "react-router-dom"
 import {withRouter } from 'react-router-dom';
+import {connect}     from 'react-redux';
 import moment from 'moment';
 import axios from 'axios';
 import PropTypes from 'prop-types';
@@ -55,7 +56,7 @@ class CalendarPage extends Component {
                     <div className="body">
                         <RouteWrapper>
                             <Route exact path="/calendar"  render={(props) => <Calendar_View   dep={this.state.departments} {...this.props}/>}/>
-                            <Route path="/calendar/manage" render={(props) => <Calendar_Manage dep={this.state.departments} {...this.props}/>}/>
+                            <Route path="/calendar/manage/days/" render={(props) => <Calendar_Manage dep={this.state.departments} {...this.props}/>}/>
                         </RouteWrapper>
                     </div>
                 </article>

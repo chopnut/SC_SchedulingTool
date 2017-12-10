@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import {withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
@@ -12,24 +12,45 @@ import moment from 'moment';
 class DaysView extends Component {
     constructor(props){
         super(props);
+
         this.state = {
             isLoading: true,
             calendar_date: moment(),
-            sunday,
-            saturday
+            sunday: props.calendar_page.days[0].date,
+            saturday: props.calendar_page.days[6].date,
+            paramsDate: null
         }
-        this.handleChangeCalendarDate = this.handleChangeCalendarDate.bind(this);
-        this.handleChangeDates      = this.handleChangeDates.bind(this);
-    }
-    handleChangeDates(direction){
 
+        this.handleChangeCalendarDate = this.handleChangeCalendarDate.bind(this);
+        this.handleChangeDirection    = this.handleChangeDirection.bind(this);
+    }
+    handleChangeDirection(direction){
+        const msunday       = moment(this.state.sunday.date,'DD/MM/YYYY');
+        const msaturday     = moment(this.state.saturday.date,'DD/MM/YYYY');
+
+        let nextSunday    = moment(msunday);
+        let nextSaturday  = moment(msaturday);
+
+        if(direction=='left'){
+            nextSunday.subtract(7,'days');
+            nextSaturday.subtract(7, 'days');
+
+        }else{ // You are going right
+            nextSunday.add(7,'days');
+            nextSaturday.add(7, 'days');
+        }
+        this.setState((prevState,props)=>{
+            return({sunday: nextSunday, saturday:nextSaturday});
+        });
     }
     /*
     * Handle the date range when mini calendar has been selected
     * query the new calendar_date state;
     * */
     handleChangeCalendarDate(newDate){
-        const today = newDate.format('dddd').toLowerCase();
+        const today     = newDate.format('dddd').toLowerCase();
+        const dateNew   = newDate.format('DD-MM-YYYY');
+
         let nextSunday, nextSaturday;
 
         if(today=='sunday'){
@@ -53,14 +74,50 @@ class DaysView extends Component {
                 }
             });
         }
+        // If params date has value that means you are in the mode of viewing a particular date
+        // so redirect to new date
+        if(this.state.paramsDate){
+            this.props.redirectTo('/calendar/manage/days/'+dateNew);
+        }
+
+        this.setState((prevState,props)=>{
+            return({
+                calendar_date: newDate,
+                sunday: nextSunday.format('DD/MM/YYYY'),
+                saturday: nextSaturday.format('DD/MM/YYYY')});
+        });
+
 
 
     }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.redirectTo){
+            console.log("TRiggered");
+        }
+    }
     componentDidMount(){
-        console.log("DAYSVIEW", this.props);
+        console.log("Daysview",this.props);
+
+        const date = this.props.match.params.date;
+        let   paramsDate = null;
+        if(date){
+            // Check for a valid date, 3rd param is for strict mode
+            const moDate = moment(date,"DD-MM-YYYY",true);
+            if(moDate.isValid()) paramsDate = moDate;
+        }
         this.setState(function(state,props){
-            return ({state,isLoading: false});
+            return ({state,isLoading: false,paramsDate: paramsDate});
         });
+    }
+    renderContent(){
+        return "";
+    }
+    renderTitle(){
+        let content = <span>{this.state.sunday} - {this.state.saturday}</span>;
+        if(this.state.paramsDate) {
+            content = <span>{this.state.paramsDate.format('DD/MM/YYYY')}</span>
+        }
+        return (content);
     }
     render(){
 
@@ -108,22 +165,24 @@ class DaysView extends Component {
                                 float: "left"
                             }}></div>
                         </div>
-
                         <div className="date_range head_link">
                             <span className="previous">
                                 <a className="click_prev" onClick={() => {
-                                    this.handleChangeDates('left');
+                                    this.handleChangeDirection('left');
                                 }}><i className="chevron circle left icon"></i></a>
                             </span>
-                            <span className="range_date">{this.props.calendar_page.days[0].date}
-                                - {this.props.calendar_page.days[6].date}
+                            <span className="range_date">
+                                {this.renderTitle()}
                             </span>
                             <span className="next">
                                 <a className="click_next" onClick={() => {
-                                    this.handleChangeDates('right');
+                                    this.handleChangeDirection('right');
                                 }}><i className="chevron circle right icon"></i></a>
                             </span>
                         </div>
+                    </div>
+                    <div className="third">
+                        {this.renderContent()}
                     </div>
                 </div>
             );
@@ -139,6 +198,7 @@ function mapDispatchToProps(dispatch){
     return({})
 }
 DaysView.propTypes = {
-    web: PropTypes.object // web is storage for user_log information
+    web: PropTypes.object, // web is storage for user_log information
+    redirectTo: PropTypes.func
 }
-export default connect(mapStateToProps,mapDispatchToProps)(DaysView);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(DaysView));
