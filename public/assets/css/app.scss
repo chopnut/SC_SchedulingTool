@@ -132,6 +132,22 @@
                         }
 
                     }
+                    .head_link i{
+                        color: darken($main_blue_color,20%);
+                        cursor: pointer !important;
+                    }
+                    .head_link i:hover{
+                      color: $main_purple_color !important;
+                      cursor: pointer !important;
+                    }
+                    .head_link a{
+                        color: $main_blue_color !important;
+                        cursor: pointer !important;
+
+                    }
+                    .head_link a:hover{
+                      color: $main_purple_color !important;
+                    }
                     .second{
                         text-align:  center;
                         margin-bottom: 10px;
@@ -140,12 +156,6 @@
                             .range_date{
                                 font-size: 17px;
 
-                            }
-                            .next{
-                                a{ cursor: pointer; }
-                            }
-                            .previous{
-                                a{ cursor: pointer; }
                             }
                             i{border: 0px solid #fff; font-size: 17px;}
                             .calendar_holder{
@@ -173,20 +183,10 @@
                                     text-align:center;
                                     .day_label{
                                         font-size: 14px;
-                                        cursor: pointer;
-                                    }
-                                    .day_label a:hover{
-                                        color: $main_purple_color;
+
                                     }
                                     .add_label{ font-size: 14px; }
                                     .date_label{}
-                                }
-                                .add_label{
-                                    color: $main_blue_color;
-                                    cursor: pointer;
-                                }
-                                .add_label:hover{
-                                    color: $main_purple_color;
                                 }
                                 .today{
                                     background-color: lighten($main_orange_color,40%);
@@ -210,12 +210,6 @@
                                     font-weight: bold;
                                     vertical-align: top;
 
-                                }
-                                .child_dept a{
-                                    cursor: pointer;
-                                }
-                                .child_dept a:hover{
-                                    color: $main_purple_color;
                                 }
                                 // Individual cell data
                                 .tdCell{
@@ -269,7 +263,7 @@
                                 }
                             }
                         }
-                        // This is the side bar
+                        // This is the prism side bar
                         .right{
                             @extend ._padding_between;
                             @include make_children_flex(160px,0);
@@ -328,27 +322,28 @@
 
               }
               .calendar_manage{
-                  font-size:  11px;
-                  .first{
-                      display: flex;
-                      .left{
-                          @include make_children_flex();
-                          .title{
-                              font-size: 20px;
-                              margin: 0px;
-                              padding: 0px;
-                          }
-                      }
-                      .right{
-                          @include make_children_flex(270px);
-                      }
-                  }
-                  .second{
-                    background-color: blanchedalmond;
-                  }
-                  .third{
-                      background-color: #A9D6CB;
-                  }
+                  @extend .calendar_view;
+                  //font-size:  11px;
+                  //.first{
+                  //    display: flex;
+                  //    .left{
+                  //        @include make_children_flex();
+                  //        .title{
+                  //            font-size: 20px;
+                  //            margin: 0px;
+                  //            padding: 0px;
+                  //        }
+                  //    }
+                  //    .right{
+                  //        @include make_children_flex(270px);
+                  //    }
+                  //}
+                  //.second{
+                  //  background-color: blanchedalmond;
+                  //}
+                  //.third{
+                  //    background-color: #A9D6CB;
+                  //}
               }
           }
       }

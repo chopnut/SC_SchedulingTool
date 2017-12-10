@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import  {calendar_page_move_dep_side_by_side} from '../../actions/CalendarActions';
 import CalendarGroupCells from "./CalendarGroupCells";
 import {withRouter } from 'react-router-dom';
+import NavLink from "react-router-dom/es/NavLink";
 
 class CalendarRow extends Component {
     constructor(props){
@@ -128,12 +129,12 @@ class CalendarRow extends Component {
     }
     render(){
         const colspan = (this.props.isParent)?8:0;
-        const rowClassName = this.props.isParent?"parent_dept":"child_dept";
+        const rowClassName = this.props.isParent?"parent_dept":"child_dept head_link";
         const today   = this.props.calendar_page.today_date;
 
         const dLink = ()=>{
             if(colspan==0){
-                return (<a onClick={()=>{ this.handleViewDepartments(this.props.departmentId); }}> {this.props.title}</a>)
+                return (<NavLink to={"/calendar/manage/departments/"+this.props.departmentId}>{this.props.title}</NavLink>)
             }else{
                 return this.props.title
             }

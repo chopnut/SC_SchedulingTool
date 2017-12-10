@@ -21,7 +21,6 @@ class CalendarPage extends Component {
 
 	}
 	componentDidMount(){
-	    console.log("FromCalendarPage ", this.props);
 
         // Get the departments from API Call from axios
         // This will build the rows and cells based on the departments and calendar_page.days

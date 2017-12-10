@@ -97,7 +97,7 @@ class CalendarAddRecurring extends Component {
             return(<div className="ui active mini inline loader"></div>);
         }else{
             return(
-            <span>
+            <span className="head_link">
                 <Popup trigger={<i className="add circle icon"></i>}
                        className="add_recurring"
                        position="right center"

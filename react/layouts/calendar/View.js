@@ -4,6 +4,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 
+
 // Calendar Date picker
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -83,6 +84,16 @@ class Calendar_View extends Component {
         this.props.calendar_page_change_days(this.props.settings,dateArray);
 
     }
+    /*
+    * Handles on change from Mini calendar from in the center of the page
+    * */
+    handleCalendarFunction(date){
+        this.setState(function(state,props){
+            return ({state,calendar_date: date});
+        });
+
+        this.handleOnChangeDateRange( date);
+    }
 	/*
 	* Handle the date range when mini calendar has been selected
 	* query the new calendar_date state;
@@ -116,16 +127,7 @@ class Calendar_View extends Component {
         this.handleCalendarDateChange(nextSunday,nextSaturday);
 
     }
-    /*
-    * Handles on change from Mini calendar from in the center of the page
-    * */
-    handleCalendarFunction(date){
-        this.setState(function(state,props){
-            return ({state,calendar_date: date});
-        });
 
-        this.handleOnChangeDateRange( date);
-    }
 	/*
 	* Handle the change of dates which direction the press
 	* @direction left or right
@@ -150,7 +152,6 @@ class Calendar_View extends Component {
     }
     handleViewDays(date){
         const { history } = this.props;
-
         history.push('/calendar/manage/days/'+date.replace(/\//g,'-'));
     }
 
@@ -246,14 +247,15 @@ class Calendar_View extends Component {
                             }}></div>
                         </div>
 
-                        <div className="date_range">
+                        <div className="date_range head_link">
                             <span className="previous">
                                 <a className="click_prev" onClick={() => {
                                     this.handleChangeDates('left');
                                 }}><i className="chevron circle left icon"></i></a>
                             </span>
                             <span className="range_date">{this.props.calendar_page.days[0].date}
-                                - {this.props.calendar_page.days[6].date}</span>
+                                - {this.props.calendar_page.days[6].date}
+                            </span>
                             <span className="next">
                                 <a className="click_next" onClick={() => {
                                     this.handleChangeDates('right');
@@ -277,7 +279,7 @@ class Calendar_View extends Component {
                                             }
 
                                             return (<th className={className} key={i}>
-                                                <span className="day_label">
+                                                <span className="day_label head_link">
                                                     <a onClick={
                                                         (e)=>{
                                                            this.handleViewDays(item.date);
@@ -339,6 +341,7 @@ function mapDispatchToProps(dispatch){
     })
 }
 Calendar_View.propTypes = {
-    web: PropTypes.object // web is storage for user_log information
+    web: PropTypes.object, // web is storage for user_log information
+    dep: PropTypes.object  // information about departments
 }
 export default connect(mapStateToProps,mapDispatchToProps,null,{pure: false})(Calendar_View);
