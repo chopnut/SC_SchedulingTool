@@ -6,12 +6,13 @@ import _ from 'lodash';
 import moment from 'moment';
 
 // Calendar Date picker
-import * as helper from '../../../common/CalendarPageFunctions';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 // User defined components
 import DayView from '../../../components/calendar/manage/days_view/DayView';
+import * as helper from '../../../common/CalendarPageFunctions';
+import DeptView from './DepartmentView';
 
 class DaysView extends Component {
     constructor(props){
@@ -115,8 +116,12 @@ class DaysView extends Component {
 
             content = ()=>{
                 return (
-                    <div>
-                        Params date
+                    <div className="all_days_date">
+                        {
+                            this.props.dep.departmentsOrder.map(function (item, index) {
+                                return <DeptView key={index} department={item} jobs={parent.state.job_departments} />
+                            })
+                        }
                     </div>
                 );
             }
