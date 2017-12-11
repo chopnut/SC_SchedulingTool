@@ -153,9 +153,12 @@
                         margin-bottom: 10px;
 
                         .date_range{
+                            .labels{ }
+                            .date_label{ font-size: 15px; font-weight: bold; }
+                            .day_label{ font-size: 17px; color: $main_blue_color; }
                             .range_date{
-                                font-size: 17px;
-
+                                font-size: 15px;
+                                font-weight: bold;
                             }
                             i{border: 0px solid #fff; font-size: 17px;}
                             .calendar_holder{
@@ -323,27 +326,97 @@
               }
               .calendar_manage{
                   @extend .calendar_view;
-                  //font-size:  11px;
-                  //.first{
-                  //    display: flex;
-                  //    .left{
-                  //        @include make_children_flex();
-                  //        .title{
-                  //            font-size: 20px;
-                  //            margin: 0px;
-                  //            padding: 0px;
-                  //        }
-                  //    }
-                  //    .right{
-                  //        @include make_children_flex(270px);
-                  //    }
-                  //}
-                  //.second{
-                  //  background-color: blanchedalmond;
-                  //}
-                  //.third{
-                  //    background-color: #A9D6CB;
-                  //}
+                  .header_labels{
+
+                        table{
+                            width: 100%;
+                            border-bottom: 1px solid $main_grey_color;
+                            th{
+                                border-right: 1px solid $main_grey_color;
+                            }
+                            th:first-child{
+                                border-left: 1px solid $main_grey_color;
+                            }
+                            th.jnu{width: 80px;}
+                            th.csr{width: 30px;}
+                            th.cli{width: 100px;}
+                            th.qty{width: 100px;}
+                            th.jna{}
+                            th.dat{width: 100px;}
+                            th.pri{width: 100px;}
+                            th.sto{width: 70px;}
+                        }
+                  }
+                  .fourth{
+                      display: flex;
+                      // The actual content of manage page
+                      .left{
+                          @include make_children_flex();
+                          // ---------------------------------------------------
+                          // Viewing all days from the manage tab page
+                          .all_days{
+                              // Container of each day
+                              .container{
+                                  .header{
+                                      background-color: $main_grey_color;
+                                      display: flex;
+                                      .left_of_all_days {
+                                          @include make_children_flex();
+                                          .content{
+                                              padding: 10px;
+                                              .day{ font-size: 15px; }
+                                              .date{ padding-left: 20px; }
+                                          }
+                                      }
+                                      .right_of_all_days{
+
+                                          @include make_children_flex(50px);
+                                      }
+                                  }
+                                  .body{
+                                      padding: 15px;
+                                      margin: 0px;
+                                      text-align: center;
+
+                                      // Individual departments per day
+                                      .department_container{
+                                          .department_header{
+                                              color: darken($main_blue_color,25%);
+                                              border-top: 1px solid $main_grey_color;
+                                              margin-top: 10px;
+                                          }
+                                          .department_header_main{
+                                              font-size: 15px;
+                                              font-weight: bold;
+                                          }
+                                          .department_body{
+                                                // The children of the department
+                                                .kid{
+                                                    .kid_header{
+                                                       @extend  .department_header_main;
+                                                    }
+                                                    .kid_body{
+
+                                                    }
+                                                }
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                          // ---------------------------------------------------
+                          // Viewing a particular day with departments section
+                          .just_day{
+
+                          }
+                      }
+                      // You can have extra navigation here
+                      .right{
+                          @include make_children_flex(0px);
+
+                      }
+                  }
+
               }
           }
       }

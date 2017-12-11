@@ -91,6 +91,18 @@ class Department extends Model
         }
         return $temp;
     }
+    static  public function getKidsArray($dept){
+        $t        = array();
+        $depttemp = Department::getKids($dept);
+        $i = 0;
+        foreach($depttemp as $id=>$val){
+            $t[$i] = array();
+            $t[$i]['id']    = $id;
+            $t[$i]['title'] = $val['title'];
+            $i++;
+        }
+        return $t;
+    }
     static public function reconstructDepartment($orders,$lookup){
         $temp = array();
         $i    = 0;

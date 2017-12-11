@@ -17,12 +17,15 @@
 
 	$orders 	 	= Department::getDepartmentParentKids($temp);
 	$departments 	= Department::reconstructDepartment($orders,$depsTitle);
-	$departmentIsKid = Department::getKids($departments);
+	$departmentIsKid = Department::getKidsArray($departments);
+
+
 
 	$data 					  = array();
 	$data['departmentsOrder'] = $departments;
-	$data['departmentsKids'] = $departmentIsKid;
+	$data['departmentsKids']  = $departmentIsKid;
 	$data['departments']      = $depsTitle;
+
 
 	echo json_encode($data);
 

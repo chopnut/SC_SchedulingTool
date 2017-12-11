@@ -44,3 +44,7 @@ export function showDropDown(options,selections,onchangeFunction,placeholder,id)
     );
 }
 
+export function getLoader(){
+    return <div className="ui active inline loader"></div>;
+}
+

@@ -3,11 +3,15 @@ import {withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import moment from 'moment';
 
 // Calendar Date picker
+import * as helper from '../../../common/CalendarPageFunctions';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import moment from 'moment';
+
+// User defined components
+import DayView from '../../../components/calendar/manage/days_view/DayView';
 
 class DaysView extends Component {
     constructor(props){
@@ -15,10 +19,12 @@ class DaysView extends Component {
 
         this.state = {
             isLoading: true,
-            calendar_date: moment(),
+            departmentJobs: [],
+            paramsDate: null,
+
+            calendarDate: moment(),
             sunday: props.calendar_page.days[0].date,
-            saturday: props.calendar_page.days[6].date,
-            paramsDate: null
+            saturday: props.calendar_page.days[6].date
         }
 
         this.handleChangeCalendarDate = this.handleChangeCalendarDate.bind(this);
@@ -43,13 +49,9 @@ class DaysView extends Component {
             return({sunday: nextSunday, saturday:nextSaturday});
         });
     }
-    /*
-    * Handle the date range when mini calendar has been selected
-    * query the new calendar_date state;
-    * */
     handleChangeCalendarDate(newDate){
-        const today     = newDate.format('dddd').toLowerCase();
-        const dateNew   = newDate.format('DD-MM-YYYY');
+        const today         = newDate.format('dddd').toLowerCase();
+        let paramsDate      = null
 
         let nextSunday, nextSaturday;
 
@@ -77,24 +79,21 @@ class DaysView extends Component {
         // If params date has value that means you are in the mode of viewing a particular date
         // so redirect to new date
         if(this.state.paramsDate){
-            this.props.redirectTo('/calendar/manage/days/'+dateNew);
+            this.props.history.push('/calendar/manage/days/'+newDate.format('DD-MM-YYYY'));
+            paramsDate = newDate;
         }
 
         this.setState((prevState,props)=>{
-            return({
-                calendar_date: newDate,
-                sunday: nextSunday.format('DD/MM/YYYY'),
-                saturday: nextSaturday.format('DD/MM/YYYY')});
+            return(
+                {
+                    calendarDate: newDate,
+                    sunday: nextSunday.format('DD/MM/YYYY'),
+                    saturday: nextSaturday.format('DD/MM/YYYY'),
+                    paramsDate: paramsDate
+                });
         });
-
-
-
     }
-    componentWillReceiveProps(nextProps){
-        if(nextProps.redirectTo){
-            console.log("TRiggered");
-        }
-    }
+    componentWillReceiveProps(nextProps){    }
     componentDidMount(){
         console.log("Daysview",this.props);
 
@@ -110,12 +109,47 @@ class DaysView extends Component {
         });
     }
     renderContent(){
-        return "";
+        let content = null;
+        if(this.state.paramsDate){
+            // Individual date, loop through departments
+
+            content = ()=>{
+                return (
+                    <div>
+                        Params date
+                    </div>
+                );
+            }
+        }else {
+            // All week , loop through 7 days
+
+            const moments = helper.getSevenMomentsFromDate(this.state.sunday);
+            const parent = this;
+
+
+            content = ()=>{
+                return (
+                    <div className="all_days">
+                        {
+                            moments.map(function (item,index) {
+
+                                return (<DayView key={index} moment = {item} web={parent.props.web} dep = {parent.props.dep} />);
+                            })
+                        }
+                    </div>
+                );
+            }
+
+        }
+        return content();
     }
     renderTitle(){
-        let content = <span>{this.state.sunday} - {this.state.saturday}</span>;
+        let content = <span className="date_label">{this.state.sunday} - {this.state.saturday}</span>;
         if(this.state.paramsDate) {
-            content = <span>{this.state.paramsDate.format('DD/MM/YYYY')}</span>
+            content = <span className="labels">
+                        <span className="day_label">{this.state.paramsDate.format('dddd')}</span><br/>
+                        <span className="date_label">{this.state.paramsDate.format('DD/MM/YYYY')}</span>
+                      </span>;
         }
         return (content);
     }
@@ -138,7 +172,7 @@ class DaysView extends Component {
                                     <span className="ui input">
                                          <i className="calendar large icon"></i>
                                       <DatePicker
-                                          selected={this.state.calendar_date}
+                                          selected={this.state.calendarDate}
                                           onChange={(date) => {
                                               this.handleChangeCalendarDate(date);
                                             }
@@ -166,23 +200,39 @@ class DaysView extends Component {
                             }}></div>
                         </div>
                         <div className="date_range head_link">
-                            <span className="previous">
-                                <a className="click_prev" onClick={() => {
-                                    this.handleChangeDirection('left');
-                                }}><i className="chevron circle left icon"></i></a>
-                            </span>
-                            <span className="range_date">
-                                {this.renderTitle()}
-                            </span>
-                            <span className="next">
-                                <a className="click_next" onClick={() => {
-                                    this.handleChangeDirection('right');
-                                }}><i className="chevron circle right icon"></i></a>
-                            </span>
+                            <table style={{border: "0px solid #000",dislay: "table",margin:"0 auto" }}>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <span className="previous">
+                                            <a className="click_prev" onClick={() => {
+                                                this.handleChangeDirection('left');
+                                            }}><i className="chevron circle left icon"></i></a>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {this.renderTitle()}
+                                    </td>
+                                    <td>
+                                        <span className="next">
+                                            <a className="click_next" onClick={() => {
+                                                this.handleChangeDirection('right');
+                                            }}><i className="chevron circle right icon"></i></a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
                         </div>
                     </div>
-                    <div className="third">
-                        {this.renderContent()}
+                    <div className="fourth">
+                        <div className="left">
+                            {this.renderContent()}
+                        </div>
+                        <div className="right">
+                            &nbsp;
+                        </div>
                     </div>
                 </div>
             );
@@ -199,6 +249,7 @@ function mapDispatchToProps(dispatch){
 }
 DaysView.propTypes = {
     web: PropTypes.object, // web is storage for user_log information
+    dep: PropTypes.object, // information about departments
     redirectTo: PropTypes.func
 }
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(DaysView));

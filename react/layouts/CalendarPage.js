@@ -43,7 +43,7 @@ class CalendarPage extends Component {
                 </div>
                 <div className="right">
                     <NavLink exact to="/calendar" activeClassName="selected" className="links"><i className="grid layout icon"></i> View </NavLink>
-                    <NavLink to="/calendar/manage" activeClassName="selected" className="links"><i className="checked calendar icon"></i> Manage</NavLink>
+                    <NavLink to="/calendar/manage/" activeClassName="selected" className="links"><i className="checked calendar icon"></i> Manage</NavLink>
                 </div>
             </div>
         );
@@ -56,7 +56,7 @@ class CalendarPage extends Component {
                     <div className="body">
                         <RouteWrapper>
                             <Route exact path="/calendar"  render={(props) => <Calendar_View   dep={this.state.departments} {...this.props}/>}/>
-                            <Route path="/calendar/manage/days/" render={(props) => <Calendar_Manage dep={this.state.departments} {...this.props}/>}/>
+                            <Route path="/calendar/manage/" render={(props) => <Calendar_Manage dep={this.state.departments} {...this.props}/>}/>
                         </RouteWrapper>
                     </div>
                 </article>

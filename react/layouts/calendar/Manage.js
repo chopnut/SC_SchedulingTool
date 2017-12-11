@@ -7,7 +7,7 @@ import {withRouter }        from 'react-router-dom';
 // User created module
 import DaysView             from './manage/DaysView';
 import DepartmentView       from './manage/DepartmentView';
-import RouteWrapper from '../common/RouteWrapper';
+import {getLoader} from '../../common/JobBagCommonUI';
 
 class Calendar_Manage extends Component {
 	constructor(props){
@@ -31,17 +31,17 @@ class Calendar_Manage extends Component {
     }
 	render(){
         if(this.state.isLoading){
-            return (<div className="calendar_view center"><div className="ui active inline loader"></div></div>);
+            return (<div className="calendar_view center">{getLoader()}</div>);
         }else{
 
             return(
                 <div>
+                    <Route exact path="/calendar/manage/" render ={(props) => <DaysView web={this.props.web} dep={this.props.dep} redirectTo={this.redirectTo} {...props} /> } />
                     <Route path="/calendar/manage/days/:date?/:job_dp_id?" render ={(props) => <DaysView web={this.props.web} dep={this.props.dep} redirectTo={this.redirectTo} {...props} /> } />
-                    <Route path="/calendar/manage/departments/:id" render ={(props) => <DepartmentView web={this.props.web} redirectTo={this.redirectTo} {...props} /> } />
+                    <Route path="/calendar/manage/departments/:id"         render ={(props) => <DepartmentView web={this.props.web} redirectTo={this.redirectTo} {...props} /> } />
                 </div>
             );
         }
-
 	}
 }
 function mapStateToProps(state,ownprops) {

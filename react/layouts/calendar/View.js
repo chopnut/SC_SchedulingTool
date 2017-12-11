@@ -17,6 +17,7 @@ import CalendarRow from "../../components/calendar/CalendarRow";
 import CalendarPrismSidebar from "../../components/calendar/CalendarPrismSidebar";
 import CalendarAddRecurring from "../../components/calendar/AddRecurring";
 import BottomLegend from "./BottomLegend";
+import {getLoader} from '../../common/JobBagCommonUI';
 
 
 // Get actions for calendar page
@@ -68,6 +69,7 @@ class Calendar_View extends Component {
     handleCalendarDateChange(newSunday,newSaturday){
         // Need to fill up the dates in between
         let dateArray = [];
+
         dateArray.push({day: newSunday.format("dddd"), date: newSunday.format("DD/MM/YYYY") });
         _.times(5,function(n){
             const day = moment(newSunday).add(n+1,'days');
@@ -200,7 +202,7 @@ class Calendar_View extends Component {
     }
 	render(){
 	    if(this.state.isLoading){
-            return (<div className="calendar_view center"><div className="ui active inline loader"></div></div>);
+            return (<div className="calendar_view center">{getLoader()}</div>);
         }else{
             return(
                 <div className="calendar_view">
