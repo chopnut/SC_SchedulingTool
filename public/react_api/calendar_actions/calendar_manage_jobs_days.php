@@ -21,8 +21,6 @@ if(isset($data['job_dp_date'])){
     $job_dp_date = $u::dd('job_dp_date',$data);
     $jobs_dp = SchedJobBagDepartment::with('jobbag')->where('job_dp_date','=',$job_dp_date)->get();
 
-
-
     if(count($jobs_dp)>0){
         $jobs_dp_ = $jobs_dp->toArray();
         $t        = array();
