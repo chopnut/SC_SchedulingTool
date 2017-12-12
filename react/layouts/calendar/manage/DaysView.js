@@ -131,7 +131,6 @@ class DaysView extends Component {
             const moments = helper.getSevenMomentsFromDate(this.state.sunday);
             const parent = this;
 
-
             content = ()=>{
                 return (
                     <div className="all_days">
