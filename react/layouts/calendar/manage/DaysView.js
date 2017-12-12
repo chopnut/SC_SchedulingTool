@@ -5,14 +5,16 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
 
+// Other function
+import * as helper from '../../../common/CalendarPageFunctions';
+
 // Calendar Date picker
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 // User defined components
-import DayView from '../../../components/calendar/manage/days_view/DayView';
-import * as helper from '../../../common/CalendarPageFunctions';
-import DeptView from './DepartmentView';
+import DayRow from '../../../components/calendar/manage/days_view/Day';
+import DeparmentRow from '../../../components/calendar/manage/day_view/Department';
 
 class DaysView extends Component {
     constructor(props){
@@ -110,17 +112,32 @@ class DaysView extends Component {
         });
     }
     renderContent(){
-        let content = null;
+        let content     = null;
+        const parent    = this;
         if(this.state.paramsDate){
+
+            // Get department rows
+            let departments = [];
+            const k = (item,temp)=>{
+                if(item.kids.length>0){
+                    temp.push(<DeparmentRow key={item.id} hasKid={true} item={item}/>);
+                    item.kids.map((item2,index2)=>{
+                            temp.push(<DeparmentRow key={item2.id} hasKid={false} item={item2}/>);
+                    });
+                }else{
+                    temp.push(<DeparmentRow key={item.id} hasKid={false} item={item}/>);
+                }
+            }
+            this.props.dep.departmentsOrder.map(function (item, index) {
+                k(item,departments);
+            })
             // Individual date, loop through departments
 
             content = ()=>{
                 return (
                     <div className="all_days_date">
                         {
-                            this.props.dep.departmentsOrder.map(function (item, index) {
-                                return <DeptView key={index} department={item} jobs={parent.state.job_departments} />
-                            })
+                            departments
                         }
                     </div>
                 );
@@ -138,7 +155,7 @@ class DaysView extends Component {
                         {
                             moments.map(function (item,index) {
 
-                                return (<DayView key={index} moment = {item} web={parent.props.web} dep = {parent.props.dep} />);
+                                return (<DayRow key={index} moment = {item} web={parent.props.web} dep = {parent.props.dep} />);
                             })
                         }
                     </div>

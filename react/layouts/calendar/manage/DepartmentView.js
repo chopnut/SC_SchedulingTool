@@ -10,7 +10,7 @@ import * as helper from '../../../common/CalendarPageFunctions';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-class DaysView extends Component {
+class DepartmentView extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -191,8 +191,10 @@ function mapStateToProps(state,ownprops) {
     })
 }
 function mapDispatchToProps(dispatch){
-    return({
-
-    })
+    return({})
 }
-export default connect(mapStateToProps,mapDispatchToProps)(DaysView);
+DepartmentView.propTypes = {
+    department: PropTypes.object, // web is storage for user_log information
+    jobs: PropTypes.array // information about departments
+}
+export default connect(mapStateToProps,mapDispatchToProps)(DepartmentView);
