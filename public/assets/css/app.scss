@@ -326,6 +326,7 @@
               }
               .calendar_manage{
                   @extend .calendar_view;
+                  // The header labels for viewing days
                   .header_labels{
 
                         table{
@@ -347,6 +348,7 @@
                             th.sto{width: 70px;}
                         }
                   }
+                  // Manage Page
                   .fourth{
                       display: flex;
                       // The actual content of manage page
@@ -413,6 +415,12 @@
                       // You can have extra navigation here
                       .right{
                           @include make_children_flex(0px);
+
+                      }
+                  }
+                  // When viewing a particular department in a week
+                  .department_view{
+                      .container{
 
                       }
                   }

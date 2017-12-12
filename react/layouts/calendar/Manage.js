@@ -38,7 +38,7 @@ class Calendar_Manage extends Component {
                 <div>
                     <Route exact path="/calendar/manage/" render ={(props) => <DaysView web={this.props.web} dep={this.props.dep} redirectTo={this.redirectTo} {...props} /> } />
                     <Route path="/calendar/manage/days/:date?/:job_dp_id?" render ={(props) => <DaysView web={this.props.web} dep={this.props.dep} redirectTo={this.redirectTo} {...props} /> } />
-                    <Route path="/calendar/manage/departments/:id"         render ={(props) => <DepartmentView web={this.props.web} redirectTo={this.redirectTo} {...props} /> } />
+                    <Route path="/calendar/manage/departments/:id"         render ={(props) => <DepartmentView web={this.props.web} dep={this.props.dep} redirectTo={this.redirectTo}  /> } />
                 </div>
             );
         }

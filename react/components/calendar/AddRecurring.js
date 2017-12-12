@@ -94,7 +94,7 @@ class CalendarAddRecurring extends Component {
     }
     render(){
         if(this.state.isLoading){
-            return(<div className="ui active mini inline loader"></div>);
+            return(<span className="head_link"><i className="add circle icon"></i></span>);
         }else{
             return(
             <span className="head_link">

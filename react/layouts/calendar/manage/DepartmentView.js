@@ -9,8 +9,10 @@ import moment from 'moment';
 import * as helper from '../../../common/CalendarPageFunctions';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+// User defined components
+import DayRow from '../../../components/calendar/manage/departments_view/day';
 
-class DaysView extends Component {
+class DepartmentView extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -87,6 +89,14 @@ class DaysView extends Component {
         });
     }
     componentDidMount(){
+        console.log("Department view ",this.props);
+
+        // if("1" in this.props.dep.departments){
+        //     console.log("There is 1 ",this.props.dep.departments);
+        //
+        // }
+
+
         this.setState(function(state,props){
             return ({state,isLoading: false});
         });
@@ -96,7 +106,7 @@ class DaysView extends Component {
         return (content);
     }
     renderContent(){
-        return "";
+        return "Hello";
     }
     render(){
 
@@ -171,12 +181,9 @@ class DaysView extends Component {
 
                         </div>
                     </div>
-                    <div className="fourth">
-                        <div className="left">
+                    <div className="department_view">
+                        <div className="container">
                             {this.renderContent()}
-                        </div>
-                        <div className="right">
-                            Navigation here
                         </div>
                     </div>
                 </div>
@@ -185,14 +192,18 @@ class DaysView extends Component {
         }
     }
 }
+DepartmentView.propTypes = {
+    web: PropTypes.object.isRequired,
+    dep: PropTypes.object.isRequired
+}
 function mapStateToProps(state,ownprops) {
     return ({
-        calendar_page: state.calendar_page
+        calendar_page: state.calendar_page,
+        settings: state.settings
     })
 }
 function mapDispatchToProps(dispatch){
-    return({
-
-    })
+    return({})
 }
-export default connect(mapStateToProps,mapDispatchToProps)(DaysView);
+
+export default connect(mapStateToProps,mapDispatchToProps)(DepartmentView);
