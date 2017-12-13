@@ -3,6 +3,13 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 class ManageTasksPage extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            isLoading: true
+        }
+
+    }
 	render(){
 
 		return(
@@ -15,7 +22,7 @@ class ManageTasksPage extends Component {
 
 function mapStateToProps(state,ownprops) {
     return{
-        store: state
+        settings: state.settings
     }
 }
 export default connect(mapStateToProps,null,null,{pure: false})(ManageTasksPage);
