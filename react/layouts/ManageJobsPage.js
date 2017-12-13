@@ -1,6 +1,7 @@
 import React from 'react';
 import {Route,NavLink, connect, Component} from "../common/Modules"
 import PropTypes from 'prop-types';
+import '../../public/assets/js/jquery.sortable.min.js';
 
 import RouteWrapper from './common/RouteWrapper';
 import ManageJobs_JobsPage from './manage_jobs/JobsPage';
@@ -18,7 +19,7 @@ class ManageJobsPage extends Component {
 	    return (
 	        <div className="menu_sub">
                 <NavLink exact to="/manageJobs" activeClassName="selected" className="links start jobs_link"><i className="shopping bag icon"></i> Job Bags</NavLink>
-                <NavLink to="/manageJobs/schedule" activeClassName="selected" className="links end schedule_link"><i className="checked calendar icon"></i> Schedule</NavLink>
+                <NavLink to="/manageJobs/schedule" activeClassName="selected" className="links end schedule_link"><i className="checked calendar icon"></i>Programming Schedule</NavLink>
                 <NavLink to="/manageJobs/newedit" activeClassName="selected" className="links end newedit_link"><i className="small add circle icon"></i> New/Edit Job Bags</NavLink>
             </div>
         );
@@ -28,10 +29,10 @@ class ManageJobsPage extends Component {
 			<div className="ManageJobsPage">
                 {this.renderTabs()}
                 <RouteWrapper>
-                    <Route exact path="/managejobs" render ={(props) => <ManageJobs_JobsPage /> } />
-                    <Route path="/managejobs/jobs" render ={(props) => <ManageJobs_JobsPage  /> }  />
-                    <Route path="/managejobs/newedit" render ={(props) => <ManageJobs_NewEditPage /> } />
-                    <Route path="/managejobs/schedule" render ={(props) => <ManageJobs_SchedulePage /> } />
+                    <Route exact path="/managejobs" render ={(props) => <ManageJobs_JobsPage {...this.props} /> }   />
+                    <Route path="/managejobs/jobs" render ={(props) => <ManageJobs_JobsPage  {...this.props} /> }   />
+                    <Route path="/managejobs/schedule" render ={(props) => <ManageJobs_SchedulePage {...this.props} /> } />
+                    <Route path="/managejobs/newedit" render ={(props) => <ManageJobs_NewEditPage {...this.props}   /> } />
                 </RouteWrapper>
 
 			</div>
@@ -40,7 +41,8 @@ class ManageJobsPage extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return{
-        settings: state.settings
+        settings: state.settings,
+        calendar_page: state.calendar_page
     }
 }
 export default connect(mapStateToProps,null,null,{pure: false})(ManageJobsPage);

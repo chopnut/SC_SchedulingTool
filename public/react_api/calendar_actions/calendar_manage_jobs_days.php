@@ -19,7 +19,7 @@ $data = $u::getRequestData();
 
 if(isset($data['job_dp_date'])){
     $job_dp_date = $u::dd('job_dp_date',$data);
-    $jobs_dp = SchedJobBagDepartment::with('jobbag')->where('job_dp_date','=',$job_dp_date)->get();
+    $jobs_dp = SchedJobBagDepartment::with('jobbag')->orderBy('job_dp_order','ASC')->where('job_dp_date','=',$job_dp_date)->get();
 
     if(count($jobs_dp)>0){
         $jobs_dp_ = $jobs_dp->toArray();
@@ -34,9 +34,9 @@ if(isset($data['job_dp_date'])){
          * data[job_dept_id][] = job_departments
          */
         $json = json_encode($t);
-        echo "{\"payload\":$json}";
+        echo "{\"payload\": $json }";
     }else{
-        echo "{\"payload\":{}";
+        echo "{\"payload\": {}";
     }
 }
 

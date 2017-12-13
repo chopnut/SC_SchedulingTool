@@ -17,7 +17,7 @@ import CalendarRow from "../../components/calendar/CalendarRow";
 import CalendarPrismSidebar from "../../components/calendar/CalendarPrismSidebar";
 import CalendarAddRecurring from "../../components/calendar/AddRecurring";
 import BottomLegend from "./BottomLegend";
-import {getLoader} from '../../common/JobBagCommonUI';
+import {getLoader} from '../../common/CommonUI';
 
 
 // Get actions for calendar page

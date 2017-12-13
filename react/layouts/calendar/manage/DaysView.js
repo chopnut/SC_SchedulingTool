@@ -14,7 +14,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 // User defined components
 import DayRow from '../../../components/calendar/manage/days_view/Day';
-import DeparmentRow from '../../../components/calendar/manage/day_view/Department';
 
 class DaysView extends Component {
     constructor(props){
@@ -23,6 +22,7 @@ class DaysView extends Component {
         this.state = {
             isLoading: true,
             departmentJobs: [],
+            loadedDays: 0,
             paramsDate: null,
 
             calendarDate: moment(),
@@ -32,6 +32,7 @@ class DaysView extends Component {
 
         this.handleChangeCalendarDate = this.handleChangeCalendarDate.bind(this);
         this.handleChangeDirection    = this.handleChangeDirection.bind(this);
+        this.handleLoadedDayRow       = this.handleLoadedDayRow.bind(this);
     }
     handleChangeDirection(direction){
         const msunday       = moment(this.state.sunday.date,'DD/MM/YYYY');
@@ -51,6 +52,11 @@ class DaysView extends Component {
         this.setState((prevState,props)=>{
             return({sunday: nextSunday, saturday:nextSaturday});
         });
+    }
+    handleLoadedDayRow(){
+        this.setState((prevState, props) => (
+            {loadedDays: prevState.loadedDays+1 }
+        ));
     }
     handleChangeCalendarDate(newDate){
         const today         = newDate.format('dddd').toLowerCase();
@@ -97,6 +103,15 @@ class DaysView extends Component {
         });
     }
     componentWillReceiveProps(nextProps){    }
+    componentDidUpdate(){
+        if(this.state.paramsDate){
+            if(this.state.loadedDays==7){
+                $('html, body').animate({
+                    scrollTop: $('#'+this.state.paramsDate.format("DD-MM-YYYY")).offset().top
+                }, 'fast');
+            }
+        }
+    }
     componentDidMount(){
         console.log("Daysview",this.props);
 
@@ -112,70 +127,32 @@ class DaysView extends Component {
         });
     }
     renderContent(){
+        // All week , loop through 7 days
+
         let content     = null;
         const parent    = this;
-        if(this.state.paramsDate){
+        const moments = helper.getSevenMomentsFromDate(this.state.sunday);
 
-            // Get department rows
-            let departments = [];
-            const k = (item,temp)=>{
-                if(item.kids.length>0){
-                    temp.push(<DeparmentRow key={item.id} hasKid={true} item={item}/>);
-                    item.kids.map((item2,index2)=>{
-                            temp.push(<DeparmentRow key={item2.id} hasKid={false} item={item2}/>);
-                    });
-                }else{
-                    temp.push(<DeparmentRow key={item.id} hasKid={false} item={item}/>);
-                }
-            }
-            this.props.dep.departmentsOrder.map(function (item, index) {
-                k(item,departments);
-            })
-            // Individual date, loop through departments
+        content = ()=>{
+            return (
+                <div className="all_days">
+                    {
+                        moments.map(function (item,index) {
 
-            content = ()=>{
-                return (
-                    <div className="all_days_date">
-                        {
-                            departments
-                        }
-                    </div>
-                );
-            }
-        }else {
-            // All week , loop through 7 days
-
-            const moments = helper.getSevenMomentsFromDate(this.state.sunday);
-            const parent = this;
-
-            content = ()=>{
-                return (
-                    <div className="all_days">
-                        {
-                            moments.map(function (item,index) {
-
-                                return (<DayRow key={index} moment = {item} web={parent.props.web} dep = {parent.props.dep} />);
-                            })
-                        }
-                    </div>
-                );
-            }
-
+                            return (<DayRow key={index} moment = {item} web={parent.props.web} dep = {parent.props.dep} loaded={parent.handleLoadedDayRow}/>);
+                        })
+                    }
+                </div>
+            );
         }
+
         return content();
     }
     renderTitle(){
         let content = <span className="date_label">{this.state.sunday} - {this.state.saturday}</span>;
-        if(this.state.paramsDate) {
-            content = <span className="labels">
-                        <span className="day_label">{this.state.paramsDate.format('dddd')}</span><br/>
-                        <span className="date_label">{this.state.paramsDate.format('DD/MM/YYYY')}</span>
-                      </span>;
-        }
         return (content);
     }
     render(){
-
         if(this.state.isLoading){
             return(<div>Loading...</div>);
         }else{

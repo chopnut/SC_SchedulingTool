@@ -6,7 +6,7 @@ import {NavLink,Route} from 'react-router-dom';
 import {withRouter } from 'react-router-dom';
 
 // UI Common functionality
-import {showJobType,showDropDown} from "../../common/JobBagCommonUI";
+import {showJobType,showDropDown} from "../../common/CommonUI";
 
 // Get actions to save/new/edit
 import {manage_job_add_new_edit} from '../../actions/ManageJobsActions';
@@ -19,7 +19,6 @@ class AddEditJobForm extends Component {
 
         this.api_folder = settings.setting.react_api_folder;
         this.job_status = settings.setting.job_status;
-
 
         this.state = {
             job: {
@@ -51,12 +50,13 @@ class AddEditJobForm extends Component {
 
         this.prepopulateFromPrism   = this.prepopulateFromPrism.bind(this);
         this.saveOrEdit             = this.saveOrEdit.bind(this);
-        this.prepopulateSelect      = this.prepopulateSelect.bind(this);
-        this.prepopulateClear       = this.prepopulateClear.bind(this);
         this.changeValue            = this.changeValue.bind(this);
         this.jobTypeChanged         = this.jobTypeChanged.bind(this);
         this.jobDepartmentChange    = this.jobDepartmentChange.bind(this);
+
+        this.prepopulateSelect      = this.prepopulateSelect.bind(this);
         this.prepopulateJobBag      = this.prepopulateJobBag.bind(this);
+        this.prepopulateClear       = this.prepopulateClear.bind(this);
 
     }
     // This will trigger when receiving a state change from global
@@ -269,11 +269,17 @@ class AddEditJobForm extends Component {
             job_departments: this.state.job.job_departments
         });
 
+
+
         this.setState((prevState,props)=>{
                 return ({job: newJob})
             }
         );
 
+
+    }
+    componentDidUpdate(){
+        console.log("AddEditJobForm componentDidUpdate ", this.state.job);
     }
     prepopulateFromPrism(event){
 
@@ -316,7 +322,6 @@ class AddEditJobForm extends Component {
             return ({jobsFound: [] });
         });
     }
-    // clear the search result
     showHeader(){
         if(this.state.job.job_id>0){
             return (
@@ -367,10 +372,8 @@ class AddEditJobForm extends Component {
         // Get status for the job
         let job_status = JSON.parse(this.job_status);
         let SelectJobStatus = (props) =>{
-            const selected = props.selected;
-
             return (
-                <select name="job_status" value={selected} onChange={this.changeValue}>
+                <select name="job_status" value={this.state.job.job_status} onChange={this.changeValue}>
                     <option value="">Choose job status</option>
                     { job_status.map(function(item,i){
                         return (<option value={item} key={i}>{item}</option>);
@@ -384,7 +387,7 @@ class AddEditJobForm extends Component {
                 <div className="inline three fields">
                     <div className="field">
                         <label><i className="fa fa-heart" aria-hidden="true"></i> Status</label>
-                        <SelectJobStatus selected = {this.state.job.job_status}/>
+                        <SelectJobStatus />
                     </div>
                     {showJobType(this.state.job.job_type,this.jobTypeChanged,true)}
                 </div>

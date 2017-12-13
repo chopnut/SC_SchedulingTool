@@ -7,7 +7,11 @@ import {withRouter }        from 'react-router-dom';
 // User created module
 import DaysView             from './manage/DaysView';
 import DepartmentView       from './manage/DepartmentView';
-import {getLoader} from '../../common/JobBagCommonUI';
+import {getLoader} from '../../common/CommonUI';
+
+// Javascript Helpers and modules
+import '../../../public/assets/js/jquery.sortable.min.js';
+
 
 class Calendar_Manage extends Component {
 	constructor(props){
@@ -21,7 +25,6 @@ class Calendar_Manage extends Component {
 	    this.props.history.push(loc);
     }
 	componentDidMount(){
-
 	    // const routing = helper.getDaysOrDepartments();
         this.setState((prevState, props) => (
             {
@@ -33,7 +36,6 @@ class Calendar_Manage extends Component {
         if(this.state.isLoading){
             return (<div className="calendar_view center">{getLoader()}</div>);
         }else{
-
             return(
                 <div>
                     <Route exact path="/calendar/manage/" render ={(props) => <DaysView web={this.props.web} dep={this.props.dep} redirectTo={this.redirectTo} {...props} /> } />

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {showDropDown} from '../../common/JobBagCommonUI';
+import {showDropDown} from '../../common/CommonUI';
 
 
 class Calendar_AddRecurringWindow extends Component {

@@ -7,7 +7,7 @@ import {withRouter } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
-import {showJobType,showDropDown} from "../../common/JobBagCommonUI";
+import {showJobType,showDropDown} from "../../common/CommonUI";
 
 class CalendarPrismBagPopUps extends Component {
     constructor(props){

@@ -6,7 +6,7 @@ class JobHeaderLabels extends Component {
     render(){
         return(
         <div className="header_labels">
-            <table cellSpacing={"0"} cellPadding={"0"}>
+            <table cellSpacing={"0"} cellPadding={"0"} className="job_header">
                 <thead>
                     <tr>
                         <th className="jnu">Job #</th>

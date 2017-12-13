@@ -106,7 +106,7 @@ class DepartmentView extends Component {
         return (content);
     }
     renderContent(){
-        return "Hello";
+        return "Coming Soon";
     }
     render(){
 

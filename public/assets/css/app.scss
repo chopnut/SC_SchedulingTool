@@ -327,27 +327,18 @@
               .calendar_manage{
                   @extend .calendar_view;
                   // The header labels for viewing days
-                  .header_labels{
 
-                        table{
-                            width: 100%;
-                            border-bottom: 1px solid $main_grey_color;
-                            th{
-                                border-right: 1px solid $main_grey_color;
-                            }
-                            th:first-child{
-                                border-left: 1px solid $main_grey_color;
-                            }
-                            th.jnu{width: 80px;}
-                            th.csr{width: 30px;}
-                            th.cli{width: 100px;}
-                            th.qty{width: 100px;}
-                            th.jna{}
-                            th.dat{width: 100px;}
-                            th.pri{width: 100px;}
-                            th.sto{width: 70px;}
+                    .job_header{
+                        width: 100%;
+                        border-bottom: 1px solid $main_grey_color;
+                        th{
+                            border-right: 1px solid $main_grey_color;
                         }
-                  }
+                        th:first-child{
+                            border-left: 1px solid $main_grey_color;
+                        }
+                    }
+
                   // Manage Page
                   .fourth{
                       display: flex;
@@ -366,7 +357,7 @@
                                           @include make_children_flex();
                                           .content{
                                               padding: 10px;
-                                              .day{ font-size: 15px; }
+                                              .day{ font-size: 20px; }
                                               .date{ padding-left: 20px; }
                                           }
                                       }
@@ -376,8 +367,8 @@
                                       }
                                   }
                                   .body{
-                                      padding: 15px;
-                                      margin: 0px;
+                                      padding: 0px;
+                                      margin-top: 10px;
                                       text-align: center;
 
                                       // Individual departments per day
@@ -393,7 +384,7 @@
                                           }
                                           .department_body{
                                                 // The children of the department
-                                                .kid{
+                                                .department_container_kid{
                                                     .kid_header{
                                                        @extend  .department_header_main;
                                                     }
@@ -405,12 +396,30 @@
                                       }
                                   }
                               }
-                          }
-                          // ---------------------------------------------------
-                          // Viewing a particular day with departments section
-                          .just_day{
+                              // UL group job sortable
+                              .sortable.list{
+                                  text-align: left;
+                                  list-style:  none;
+                                  margin: 0px;
+                                  padding: 0px;
+                                  li{
 
+                                      table{
+                                          width: 100%;
+                                          margin-bottom: 1px;
+                                          background-color: lighten($main_blue_color,30%);
+
+                                          th{
+                                              border-right: 1px solid #ffffff;
+                                              padding: 5px;
+                                              font-weight: normal;
+                                          }
+                                          th:last-child{ border-right: 0px solid #fff; }
+                                      }
+                                  }
+                              }
                           }
+
                       }
                       // You can have extra navigation here
                       .right{
@@ -496,10 +505,12 @@
                             margin-bottom:  10px;
                           .top{
                               font-size: .8em;
+                              font-weight: bold;
                           }
                           .bottom{
-                              .day{ font-weight: bold; font-size: 18px;}
-                              .date{}
+                              .day{  font-weight: bold;   }
+                              .date_from{  font-size: 15px;   }
+                              .date_to{    font-size: 15px;   }
                           }
                       }
                   }
@@ -509,17 +520,15 @@
                       // Template for content
                       ._content{
                           display:  flex;
-                          border-bottom: 1px solid #ccc;
                           padding: 10px;
                           .left{
                               @include make_children_flex();
                               text-align: left;
-                              font-size: 30px;
-                              font-family: "Times New Roman", Georgia,Serif;
+                              font-size: 25px;
                           }
 
                           .right{
-                              @include make_children_flex(200px);
+                              @include make_children_flex(300px);
                           }
                       }
 
@@ -531,11 +540,17 @@
                           }
 
                       }
-                      // Content fo the jobbags page
+                      // Content for the jobbags page
                       .header.jobbags{
                           .content{
                               @extend ._content;
-
+                          }
+                      }
+                      .body{
+                          .info{
+                              border-top:    1px solid $main_grey_color;
+                              border-bottom: 1px solid $main_grey_color;
+                              padding: 5px;
                           }
                       }
 
@@ -589,6 +604,16 @@
 
   }
 }
+// Individual Job in calendar page width@configuration
+th.jnu{width: $job_table_w_jnu;}
+th.csr{width: $job_table_w_csr;}
+th.cli{width: $job_table_w_cli;}
+th.qty{width: $job_table_w_qty;}
+th.jna{}
+th.dat{width: $job_table_w_dat; }
+th.pri{width: $job_table_w_pri; }
+th.sto{width: $job_table_w_sto; }
+
 // Add recurring window
 .add_recurring{
     position: relative;

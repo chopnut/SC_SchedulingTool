@@ -18,13 +18,16 @@ class SchedJobBagDepartment extends Model
         'job_dp_started_date',
         'job_dp_finished_date',
         'job_dp_proof_date',
+        'job_dp_print_date',
         'job_dp_status',
         'job_dp_comments',
         'job_dp_order',
         'job_dp_minutes',
         'job_dp_allocated_to',
         'job_dp_allocatee_comments',
-        'job_dp_qty'];
+        'job_dp_qty',
+        'job_dp_stock_picked'
+    ];
 
   public function jobbag()
   {
@@ -124,6 +127,14 @@ class SchedJobBagDepartment extends Model
     public function setJobDpCreatedDateAttribute($value){
         $d = \DateTime::createFromFormat('d/m/Y', $value);
         $this->attributes['job_dp_created_date'] = $d->format('Y-m-d');
+    }
+    public function setJobDpPrintDateDateAttribute($value){
+        $d = \DateTime::createFromFormat('d/m/Y', $value);
+        $this->attributes['job_dp_print_date'] = $d->format('Y-m-d');
+    }
+    public function setJobDpProofDateDateAttribute($value){
+        $d = \DateTime::createFromFormat('d/m/Y', $value);
+        $this->attributes['job_dp_proof_date'] = $d->format('Y-m-d');
     }
 }
 

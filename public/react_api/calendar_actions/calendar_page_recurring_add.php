@@ -20,7 +20,7 @@ if(count($post)>0){
         $job  = SchedJobBags::find($id);
 
         if($job){
-            $deps = explode(",",$job->job_departments);
+            $deps = $job->job_departments;
 
             $tmp = array();
             // Departments

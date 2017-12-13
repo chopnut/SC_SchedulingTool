@@ -102,8 +102,7 @@ class Layout extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return{
-        settings: state.settings,
-        calendar_jobs: state.calendar_jobs
+        settings: state.settings
     }
 }
 // make sure you use {pure:false} is included when using router or use withRouter(connect(mapStateToProps));

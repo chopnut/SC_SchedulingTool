@@ -202,6 +202,7 @@ class MyUtil{
 		return $d && $d->format('Y-m-d') === $date;
 	}
 	static function getYmdHis($date,$format = "d/m/Y",$returnFormat="Y-m-d H:i:s"){
+
 		$format = $format;
 		if(empty($format)){
 			$format = "d/m/Y";

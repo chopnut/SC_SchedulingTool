@@ -43,6 +43,7 @@
             // Miscellaneous fields
             $temp[$counter]['job_added_date']       = $u::getYmdHis($addDate,"Y-m-d H:i:s","d/m/Y");
             $temp[$counter]['job_customer_code']    = $customerCode;
+            $temp[$counter]['job_status']           = "stand by";
 
 
             if($limit<$counter){

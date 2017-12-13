@@ -4,11 +4,11 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 // User define components
-import {getLoader} from '../../../../common/JobBagCommonUI';
+import {getLoader} from '../../../../common/CommonUI';
 import Department from './Department';
 import HeaderLabels from '../../../../layouts/common/calendar/manage/JobHeaderLabels';
 
-class DayView extends Component {
+class Day extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -26,19 +26,23 @@ class DayView extends Component {
         const job_dep_api   = this.props.settings.setting.react_api_folder+"calendar_actions/calendar_manage_jobs_days.php";
         const prom          = axios.post(job_dep_api,data);
 
-        console.log("DayView & Sending ", this.props,data);
         prom.then((res)=>{
             const jobs = res.data.payload;
-            console.log("MY JOBS",jobs);
+            // console.log("Jobs: ",res.data);
+
             this.setState(function(state,props){
-                return ({isLoading: false,job_departments: jobs});
+
+                console.log(data, jobs);
+                this.props.loaded();
+                return ({
+                    isLoading: false,job_departments: jobs});
             });
         });
     }
     render(){
         if(this.state.isLoading){
             return(
-                <div className="container" id={"#DAY"}>
+                <div className="container">
                     <div className="header">
                         <div className="left_of_all_days">
                             <div className="content">
@@ -59,7 +63,7 @@ class DayView extends Component {
         }else{
             const parent = this;
             return(
-            <div className="container" id={"#DAY"}>
+            <div className="container" id={this.props.moment.format("DD-MM-YYYY")}>
                <div className="header">
                    <div className="left_of_all_days">
                        <div className="content">
@@ -87,7 +91,7 @@ class DayView extends Component {
         }
     }
 }
-DayView.propTypes = {
+Day.propTypes = {
     web: PropTypes.object,      // web is storage for user_log information
     dep: PropTypes.object,      // information about departments
     moment: PropTypes.object    // the moment date instance to pass
@@ -103,4 +107,4 @@ function mapDispatchToProps(dispatch){
 
     })
 }
-export default connect(mapStateToProps,mapDispatchToProps)(DayView);
+export default connect(mapStateToProps,mapDispatchToProps)(Day);
