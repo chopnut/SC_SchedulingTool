@@ -1,5 +1,12 @@
-import Redux from 'redux';
+import {ST_SETTINGS_SAVE} from '../common/Constants';
 
-export default function (state, action) {
-
+const SchedulingToolSettingsReducer = function (state=[], action) {
+    switch (action.type){
+        case ST_SETTINGS_SAVE:
+            return state;
+        default:
+            return state;
+    }
+    return state;
 }
+export default SchedulingToolSettingsReducer ;

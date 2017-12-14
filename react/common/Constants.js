@@ -11,6 +11,15 @@ export const CALENDAR_PAGE_REFRESH                = 'CALENDAR_PAGE_REFRESH';
 // FOR MANAGE_JOB SECTION
 export const MANAGE_JOB_ADD_NEW_EDIT              = 'MANAGE_JOB_ADD_NEW_EDIT';
 
+// FOR MY TASKS SECTION
+export const MANAGE_TASKS_ACTION                  = 'MANAGE_TASKS_ACTION';
+
+// FOR USER SETTINGS SECTION
+export const USER_SETTINGS_ACTION                 = 'USER_SETTINGS_ACTION';
+
+// FOR SCHEDULING SETTINGS SECTION
+export const ST_SETTINGS_SAVE                     = 'ST_SETTINGS_SAVE';
+
 // GLOBAL CONSTANT
 export const RESET_ALL_ACTION                     = 'RESET_ALL_ACTION';
 export const IS_WORKING                           = 'IS_WORKING';

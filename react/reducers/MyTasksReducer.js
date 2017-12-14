@@ -1,5 +1,12 @@
-import Redux from 'redux';
+import {CALENDAR_PAGE_ADD_SCHEDULE_TO} from '../common/Constants';
 
-export default function (state, action) {
-
+const MyTasksReducer = function (state=[], action) {
+    switch (action.type){
+        case CALENDAR_PAGE_ADD_SCHEDULE_TO:
+            return state;
+        default:
+            return state;
+    }
+    return state;
 }
+export default MyTasksReducer ;

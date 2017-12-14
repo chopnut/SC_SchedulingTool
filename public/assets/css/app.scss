@@ -588,19 +588,56 @@
           }
 
       }
+      ._header_page{
+          font-size: 20px;
+          margin-bottom: 10px;
+          padding: 5px;
+      }
       .ManageTasksPage{
-        padding: 10px;
+          padding: 10px;
           background-color: white;
           border-radius: $managejobs_border_radius;
+          header{
+            @extend ._header_page;
+          }
+          article{
 
+          }
+      }
+      .UserSettingsPage{
+         @extend  .ManageTasksPage;
+
+          header{
+              @extend ._header_page;
+          }
+          article{
+
+          }
       }
       .SchedulingSettingsPage{
-        padding: 10px;
-          background-color: white;
-          border-radius: $managejobs_border_radius;
+          @extend  .ManageTasksPage;
 
-
+            header{
+                @extend ._header_page;
+            }
+            article{
+                textarea{
+                    width: 100%;
+                    padding: 5px;
+                    height:100px;
+                    min-height:  100px;
+                    max-height:  100px;
+                }
+                table{
+                    width: 100%;
+                    td {
+                        width: 50%;
+                        text-align: left;
+                    }
+                }
+            }
       }
+
 
   }
 }

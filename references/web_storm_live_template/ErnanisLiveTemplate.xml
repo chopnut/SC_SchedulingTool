@@ -1,0 +1,88 @@
+<templateSet group="ErnanisLiveTemplate">
+  <template name="setstate" value="this.setState((prevState,props)=&gt;(&#10;    {prevState,$END$}&#10;));" description="Set State in ReactJS" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="component" value="import React, { Component } from 'react';&#10;import axios from 'axios';&#10;import {connect} from 'react-redux';&#10;&#10;class __RENAME_ME___ extends Component {&#10;    constructor(props){&#10;        super(props);&#10;        this.state = {&#10;           isLoading: true&#10;        }&#10;    }&#10;    componentDidMount(){&#10;        this.setState(function(state,props){&#10;            return ({state,isLoading: false});&#10;        });&#10;    }&#10;    render(){&#10;    &#10;        if(this.state.isLoading){&#10;            return(&lt;div&gt;Loading...&lt;/div&gt;);&#10;        }else{&#10;        &#10;            return(&#10;            &lt;div&gt;&#10;            My Component here&#10;            &lt;/div&gt;);&#10;        }&#10;    }&#10;}&#10;function mapStateToProps(state,ownprops) {&#10;    return ({&#10;        state: state&#10;    })&#10;}&#10;function mapDispatchToProps(dispatch){&#10;    return({&#10;        &#10;    })&#10;}&#10;export default connect(mapStateToProps,mapDispatchToProps)(__RENAME_ME___);" description="React Component Snippet" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="-func" value="function($END$){&#10;}" description="anonymous funciton" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="-fn" value="()=&gt;{ $END$ }" description="lambda function" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="-obj" value="Object.assign({},$source$,data: $end$);" description="Object Assigned" toReformat="false" toShortenFQNames="true">
+    <variable name="source" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="end" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="log" value="console.log($END$);" description="Console log" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="-for" value="for(let v of $END$){&#10;&#10;}" description="For loop" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="-if" value="if($END$){&#10;&#10;}" description="If statement" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="action" value="export function $function_name$ (){&#10;    return((dispatch)=&gt;{&#10;        dispatch({type:$type$,payload: $type});&#10;    );&#10;}" description="Aciton creation.Make sure Thunk is applied in the plugin" toReformat="false" toShortenFQNames="true">
+    <variable name="function_name" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="type" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="createaction" value="import {$anyconstant$} from '../common/Constants';&#10;import app from '../modules/persistent';&#10;import _ from 'lodash';&#10;import axios from 'axios';&#10;&#10;export function $function_name$ ($additional_data$ data){&#10;    return ((dispatch) =&gt;{&#10;        const prom = app(settings);&#10;        &#10;        // Get user log first&#10;        prom.then((res)=&gt; {&#10;            const path_api = settings.setting.react_api_folder + '/calendar_actions/manage_jobs_add_schedule_to.php';&#10;            const userlog = res.data.userlog;&#10;&#10;            // If you have the authority proceed with the adding&#10;            const req = axios.post(path_api,data);&#10;            req.then((res)=&gt;{&#10;                console.log(&quot;MESSAGE HERE: &quot;,res.data);&#10;                dispatch ({type: $TYPE$ });&#10;            });&#10;        });&#10;    });&#10;}" description="Scheduling Tool Action creator" toReformat="false" toShortenFQNames="true">
+    <variable name="anyconstant" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="function_name" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="additional_data" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="TYPE" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="didmount" value="componentDidMount(){&#10; $end$&#10;}" description="Component Did Mount" toReformat="false" toShortenFQNames="true">
+    <variable name="end" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="didupdate" value="componentDidUpdate(prevProps,prevState){&#10;    $end$&#10;}" description="ComponentDidUpdate" toReformat="false" toShortenFQNames="true">
+    <variable name="end" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="willreceive" value="componentWillReceiveProps(nextProps){&#10;    if(nextProps.$end$){&#10;    }&#10;}" description="ComponentWillReceiveProps" toReformat="false" toShortenFQNames="true">
+    <variable name="end" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="construct" value="constructor(props) {&#10;  super(props);&#10;  this.state = {&#10;    isLoading: true&#10;  };&#10;}" description="React constructor" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="willmount" value="componentWillMount(){&#10;    // Called before render&#10;}" description="componentWillMount" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+</templateSet>

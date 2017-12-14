@@ -14,7 +14,12 @@ class ManageTasksPage extends Component {
 
 		return(
 			<div className="ManageTasksPage">
-				Manage Task Page
+                <header>
+                    <i className="user circle icon"></i> Manage Task Page
+                </header>
+				<article>
+                    Article Content here
+                </article>
 			</div>
 		);
 	}

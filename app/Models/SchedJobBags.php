@@ -31,7 +31,7 @@ class SchedJobBags extends Model
 
     public $timestamps       = true;
 
-    public function dept($date="")
+    public function dept()
     {
         return $this->hasMany('Models\SchedJobBagDepartment','job_id');
     }

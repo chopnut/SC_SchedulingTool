@@ -8,6 +8,7 @@ import CalendarPage from './CalendarPage';
 import ManageJobsPage from './ManageJobsPage';
 import ManageTasksPage from './ManageTasksPage';
 import SchedulingSettingsPage from './SchedulingSettingsPage';
+import UserSettingsPage from './UserSettingsPage';
 
 // THE LAYOUT COMPONENT WILL BE THE ONE POLLING THE DATABASE FOR ANY CHANGES COMING FROM THE DATABASE
 
@@ -88,7 +89,7 @@ class Layout extends Component {
                         <Route path="/calendar"  render ={(props) => <CalendarPage web={this.state.web} {...this.props} /> }/>
                         <Route path="/managejobs" render ={(props) => <ManageJobsPage web={this.state.web} {...this.props} /> } />
                         <Route path="/managetasks" render ={(props) => <ManageTasksPage web={this.state.web} {...this.props} /> }/>
-                        <Route path="/usersettings" render ={(props) => <SchedulingSettingsPage web={this.state.web} {...this.props} /> }/>
+                        <Route path="/usersettings" render ={(props) => <UserSettingsPage web={this.state.web} {...this.props} /> }/>
                         <Route path="/schedulingsettings" render ={(props) => <SchedulingSettingsPage web={this.state.web} {...this.props} /> }/>
                     </div>
                 </div>
