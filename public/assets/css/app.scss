@@ -588,20 +588,47 @@
           }
 
       }
-      ._header_page{
-          font-size: 20px;
-          margin-bottom: 10px;
-          padding: 5px;
-      }
       .ManageTasksPage{
           padding: 10px;
           background-color: white;
           border-radius: $managejobs_border_radius;
+          ._header_page{
+              font-size: 20px;
+              margin-bottom: 5px;
+              padding: 5px;
+          }
           header{
             @extend ._header_page;
           }
-          article{
+          .first{
+              display: flex;
+              .left{
+                  @include make_children_flex();
+              }
+              .right{
+                  @include make_children_flex(200px);
+              }
+          }
+          article.second{
+             .sidebar_container{
+                border-radius: 0px;
+                box-shadow: none;
+                padding: 0px;
+                border: 1px solid #ccc;
 
+                .sidebar{
+                    @extend .sidebar_container;
+                    border: 0px solid #fff;
+                    background-color: $main_blue_color;
+                }
+                .main_content {
+                    text-align: left;
+                    .header{
+                        background-color: #eee;
+                    }
+                    .content{}
+                }
+             }
           }
       }
       .UserSettingsPage{
@@ -616,11 +643,17 @@
       }
       .SchedulingSettingsPage{
           @extend  .ManageTasksPage;
-
             header{
                 @extend ._header_page;
             }
             article{
+                .important_note{
+                    background-color: lighten($main_blue_color, 30%);
+                    box-sizing: border-box;
+                    padding: 10px;
+                    border-radius: 5px;
+                    width: 100%;
+                }
                 textarea{
                     width: 100%;
                     padding: 5px;
@@ -636,6 +669,16 @@
                     }
                 }
             }
+          // Reference container
+          .reference_doc{
+              padding: 10px;
+              .header{
+
+              }
+              .content{
+
+              }
+          }
       }
 
 

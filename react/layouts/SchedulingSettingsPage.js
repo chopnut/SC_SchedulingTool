@@ -4,6 +4,8 @@ import  axios from 'axios';
 
 // User defined components
 import {getLoader} from "../common/CommonUI"
+import Doc from './docs/SchedulingToolSettingsDoc';
+import DBRefDoc from './docs/DBReferenceDoc';
 
 class SchedulingSettingsPage extends Component {
     constructor(props) {
@@ -33,6 +35,11 @@ class SchedulingSettingsPage extends Component {
             <div className="ui form">
             <table cellSpacing={10}>
                 <tbody>
+                    <tr>
+                        <td colSpan={2}>
+                            <Doc/>
+                        </td>
+                    </tr>
                     <tr>
                         <td>
                             <div className="field">
@@ -85,12 +92,18 @@ class SchedulingSettingsPage extends Component {
                         <td>
                             <div className="field">
                                 <label>{this.state.setting.react_public_folder.setting_label}</label>
-                                <textarea value={this.state.setting.react_public_folder.setting_value} name="job_types" onChange={this.handleOnChangeVal} />
+                                <input value={this.state.setting.react_public_folder.setting_value} name="react_public_folder" onChange={this.handleOnChangeVal} />
                             </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowSpan={2}>
+                            <button className="ui button">Save</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
+
             </div>
         );
     }
@@ -108,6 +121,7 @@ class SchedulingSettingsPage extends Component {
                         }
                     </form>
                 </article>
+                <DBRefDoc/>
             </div>
 		);
 	}
