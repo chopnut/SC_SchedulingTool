@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2017 at 06:10 AM
+-- Generation Time: Dec 15, 2017 at 06:49 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -684,7 +684,20 @@ INSERT INTO `sched_settings` (`id`, `setting_name`, `setting_label`, `setting_va
 (5, 'react_api_folder', 'Application Api Folder', 'http://localhost/webapps/schedulingtool/public/react_api/'),
 (6, 'react_public_folder', 'Main public folder', 'http://localhost/webapps/schedulingtool/public/'),
 (7, 'job_status', 'Main Job Status', '["stand by","work in progress","done or closed","archieve"]'),
-(8, 'user_default_settings', 'User setting', '[{"hide_departments": []}]');
+(8, 'user_default_settings', 'User setting', '[{"sched_us_calendar_hide_departments": [],"sched_us_department_group":[]}]');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sched_user_settings`
+--
+
+CREATE TABLE `sched_user_settings` (
+  `sched_us_id` int(11) NOT NULL,
+  `login_id` int(11) NOT NULL,
+  `sched_us_calendar_hide_departments` varchar(100) NOT NULL,
+  `sched_us_department_group` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -759,6 +772,12 @@ ALTER TABLE `sched_settings`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sched_user_settings`
+--
+ALTER TABLE `sched_user_settings`
+  ADD PRIMARY KEY (`sched_us_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -817,6 +836,11 @@ ALTER TABLE `sched_job_bag_department`
 --
 ALTER TABLE `sched_settings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `sched_user_settings`
+--
+ALTER TABLE `sched_user_settings`
+  MODIFY `sched_us_id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
