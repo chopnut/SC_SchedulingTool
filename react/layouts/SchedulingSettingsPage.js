@@ -20,7 +20,9 @@ class SchedulingSettingsPage extends Component {
         const prom        = axios.get(get_setting_api);
 
         prom.then((res)=>{
-            this.setState((prevState, props) => ({setting: res.data, isLoading: false }));
+            let data = res.data;
+
+            this.setState((prevState, props) => ({setting: data, isLoading: false }));
         });
     }
     handleOnChangeVal(e,{value}){
@@ -93,6 +95,16 @@ class SchedulingSettingsPage extends Component {
                             <div className="field">
                                 <label>{this.state.setting.react_public_folder.setting_label}</label>
                                 <input value={this.state.setting.react_public_folder.setting_value} name="react_public_folder" onChange={this.handleOnChangeVal} />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan={2}>
+                            <div className="field">
+                                <label>User Department Group</label>
+                                <div className="info">
+                                    User department group settings let you set appoint a user to a particular department.
+                                </div>
                             </div>
                         </td>
                     </tr>
