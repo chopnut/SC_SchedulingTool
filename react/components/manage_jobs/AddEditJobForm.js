@@ -515,11 +515,11 @@ function mapStateToProps(state,ownprops) {
         manage_jobs: state.manage_jobs
     }
 }
-function maptDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch){
     return{
         manage_job_add_new_edit: (settings, job)=>{
             dispatch(manage_job_add_new_edit(settings, job));
         }
     }
 }
-export default withRouter(connect(mapStateToProps,maptDispatchToProps)(AddEditJobForm));
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(AddEditJobForm));

@@ -15,7 +15,7 @@ export const MANAGE_JOB_ADD_NEW_EDIT              = 'MANAGE_JOB_ADD_NEW_EDIT';
 export const MANAGE_TASKS_ACTION                  = 'MANAGE_TASKS_ACTION';
 
 // FOR USER SETTINGS SECTION
-export const USER_SETTINGS_ACTION                 = 'USER_SETTINGS_ACTION';
+export const USER_SETTINGS_SAVE                   = 'USER_SETTINGS_SAVE';
 
 // FOR SCHEDULING SETTINGS SECTION
 export const ST_SETTINGS_SAVE                     = 'ST_SETTINGS_SAVE';

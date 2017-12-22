@@ -7,6 +7,8 @@ export function manage_job_add_new_edit(settings, job){
 
     return ((dispatch) =>{
         const prom = app(settings);
+
+
         // Get user log first
         prom.then((res)=> {
             const path_api = settings.setting.react_api_folder + 'manage_jobs_actions/manage_jobs_add_schedule_to.php';

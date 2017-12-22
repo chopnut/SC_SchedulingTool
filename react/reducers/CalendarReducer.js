@@ -66,6 +66,9 @@ const CalendarReducer = function (state=[], action) {
             const  newState = Object.assign({},state,{ action: action.action });
             return newState;
             break;
+
+
+        // MAKE IS WORKING THE LAST STATE CHANGER
         case IS_WORKING:
             const  isWorkingState = Object.assign({},state,{ isWorking: action.isWorking });
             return isWorkingState;

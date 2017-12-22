@@ -5,7 +5,8 @@ import { CALENDAR_PAGE_ADD_SCHEDULE_TO,
          CALENDAR_PAGE_ADD_RECURRING_TO_DATE,
          CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB,
          CALENDAR_PAGE_REFRESH,
-         RESET_ALL_ACTION,IS_WORKING} from '../common/Constants';
+         RESET_ALL_ACTION,
+         IS_WORKING} from '../common/Constants';
 
 import app from '../modules/persistent';
 import _ from 'lodash';
@@ -74,8 +75,8 @@ export function calendar_page_change_days(settings,days){
             const prom = app(settings);
             // Get user log first
             prom.then((res)=> {
-                let path_api = settings.setting.react_api_folder + '/calendar_actions/calendar_page_get_scheduled.php?dates=';
-                let params = _.map(days,function(item){
+                let path_api    = settings.setting.react_api_folder + '/calendar_actions/calendar_page_get_scheduled.php?dates=';
+                let params      = _.map(days,function(item){
                     return item.date;
                 })
 
@@ -154,6 +155,7 @@ export function calendar_page_refresh(settings, from, to){
     return ((dispatch)=>{
         //  SET THE IS_WORKING VARIABLES FOR EVERY ACTION
         dispatch({type: IS_WORKING, isWorking: true });
+
         // DO PROCESSING BELOW
 
         // Get app settings first, and get the react api folder

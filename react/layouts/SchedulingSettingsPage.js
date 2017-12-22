@@ -1,36 +1,55 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import  axios from 'axios';
+import {Dropdown} from 'semantic-ui-react';
 
 // User defined components
 import {getLoader} from "../common/CommonUI"
 import Doc from './docs/SchedulingToolSettingsDoc';
 import DBRefDoc from './docs/DBReferenceDoc';
 
+// Get constatnt action
+import {ST_SETTINGS_SAVE} from "../actions/SchedulingToolSettingsActions";
+
 class SchedulingSettingsPage extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        isLoading: true,
-          setting: {}
+            isLoading: true,
+            usersOptions: [],
+            setting: {}
       }
+      this.handleSave       = this.handleSave.bind(this);
+      this.handleUserSelect = this.handleUserSelect.bind(this);
     }
     getSettings(){
         const get_setting_api   = this.props.settings.setting.react_api_folder+"/settings_actions/get_settings.php";
         const prom        = axios.get(get_setting_api);
 
         prom.then((res)=>{
-            let data = res.data;
+            const setting = res.data.settings;
+            const users   = res.data.users;
 
-            this.setState((prevState, props) => ({setting: data, isLoading: false }));
+
+
+            const usersOptions = users.map((item, index)=>{
+                return {"key":item.id ,"text": item.username, "value": item.id }
+            });
+
+
+            this.setState((prevState, props) => ({setting: setting, isLoading: false, usersOptions: usersOptions }));
         });
+    }
+    handleUserSelect(e){
+        console.log(this.state.userOptions);
     }
     handleOnChangeVal(e,{value}){
 
     }
-    componentDidMount(){
-        this.getSettings();
+    handleSave(e){
+
     }
+    componentDidMount(){    this.getSettings();    }
     renderContent(){
         console.log("Props settings: ",this.state);
         return (
@@ -99,18 +118,28 @@ class SchedulingSettingsPage extends Component {
                         </td>
                     </tr>
                     <tr>
-                        <td colSpan={2}>
+                        <td>
                             <div className="field">
-                                <label>User Department Group</label>
-                                <div className="info">
-                                    User department group settings let you set appoint a user to a particular department.
+
+                                <div className="user_departments">
+                                    <strong>User Department Group</strong>
+                                    <div className="info">
+                                        User department group settings lets you appoint a user to a particular department. <br/>
+                                    </div>
+                                    <div className="user_selects">
+                                        <Dropdown placeholder='Select a user' search selection options={this.state.usersOptions} className="user_select" onChange={this.handleUserSelect} />
+                                    </div>
                                 </div>
+
                             </div>
+                        </td>
+                        <td>
+                            Right column
                         </td>
                     </tr>
                     <tr>
                         <td rowSpan={2}>
-                            <button className="ui button">Save</button>
+                            <button className="ui button" onClick={this.handleSave}>Save</button>
                         </td>
                     </tr>
                 </tbody>
@@ -139,9 +168,16 @@ class SchedulingSettingsPage extends Component {
 	}
 }
 
-function mapStateToProps(state,ownprops) {
+function mapStateToProps(state,props) {
     return{
         settings: state.settings
     }
 }
-export default connect(mapStateToProps,null,null,{pure: false})(SchedulingSettingsPage);
+function mapDispatchToProps(dispatch){
+    return{
+        st_settings_save: (settings, data)=>{
+            dispatch(st_settings_save(settings, data));
+        }
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps,null,{pure: false})(SchedulingSettingsPage);
