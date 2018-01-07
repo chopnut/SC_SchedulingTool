@@ -672,8 +672,16 @@
                             .info{
                                 margin-bottom: 10px;
                             }
-                            .user_select{
-                                width: 100%;
+                            .user_selects{
+                                margin-bottom: 10px;
+                                .user_select{
+                                    width: 100%;
+                                }
+                            }
+                            .dept_selects{
+                                .dept_select{
+                                    width: 100%;
+                                }
                             }
                         }
 

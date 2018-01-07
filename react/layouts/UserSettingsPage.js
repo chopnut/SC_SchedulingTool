@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
+import {getLoader} from "../common/CommonUI"
 
 class UserSettingsPage extends Component {
     constructor(props){
@@ -38,7 +39,15 @@ class UserSettingsPage extends Component {
     render(){
 
         if(this.state.isLoading){
-            return(<div>Loading...</div>);
+            return(
+                <div className="UserSettingsPage">
+                    <header>
+                        <i className="linkify icon"></i> User Settings Page
+                    </header>
+                    <article>
+                        {getLoader()}
+                    </article>
+                </div>);
         }else{
             return(
             <div className="UserSettingsPage">

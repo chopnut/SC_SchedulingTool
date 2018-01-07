@@ -3,7 +3,6 @@
 $folder_level = '../';
 include('../includes.php');
 
-use Models\SchedJobBagDepartment;
 use Models\SchedJobBags;
 
 /*

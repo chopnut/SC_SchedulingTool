@@ -12,7 +12,7 @@ export function st_settings_save(settings, data){
         // Get user log first
 
         prom.then((res)=> {
-            const path_api = settings.setting.react_api_folder + 'calendar_actions/save.php';
+            const path_api = settings.setting.react_api_folder + 'settings_actions/save.php';
             // If you have the authority proceed with the adding
 
             const req = axios.post(path_api,data);

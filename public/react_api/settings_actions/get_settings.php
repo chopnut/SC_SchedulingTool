@@ -7,7 +7,7 @@ use Models\SchedSettings;
 use Models\Login;
 /*
  * PARAMS:
- * Straight forward rest api just grab the data from the table
+ * Straight forward rest api that grabs all users and settings from the mysql table
  */
 
 $settings       = SchedSettings::all();

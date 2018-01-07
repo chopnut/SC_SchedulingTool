@@ -4,7 +4,6 @@ $folder_level = '../';
 include('../includes.php');
 use Models\SchedJobBags;
 use Models\SchedJobBagDepartment;
-use Illuminate\Database\Capsule\Manager as Capsule;
 
 // @USAGE
 // @date

@@ -14,7 +14,7 @@ class Login extends Model
 
     public function sched_settings()
     {
-        return $this->hasMany('Models\UserSchedSettings','login_id');
+        return $this->hasOne('Models\UserSchedSettings','login_id');
     }
 }
 
