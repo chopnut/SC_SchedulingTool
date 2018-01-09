@@ -8,9 +8,15 @@ import { ST_SETTINGS_SAVE, IS_WORKING} from '../common/Constants';
 export function st_settings_save(settings, data){
 
     return ((dispatch) =>{
-        const prom = app(settings);
-        // Get user log first
+        //  SET THE IS_WORKING VARIABLES FOR EVERY ACTION
 
+        dispatch({type: IS_WORKING, isWorking: true });
+
+        // DO PROCESSING BELOW
+
+        const prom = app(settings);
+
+        // get user log first
         prom.then((res)=> {
             const path_api = settings.setting.react_api_folder + 'settings_actions/save.php';
             // If you have the authority proceed with the adding
@@ -23,6 +29,8 @@ export function st_settings_save(settings, data){
                 console.log("RESPONSE SAVE: ",returndata);
 
                 dispatch ({type: ST_SETTINGS_SAVE ,resp: returndata });
+                dispatch ({type: IS_WORKING, isWorking: false });
+
             });
         });
     });

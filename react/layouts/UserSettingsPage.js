@@ -17,7 +17,7 @@ class UserSettingsPage extends Component {
     getUserSettings(){
         // Get the departments from API Call from axios
         // This will build the rows and cells based on the departments and calendar_page.days
-        const user_settings_api   = this.props.settings.setting.react_api_folder+"user_setting_actions/get_user_settings.php";
+        const user_settings_api   = this.props.react_api_folder+"get_user_settings.php";
 
         const prom        = axios.get(user_settings_api);
         prom.then((res)=>{
@@ -64,7 +64,8 @@ class UserSettingsPage extends Component {
 
 function mapStateToProps(state,ownprops) {
     return ({
-        settings: state.settings
+        settings: state.settings,
+        react_api_folder: state.settings.setting.react_api_folder+"user_settings_actions/"
     })
 }
 function mapDispatchToProps(dispatch){ return({}) }

@@ -7,7 +7,7 @@ const SchedulingToolSettingsReducer = function (state=[], action) {
 
         case IS_WORKING:
             const  isWorkingState = Object.assign({},state,{ isWorking: action.isWorking });
-            return isWorkingState;
+                return isWorkingState;
             break;
 
         default:

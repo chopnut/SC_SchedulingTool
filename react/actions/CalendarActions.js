@@ -73,7 +73,8 @@ export function calendar_page_change_days(settings,days){
             // DO PROCESSING BELOW
 
             const prom = app(settings);
-            // Get user log first
+
+            // get user log first
             prom.then((res)=> {
                 let path_api    = settings.setting.react_api_folder + '/calendar_actions/calendar_page_get_scheduled.php?dates=';
                 let params      = _.map(days,function(item){

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2017 at 06:29 AM
+-- Generation Time: Jan 08, 2018 at 05:01 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -704,7 +704,12 @@ CREATE TABLE `sched_user_settings` (
 --
 
 INSERT INTO `sched_user_settings` (`sched_us_id`, `login_id`, `sched_us_calendar_hide_departments`, `sched_us_department_group`) VALUES
-(16, 1, '[]', '[]');
+(64, 6, '[]', '[5,1]'),
+(63, 5, '[]', '[5,1]'),
+(62, 4, '[]', '[5,1]'),
+(61, 2, '[]', '[5,1]'),
+(60, 8, '[]', '[5,1]'),
+(65, 1, '[]', '[]');
 
 --
 -- Indexes for dumped tables
@@ -847,7 +852,7 @@ ALTER TABLE `sched_settings`
 -- AUTO_INCREMENT for table `sched_user_settings`
 --
 ALTER TABLE `sched_user_settings`
-  MODIFY `sched_us_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `sched_us_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
