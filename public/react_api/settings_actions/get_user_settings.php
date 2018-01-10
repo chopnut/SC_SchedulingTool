@@ -38,8 +38,7 @@ if($u::areTheseSetAndNotEmpty('get','login_id')){
         $fillUserSetting["login_id"]= $loginId;
 
         foreach($defaultSetting as $key=>$val){
-            $jsonVal               = json_encode($val);
-            $fillUserSetting[trim($key)] = $jsonVal;
+            $fillUserSetting[trim($key)] = $val;
         }
 
         UserSchedSettings::create($fillUserSetting);

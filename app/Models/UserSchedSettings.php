@@ -18,14 +18,21 @@ class UserSchedSettings extends Model
     {
         return $this->belongsTo('Models\Login','login_id');
     }
+    // Eloquent Accessor
     public function getSchedUsDepartmentGroupAttribute($value){
         return json_decode($value);
     }
     public function getSchedUsCalendarHideDepartmentsAttribute($value){
         return json_decode($value);
     }
+    // Eloquent Mutator
+    public function setSchedUsCalendarHideDepartmentsAttribute($value){
+        $this->attributes['sched_us_calendar_hide_departments'] = json_encode($value);
+    }
+    public function setSchedUsDepartmentGroupAttribute($value){
+        $this->attributes['sched_us_department_group'] = json_encode($value);
+    }
 
 
 }
-
  ?>

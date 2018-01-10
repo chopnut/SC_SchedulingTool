@@ -10,7 +10,7 @@ class SchedSettings extends Model
     protected $primaryKey   = "id";
     protected $table        = 'sched_settings';
     protected $fillable     = ['setting_name','setting_label','setting_value'];
-    public $timestamp       = false;
+    public $timestamps       = false;
 
     public static function getSetting($settings,$setting_name){
         foreach($settings as $val){

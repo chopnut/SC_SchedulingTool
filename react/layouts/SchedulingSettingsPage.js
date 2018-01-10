@@ -29,6 +29,7 @@ class SchedulingSettingsPage extends Component {
       this.handleSave       = this.handleSave.bind(this);
       this.handleUserSelect = this.handleUserSelect.bind(this);
       this.handleDeptSelect = this.handleDeptSelect.bind(this);
+      this.handleLabelChange = this.handleLabelChange.bind(this);
     }
     getSettings(){
         const apiUrl   = this.props.react_api_folder+"get_settings.php";
@@ -71,7 +72,24 @@ class SchedulingSettingsPage extends Component {
             return({userDepartmentSelections: value });
         });
     }
-    handleOnChangeVal(e,{value}){
+    handleLabelChange(e){
+
+        const targ       = e.target;
+        const jTarg      = $(targ);
+        const labelValue = jTarg.text();
+        const fieldName  = targ.className;
+
+        // Clone the individual label setting
+        let isetting            = _.cloneDeep(this.state.setting[fieldName]);
+        isetting.setting_label  = labelValue;
+
+        // Clone the actual setting
+        let setting           = Object.assign({},this.state.setting);
+        setting[fieldName]    = isetting;
+
+        this.setState((prevState, props) => (
+            {setting}
+        ));
 
     }
     handleSave(e){
@@ -79,17 +97,15 @@ class SchedulingSettingsPage extends Component {
             {
                 sched_settings: this.state.setting,
                 user_selected: this.state.userSettings,
-                user_change_departments: this.state.userDepartmentSelections
+                user_settings:{
+                    sched_us_department_group: this.state.userDepartmentSelections
+                }
             });
         console.log("Data to save: ", data);
         this.props.st_settings_save(this.props.settings,data);
     }
-    handleLabelChange(e){
-        const targ       = $(e.target);
-        const labelValue = targ.text();
-        console.log("TagName: ", targ.className);
+    handleOnChangeVal(e,{value}){    }
 
-    }
     renderDepartmentsDropdown(){
         if(this.state.userSettings){
             return <div className="dept_selects">
@@ -123,13 +139,13 @@ class SchedulingSettingsPage extends Component {
                     <tr>
                         <td>
                             <div className="field">
-                                <label contentEditable={true} onInput={this.handleLabelChange} id={"tabs"} className="tabs">{this.state.setting.tabs.setting_label}</label>
+                                <label contentEditable={true} onBlur={this.handleLabelChange} id={"tabs"} className="tabs">{this.state.setting.tabs.setting_label}</label>
                                 <textarea rows="2" value={this.state.setting.tabs.setting_value} name="tabs" onChange={this.handleOnChangeVal}/>
                             </div>
                         </td>
                         <td>
                             <div className="field">
-                                <label contentEditable={true} onInput={this.handleLabelChange}  id={"user_default_settings"} className="user_default_settings">{this.state.setting.user_default_settings.setting_label}</label>
+                                <label contentEditable={true} onBlur={this.handleLabelChange}  id={"user_default_settings"} className="user_default_settings">{this.state.setting.user_default_settings.setting_label}</label>
                                 <textarea rows="2" value={this.state.setting.user_default_settings.setting_value} name="user_default_settings" onChange={this.handleOnChangeVal} />
                             </div>
                         </td>
@@ -137,13 +153,13 @@ class SchedulingSettingsPage extends Component {
                     <tr>
                         <td>
                             <div className="field">
-                                <label contentEditable={true} onInput={this.handleLabelChange}  id={"job_it_status"} className="job_it_status">{this.state.setting.job_it_status.setting_label}</label>
+                                <label contentEditable={true} onBlur={this.handleLabelChange}  id={"job_it_status"} className="job_it_status">{this.state.setting.job_it_status.setting_label}</label>
                                 <input value={this.state.setting.job_it_status.setting_value} name="job_it_status" onChange={this.handleOnChangeVal}/>
                             </div>
                         </td>
                         <td>
                             <div className="field">
-                                <label contentEditable={true} onInput={this.handleLabelChange} id={"job_prod_status"} className="job_prod_status">{this.state.setting.job_prod_status.setting_label}</label>
+                                <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_prod_status"} className="job_prod_status">{this.state.setting.job_prod_status.setting_label}</label>
                                 <input value={this.state.setting.job_prod_status.setting_value} name="job_prod_status" onChange={this.handleOnChangeVal} />
                             </div>
                         </td>
@@ -151,13 +167,13 @@ class SchedulingSettingsPage extends Component {
                     <tr>
                         <td>
                             <div className="field">
-                                <label contentEditable={true} onInput={this.handleLabelChange} id={"job_status"} className="job_status">{this.state.setting.job_status.setting_label}</label>
+                                <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_status"} className="job_status">{this.state.setting.job_status.setting_label}</label>
                                 <input value={this.state.setting.job_status.setting_value} name="job_status" onChange={this.handleOnChangeVal}/>
                             </div>
                         </td>
                         <td>
                             <div className="field">
-                                <label contentEditable={true} onInput={this.handleLabelChange} id={"job_types"} className="job_types">{this.state.setting.job_types.setting_label}</label>
+                                <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_types"} className="job_types">{this.state.setting.job_types.setting_label}</label>
                                 <input value={this.state.setting.job_types.setting_value} name="job_types" onChange={this.handleOnChangeVal} />
                             </div>
                         </td>
@@ -165,13 +181,13 @@ class SchedulingSettingsPage extends Component {
                     <tr>
                         <td>
                             <div className="field">
-                                <label contentEditable={true} onInput={this.handleLabelChange} id={"react_api_folder"} className="react_api_folder">{this.state.setting.react_api_folder.setting_label}</label>
+                                <label contentEditable={true} onBlur={this.handleLabelChange} id={"react_api_folder"} className="react_api_folder">{this.state.setting.react_api_folder.setting_label}</label>
                                 <input value={this.state.setting.react_api_folder.setting_value} name="react_api_folder" onChange={this.handleOnChangeVal}/>
                             </div>
                         </td>
                         <td>
                             <div className="field">
-                                <label contentEditable={true} onInput={this.handleLabelChange} id={"react_public_folder"} className="react_public_folder">{this.state.setting.react_public_folder.setting_label}</label>
+                                <label contentEditable={true} onBlur={this.handleLabelChange} id={"react_public_folder"} className="react_public_folder">{this.state.setting.react_public_folder.setting_label}</label>
                                 <input value={this.state.setting.react_public_folder.setting_value} name="react_public_folder" onChange={this.handleOnChangeVal} />
                             </div>
                         </td>
@@ -194,7 +210,7 @@ class SchedulingSettingsPage extends Component {
                             </div>
                         </td>
                         <td>
-                            Right column
+                            {/*--- RIGHT COLUMN GOES HERE ---*/}
                         </td>
                     </tr>
                     <tr>

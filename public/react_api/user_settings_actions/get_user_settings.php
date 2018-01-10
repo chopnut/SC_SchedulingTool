@@ -39,9 +39,6 @@ if($user){
             foreach($defaultSettings as $key=>$val){
                 $settingValue                  = $val;
                 $settingKey                    = trim($key);
-                if(is_array($val)){
-                    $settingValue              = json_encode($val);
-                }
                 $dataToCreate[$settingKey]     = $settingValue;
             }
 

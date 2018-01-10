@@ -32,7 +32,7 @@ if($user){
         $fillUserSetting["login_id"]= $user->login_id;
 
         foreach($defaultSetting as $key=>$val){
-            $jsonVal               = json_encode($val);
+            // $jsonVal               = json_encode($val);
             $fillUserSetting[trim($key)] = $jsonVal;
         }
 

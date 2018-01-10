@@ -111,7 +111,6 @@ class SchedJobBagDepartment extends Model
         }
         return $master_array;
     }
-    // Mutator and Accessor
     // Accessor
     public function getJobDpDateAttribute($value){
         $originalDate = $value;
