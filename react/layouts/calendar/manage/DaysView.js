@@ -102,7 +102,6 @@ class DaysView extends Component {
                 });
         });
     }
-    componentWillReceiveProps(nextProps){    }
     componentDidUpdate(){
         if(this.state.paramsDate){
             if(this.state.loadedDays==7){

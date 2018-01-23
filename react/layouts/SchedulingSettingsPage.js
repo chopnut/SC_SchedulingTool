@@ -202,7 +202,10 @@ class SchedulingSettingsPage extends Component {
                                         User department group settings lets you appoint a user to a particular department. <br/>
                                     </div>
                                     <div className="user_selects">
-                                        <Dropdown placeholder='Select a user' selection options={this.state.usersOptions} className="user_select" onChange={this.handleUserSelect} />
+                                        <Dropdown placeholder='Select a user'
+                                                  selection options={this.state.usersOptions}
+                                                  className="user_select"
+                                                  onChange={this.handleUserSelect} />
                                     </div>
                                     {this.renderDepartmentsDropdown()}
                                 </div>

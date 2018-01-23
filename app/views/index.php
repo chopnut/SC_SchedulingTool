@@ -29,7 +29,7 @@
             <div class="container-header">
                 <div class="left">
                     <div class="logo">
-                        <img src="assets/logo-large-09.png" alt="Smartcomm">
+                        <a href="<?php echo ROOT_ADDRESS; ?>"><img src="assets/logo-large-09.png" alt="Smartcomm"></a>
                     </div>
                 </div>
                 <div class="right">

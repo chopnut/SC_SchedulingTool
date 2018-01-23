@@ -22,7 +22,7 @@ class JobBag extends Component {
 
             return(
             <div>
-            My Component here
+            My Component
             </div>);
         }
     }

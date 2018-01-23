@@ -8,8 +8,8 @@ require ('../start.php');
 $app->get('/',function()use($app,$areYouLoggedIn,$db){
 
 	$variables = array();
-	$variables['areYouLoggedIn'] = $areYouLoggedIn;
-	$variables['db']             = $db;
+	$variables['areYouLoggedIn'] 	= $areYouLoggedIn;
+	$variables['db']             	= $db;
 
 	$app->render('index.php',$variables);
 });

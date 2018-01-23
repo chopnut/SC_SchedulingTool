@@ -1,7 +1,14 @@
 <?php
 
+// -------- REQUIRED FILE & LINES -------- //
+
 $folder_level = '../';
 include('../includes.php');
+use Illuminate\Database\Capsule\Manager as Capsule;
+// print_r( Capsule::getQueryLog());
+$data = $u::getRequestData();
+
+// -------- CUSTOM CODE BELOW ------------//
 
 use Models\SchedJobBags;
 
@@ -11,12 +18,11 @@ use Models\SchedJobBags;
  * @type of job bags recurring or once off only.
  */
 
-$data = $u::getRequestData();
-
-
 
 if(isset($data['date_from']) && isset($data['date_to'])  && isset($data['job_type'])){
-    $job_type = $u::dd('job_type',$data);
+    $date_field     = $u::dd('date_field' ,$data);
+    $search_term    = trim($u::dd('search_term',$data));
+    $job_type       = $u::dd('job_type'   ,$data);
 
     // From
     $job_date_from = $u::dd('date_from',$data);
@@ -31,19 +37,17 @@ if(isset($data['date_from']) && isset($data['date_to'])  && isset($data['job_typ
     $job_bags   = [];
 
 
-    if($job_type=='once'){
+    $job_bags = SchedJobBags::orderBy('created_at','desc')
+        ->where($date_field ,'>=',$job_date_from)
+        ->where($date_field ,'<=',$job_date_to)
+        ->where('job_type','=',$job_type)->get();
 
+    if(!empty($search_term)){
         $job_bags = SchedJobBags::orderBy('created_at','desc')
-            ->where('created_at','>=',$job_date_from)
-            ->where('created_at','<=',$job_date_to)
-            ->where('job_type','=',$job_type)->get();
-
-    }else{
-    // If job type is recurring get the jobs regardless of the date
-
-        $job_bags = SchedJobBags::where('job_type','=','recurring')->get();
-
+            ->where('job_type','=',$job_type)
+            ->where('job_title','like',$search_term)->get();
     }
+
     if(count($job_bags)>0){
         $json = $job_bags->toJson();
     }

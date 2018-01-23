@@ -1,13 +1,12 @@
-import {MANAGE_JOB_ADD_NEW_EDIT} from '../common/Constants';
+import {MANAGE_JOB_ADD_NEW_EDIT,
+        IS_WORKING} from '../common/Constants';
 import app from '../modules/persistent';
 import _ from 'lodash';
 import axios from 'axios';
 
 export function manage_job_add_new_edit(settings, job){
-
     return ((dispatch) =>{
         const prom = app(settings);
-
 
         // Get user log first
         prom.then((res)=> {
@@ -23,6 +22,14 @@ export function manage_job_add_new_edit(settings, job){
             });
         });
     });
+}
+
+export function manage_job_update_views(settings){
+    return (
+        (dispatch)=>{
+            dispatch({type: IS_WORKING, isWorking: true });
+        }
+    );
 }
 
 

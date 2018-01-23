@@ -495,7 +495,8 @@
                   .left{
                       @include make_div();
                       @include make_children_flex(250px);
-                        text-align: center;
+                      text-align: center;
+
                       // DATE PICKER LIVES IN THE LEFT CORNER
                       .datepicker{
                           width: 250px !important;
@@ -519,33 +520,48 @@
                       @include make_children_flex(auto);
                       // Template for content
                       ._content{
+
                           display:  flex;
                           padding: 10px;
                           .left{
-                              @include make_children_flex();
+
+                              @include make_children_flex(200px);
                               text-align: left;
                               font-size: 25px;
                           }
 
                           .right{
-                              @include make_children_flex(300px);
+                              @include make_children_flex();
+                              text-align: right;
                           }
-                      }
-
-                      // Content for the schedules page
-                      .header.schedules{
-                          .content{
-                              @extend ._content;
-
-                          }
-
                       }
                       // Content for the jobbags page
                       .header.jobbags{
                           .content{
                               @extend ._content;
+                              .right{
+                                  .dateType{
+                                      i{
+                                          margin-top: -8px;
+                                      }
+                                  }
+                              }
                           }
                       }
+                      // Content for the schedules page
+                      .header.schedules{
+                          .content{
+                              @extend ._content;
+                              .left{
+                                  @include make_children_flex(300px);
+                              }
+                              .right{
+
+                              }
+                          }
+
+                      }
+
                       .body{
                           .info{
                               border-top:    1px solid $main_grey_color;

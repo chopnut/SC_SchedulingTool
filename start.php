@@ -13,6 +13,7 @@ require ('vendor/autoload.php');
 
 use Models\Login;
 use Models\Database;
+
 // Initialize database connection
 $db = new Models\Database();
 

@@ -327,7 +327,7 @@ class AddEditJobForm extends Component {
             return (
                 <header className="manage_page_ce_header">
                     <span className="head manage_edit">
-                        Editing <span className="title">{this.state.job.job_title}</span>
+                       <i className="edit icon"></i> Editing <span className="title">{this.state.job.job_title}</span>
                     </span>
                 </header>
             );
@@ -335,7 +335,7 @@ class AddEditJobForm extends Component {
             return (
                 <header className="manage_page_ce_header">
                     <span className="head manage_new">
-                        Creating new job
+                       <i className="folder outline icon"></i> Creating new job
                     </span>
                 </header>
             );

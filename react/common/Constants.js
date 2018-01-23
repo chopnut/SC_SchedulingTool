@@ -10,6 +10,7 @@ export const CALENDAR_PAGE_REFRESH                = 'CALENDAR_PAGE_REFRESH';
 
 // FOR MANAGE_JOB SECTION
 export const MANAGE_JOB_ADD_NEW_EDIT              = 'MANAGE_JOB_ADD_NEW_EDIT';
+export const MANAGE_JOB_UPDATE_VIEWS              = 'MANAGE_JOB_UPDATE_VIEWS';
 
 // FOR MY TASKS SECTION
 export const MANAGE_TASKS_ACTION                  = 'MANAGE_TASKS_ACTION';
