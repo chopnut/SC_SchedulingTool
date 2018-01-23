@@ -54,7 +54,7 @@ class ManageJobs_JobsPage extends Component {
         var timer;
         if(typeSearch.length>4){
             clearTimeout(timer);
-            var ms = 200;
+            var ms = 1000;
             timer = setTimeout(()=>{
                 this.getJobBags();
             },ms);
@@ -71,9 +71,9 @@ class ManageJobs_JobsPage extends Component {
     handleDateType(e, {value}){
         this.setState((prevState, props) => (
             {dateType: value}
-        ));
+        ),this.getJobBags);
 
-        this.getJobBags();
+
     }
     handleChangeFilterType(e,{value}){
         this.setState((prevState, props) => (
@@ -85,12 +85,12 @@ class ManageJobs_JobsPage extends Component {
         if(direction == 'from'){
             this.setState((prevState, props) => (
                 {selectedDateFrom: date }
-            ));
+            ), this.getJobBags);
         }else{
 
             this.setState((prevState, props) => (
                 {selectedDateTo: date }
-            ));
+            ), this.getJobBags);
         }
     }
     getJobBags(){
