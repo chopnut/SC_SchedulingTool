@@ -78,9 +78,8 @@ class ManageJobs_JobsPage extends Component {
     handleChangeFilterType(e,{value}){
         this.setState((prevState, props) => (
             {filterJobType: value}
-        ));
-        console.log("FilterType: ", value);
-        this.props.manage_job_update_views();
+        ), this.getJobBags);
+
     }
     handleDatePickerChange(date,direction){
         if(direction == 'from'){
@@ -127,7 +126,7 @@ class ManageJobs_JobsPage extends Component {
     }
     componentWillReceiveProps(nextprops){
         if(nextprops.manage_job_update_views){
-            console.log("FilterType: ", this.state.filterJobType);
+
             this.getJobBags();
         }
     }
