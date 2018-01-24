@@ -18,7 +18,6 @@ use Models\SchedJobBags;
  * @type of job bags recurring or once off only.
  */
 
-
 if(isset($data['date_from']) && isset($data['date_to'])  && isset($data['job_type'])){
     $date_field     = $u::dd('date_field' ,$data);
     $search_term    = trim($u::dd('search_term',$data));
@@ -36,23 +35,37 @@ if(isset($data['date_from']) && isset($data['date_to'])  && isset($data['job_typ
     $json       = '[]';
     $job_bags   = [];
 
-
-    $job_bags = SchedJobBags::orderBy('created_at','desc')
-        ->where($date_field ,'>=',$job_date_from)
-        ->where($date_field ,'<=',$job_date_to)
-        ->where('job_type','=',$job_type)->get();
-
-    if(!empty($search_term)){
+    if($job_type == 'recurring'){
         $job_bags = SchedJobBags::orderBy('created_at','desc')
-            ->where('job_type','=',$job_type)
-            ->where('job_title','like',$search_term)->get();
-    }
+            ->where('job_type','=','recurring')
+            ->orWhere('job_title','like',$search_term)
+            ->get();
+    }else{
+        if(!empty($search_term)){
+            $job_bags = SchedJobBags::orderBy('created_at','desc')
+                ->where('job_type','=','once')
+                ->where('job_title','like',$search_term)
+                ->with('dept')
+                ->get();
+        }else{
+            $job_bags = SchedJobBags::orderBy('created_at','desc')
+                ->where($date_field,'>=', $job_date_from)
+                ->where($date_field,'<=', $job_date_to)
+                ->where('job_type','=','once')
+                ->orWhere('job_title','like',$search_term)
+                ->with('dept')
+                ->get();
 
+        }
+    }
     if(count($job_bags)>0){
         $json = $job_bags->toJson();
     }
+
+
     echo "{\"payload\":$json}";
 }else{
+    print_r($data);
     echo "{\"payload\":[]}";
 }
 ?>

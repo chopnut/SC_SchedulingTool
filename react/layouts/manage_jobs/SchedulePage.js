@@ -13,7 +13,7 @@ class ManageJobs_SchedulePage extends Component {
 
         this.state = {
             jobsDepartment: [],
-            selected_date: moment()
+            selectedDate: moment()
         }
         this.handleDatePickerChange = this.handleDatePickerChange.bind(this);
     }
@@ -21,7 +21,7 @@ class ManageJobs_SchedulePage extends Component {
     }
     handleDatePickerChange(date){
         this.setState((prevState, props) => (
-            {selected_date: date }
+            {selectedDate: date }
         ));
     }
     render(){
@@ -35,14 +35,14 @@ class ManageJobs_SchedulePage extends Component {
                                 Schedule for
                             </div>
                             <div className="bottom">
-                                <span className="day">{this.state.selected_date.format("dddd")}</span><br/>
-                                <span className="date">{this.state.selected_date.format("DD/MM/YYYY")}</span>
+                                <span className="day">{this.state.selectedDate.format("dddd")}</span><br/>
+                                <span className="date">{this.state.selectedDate.format("DD/MM/YYYY")}</span>
                             </div>
                         </div>
                         <div id="datepicker" className="datepicker">
                             <DatePicker
                                 inline
-                                selected={this.state.selected_date}
+                                selected={this.state.selectedDate}
                                 onChange={(newDate)=>{
                                     this.handleDatePickerChange(newDate);
                                 }}
@@ -58,6 +58,7 @@ class ManageJobs_SchedulePage extends Component {
                                 </div>
                                 <div className="right">
                                     some here
+
                                 </div>
                             </div>
                         </div>

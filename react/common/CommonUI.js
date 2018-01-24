@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Dropdown } from 'semantic-ui-react'
 
 export function showJobType(jobType,onChangeFunc,includeLabel=false){
-    let once        = <input type="radio" name="job_type" id="job_type" tabIndex="0" value="once" onChange={onChangeFunc} checked/>;
-    let recurring   = <input type="radio" name="job_type" id="job_type" tabIndex="0" value="recurring" onChange={onChangeFunc} checked/>;
+    let once        = <input type="radio" name="job_type" tabIndex="0" value="once" onChange={onChangeFunc} checked/>;
+    let recurring   = <input type="radio" name="job_type" tabIndex="0" value="recurring" onChange={onChangeFunc} checked/>;
     if(jobType=="once"){
-        recurring   = <input type="radio" name="job_type" id="job_type" tabIndex="0" value="recurring" onChange={onChangeFunc} checked={false}/>;
+        recurring   = <input type="radio" name="job_type" tabIndex="0" value="recurring" onChange={onChangeFunc} checked={false}/>;
     }else{
-        once        = <input type="radio" name="job_type" id="job_type" tabIndex="0" value="once" onChange={onChangeFunc} checked={false}/>;
+        once        = <input type="radio" name="job_type" tabIndex="0" value="once" onChange={onChangeFunc} checked={false}/>;
     }
     return(
         <div className="inline two fields job_type">

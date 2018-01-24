@@ -518,6 +518,8 @@
                   .right{
                       @include make_div();
                       @include make_children_flex(auto);
+
+
                       // Template for content
                       ._content{
 
@@ -570,6 +572,36 @@
                           }
                       }
 
+                      // Job rows for each job bag
+                      .job_row{
+                          margin-bottom: 10px;
+                          .wrapper{
+                              .card{
+                                  .row_1{
+                                      display: flex;
+                                      .left{
+                                          @include  make_children_flex(50%);
+                                          background-color: red;
+                                          text-align:  left;
+                                      }
+                                      .right{
+                                          @include  make_children_flex(50%);
+                                          background-color: blue;
+                                          text-align:  right;
+
+                                      }
+                                  }
+                                  .row_2{
+                                      .left{
+                                          text-align: left;
+                                      }
+                                      .right{
+
+                                      }
+                                  }
+                              }
+                          }
+                      }
                   }
               }
           }

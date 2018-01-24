@@ -36,7 +36,8 @@ class AddEditJobForm extends Component {
                 job_qty: 0,
                 job_type: "once",
                 job_departments: [],
-                job_dp_date: ""
+                job_dp_date: "",
+                job_customer_name: ""
             },
             isSearching: 0,
             isSaving: 0,
@@ -176,7 +177,6 @@ class AddEditJobForm extends Component {
             }
         ); // Update the fields of the data
     }
-
     prepopulateJobBag(){
         console.log("Edit form initialize: ",this.props);
         const {history,location} = this.props;
@@ -269,14 +269,10 @@ class AddEditJobForm extends Component {
             job_departments: this.state.job.job_departments
         });
 
-
-
         this.setState((prevState,props)=>{
                 return ({job: newJob})
             }
         );
-
-
     }
     componentDidUpdate(){
         console.log("AddEditJobForm componentDidUpdate ", this.state.job);
@@ -300,6 +296,8 @@ class AddEditJobForm extends Component {
 
                 promiseJobResult.then((res)=>{
                         let jobs = res.data;
+
+                        console.log("Prepopulate: ",jobs);
                         this.setState((prevState,props)=>{
                                 return {jobsFound: jobs,isSearching: 0}
                             }
@@ -350,7 +348,7 @@ class AddEditJobForm extends Component {
                 }
                 return (<div className="search_selected">
                     <span>
-                        <a href="javascript:;" onClick={() => this.prepopulateSelect(i)}>{element.job_prism_number}{" - "}{element.job_title} - {element.job_due_date}</a>
+                        <a href="javascript:;" onClick={() => this.prepopulateSelect(i)}>{element.job_prism_number} {element.job_title}</a>
                     </span>
                 </div>);
             }
@@ -430,7 +428,7 @@ class AddEditJobForm extends Component {
                         </tr>
                         <tr>
                             <td>
-                                <div className="two fields">
+                                <div className="three fields">
                                     <div className="field">
                                         <label><i className="fa fa-shopping-bag" aria-hidden="true"></i> Job bag number</label>
                                         <input type="text" name="job_prism_number" placeholder="Job Number" id="job_prism_number" value={this.state.job.job_prism_number}  onChange={this.changeValue}/>
@@ -438,6 +436,10 @@ class AddEditJobForm extends Component {
                                     <div className="field">
                                         <label><i className="calculator icon"></i> Quantity</label>
                                         <input type="text" name="job_qty" placeholder="Job Quantity" id="job_qty" value={this.state.job.job_qty} onChange={this.changeValue}/>
+                                    </div>
+                                    <div className="field">
+                                        <label><i className="calculator icon"></i> Customer Name</label>
+                                        <input type="text" name="job_customer_name" placeholder="Customer Name" id="job_customer_name" value={this.state.job.job_customer_name} onChange={this.changeValue}/>
                                     </div>
                                 </div>
                             </td>

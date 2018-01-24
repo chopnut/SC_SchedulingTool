@@ -108,6 +108,7 @@ class ManageJobs_JobsPage extends Component {
                 search_terms: this.state.searchTerm
         };
         const prom        = axios.post(calendar_department_api,postData);
+        console.log("getJobBags: ", postData);
         prom.then((res)=>{
             console.log("Jobs Page: ",res.data);
             const jobsDp          = res.data.payload;
@@ -126,7 +127,6 @@ class ManageJobs_JobsPage extends Component {
     }
     componentWillReceiveProps(nextprops){
         if(nextprops.manage_job_update_views){
-
             this.getJobBags();
         }
     }
@@ -178,7 +178,7 @@ class ManageJobs_JobsPage extends Component {
                                    <strong>Job Type Filter </strong>&nbsp;&nbsp;
                                    <Radio
                                        label='Once'
-                                       name='job_type'
+                                       name='job_type1'
                                        value='once'
                                        checked={this.state.filterJobType === 'once'}
                                        onChange={this.handleChangeFilterType}
@@ -186,7 +186,7 @@ class ManageJobs_JobsPage extends Component {
                                    &nbsp; &nbsp;
                                    <Radio
                                        label='Recurring'
-                                       name='job_type'
+                                       name='job_type2'
                                        value='recurring'
                                        checked={this.state.filterJobType === 'recurring'}
                                        onChange={this.handleChangeFilterType}

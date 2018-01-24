@@ -213,7 +213,10 @@ class SchedulingSettingsPage extends Component {
                             </div>
                         </td>
                         <td>
-                            {/*--- RIGHT COLUMN GOES HERE ---*/}
+                            <div className="field">
+                                <label contentEditable={true} onBlur={this.handleLabelChange} id={"react_public_folder"} className="react_public_folder">{this.state.setting.data_programming_dept_id.setting_label}</label>
+                                <input value={this.state.setting.data_programming_dept_id.setting_value} name="data_programming_dept_id" onChange={this.handleOnChangeVal} />
+                            </div>
                         </td>
                     </tr>
                     <tr>

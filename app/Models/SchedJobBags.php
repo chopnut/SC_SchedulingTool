@@ -26,7 +26,8 @@ class SchedJobBags extends Model
         'job_created_by',
         'job_qty',
         'job_type',
-        'job_departments'
+        'job_departments',
+        'job_customer_name'
     ];
 
     public $timestamps       = true;
@@ -50,7 +51,7 @@ class SchedJobBags extends Model
         $temp['job_reports_ids']  = \MyUtil::dd('job_reports_ids',$data,'');
         $temp['job_comments']     = \MyUtil::dd('job_comments',$data,'');
         $temp['job_type']         = \MyUtil::dd('job_type',$data,'once');
-
+        $temp['job_customer_name']= \MyUtil::dd('job_customer_name',$data,'');
 
         // Extracted below
         $date 			                = \MyUtil::dd('job_dp_date',$data);

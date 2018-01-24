@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2018 at 05:01 AM
+-- Generation Time: Jan 24, 2018 at 06:48 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -101,7 +101,9 @@ INSERT INTO `ir_clients` (`client_id`, `client`, `client_link_ftp`, `client_link
 (1, 'DEAF Services', 'deaf', 'DEA002', '{"file": ".*","lookforfiles":"","optimizefoldersearch":".*(job%[0-9]+).*"}', '', 'txt', '2017-08-30 14:45:12', '2017-10-11 05:58:12', '\\\\SCSERVER\\Production\\Deaf Lottery Australia\\', 1),
 (2, 'Mater Foundation & Misericordiae Ltd - Reports Only', 'mater', 'MAT003', '{"file": ".*","lookforfiles":"","optimizefoldersearch":".*(job%[0-9]+).*"}', '{"materdaily": { \r\n"mode":"group_by_files",\r\n"file":"\r\nCIP,\r\nCFC,\r\nCFK,\r\nC4K,\r\nC4C_77,\r\nC4C_77.*MATER[^vip],\r\nC4C_77.*MATERVIP,\r\n----------------------------------,\r\nC4C_78,\r\nC4C_78.*MATER[^vip],\r\nC4C_78.*MATERVIP,\r\n----------------------------------,\r\nC4C_79,\r\nC4C_79.*MATER[^vip],\r\nC4C_79.*MATERVIP,\r\n----------------------------------,\r\nPOW[^vip],\r\nSOV[^vip],\r\nPOWVIP,\r\nSOVVIP,\r\n----------------------------------,\r\nMPH.*MATER[^vip],\r\nMPH_273.*MATER[^vip],\r\nMPH_274.*MATER[^vip],\r\nMPH_275.*MATER[^vip],\r\nMPH_276.*MATER[^vip],\r\n----------------------------------,\r\nMPH.*MATERVIP,\r\nMPH_273.*MATERVIP,\r\nMPH_274.*MATERVIP,\r\nMPH_275.*MATERVIP,\r\nMPH_276.*MATERVIP,\r\n----------------------------------,\r\nMPH.*POW[^vip],\r\nMPH.*SOV[^vip],\r\nMPH.*POWVIP,\r\nMPH.*SOVVIP,\r\n----------------------------------,\r\nMPH_273.*LIONS,\r\nMPH_274.*LIONS,\r\n----------------------------------,\r\nMPH_273.*LIONS[^vip],\r\nMPH_274.*LIONS[^vip],\r\n----------------------------------,\r\nMPH_273.*LIONSVIP,\r\nMPH_274.*LIONSVIP\r\n",\r\n"exclude": "",\r\n"exclude_header": 1,\r\n"default_days_ago": "-10"\r\n}}', 'txt', '2017-08-30 14:45:12', '2017-12-06 04:47:00', '\\\\SCSERVER\\Production\\Mater Foundation\\,\\\\SCSERVER\\Production\\Mater Misericordiae Ltd\\', 1),
 (7, 'RSL', 'rsl', 'rsl001', '{"file": ".*","exclude":"","lookforfiles":"","optimizefoldersearch":".*(job%[0-9]+).*"}', '{"rsldaily":{\r\n"file":"/^mail/i",\r\n"exclude":"preorder,sample",\r\n"mode":"line_by_line",\r\n"width":"1500px",\r\n"exclude_header":0,\r\n"rowcount":"2",\r\n"delimiter":"|",\r\n"columns": [\r\n\r\n{ "id":"whitepaper","children":[],"columns":[], "text":"White Paper","visible":1,"value":"$canc+$ddsa+$welc"},\r\n\r\n{ "id":"diggers","children":[\r\n\r\n{"id":"au","children":[],"columns":[{"col":"10","value":"AUSTRALIA"}],"text":"AU","visible":1},\r\n{"id":"nz","children":[],"columns":[{"col":"10","value":"NEW ZEALAND"}],"text":"NZ","visible":1},\r\n{"id":"os","children":[],"columns":[{"col":"10","value":"*"}],"text":"OS","visible":1}\r\n\r\n],"columns":[{"col":"50","value":"0|8|9"}], "text":"Diggers","visible":0,"value":""}, \r\n\r\n{"id":"rollovers","children":[\r\n\r\n{"id":"au","children":[],"columns":[{"col":"10","value":"AUSTRALIA"}],"text":"AU","visible":1},\r\n{"id":"nz","children":[],"columns":[{"col":"10","value":"NEW ZEALAND"}],"text":"NZ","visible":1},\r\n{"id":"os","children":[],"columns":[{"col":"10","value":"*"}],"text":"OS","visible":1}\r\n\r\n],"columns":[{"col":"50","value":"3|8|9"}],"text":"Roll Overs","visible":0},\r\n\r\n{"id":"prospect","children":[\r\n\r\n{"id":"au","children":[],"columns":[{"col":"10","value":"AUSTRALIA"}],"text":"AU","visible":1},\r\n{"id":"nz","children":[],"columns":[{"col":"10","value":"NEW ZEALAND"}],"text":"NZ","visible":1},\r\n{"id":"os","children":[],"columns":[{"col":"10","value":"*"}],"text":"OS","visible":1}\r\n\r\n],"columns":[{"col":"50","value":"1|2|4|5"}],"text":"Prospects","visible":0,"value":""},\r\n\r\n{"id":"ro","children":[],"columns":[{"col":"50","value":3}],"text":"Black on Stock -RO","visible":1},\r\n{"id":"welc","children":[],"columns":[{"col":"50","value":"8|9"}],"text":"Colour on White -Welcome","visible":1},\r\n\r\n{"id":"prosp","children":[],"columns":[{"col":"50","value":1}],"text":"Black On Stock -Prospects","visible":1},\r\n{"id":"ddsa","children":[],"columns":[{"col":"50","value":"2|4"}],"text":"Black On White -DDSA","visible":1},\r\n\r\n{"id":"canc","children":[],"columns":[{"col":"50","value":5}],"text":"Cancellation","visible":1},\r\n{"id":"colorcount","children":[],"columns":[],"text":"Colour Count","visible":1,"value":"$welc+$canc"}\r\n]\r\n}}', 'txt', '2017-09-26 01:51:34', '2017-10-11 05:57:21', '\\\\SCSERVER\\Production\\RSL Art Union\\', 1),
-(8, 'Allianz', 'allianz', 'allianz', '{"file": ".*","lookforfiles":"","optimizefoldersearch":".*(job%[0-9]+).*"}', '', 'txt', '2017-09-27 23:03:35', '2017-10-11 05:59:33', '\\\\SCSERVER\\Production\\Allianz Global Assistance\\', NULL);
+(8, 'Allianz', 'allianz', 'allianz', '{"file": ".*","lookforfiles":"","optimizefoldersearch":".*(job%[0-9]+).*"}', '', 'txt', '2017-09-27 23:03:35', '2017-10-11 05:59:33', '\\\\SCSERVER\\Production\\Allianz Global Assistance\\', NULL),
+(9, 'Mater Hospital SMS', 'mater_hospital_sms', 'MAT003', '', '', 'txt', '2018-01-15 22:57:35', '2018-01-16 00:49:09', '', 1),
+(10, 'BlueCare', 'bluecare', 'bluecare', '', '', 'txt', '2018-01-16 00:48:44', '2018-01-16 00:48:44', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -579,6 +581,7 @@ CREATE TABLE `sched_job_bags` (
   `job_prism_job_id` int(11) DEFAULT NULL,
   `job_prism_number` int(11) DEFAULT NULL,
   `job_title` varchar(250) NOT NULL,
+  `job_customer_name` varchar(250) DEFAULT NULL,
   `job_colour` varchar(7) DEFAULT NULL,
   `job_print_date` date DEFAULT NULL,
   `job_due_date` date DEFAULT NULL,
@@ -598,15 +601,16 @@ CREATE TABLE `sched_job_bags` (
 -- Dumping data for table `sched_job_bags`
 --
 
-INSERT INTO `sched_job_bags` (`job_id`, `job_prism_job_id`, `job_prism_number`, `job_title`, `job_colour`, `job_print_date`, `job_due_date`, `job_lodge_date`, `job_reports_ids`, `job_comments`, `job_status`, `job_created_by`, `created_at`, `updated_at`, `job_qty`, `job_type`, `job_departments`) VALUES
-(1, 92595, 67829, 'Supercheap NZ Clubs                                      ', NULL, '1970-01-01', '1970-01-01', NULL, '', '', 'stand by', 0, '2017-12-06 08:41:53', '2017-12-06 11:18:29', '53', 'recurring', '1,4,5'),
-(2, NULL, NULL, '', NULL, NULL, NULL, NULL, '', '', 'stand by', 0, '2017-12-06 09:34:59', '2017-12-06 09:34:59', '', 'once', ''),
-(3, NULL, NULL, '', NULL, NULL, NULL, NULL, '', '', 'stand by', 0, '2017-12-06 09:37:43', '2017-12-06 09:37:43', '', 'once', ''),
-(4, NULL, NULL, '', NULL, NULL, NULL, NULL, '', '', 'stand by', 0, '2017-12-06 10:26:44', '2017-12-06 10:26:44', '', 'once', ''),
-(5, 92622, 67851, 'SUN001 Warehousing - December 2017s', NULL, '1970-01-01', '2017-12-05', '2017-12-01', '', '', 'stand by', 0, '2017-12-08 08:28:25', '2017-12-08 08:29:57', '52', 'once', '1'),
-(6, 92739, NULL, 'March 2017 Inspirations (92+4)                                          ', NULL, '1970-01-01', '2017-12-12', NULL, '', '', 'stand by', 0, '2017-12-11 14:38:08', '2017-12-11 14:38:08', '21314', 'once', '1,4'),
-(7, 92752, 67923, 'Merc UR                                                                 ', NULL, '1970-01-01', '2017-12-13', NULL, '', '', 'stand by', 0, '2017-12-11 14:38:36', '2017-12-11 14:38:36', '967', 'once', '1,4'),
-(8, 92748, 67921, 'Toyota Ren Ack                                                          ', NULL, '2017-12-12', '2017-12-13', NULL, '', '', 'stand by', 0, '2017-12-13 12:06:49', '2017-12-13 12:06:49', '322', 'once', '7,8,9');
+INSERT INTO `sched_job_bags` (`job_id`, `job_prism_job_id`, `job_prism_number`, `job_title`, `job_customer_name`, `job_colour`, `job_print_date`, `job_due_date`, `job_lodge_date`, `job_reports_ids`, `job_comments`, `job_status`, `job_created_by`, `created_at`, `updated_at`, `job_qty`, `job_type`, `job_departments`) VALUES
+(1, 92595, 67829, 'Supercheap NZ Clubs                                      ', NULL, NULL, '1970-01-01', '1970-01-01', NULL, '', '', 'stand by', 0, '2017-12-06 08:41:53', '2017-12-06 11:18:29', '53', 'recurring', '1,4,5'),
+(5, 92622, 67851, 'SUN001 Warehousing - December 2017s', NULL, NULL, '1970-01-01', '2017-12-05', '2017-12-01', '', '', 'stand by', 0, '2017-12-08 08:28:25', '2017-12-08 08:29:57', '52', 'once', '1'),
+(6, 92739, NULL, 'March 2017 Inspirations (92+4)                                          ', NULL, NULL, '1970-01-01', '2017-12-12', NULL, '', '', 'stand by', 0, '2017-12-11 14:38:08', '2017-12-11 14:38:08', '21314', 'once', '1,4'),
+(7, 92752, 67923, 'Merc UR                                                                 ', NULL, NULL, '1970-01-01', '2017-12-13', NULL, '', '', 'stand by', 0, '2017-12-11 14:38:36', '2017-12-11 14:38:36', '967', 'once', '1,4'),
+(8, 92748, 67921, 'Toyota Ren Ack                                                          ', NULL, NULL, '2017-12-12', '2017-12-13', NULL, '', '', 'stand by', 0, '2017-12-13 12:06:49', '2017-12-13 12:06:49', '322', 'once', '7,8,9'),
+(9, 93468, NULL, 'MPH276 Stage 1 mailing                                                  ', NULL, NULL, '1970-01-01', '2018-01-23', NULL, '', '', 'stand by', 8, '2018-01-23 09:07:18', '2018-01-23 09:07:18', '80881', 'once', '1'),
+(10, 93469, NULL, 'MPH276 POW Stage 1 Mailing                                              ', NULL, NULL, '1970-01-01', '2018-01-23', NULL, '', '', 'stand by', 8, '2018-01-23 09:09:25', '2018-01-23 09:09:25', '16212', 'once', '1,4,5,6'),
+(11, 93472, NULL, 'MPH276 VIP Brochure Mailing                                             ', NULL, NULL, '1970-01-01', '2018-01-23', NULL, '', '', 'stand by', 8, '2018-01-23 09:09:53', '2018-01-23 09:09:53', '65430', 'recurring', '1,7,8'),
+(12, 93054, 68109, 'Daily Ticketing - JANUARY  #275', 'Mater Foundation                                                        ', NULL, '2018-01-24', '2018-01-31', '2018-01-31', '', '', 'stand by', 0, '2018-01-24 15:59:19', '2018-01-24 15:59:19', '0', 'once', '1,4');
 
 -- --------------------------------------------------------
 
@@ -657,7 +661,20 @@ INSERT INTO `sched_job_bag_department` (`job_dp_id`, `job_id`, `job_dp_dept`, `j
 (14, 1, 5, '2017-12-12', '2017-12-12', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-12-13 12:18:54', '2017-12-13 12:18:54', NULL, NULL, NULL, NULL),
 (15, 1, 1, '2017-12-14', '2017-12-14', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-12-13 12:19:19', '2017-12-13 12:19:31', NULL, NULL, NULL, NULL),
 (16, 1, 4, '2017-12-14', '2017-12-14', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-12-13 12:19:19', '2017-12-13 12:19:19', NULL, NULL, NULL, NULL),
-(17, 1, 5, '2017-12-14', '2017-12-14', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-12-13 12:19:19', '2017-12-13 12:19:19', NULL, NULL, NULL, NULL);
+(17, 1, 5, '2017-12-14', '2017-12-14', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-12-13 12:19:19', '2017-12-13 12:19:19', NULL, NULL, NULL, NULL),
+(18, 9, 1, '2018-01-23', '2018-01-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:07:18', '2018-01-23 09:07:18', NULL, NULL, '80881', NULL),
+(19, 10, 1, '2018-01-24', '2018-01-24', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:09:25', '2018-01-23 10:21:39', NULL, NULL, '16212', NULL),
+(20, 10, 4, '2018-01-24', '2018-01-24', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:09:25', '2018-01-23 09:11:25', NULL, NULL, '16212', NULL),
+(21, 10, 5, '2018-01-24', '2018-01-24', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:09:25', '2018-01-23 09:09:25', NULL, NULL, '16212', NULL),
+(22, 10, 6, '2018-01-24', '2018-01-24', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:09:25', '2018-01-23 09:09:25', NULL, NULL, '16212', NULL),
+(23, 11, 1, '2018-01-23', '2018-01-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:09:53', '2018-01-23 09:09:53', NULL, NULL, '65430', NULL),
+(24, 11, 7, '2018-01-23', '2018-01-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:09:53', '2018-01-23 09:09:53', NULL, NULL, '65430', NULL),
+(25, 11, 8, '2018-01-23', '2018-01-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:09:53', '2018-01-23 09:09:53', NULL, NULL, '65430', NULL),
+(26, 1, 1, '2018-01-21', '2018-01-21', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:10:18', '2018-01-23 09:10:18', NULL, NULL, NULL, NULL),
+(27, 1, 4, '2018-01-21', '2018-01-21', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:10:18', '2018-01-23 09:10:18', NULL, NULL, NULL, NULL),
+(28, 1, 5, '2018-01-21', '2018-01-21', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:10:18', '2018-01-23 09:10:18', NULL, NULL, NULL, NULL),
+(29, 12, 1, '2018-01-25', '2018-01-25', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-24 15:59:19', '2018-01-24 15:59:19', NULL, NULL, '0', NULL),
+(30, 12, 4, '2018-01-25', '2018-01-25', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-24 15:59:19', '2018-01-24 15:59:19', NULL, NULL, '0', NULL);
 
 -- --------------------------------------------------------
 
@@ -677,14 +694,15 @@ CREATE TABLE `sched_settings` (
 --
 
 INSERT INTO `sched_settings` (`id`, `setting_name`, `setting_label`, `setting_value`) VALUES
-(1, 'tabs', 'Main Tabs', '[{"id":"calendar","label":"Calendar","icon":"calendar icon"},{"id":"managejobs","label":"Manage Jobs","icon":"list layout icon"},{"id":"managetasks","label":"My Tasks","icon":"hourglass end icon"},{"id":"usersettings","label": "User settings","url":"/webapps/admin.php","icon":"linkify icon"},{"id":"schedulingsettings","label":"Scheduling Tool Settings","icon":"setting icon"}]'),
+(1, 'tabs', 'Main Tabs', '[{"id":"calendar","label":"Calendars","icon":"calendar icon"},{"id":"managejobs","label":"Manage Jobs","icon":"list layout icon"},{"id":"managetasks","label":"My Tasks","icon":"hourglass end icon"},{"id":"usersettings","label": "User settings","url":"/webapps/admin.php","icon":"linkify icon"},{"id":"schedulingsettings","label":"Scheduling Tool Settings","icon":"setting icon"}]'),
 (2, 'job_it_status', 'Job IT Statuses', '["stand by","work in progress","done"]'),
 (3, 'job_prod_status', 'Job Production Statuses', '["stand by","work in progress","done"]'),
 (4, 'job_types', 'Job Types', '[{"id": "once","text":"Once"},{"id": "recurring","text":"Recurring"}]'),
 (5, 'react_api_folder', 'Application Api Folder', 'http://localhost/webapps/schedulingtool/public/react_api/'),
 (6, 'react_public_folder', 'Main public folder', 'http://localhost/webapps/schedulingtool/public/'),
 (7, 'job_status', 'Main Job Status', '["stand by","work in progress","done or closed","archieve"]'),
-(8, 'user_default_settings', 'User setting', '[{"sched_us_calendar_hide_departments": [],"sched_us_department_group":[]}]');
+(8, 'user_default_settings', 'User default setting', '[{"sched_us_calendar_hide_departments": [],"sched_us_department_group":[]}]'),
+(9, 'data_programming_dept_id', 'Data Programming Department ID', '1');
 
 -- --------------------------------------------------------
 
@@ -704,12 +722,15 @@ CREATE TABLE `sched_user_settings` (
 --
 
 INSERT INTO `sched_user_settings` (`sched_us_id`, `login_id`, `sched_us_calendar_hide_departments`, `sched_us_department_group`) VALUES
-(64, 6, '[]', '[5,1]'),
-(63, 5, '[]', '[5,1]'),
-(62, 4, '[]', '[5,1]'),
-(61, 2, '[]', '[5,1]'),
-(60, 8, '[]', '[5,1]'),
-(65, 1, '[]', '[]');
+(16, 1, '[]', '[]'),
+(17, 2, '[]', '[1]'),
+(29, 9, '[]', '[1]'),
+(28, 8, '[]', '[1]'),
+(27, 5, '[]', '[1]'),
+(26, 4, '[]', '[]'),
+(30, 12, '[]', '[1]'),
+(31, 13, '[]', '[1]'),
+(32, 10, '[]', '[]');
 
 --
 -- Indexes for dumped tables
@@ -812,12 +833,12 @@ ALTER TABLE `ew_payslips`
 -- AUTO_INCREMENT for table `ir_clients`
 --
 ALTER TABLE `ir_clients`
-  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `ir_reports`
 --
 ALTER TABLE `ir_reports`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=350;
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=358;
 --
 -- AUTO_INCREMENT for table `login`
 --
@@ -837,22 +858,22 @@ ALTER TABLE `sched_department`
 -- AUTO_INCREMENT for table `sched_job_bags`
 --
 ALTER TABLE `sched_job_bags`
-  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `sched_job_bag_department`
 --
 ALTER TABLE `sched_job_bag_department`
-  MODIFY `job_dp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `job_dp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `sched_settings`
 --
 ALTER TABLE `sched_settings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `sched_user_settings`
 --
 ALTER TABLE `sched_user_settings`
-  MODIFY `sched_us_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `sched_us_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
