@@ -30,6 +30,7 @@ class SchedulingSettingsPage extends Component {
       this.handleUserSelect = this.handleUserSelect.bind(this);
       this.handleDeptSelect = this.handleDeptSelect.bind(this);
       this.handleLabelChange = this.handleLabelChange.bind(this);
+      this.handleOnChangeVal = this.handleOnChangeVal.bind(this);
     }
     getSettings(){
         const apiUrl   = this.props.react_api_folder+"get_settings.php";
@@ -104,8 +105,21 @@ class SchedulingSettingsPage extends Component {
         console.log("Data to save: ", data);
         this.props.st_settings_save(this.props.settings,data);
     }
-    handleOnChangeVal(e,{value}){    }
+    handleOnChangeVal(e) {
+        const element = $(e.target);
+        const elName = element.attr('name');
+        const elValue = element.val();
 
+        // Clone the value itself
+        const settingOption = Object.assign({}, this.state.setting[elName],{setting_value: elValue});
+
+        // Clone the setting with new option value
+        const newSetting    = Object.assign({}, this.state.setting, {[elName]: settingOption})
+
+        this.setState((prevState, props) => (
+            {setting: newSetting}
+        ));
+    }
     renderDepartmentsDropdown(){
         if(this.state.userSettings){
             return <div className="dept_selects">

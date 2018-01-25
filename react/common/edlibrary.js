@@ -1,6 +1,15 @@
 // Get Parameter by name from the GET url
 function MyUtil(){
 
+this.pad = function (pad, str, padLeft) {
+    if (typeof str === 'undefined')
+        return pad;
+    if (padLeft) {
+        return (pad + str).slice(-pad.length);
+    } else {
+        return (str + pad).substring(0, pad.length);
+    }
+}
 
 this.getParameterByName = function(name, url) {
     if (!url) url = window.location.href;

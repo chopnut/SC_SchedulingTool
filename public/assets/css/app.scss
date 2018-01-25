@@ -572,23 +572,41 @@
                           }
                       }
 
-                      // Job rows for each job bag
+                      // Job rows for each job bag  in Manage Jobs page
                       .job_row{
                           margin-bottom: 10px;
+                          // Labels mainly for top row
+                          .job_card{
+                              display: inline-block;
+                              padding-right: 5px;
+                              font-size: 15px;
+                              text-align:  right !important;
+                              .job_card_label{ font-size: 0.55em; }
+                              .job_card_value{ font-weight: bold;  margin-top: -5px; display: block;}
+                          }
+                          // Job title
+                          .job_title{
+                              font-size: 20px;
+                              padding: 7px;
+                              background-color: #eee;
+                          }
                           .wrapper{
                               .card{
+                                  border-bottom: 1px solid #ccc;
+                                  padding-bottom: 5px;
+                                  padding-top:    5px;
                                   .row_1{
                                       display: flex;
                                       .left{
-                                          @include  make_children_flex(50%);
-                                          background-color: red;
+                                          @include  make_children_flex();
                                           text-align:  left;
+
                                       }
                                       .right{
-                                          @include  make_children_flex(50%);
-                                          background-color: blue;
-                                          text-align:  right;
-
+                                          @include  make_children_flex(190px);
+                                          div{
+                                              float: right;
+                                          }
                                       }
                                   }
                                   .row_2{
@@ -596,6 +614,17 @@
                                           text-align: left;
                                       }
                                       .right{
+
+                                      }
+                                  }
+                                  .row_3{
+                                      display: flex;
+                                      .left{
+                                          @include  make_children_flex(50%);
+                                      }
+                                      .right{
+                                          @include  make_children_flex(50%);
+                                          text-align: right;
 
                                       }
                                   }
