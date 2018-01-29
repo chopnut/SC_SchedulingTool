@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 // User defined modules
 import RouteWrapper from './common/RouteWrapper';
 import Calendar_Manage from './calendar/Manage';
-import Calendar_View from './calendar/View';
+import CalendarView from './calendar/View';
+import CalendarViewDate from './calendar/ViewDate';
 
 class CalendarPage extends Component {
 	constructor(props){
@@ -42,8 +43,8 @@ class CalendarPage extends Component {
                     </div>
                 </div>
                 <div className="right">
-                    <NavLink exact to="/calendar" activeClassName="selected" className="links"><i className="grid layout icon"></i> View </NavLink>
-                    <NavLink to="/calendar/manage/" activeClassName="selected" className="links"><i className="checked calendar icon"></i> Manage</NavLink>
+                    <NavLink exact to="/calendar/" activeClassName="selected" className="links"><i className="grid layout icon"></i> View </NavLink>
+                    <NavLink exact to="/calendar/manage/" activeClassName="selected" className="links"><i className="checked calendar icon"></i> Manage</NavLink>
                 </div>
             </div>
         );
@@ -55,13 +56,15 @@ class CalendarPage extends Component {
                     {this.renderLinkManager()}
                     <div className="body">
                         <RouteWrapper>
-                            <Route exact path="/calendar"  render={(props) => <Calendar_View   dep={this.state.departments} {...this.props}/>}/>
-                            <Route path="/calendar/manage/" render={(props) => <Calendar_Manage dep={this.state.departments} {...this.props}/>}/>
+                            <Route exact path="/calendar/"      render={(props) => <CalendarView   dep={this.state.departments} {...this.props}/>}/>
+                            <Route path="/calendar/(\d+-\d+-\d+)"      render={(props) => <CalendarViewDate   dep={this.state.departments} {...this.props}/>}/>
+                            <Route path="/calendar/manage/"     render={(props) => <Calendar_Manage dep={this.state.departments} {...this.props}/>}/>
                         </RouteWrapper>
                     </div>
                 </article>
             )
         }else{
+
 	        return (<article className="CalendarPage">
                         {this.renderLinkManager()}
                         <div className="body">

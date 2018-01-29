@@ -121,6 +121,7 @@ class CalendarRow extends Component {
         }));
 
     }
+
     componentDidMount(){
 
         this.setState((prevState, props) => (   {

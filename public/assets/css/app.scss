@@ -132,6 +132,7 @@
                         }
 
                     }
+
                     .head_link i{
                         color: darken($main_blue_color,20%);
                         cursor: pointer !important;
@@ -148,6 +149,7 @@
                     .head_link a:hover{
                       color: $main_purple_color !important;
                     }
+
                     .second{
                         text-align:  center;
                         margin-bottom: 10px;
@@ -155,7 +157,7 @@
                         .date_range{
                             .labels{ }
                             .date_label{ font-size: 15px; font-weight: bold; }
-                            .day_label{ font-size: 17px; color: $main_blue_color; }
+                            .day_label{ font-size: 25px; color: $main_blue_color; margin-bottom: 7px;}
                             .range_date{
                                 font-size: 15px;
                                 font-weight: bold;
@@ -189,7 +191,12 @@
 
                                     }
                                     .add_label{ font-size: 14px; }
-                                    .date_label{}
+                                    .date_label{
+                                        a{
+                                            color: #000;
+                                            text-decoration: underline;
+                                        }
+                                    }
                                 }
                                 .today{
                                     background-color: lighten($main_orange_color,40%);
@@ -324,6 +331,17 @@
                     }
 
               }
+              // Viewing a day individually
+              .calendar_view_date{
+                  @extend .calendar_view;
+
+                  .content{
+                      th:first-child{
+                          width: 150px;
+                      }
+                  }
+              }
+              // Viewing and managing the job with same layout as Pete's
               .calendar_manage{
                   @extend .calendar_view;
                   // The header labels for viewing days

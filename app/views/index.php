@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title></title>
+        <title>Smartcomm Schedulling Tool</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../../common/common.css">
@@ -49,7 +49,6 @@
 
         <!-- this will house the main view of the content -->
         <div class="wrapper-view-content">
-
             <div class="container-view-content" id="app">
                 <div class="loader">
                 <span style="font-size: 18px;">Smartcomm Scheduler v1.0.0</span><br/><br/>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2018 at 06:48 AM
+-- Generation Time: Jan 29, 2018 at 03:39 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -559,7 +559,7 @@ CREATE TABLE `sched_department` (
 --
 
 INSERT INTO `sched_department` (`job_dept_id`, `job_dept_desc`, `job_dep_code`, `updated_at`, `created_at`, `job_dep_parent`, `job_dep_order`) VALUES
-(1, 'Data Programming', 5, '2017-10-09 00:00:00', '2017-10-09 00:00:00', 0, 0),
+(1, 'Programming', 5, '2017-10-09 00:00:00', '2017-10-09 00:00:00', 0, 0),
 (2, 'Digital Printing', 10, '2017-10-09 00:00:00', '2017-10-09 00:00:00', 0, 1),
 (3, 'Machine Inserting', 37, '2017-10-09 00:00:00', '2017-10-09 00:00:00', 0, 2),
 (4, 'Mono', 20, '2017-10-09 00:00:00', '2017-10-09 00:00:00', 2, 3),
@@ -673,7 +673,7 @@ INSERT INTO `sched_job_bag_department` (`job_dp_id`, `job_id`, `job_dp_dept`, `j
 (26, 1, 1, '2018-01-21', '2018-01-21', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:10:18', '2018-01-23 09:10:18', NULL, NULL, NULL, NULL),
 (27, 1, 4, '2018-01-21', '2018-01-21', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:10:18', '2018-01-23 09:10:18', NULL, NULL, NULL, NULL),
 (28, 1, 5, '2018-01-21', '2018-01-21', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:10:18', '2018-01-23 09:10:18', NULL, NULL, NULL, NULL),
-(29, 12, 1, '2018-01-25', '2018-01-25', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-24 15:59:19', '2018-01-24 15:59:19', NULL, NULL, '0', NULL),
+(29, 12, 1, '2018-01-25', '2018-01-25', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-24 15:59:19', '2018-01-25 10:48:11', NULL, NULL, '0', NULL),
 (30, 12, 4, '2018-01-25', '2018-01-25', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-24 15:59:19', '2018-01-24 15:59:19', NULL, NULL, '0', NULL);
 
 -- --------------------------------------------------------
@@ -694,15 +694,16 @@ CREATE TABLE `sched_settings` (
 --
 
 INSERT INTO `sched_settings` (`id`, `setting_name`, `setting_label`, `setting_value`) VALUES
-(1, 'tabs', 'Main Tabs', '[{"id":"calendar","label":"Calendars","icon":"calendar icon"},{"id":"managejobs","label":"Manage Jobs","icon":"list layout icon"},{"id":"managetasks","label":"My Tasks","icon":"hourglass end icon"},{"id":"usersettings","label": "User settings","url":"/webapps/admin.php","icon":"linkify icon"},{"id":"schedulingsettings","label":"Scheduling Tool Settings","icon":"setting icon"}]'),
+(1, 'tabs', 'Main Tabs', '[{"id":"calendar","label":"Calendar","icon":"calendar icon"},{"id":"managejobs","label":"Manage Jobs","icon":"list layout icon"},{"id":"managetasks","label":"My Tasks","icon":"hourglass end icon"},{"id":"usersettings","label": "User settings","url":"/webapps/admin.php","icon":"linkify icon"},{"id":"schedulingsettings","label":"Scheduling Tool Settings","icon":"setting icon"}]'),
 (2, 'job_it_status', 'Job IT Statuses', '["stand by","work in progress","done"]'),
 (3, 'job_prod_status', 'Job Production Statuses', '["stand by","work in progress","done"]'),
 (4, 'job_types', 'Job Types', '[{"id": "once","text":"Once"},{"id": "recurring","text":"Recurring"}]'),
 (5, 'react_api_folder', 'Application Api Folder', 'http://localhost/webapps/schedulingtool/public/react_api/'),
-(6, 'react_public_folder', 'Main public folder', 'http://localhost/webapps/schedulingtool/public/'),
+(6, 'react_public_folder', 'Data Programming Department ID', 'http://localhost/webapps/schedulingtool/public/'),
 (7, 'job_status', 'Main Job Status', '["stand by","work in progress","done or closed","archieve"]'),
 (8, 'user_default_settings', 'User default setting', '[{"sched_us_calendar_hide_departments": [],"sched_us_department_group":[]}]'),
-(9, 'data_programming_dept_id', 'Data Programming Department ID', '1');
+(9, 'programming_dept_id', 'Programming Department ID', '1'),
+(10, 'production_hours_per_day', 'Production Hours ', '12');
 
 -- --------------------------------------------------------
 
@@ -868,7 +869,7 @@ ALTER TABLE `sched_job_bag_department`
 -- AUTO_INCREMENT for table `sched_settings`
 --
 ALTER TABLE `sched_settings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `sched_user_settings`
 --

@@ -8,6 +8,7 @@ if(!isset($db)){
 // REMOVE ABOVE AFTER DEBUG
 
 use Models\Department;
+use Models\UserSchedSettings;
 
 // Get Scheduling Settings and User Login
 $settings = $db->getCapsule()->table('sched_settings')->get();
@@ -21,17 +22,23 @@ foreach($settings as $setting){
 $jsonSettings       = json_encode($temp);
 $jsonUser           = json_encode($areYouLoggedIn);
 
+
+// Get all programming users
+$programmingId      = $temp['programming_dept_id'];
+$userSettings       = UserSchedSettings::where('sched_us_department_group','like','%'.$programmingId.'%')->get();
+print_r($userSettings);
+
+
 // Get the first week of todays date , the rest of process is done by javascript
 // Set sunday-saturday set up and pass the initial date to calendar
 $lastSundayT = strtotime("last sunday");
 $nextSaturdayT = strtotime("next saturday");
-
 $todaysT      = time();
 $todayDay     = date("l",$todaysT);
 $daysDate     = array();
+
 // Todays date 
 $todays_date  = date("d/m/Y",$todaysT);
-
 
 // If today is sunday or saturday make it todays range
 $todayDay   = date("l");
@@ -71,9 +78,10 @@ $firstDay    = json_encode($daysDate[0]);
 $departments = json_encode($dropDownOptionsDepartment);
 
 // Set the calendar jobs
-$paramDateString = implode(',',$paramDates);
 
+$paramDateString = implode(',',$paramDates);
 $calendarJobs    = json_encode(\Models\SchedJobBagDepartment::getCalendarJobs($paramDateString));
+
 // Timestamp in every state needs to change to retrigger re-render
 // When the calendar page days changed make sure you change the calendar_jobs state
 // calendar_jobs reflects the jobs that are in there from the dates of the calendar page days.
@@ -84,7 +92,7 @@ echo "window.__initial_state__ = {
         departmentOptions: $departments,
         action: { type:'',payload:{} },
         isWorking: false
-        },
+    },
     calendar_page:{
       days: $sevenDays,
       selected_date: '$todays_date',
@@ -93,23 +101,20 @@ echo "window.__initial_state__ = {
       action: { type:'',payload:{} },
       calendar_jobs: $calendarJobs,
       isWorking: false
-      },
+    },
     manage_jobs :{
         action: { type:'',payload:{} },
         isWorking: false
-
     },
     manage_tasks:{
         action: { type:'',payload:{} },
         isWorking: false
-
     },
     user_settings:{
         action: { type:'',payload:{} },
         isWorking: false,
         setting: {}
     }
-
 }";
 
 ?>

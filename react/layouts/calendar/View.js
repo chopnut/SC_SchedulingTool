@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import axios from 'axios';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-
+import {NavLink} from 'react-router-dom';
 
 // Calendar Date picker
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
-
-
 
 // User define components
 import CalendarRow from "../../components/calendar/CalendarRow";
@@ -201,6 +198,8 @@ class Calendar_View extends Component {
 
     }
 	render(){
+
+
 	    if(this.state.isLoading){
             return (<div className="calendar_view center">{getLoader()}</div>);
         }else{
@@ -211,7 +210,6 @@ class Calendar_View extends Component {
                             <h2 className="title">
                                 <img src="assets/img/scheduler_icon.svg" width="30" height="30" className="calendar_icon"/> Scheduled Jobs
                             </h2>
-
                         </div>
 
                         <div className="right">
@@ -277,20 +275,25 @@ class Calendar_View extends Component {
                                             if(item.date == this.props.web.today){
                                                 className = className+" today";
                                             }
+                                            // Stripping the slashes from the date to be displayed
+                                            const dateLinkLabel  = item.date.split("/").join("-");
 
                                             return (<th className={className} key={i}>
-                                                <span className="day_label head_link">
-                                                    <a onClick={
-                                                        (e)=>{
-                                                           this.handleViewDays(item.date);
-                                                        }
-                                                    }>{item.day}</a>
-                                                </span>
-                                                <span className="add_label">
-                                                    <CalendarAddRecurring day ={item} />
-                                                </span>
-                                                <br/>
-                                                <span className="date_label">{item.date}</span></th>);
+                                                    <span className="day_label head_link">
+                                                        <a onClick={
+                                                            (e)=>{
+                                                               this.handleViewDays(item.date);
+                                                            }
+                                                        }>{item.day}</a>
+                                                    </span>
+                                                    <span className="add_label">
+                                                        <CalendarAddRecurring day ={item} />
+                                                    </span>
+                                                    <br/>
+                                                    <span className="date_label">
+                                                        <NavLink to={"/calendar/"+ dateLinkLabel} className="date_link">{item.date}</NavLink>
+                                                    </span>
+                                                </th>);
 
                                         }.bind(this))}
                                     </tr>

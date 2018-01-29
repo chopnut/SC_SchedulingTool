@@ -1,13 +1,13 @@
 import React,{ Component }  from 'react';
 import {connect}            from 'react-redux';
-import {Route,NavLink}      from 'react-router-dom';
+import {Route}              from 'react-router-dom';
 import PropTypes            from 'prop-types';
 import {withRouter }        from 'react-router-dom';
 
 // User created module
 import DaysView             from './manage/DaysView';
 import DepartmentView       from './manage/DepartmentView';
-import {getLoader} from '../../common/CommonUI';
+import {getLoader}          from '../../common/CommonUI';
 
 // Javascript Helpers and modules
 import '../../../public/assets/js/jquery.sortable.min.js';
