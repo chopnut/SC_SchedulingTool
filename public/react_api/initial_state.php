@@ -25,8 +25,17 @@ $jsonUser           = json_encode($areYouLoggedIn);
 
 // Get all programming users
 $programmingId      = $temp['programming_dept_id'];
-$userSettings       = UserSchedSettings::where('sched_us_department_group','like','%'.$programmingId.'%')->get();
-print_r($userSettings);
+$programmingUsers   = UserSchedSettings::where('sched_us_department_group','like','%'.$programmingId.'%')->with('login')->get();
+$pUsers             = array();
+
+foreach($programmingUsers as $user){
+    $login   =  $user->login;
+    $pUsers[]=  array(
+        'first_name' => $login->first_name,
+        'login_id'   => $login->login_id
+    );
+}
+$pUsers = json_encode($pUsers);
 
 
 // Get the first week of todays date , the rest of process is done by javascript
@@ -91,7 +100,8 @@ echo "window.__initial_state__ = {
         setting: $jsonSettings,
         departmentOptions: $departments,
         action: { type:'',payload:{} },
-        isWorking: false
+        isWorking: false,
+        programmingUsers: $pUsers
     },
     calendar_page:{
       days: $sevenDays,

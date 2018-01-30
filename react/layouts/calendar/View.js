@@ -176,7 +176,7 @@ class Calendar_View extends Component {
             inlineRecursive(item,rowsCollection);
         })
 
-        return (rowsCollection);
+       return (rowsCollection);
 
     }
     componentWillReceiveProps(nextProps){
