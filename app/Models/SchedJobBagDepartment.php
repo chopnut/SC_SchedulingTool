@@ -62,8 +62,7 @@ class SchedJobBagDepartment extends Model
 
 
             if(isset($flipped_dates[$job_date])){
-//                echo $job_date;
-//                var_dump($dates);
+
                 $key    = $flipped_dates[$job_date];
 
                 // Create the 0-6 Array holder

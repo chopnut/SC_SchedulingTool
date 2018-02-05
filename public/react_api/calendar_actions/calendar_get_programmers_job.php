@@ -27,7 +27,7 @@ if($u::areTheseSetAndNotEmpty('get','from','to')){
         ->whereNotNull('job_dp_allocated_to')
         ->get();
 
-
+    $ctr = 0;
     foreach($programmersJobs as $j){
         $uid    = $j->job_dp_allocated_to;
         $date   = $j->job_dp_date;
@@ -35,7 +35,13 @@ if($u::areTheseSetAndNotEmpty('get','from','to')){
         if(!isset($temp[$uid]))         $temp[$uid]         = array();
         if(!isset($temp[$uid][$date]))  $temp[$uid][$date]  = array();
 
-        $temp[$uid][$date][] = $j;
+        // [USER_ID][DAY_DATE][COUNTER_ARRAY][bag|dep]
+        $temp[$uid][$date][$ctr] = array();
+        $temp[$uid][$date][$ctr]['bag'] = "";
+        $temp[$uid][$date][$ctr]['dep'] = $j;
+
+
+        $ctr++;
     }
 }
 
