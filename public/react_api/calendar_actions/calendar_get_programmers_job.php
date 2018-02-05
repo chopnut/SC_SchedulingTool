@@ -40,7 +40,6 @@ if($u::areTheseSetAndNotEmpty('get','from','to')){
         $temp[$uid][$date][$ctr]['bag'] = "";
         $temp[$uid][$date][$ctr]['dep'] = $j;
 
-
         $ctr++;
     }
 }
