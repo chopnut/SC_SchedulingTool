@@ -57,7 +57,6 @@ class SchedJobBagDepartment extends Model
             $job_dept_id    = $deps->job_dp_dept;
 
 
-
             // What to put in the data itself
             // Now allocate the record to the flipped array, and use the value as the key
 

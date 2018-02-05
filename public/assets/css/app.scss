@@ -134,7 +134,7 @@
                     }
 
                     .head_link i{
-                        color: darken($main_blue_color,20%);
+                        color: darken($main_blue_color,30%);
                         cursor: pointer !important;
                     }
                     .head_link i:hover{
@@ -142,7 +142,7 @@
                       cursor: pointer !important;
                     }
                     .head_link a{
-                        color: $main_blue_color !important;
+                        color: darken($main_blue_color,30%) !important;
                         cursor: pointer !important;
 
                     }
@@ -181,9 +181,35 @@
                             @extend ._padding_between;
                             @include make_children_flex();
 
+                            // Main grid table
                             table{
+
                                 width:  100%;
-                                .header_department_label{ font-size: 14px;}
+
+                                tr.programming_main_row{
+                                    td{
+                                        border-bottom: 1px solid darken($main_purple_color, 20%);
+
+                                    }
+                                }
+                                tr.programmer_row{
+                                    td:first-child{
+                                        font-weight:  bold;
+                                        text-align:  right;
+                                        background-color: lighten($main_purple_color, 47%);
+                                        color: darken($main_purple_color, 20%);
+
+                                    }
+                                }
+                                tr td:first-child, tr th:first-child{
+                                    border-right: 1px solid lighten($main_grey_color, 20%);
+                                }
+
+
+                                .header_department_label{
+                                    font-size: 15px;
+                                    width: 120px;
+                                }
                                 .header_date{
                                     text-align:center;
                                     .day_label{
@@ -213,12 +239,16 @@
                                 }
                                 // Department labels
                                 .parent_dept{
-                                    background-color: lighten($main_purple_color,40%);
-                                    font-weight: bold;
+                                    background-color: lighten($main_purple_color, 45%);
+                                    border-top: 1px solid darken($main_purple_color, 20%);
+                                    font-weight:  bold;
+                                    font-size: 17px;
+                                    color: darken($main_purple_color, 20%);
                                 }
                                 .child_dept{
                                     font-weight: bold;
                                     vertical-align: top;
+                                    color: lighten($main_blue_color,30%);
 
                                 }
                                 // Individual cell data
@@ -233,9 +263,9 @@
                                             overflow: hidden;
                                             margin-bottom: 10px;
 
+
                                             .contain{
                                                 margin: 1px;
-
 
                                                 .cell_head{
                                                     td{

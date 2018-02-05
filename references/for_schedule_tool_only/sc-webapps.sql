@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2018 at 05:58 AM
+-- Generation Time: Feb 05, 2018 at 05:44 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -610,7 +610,8 @@ INSERT INTO `sched_job_bags` (`job_id`, `job_prism_job_id`, `job_prism_number`, 
 (9, 93468, NULL, 'MPH276 Stage 1 mailing                                                  ', NULL, NULL, '1970-01-01', '2018-01-23', NULL, '', '', 'stand by', 8, '2018-01-23 09:07:18', '2018-01-23 09:07:18', '80881', 'once', '1'),
 (10, 93469, NULL, 'MPH276 POW Stage 1 Mailing                                              ', NULL, NULL, '1970-01-01', '2018-01-23', NULL, '', '', 'stand by', 8, '2018-01-23 09:09:25', '2018-01-23 09:09:25', '16212', 'once', '1,4,5,6'),
 (11, 93472, NULL, 'MPH276 VIP Brochure Mailing                                             ', NULL, NULL, '1970-01-01', '2018-01-23', NULL, '', '', 'stand by', 8, '2018-01-23 09:09:53', '2018-01-23 09:09:53', '65430', 'recurring', '1,7,8'),
-(12, 93054, 68109, 'Daily Ticketing - JANUARY  #275', 'Mater Foundation                                                        ', NULL, '2018-01-24', '2018-01-31', '2018-01-31', '', '', 'stand by', 0, '2018-01-24 15:59:19', '2018-01-24 15:59:19', '0', 'once', '1,4');
+(12, 93054, 68109, 'Daily Ticketing - JANUARY  #275', 'Mater Foundation                                                        ', NULL, '2018-01-24', '2018-01-31', '2018-01-31', '', '', 'stand by', 0, '2018-01-24 15:59:19', '2018-01-24 15:59:19', '0', 'once', '1,4'),
+(13, 93711, 68509, '12 Month Anniversary Campaign                                           ', 'Suncorp Bank                                                            ', NULL, '1970-01-01', '2018-02-09', NULL, '', '', 'stand by', 0, '2018-02-05 13:04:06', '2018-02-05 13:04:06', '131', 'once', '1,5');
 
 -- --------------------------------------------------------
 
@@ -663,18 +664,20 @@ INSERT INTO `sched_job_bag_department` (`job_dp_id`, `job_id`, `job_dp_dept`, `j
 (16, 1, 4, '2017-12-14', '2017-12-14', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-12-13 12:19:19', '2017-12-13 12:19:19', NULL, NULL, NULL, NULL),
 (17, 1, 5, '2017-12-14', '2017-12-14', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2017-12-13 12:19:19', '2017-12-13 12:19:19', NULL, NULL, NULL, NULL),
 (18, 9, 1, '2018-01-23', '2018-01-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:07:18', '2018-01-23 09:07:18', NULL, NULL, '80881', NULL),
-(19, 10, 1, '2018-01-24', '2018-01-24', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:09:25', '2018-01-23 10:21:39', NULL, NULL, '16212', NULL),
+(19, 10, 1, '2018-01-24', '2018-01-24', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:09:25', '2018-01-23 10:21:39', 13, NULL, '16212', NULL),
 (20, 10, 4, '2018-01-24', '2018-01-24', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:09:25', '2018-01-23 09:11:25', NULL, NULL, '16212', NULL),
 (21, 10, 5, '2018-01-24', '2018-01-24', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:09:25', '2018-01-23 09:09:25', NULL, NULL, '16212', NULL),
 (22, 10, 6, '2018-01-24', '2018-01-24', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:09:25', '2018-01-23 09:09:25', NULL, NULL, '16212', NULL),
-(23, 11, 1, '2018-01-23', '2018-01-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:09:53', '2018-01-23 09:09:53', NULL, NULL, '65430', NULL),
+(23, 11, 1, '2018-01-23', '2018-01-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:09:53', '2018-02-05 13:49:09', 12, NULL, '65430', NULL),
 (24, 11, 7, '2018-01-23', '2018-01-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:09:53', '2018-01-23 09:09:53', NULL, NULL, '65430', NULL),
-(25, 11, 8, '2018-01-23', '2018-01-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:09:53', '2018-01-23 09:09:53', NULL, NULL, '65430', NULL),
-(26, 1, 1, '2018-01-21', '2018-01-21', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:10:18', '2018-01-23 09:10:18', NULL, NULL, NULL, NULL),
-(27, 1, 4, '2018-01-21', '2018-01-21', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:10:18', '2018-01-23 09:10:18', NULL, NULL, NULL, NULL),
-(28, 1, 5, '2018-01-21', '2018-01-21', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:10:18', '2018-01-23 09:10:18', NULL, NULL, NULL, NULL),
-(29, 12, 1, '2018-01-25', '2018-01-25', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-24 15:59:19', '2018-01-25 10:48:11', NULL, NULL, '0', NULL),
-(30, 12, 4, '2018-01-25', '2018-01-25', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-24 15:59:19', '2018-01-24 15:59:19', NULL, NULL, '0', NULL);
+(25, 11, 8, '2018-01-23', '2018-01-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:09:53', '2018-01-23 09:09:53', 2, NULL, '65430', NULL),
+(26, 1, 1, '2018-01-21', '2018-01-21', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:10:18', '2018-01-23 09:10:18', 8, NULL, NULL, NULL),
+(27, 1, 4, '2018-01-21', '2018-01-21', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:10:18', '2018-01-23 09:10:18', 8, NULL, NULL, NULL),
+(28, 1, 5, '2018-01-21', '2018-01-21', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-23 09:10:18', '2018-01-23 09:10:18', 5, NULL, NULL, NULL),
+(29, 12, 1, '2018-01-25', '2018-01-25', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-24 15:59:19', '2018-01-25 10:48:11', 2, NULL, '0', NULL),
+(30, 12, 4, '2018-01-25', '2018-01-25', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-01-24 15:59:19', '2018-01-24 15:59:19', 9, NULL, '0', NULL),
+(31, 13, 1, '2018-02-05', '2018-02-05', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-05 13:04:06', '2018-02-05 13:04:06', 8, NULL, '131', NULL),
+(32, 13, 5, '2018-02-05', '2018-02-05', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-05 13:04:06', '2018-02-05 13:58:32', 12, NULL, '131', NULL);
 
 -- --------------------------------------------------------
 
@@ -859,12 +862,12 @@ ALTER TABLE `sched_department`
 -- AUTO_INCREMENT for table `sched_job_bags`
 --
 ALTER TABLE `sched_job_bags`
-  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `sched_job_bag_department`
 --
 ALTER TABLE `sched_job_bag_department`
-  MODIFY `job_dp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `job_dp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `sched_settings`
 --

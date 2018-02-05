@@ -40,6 +40,7 @@ $pUsers = json_encode($pUsers);
 
 // Get the first week of todays date , the rest of process is done by javascript
 // Set sunday-saturday set up and pass the initial date to calendar
+
 $lastSundayT = strtotime("last sunday");
 $nextSaturdayT = strtotime("next saturday");
 $todaysT      = time();
@@ -101,7 +102,7 @@ echo "window.__initial_state__ = {
         departmentOptions: $departments,
         action: { type:'',payload:{} },
         isWorking: false,
-        programmingUsers: $pUsers
+        programmingUsers: { deptId: $programmingId , value: $pUsers }
     },
     calendar_page:{
       days: $sevenDays,

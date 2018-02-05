@@ -20,6 +20,7 @@ class CalendarRow extends Component {
         this.handleDragLeave = this.handleDragLeave.bind(this);
         this.handleDragOver  = this.handleDragOver.bind(this);
         this.handleDragEnd   = this.handleDragEnd.bind(this);
+
         this.handleViewDepartments = this.handleViewDepartments.bind(this);
     }
     handleViewDepartments(deptId){
@@ -121,7 +122,6 @@ class CalendarRow extends Component {
         }));
 
     }
-
     componentDidMount(){
 
         this.setState((prevState, props) => (   {
@@ -133,6 +133,11 @@ class CalendarRow extends Component {
         const rowClassName = this.props.isParent?"parent_dept":"child_dept head_link";
         const today   = this.props.calendar_page.today_date;
 
+        let classProgramming = "";
+        if(this.props.departmentId == this.props.programmingDeptId){
+            classProgramming = "programming_main_row";
+        }
+
         const dLink = ()=>{
             if(colspan==0){
                 return (<NavLink to={"/calendar/manage/departments/"+this.props.departmentId}>{this.props.title}</NavLink>)
@@ -141,7 +146,7 @@ class CalendarRow extends Component {
             }
         }
         return(
-            <tr>
+            <tr className={classProgramming}>
                 <td colSpan={colspan} className={rowClassName}>
                     <i className="cube icon"></i>
                     {
@@ -192,10 +197,12 @@ class CalendarRow extends Component {
             }</tr>);
     }
 }
+
 function mapStateToProps(state,ownprops) {
     return ({
         calendar_page: state.calendar_page,
         calendar_jobs: state.calendar_page.calendar_jobs,
+        programmingDeptId: state.settings.programmingUsers.deptId,
         settings: state.settings
     });
 }

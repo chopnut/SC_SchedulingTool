@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import {NavLink} from 'react-router-dom';
 
 // Calendar Date picker
@@ -15,7 +16,7 @@ import CalendarPrismSidebar from "../../components/calendar/CalendarPrismSidebar
 import CalendarAddRecurring from "../../components/calendar/AddRecurring";
 import BottomLegend from "./BottomLegend";
 import {getLoader} from '../../common/CommonUI';
-
+import ProgrammerRow    from '../../components/calendar/common/ProgrammerRow';
 
 // Get actions for calendar page
 import {calendar_page_change_days,
@@ -47,7 +48,10 @@ class Calendar_View extends Component {
             sidebarSunday: sunday,
             sidebarSaturday: saturday,
             isLoading: true,
-            calendar_date: moment()
+            calendar_date: moment(),
+
+            // Programming jobs
+            programmingJobs: {}
         };
 
         this.handleCalendarFunction     = this.handleCalendarFunction.bind(this);
@@ -56,7 +60,8 @@ class Calendar_View extends Component {
         this.handleCalendarDateChange   = this.handleCalendarDateChange.bind(this);
         this.handleViewDays             = this.handleViewDays.bind(this);
 
-
+        // Get programming jobs
+        this.getWeeklyJobs              = this.getWeeklyJobs.bind(this);
 	}
 	/*
 	* When new sunday and saturday has been selected update state and ui
@@ -66,7 +71,6 @@ class Calendar_View extends Component {
     handleCalendarDateChange(newSunday,newSaturday){
         // Need to fill up the dates in between
         let dateArray = [];
-
         dateArray.push({day: newSunday.format("dddd"), date: newSunday.format("DD/MM/YYYY") });
         _.times(5,function(n){
             const day = moment(newSunday).add(n+1,'days');
@@ -153,10 +157,14 @@ class Calendar_View extends Component {
         history.push('/calendar/manage/days/'+date.replace(/\//g,'-'));
     }
 
-	// Render rows for the calendar
+	// RENDER ROWS FOR THE CALENDAR
     renderDepartments(){
-        let rowsCollection = [];
+        let rowsCollection  = [];
+        const that          = this;
+        const programmingID = this.props.settings.programmingUsers.deptId;
+        const programmingU  = this.props.settings.programmingUsers.value;
 
+        // COLLECTIONGS OF TRS IN TABLE ELEMENT
 	    function inlineRecursive(item,rowcollection){
             const title     = item.title;
             const id        = item.id;
@@ -165,11 +173,33 @@ class Calendar_View extends Component {
 
             if(numkids>0){
                 rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId={id} />);
+
+                // IF DEPARTMENTS ID MATCHED PROGRAMMING ID ADD, ROWS FOR THE PROGRAMMERS
+
                 for(let value of item.kids){
                     inlineRecursive(value,rowcollection);
                 }
             }else{
+
+                // THIS IS WHERE YOU PRINT OUT THE DEPARTMENT
+
                 rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId= {id}/>);
+
+                // DISPLAY THE ROW FOR THE PROGRAMMER
+                if(programmingID == id){
+
+
+
+
+                    programmingU.map((item , n)=>{
+                        let jobs = null;
+                        if(item.login_id in that.state.programmingJobs){
+                            jobs = that.state.programmingJobs[item.login_id];
+                        }
+                        rowcollection.push(<ProgrammerRow key={"pr_"+ n} user={item} isParent={isParent}  departmentId= {id} jobs={jobs} counter={n}/>);
+                        }
+                    )
+                }
             }
         }
         this.state.departmentsOrder.map(function(item,i){
@@ -187,15 +217,21 @@ class Calendar_View extends Component {
             this.props.calendar_page_refresh(this.props.settings,this.state.sunday.date, this.state.saturday.date);
             this.props.reset_all_action();
         }
+    }
+    getWeeklyJobs(){
+        const from  = this.state.sunday.date;
+        const to    = this.state.saturday.date;
 
+        // GET JOBS FOR INDIVIDUAL PROGRAMMER WEEKLY
+        const api   = this.props.settings.setting.react_api_folder+"calendar_actions/calendar_get_programmers_job.php?from="+ from + "&to=" + to;
+        const promise        = axios.get(api);
+        promise.then((res)=>{
+            const programmingJobs          = res.data;
+            this.setState((prevState, props) => ({programmingJobs, isLoading: false }));
+        });
     }
 	componentDidMount(){
-
-        this.setState((prevState, props) => (
-            {isLoading: false}
-        ));
-
-
+        this.getWeeklyJobs();
     }
 	render(){
 
@@ -318,16 +354,15 @@ class Calendar_View extends Component {
                         </div>
                     </div>
                 </div>
-            );
+            )
         }
-
-
 	}
 }
 function mapStateToProps(state,ownprops) {
     return{
         settings: state.settings,
         calendar_page: state.calendar_page
+
     }
 }
 function mapDispatchToProps(dispatch){

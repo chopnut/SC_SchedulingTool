@@ -78,8 +78,6 @@ CalendarPage.propTypes = {
     web: PropTypes.object // web is storage for user_log information
 }
 function mapStateToProps(state,ownprops) {
-    return{
-        settings: state.settings
-    }
+    return{ settings: state.settings }
 }
 export default withRouter(connect(mapStateToProps,null,null,{pure: false})(CalendarPage));
