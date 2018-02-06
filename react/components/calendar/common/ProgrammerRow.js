@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import CalendarGroupCells from "../CalendarGroupCells";
 
 class ProgrammerRow extends Component {
     constructor(props){
@@ -16,13 +17,10 @@ class ProgrammerRow extends Component {
         this.handleDragOver  = this.handleDragOver.bind(this);
         this.handleDragEnd   = this.handleDragEnd.bind(this);
     }
-
     componentDidMount(){
         this.setState(function(state,props){
             return ({state,isLoading: false});
         });
-
-        console.log("Programmers jobs: ", this.props.jobs);
     }
     startDrop(e,droppedDate,toKey){
         const el        = $(e.target);
@@ -132,18 +130,52 @@ class ProgrammerRow extends Component {
                 </tr>);
         }else{
 
-
             return(
             <tr className={"programmer_row"}>
-                <td >{this.props.user.first_name} ({ this.props.user.login_id})</td>
-                <td ></td>
-                <td ></td>
-                <td ></td>
-                <td ></td>
-                <td ></td>
-                <td ></td>
-                <td ></td>
-            </tr>);
+                <td >
+                    {this.props.user.first_name} ({ this.props.user.login_id})
+                </td>{this.props.calendar_page.days.map((item,i)=>{
+                const thisCellDate = item.date;
+                let tdClassName  = "tdCell";
+                if(thisCellDate == today){
+                    tdClassName = tdClassName+" today ";
+                }
+                if(colspan==8){
+                    return;
+                }
+                return (
+                    <td key={i}
+                        id={this.props.departmentId}
+                        className={tdClassName}
+                        onDrop={(e)=>{
+                            // On drop is the target element to call
+                            e.preventDefault();
+                            this.startDrop(e,item,i);
+                        }}
+                        onDragOver={(e)=>{
+                            e.preventDefault();
+                            // this.handleDragEnter(e,this.props.departmentId);
+                        }}
+                        onDragEnter={(e)=>{
+                            e.preventDefault();
+                            this.handleDragEnter(e,this.props.departmentId);
+                        }}
+                        onDragLeave={(e)=>{
+                            e.preventDefault();
+                            this.handleDragLeave(e,this.props.departmentId);
+                        }}
+                    >
+                        <CalendarGroupCells
+                            dayKey={i}
+                            departmentId={this.props.departmentId}
+                            initDrag={this.handleDragging}
+                            initDragEnd = {this.handleDragEnd}
+                            onDrop="return false"
+                        />
+                    </td>
+                );
+            })
+            }</tr>);
         }
     }
 }
@@ -154,11 +186,7 @@ function mapStateToProps(state,ownprops) {
         settings: state.settings
     })
 }
-function mapDispatchToProps(dispatch){
-    return({
-
-    })
-}
+function mapDispatchToProps(dispatch){  return({})}
 ProgrammerRow.propType = {
     jobs: PropTypes.array.isRequired
 }
