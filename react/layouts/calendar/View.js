@@ -231,7 +231,7 @@ class Calendar_View extends Component {
         });
     }
 	componentDidMount(){
-        this.getWeeklyJobs();
+        // this.getWeeklyJobs();
     }
 	render(){
 

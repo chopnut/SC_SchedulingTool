@@ -27,23 +27,21 @@ if($u::areTheseSetAndNotEmpty('get','from','to')){
         ->whereNotNull('job_dp_allocated_to')
         ->get();
 
-
-
     $ctr = 0;
     foreach($programmersJobs as $j){
         $uid    = $j->job_dp_allocated_to;
         $date   = $j->job_dp_date;
 
-        $tempDate = DateTime::createFromFormat("m/d/Y", $date);
-        echo "Date format: "
+        $dateTimeStamp = DateTime::createFromFormat("d/m/Y", $date)->getTimestamp();
+        $dayWeek  = date("w",$dateTimeStamp);
 
         if(!isset($temp[$uid]))         $temp[$uid]         = array();
         if(!isset($temp[$uid][$date]))  $temp[$uid][$date]  = array();
 
         // [USER_ID][DAY_DATE][COUNTER_ARRAY][bag|dep]
-        $temp[$uid][$date][$ctr] = array();
-        $temp[$uid][$date][$ctr]['bag'] = $j->jobbag()->get();
-        $temp[$uid][$date][$ctr]['dep'] = $j;
+        $temp[$uid][$dayWeek][$ctr] = array();
+        $temp[$uid][$dayWeek][$ctr]['bag'] = $j->jobbag()->get();
+        $temp[$uid][$dayWeek][$ctr]['dep'] = $j;
 
         $ctr++;
     }
