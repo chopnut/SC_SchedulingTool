@@ -85,7 +85,7 @@ export function calendar_page_change_days(settings,days){
                 path_api = path_api+ strParams;
 
                 // Check the api url for testing
-                // console.log("URL get jobs" , path_api);
+                console.log("URL get jobs" , path_api);
                 dispatch({type: CALENDAR_PAGE_CHANGE_DAYS , days });
 
 

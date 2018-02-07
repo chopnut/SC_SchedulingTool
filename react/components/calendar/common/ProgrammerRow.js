@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import {connect} from 'react-redux';
+import {calendar_page_move_dep_side_by_side} from '../../../actions/CalendarActions';
 import PropTypes from 'prop-types';
+import {withRouter } from 'react-router-dom';
 import CalendarGroupCells from "../CalendarGroupCells";
 
 class ProgrammerRow extends Component {
@@ -34,7 +35,7 @@ class ProgrammerRow extends Component {
         }));
         console.log('dropped',droppedDate,dayKey, this.state.job);
 
-        let info = {
+        const info = {
             jobId: job.dep.job_dp_id,
             day: droppedDate,
             toKey : toKey,
@@ -74,8 +75,6 @@ class ProgrammerRow extends Component {
         }
         if(departmentId==dpIdfromBag){
             el.toggleClass("highlight_drag");
-            // console.log('Department: ',departmentId,dpIdfromBag,this.state.job.dep);
-
         }
     }
     handleDragLeave(e,departmentId){
@@ -137,6 +136,7 @@ class ProgrammerRow extends Component {
                 </td>{this.props.calendar_page.days.map((item,i)=>{
                 const thisCellDate = item.date;
                 let tdClassName  = "tdCell";
+
                 if(thisCellDate == today){
                     tdClassName = tdClassName+" today ";
                 }
@@ -168,6 +168,7 @@ class ProgrammerRow extends Component {
                         <CalendarGroupCells
                             dayKey={i}
                             departmentId={this.props.departmentId}
+                            userId = {this.props.user.login_id}
                             initDrag={this.handleDragging}
                             initDragEnd = {this.handleDragEnd}
                             onDrop="return false"
@@ -186,8 +187,14 @@ function mapStateToProps(state,ownprops) {
         settings: state.settings
     })
 }
-function mapDispatchToProps(dispatch){  return({})}
+function mapDispatchToProps(dispatch){
+    return({
+        calendar_page_move_dep_side_by_side: (settings, info)=>{
+            dispatch(calendar_page_move_dep_side_by_side(settings, info));
+        }
+    })
+}
 ProgrammerRow.propType = {
     jobs: PropTypes.array.isRequired
 }
-export default connect(mapStateToProps,mapDispatchToProps)(ProgrammerRow);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(ProgrammerRow));

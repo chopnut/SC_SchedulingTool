@@ -23,11 +23,11 @@ if($u::areTheseSetAndNotEmpty('get','from','to')){
     $todaysT      = time();
     $todayDay     = date("l",$todaysT);
     $daysDate     = array();
-// Todays date
+
+    // Todays date
     $todays_date  = date("d/m/Y",$todaysT);
 
-
-// If today is sunday or saturday make it todays range
+    // If today is sunday or saturday make it todays range
     $todayDay   = date("l");
     if(strcasecmp($todayDay,"sunday")==0){
         $lastSundayT = $todaysT;
@@ -52,8 +52,11 @@ if($u::areTheseSetAndNotEmpty('get','from','to')){
 
 // Set the calendar jobs
     $paramDateString = implode(',',$paramDates);
+    $calendarJobs    = \Models\SchedJobBagDepartment::getCalendarJobs($paramDateString);
 
-    $calendarJobs    = json_encode(\Models\SchedJobBagDepartment::getCalendarJobs($paramDateString));
+    $master_jobs        = json_encode($calendarJobs['master_jobs']);
+    $programmers_jobs   = json_encode($calendarJobs['programmers_jobs']);
+
 
 // Timestamp in every state needs to change to retrigger re-render
 // When the calendar page days changed make sure you change the calendar_jobs state
@@ -67,7 +70,7 @@ if($u::areTheseSetAndNotEmpty('get','from','to')){
 //      action: { type:'',payload:{} },
 //      calendar_jobs: $calendarJobs
 //      }";
-    echo "{$calendarJobs}";
+    echo "{$master_jobs}";
 }
 
 ?>

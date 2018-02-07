@@ -36,7 +36,7 @@ class CalendarCell extends Component {
         const jd = this.props.jd.dep;
         const bg = this.props.jd.bag;
 
-        const leftArrowClass = "chevron left icon";
+        const leftArrowClass  = "chevron left icon";
         const rightArrowClass = "chevron right icon";
 
         if(this.state.isLoading){
@@ -44,7 +44,7 @@ class CalendarCell extends Component {
         }else{
             return(
                 <div className="cell"
-                     style={{backgroundColor: "#8BC53E"}}
+                     style={{backgroundColor: "#bbb"}}
                      draggable={true}
                      onDragStart={(e)=>{
                          // pass the job department to the handler from row

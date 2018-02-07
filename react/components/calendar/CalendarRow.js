@@ -156,6 +156,8 @@ class CalendarRow extends Component {
                 </td>{this.props.calendar_page.days.map((item,i)=>{
                     const thisCellDate = item.date;
                     let tdClassName  = "tdCell";
+
+
                     if(thisCellDate == today){
                         tdClassName = tdClassName+" today ";
                     }
@@ -187,6 +189,7 @@ class CalendarRow extends Component {
                             <CalendarGroupCells
                                 dayKey={i}
                                 departmentId={this.props.departmentId}
+                                userId = {0}
                                 initDrag={this.handleDragging}
                                 initDragEnd = {this.handleDragEnd}
                                 onDrop="return false"

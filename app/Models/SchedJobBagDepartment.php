@@ -41,28 +41,28 @@ class SchedJobBagDepartment extends Model
         foreach($dates as $d){
             $temp[] = \MyUtil::getYmdHis($d,$format = "d/m/Y",$returnFormat="Y-m-d");
         }
-
         $flipped_dates  = array_flip($dates);
-
-
 
         // Now grab the records according to the date that was generated.
         $job_departments = SchedJobBagDepartment::whereIn('job_dp_date',$temp)->orderBy('job_dp_order','DESC')->get();
 
         // Restructure the JSON file to be return to the application
-        $master_array = array();
+        $master_array           = array();  // for all the jobs in the calendar
+        $programmers_array      = array();  // for all the jobs for the programmers
+        $all_array              = array();
+
         foreach($job_departments as $deps){
             $job_dp_id      = $deps->job_dp_id;
             $job_date       = $deps->job_dp_date;
             $job_dept_id    = $deps->job_dp_dept;
-
+            $job_programmer = $deps->job_dp_allocated_to;
 
             // What to put in the data itself
             // Now allocate the record to the flipped array, and use the value as the key
 
 
             if(isset($flipped_dates[$job_date])){
-
+                // $key is the number between 0-6
                 $key    = $flipped_dates[$job_date];
 
                 // Create the 0-6 Array holder
@@ -74,13 +74,29 @@ class SchedJobBagDepartment extends Model
                     $master_array[$key][$job_dept_id] = array();
                 }
 
-                // Now add the jobbag id using its id key
-                if(!isset($master_array[$key][$job_dept_id][$job_dp_id])){
-                    $master_array[$key][$job_dept_id][$job_dp_id] = array();
+
+
+                // Check if theres a programmer allocated to the job
+                // if there is skip the mater_array and populate the programmers job array
+
+                if($job_programmer){
+                    if(!isset($programmers_array[$job_programmer])) $programmers_array[$job_programmer] = array();
+                    if(!isset($programmers_array[$job_programmer][$key])) $programmers_array[$job_programmer][$key] = array();
+
+                    $programmers_array[$job_programmer][$key][$job_dp_id]        = array();
+                    $programmers_array[$job_programmer][$key][$job_dp_id]['dep'] = $deps;
+                    $programmers_array[$job_programmer][$key][$job_dp_id]['bag'] = $deps->jobbag;
+
+                }else{
+                    // Now add the jobbag id using its id key
+                    if(!isset($master_array[$key][$job_dept_id][$job_dp_id])){
+                        $master_array[$key][$job_dept_id][$job_dp_id] = array();
+                    }
+
+                    $master_array[$key][$job_dept_id][$job_dp_id]['dep'] = $deps;
+                    $master_array[$key][$job_dept_id][$job_dp_id]['bag'] = $deps->jobbag;
                 }
 
-                $master_array[$key][$job_dept_id][$job_dp_id]['dep'] = $deps;
-                $master_array[$key][$job_dept_id][$job_dp_id]['bag'] = $deps->jobbag;;
 
 
             }
@@ -107,7 +123,10 @@ class SchedJobBagDepartment extends Model
                 }
             }
         }
-        return $master_array;
+
+        $all_array['programmers_jobs']  = $programmers_array;
+        $all_array['master_jobs']       = $master_array;
+        return $all_array;
     }
     // Accessor
     public function getJobDpDateAttribute($value){

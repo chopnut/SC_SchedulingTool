@@ -187,16 +187,8 @@ class Calendar_View extends Component {
 
                 // DISPLAY THE ROW FOR THE PROGRAMMER
                 if(programmingID == id){
-
-
-
-
                     programmingU.map((item , n)=>{
-                        let jobs = null;
-                        if(item.login_id in that.state.programmingJobs){
-                            jobs = that.state.programmingJobs[item.login_id];
-                        }
-                        rowcollection.push(<ProgrammerRow key={"pr_"+ n} user={item} isParent={isParent}  departmentId= {id} jobs={jobs} counter={n}/>);
+                        rowcollection.push(<ProgrammerRow key={"pr_"+ n} user={item} isParent={isParent}  departmentId= {id} counter={n}/>);
                         }
                     )
                 }
@@ -231,7 +223,7 @@ class Calendar_View extends Component {
         });
     }
 	componentDidMount(){
-        // this.getWeeklyJobs();
+        this.setState((prevState, props) => ({isLoading: false }));
     }
 	render(){
 
