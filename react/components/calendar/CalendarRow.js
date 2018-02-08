@@ -8,20 +8,18 @@ import NavLink from "react-router-dom/es/NavLink";
 class CalendarRow extends Component {
     constructor(props){
         super(props);
-
         this.state = {
             isLoading: true,
             job: {},
             currentDayKey:-1
         }
-        this.startDrop       = this.startDrop.bind(this);
-        this.handleDragging  = this.handleDragging.bind(this);
-        this.handleDragEnter = this.handleDragEnter.bind(this);
-        this.handleDragLeave = this.handleDragLeave.bind(this);
-        this.handleDragOver  = this.handleDragOver.bind(this);
-        this.handleDragEnd   = this.handleDragEnd.bind(this);
-
-        this.handleViewDepartments = this.handleViewDepartments.bind(this);
+        this.startDrop              = this.startDrop.bind(this);
+        this.handleDragging         = this.handleDragging.bind(this);
+        this.handleDragEnter        = this.handleDragEnter.bind(this);
+        this.handleDragLeave        = this.handleDragLeave.bind(this);
+        this.handleDragOver         = this.handleDragOver.bind(this);
+        this.handleDragEnd          = this.handleDragEnd.bind(this);
+        this.handleViewDepartments  = this.handleViewDepartments.bind(this);
     }
     handleViewDepartments(deptId){
         const { history } = this.props;
@@ -31,7 +29,7 @@ class CalendarRow extends Component {
     startDrop(e,droppedDate,toKey){
         const el        = $(e.target);
         const dayKey    = this.state.currentDayKey;
-        const job = Object.assign({},this.state.job);
+        const job       = Object.assign({},this.state.job);
 
         el.removeClass("highlight_drag");
 
@@ -45,7 +43,8 @@ class CalendarRow extends Component {
             day: droppedDate,
             toKey : toKey,
             deptId: job.dep.job_dp_dept,
-            dayKey: dayKey
+            dayKey: dayKey,
+            userId: job.dep.job_dp_allocated_to
         }
 
         // Trigger the action creator side to side functionality with drag and drop
@@ -115,7 +114,7 @@ class CalendarRow extends Component {
         }));
 
     }
-    handleDragEnd(e){
+    handleDragEnd(e, userId){
         $(e.target).removeClass("highlight_drag");
         this.setState((prevState, props) => ({
             job :{}
@@ -123,7 +122,6 @@ class CalendarRow extends Component {
 
     }
     componentDidMount(){
-
         this.setState((prevState, props) => (   {
             isLoading: false
         }  ));

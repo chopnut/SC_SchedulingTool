@@ -70,7 +70,7 @@ if($u::areTheseSetAndNotEmpty('get','from','to')){
 //      action: { type:'',payload:{} },
 //      calendar_jobs: $calendarJobs
 //      }";
-    echo "{$master_jobs}";
+    echo "{\"master\": $master_jobs, \"programmers_jobs\": $programmers_jobs }";
 }
 
 ?>

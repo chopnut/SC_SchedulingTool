@@ -20,21 +20,24 @@ class CalendarGroupCells extends Component {
         const   currDayKey  = this.props.dayKey;
         const userId        = this.props.userId;
 
-        let     allJobs     = this.props.calendar_jobs[currDayKey][this.props.departmentId];
+        let allJobs     = this.props.calendar_jobs[currDayKey][this.props.departmentId];
 
         // IF THIS IS GROUP CELL IS A PROGRAMMERS ROW USE THE PROGRAMMERS JOBS
         if(userId in this.props.programmers_jobs){
             if(currDayKey in this.props.programmers_jobs[userId] ){
-                allJobs     = this.props.programmers_jobs[userId][currDayKey];
+                allJobs             = this.props.programmers_jobs[userId][currDayKey];
 
             }else{
                 // IF THE USER DONT HAVE ANY JOB FOR THAT DAY
                 allJobs = [];
 
             }
+
         }else if(userId){
             // IF THIS IS A PROGRAMMERS CELL AND THERE IS NO PROGRAMMERS JOBS FOR JUST EMPTY THE JOBS.
             allJobs = [];
+
+
         }
 
         let prevDayKey  = currDayKey-1;
@@ -61,8 +64,6 @@ class CalendarGroupCells extends Component {
             >
                 {Object.keys(allJobs).map((key,index)=>{
 
-                    console.log("Cell index: " , key);
-
                     return(
                         <CalendarCell key={index}
                                       jd ={allJobs[key]}
@@ -70,6 +71,7 @@ class CalendarGroupCells extends Component {
                                       nextDate={nextDate}
                                       prevDayKey={prevDayKey}
                                       nextDayKey={nextDayKey}
+                                      userId = {userId}
                                       origDate={currDate}
                                       dayKey={this.props.dayKey}
                                       initDrag={this.props.initDrag}

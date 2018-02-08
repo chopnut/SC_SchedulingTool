@@ -19,6 +19,7 @@ class ViewDate extends Component {
         this.handleCalendarFunction = this.handleCalendarFunction.bind(this);
         this.renderHeader1          = this.renderHeader1.bind(this);
         this.renderHeader2          = this.renderHeader2.bind(this);
+        this.renderHeader3          = this.renderHeader3.bind(this);
     }
     componentDidMount(){
         const currentDate = moment(this.props.match.params[0], "DD-MM-YYYY");
@@ -36,7 +37,9 @@ class ViewDate extends Component {
         });
     }
     handleChangeDates(num){
-
+        let thisdate       = moment(this.state.calendar_date);
+        thisdate.add(num,'days');
+        this.handleCalendarFunction(thisdate);
     }
     renderContent(){
         return(
@@ -45,7 +48,7 @@ class ViewDate extends Component {
                     <thead>
                     <tr>
                         <th>Departments</th>
-                        <th>Data</th>
+                        <th>Data 3</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -66,27 +69,26 @@ class ViewDate extends Component {
                         <img src="assets/img/scheduler_icon.svg" width="30" height="30" className="calendar_icon"/> Scheduled Jobs
                     </h2>
                 </div>
-
                 <div className="right">
                     <span className="calendar_holder">
-                                    <span className="ui input">
-                                         <i className="calendar large icon"></i>
-                                      <DatePicker
-                                          selected={this.state.calendar_date}
-                                          onChange={(date) => {
-                                            this.handleCalendarFunction(date);
-                                          }
-                                          }
-                                          dropdownMode="select"
-                                          showMonthDropdown
-                                          showYearDropdown
-                                          dateFormat="DD/MM/YYYY"
-                                          className="mini_calendar_text_field"
-                                          todayButton={"Today"}
+                            <span className="ui input">
+                                 <i className="calendar large icon"></i>
+                              <DatePicker
+                                  selected={this.state.calendar_date}
+                                  onChange={(date) => {
+                                    this.handleCalendarFunction(date);
+                                  }
+                                  }
+                                  dropdownMode="select"
+                                  showMonthDropdown
+                                  showYearDropdown
+                                  dateFormat="DD/MM/YYYY"
+                                  className="mini_calendar_text_field"
+                                  todayButton={"Today"}
 
-                                      />
-                                    </span>
-                                </span>
+                              />
+                            </span>
+                    </span>
                 </div>
             </div>
 
@@ -125,6 +127,14 @@ class ViewDate extends Component {
 
         );
     }
+    renderHeader3(){
+        return(
+            <div className="third">
+                Third row goes here.
+            </div>
+
+        );
+    }
     render(){
 
         if(this.state.isLoading){
@@ -141,6 +151,7 @@ class ViewDate extends Component {
             <div className="calendar_view_date">
                 {this.renderHeader1()}
                 {this.renderHeader2()}
+                {this.renderHeader3()}
                 {this.renderContent()}
             </div>);
         }

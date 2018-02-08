@@ -21,8 +21,10 @@ class CalendarCell extends Component {
             day,
             toKey,
             deptId: this.props.jd.dep.job_dp_dept,
-            dayKey: this.props.dayKey
+            dayKey: this.props.dayKey,
+            userId: this.props.userId
         }
+        console.log("Move to side: ",info);
 
         // Call the action creator to update state
         this.props.calendar_page_move_dep_side_by_side(this.props.settings, info);
@@ -33,6 +35,7 @@ class CalendarCell extends Component {
         });
     }
     render(){
+
         const jd = this.props.jd.dep;
         const bg = this.props.jd.bag;
 

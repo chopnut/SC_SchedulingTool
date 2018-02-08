@@ -40,7 +40,8 @@ class ProgrammerRow extends Component {
             day: droppedDate,
             toKey : toKey,
             deptId: job.dep.job_dp_dept,
-            dayKey: dayKey
+            dayKey: dayKey,
+            userId: job.dep.job_dp_allocated_to
         }
 
         // Trigger the action creator side to side functionality with drag and drop

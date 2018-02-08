@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2017 at 06:31 AM
+-- Generation Time: Feb 08, 2018 at 06:31 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -41,7 +41,7 @@ CREATE TABLE `sched_department` (
 --
 
 INSERT INTO `sched_department` (`job_dept_id`, `job_dept_desc`, `job_dep_code`, `updated_at`, `created_at`, `job_dep_parent`, `job_dep_order`) VALUES
-(1, 'Data Programming', 5, '2017-10-09 00:00:00', '2017-10-09 00:00:00', 0, 0),
+(1, 'Programming', 5, '2017-10-09 00:00:00', '2017-10-09 00:00:00', 0, 0),
 (2, 'Digital Printing', 10, '2017-10-09 00:00:00', '2017-10-09 00:00:00', 0, 1),
 (3, 'Machine Inserting', 37, '2017-10-09 00:00:00', '2017-10-09 00:00:00', 0, 2),
 (4, 'Mono', 20, '2017-10-09 00:00:00', '2017-10-09 00:00:00', 2, 3),

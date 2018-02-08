@@ -93,8 +93,12 @@ export function calendar_page_change_days(settings,days){
                 const req = axios.get(path_api);
 
                 req.then((res)=>{
+                    const master_jobs       = res.data.master;
+                    const programmers_jobs  = res.data.programmers_jobs;
+
                     console.log("GET JOBS FROM CALENDAR ",res.data);
-                    dispatch({type: CALENDAR_PAGE_CHANGE_GET_JOBS ,calendar_jobs: res.data });
+
+                    dispatch({type: CALENDAR_PAGE_CHANGE_GET_JOBS ,calendar_jobs: master_jobs, programmers_jobs });
                     dispatch({type: IS_WORKING, isWorking: false });
 
                 });
@@ -128,17 +132,18 @@ export function calendar_page_move_dep_side_by_side(settings, info){
             let path_api = settings.setting.react_api_folder + '/calendar_actions/calendar_page_move_dep_update.php';
 
 
-            console.log("POST SIDE BY SIDE: SENDING ",data);
+            console.log("POST SIDE BY SIDE: SENDING ",data, path_api);
             // Only update when post is successful
             const req = axios.post(path_api,data);
 
             req.then((res)=>{
                 console.log("POST SIDE BY SIDE: RECEIVED ",res.data);
 
-                // This is to update the database itself
-                dispatch({type: CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB });
+                // This is to update the database itself, there is no return value being used.
+                // dispatch({type: CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB });
 
                 // Update the state of the calendar now
+
                 dispatch({type: CALENDAR_PAGE_MOVE_DEP_SIDE_BY_SIDE , info});
                 dispatch({type: IS_WORKING, isWorking: false });
 
@@ -164,14 +169,15 @@ export function calendar_page_refresh(settings, from, to){
         const prom = app(settings);
 
         prom.then((res)=> {
-            const path_api = settings.setting.react_api_folder + '/calendar_actions/calendar_page_refresh.php?from='+from+'&to='+to;
-            const req = axios.get(path_api);
+            const path_api  = settings.setting.react_api_folder + '/calendar_actions/calendar_page_refresh.php?from='+from+'&to='+to;
+            const req       = axios.get(path_api);
 
             req.then((res)=>{
-                console.log("CALENDAR REFRESHED! ",res.data);
-                dispatch({type: CALENDAR_PAGE_REFRESH ,calendar_jobs: res.data });
-                dispatch({type: IS_WORKING, isWorking: false });
+                const master_jobs       = res.data.master;
+                const programmers_jobs  = res.data.programmers_jobs;
 
+                dispatch({type: CALENDAR_PAGE_REFRESH ,calendar_jobs: master_jobs, programmers_jobs });
+                dispatch({type: IS_WORKING, isWorking: false });
 
             });
         })
@@ -228,7 +234,7 @@ export function calendar_page_add_recurring_to_date(settings,jobsIds,date){
 * */
 export function calendar_page_move_dep_sbs_update_db(info){
     return ((dispatch)=>{
-        dispatch({type: CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB , job});
+        dispatch({type: CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB , info});
     });
 }
 

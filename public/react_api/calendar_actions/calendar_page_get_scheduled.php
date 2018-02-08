@@ -15,6 +15,6 @@
         $master_jobs        = json_encode($calendarJobs['master_jobs']);
         $programmers_jobs   = json_encode($calendarJobs['programmers_jobs']);
 
-        echo $master_jobs;
+        echo "{\"master\": $master_jobs, \"programmers_jobs\": $programmers_jobs }";
     }
 ?>

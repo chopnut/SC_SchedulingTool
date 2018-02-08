@@ -49,6 +49,7 @@ class SchedJobBagDepartment extends Model
         // Restructure the JSON file to be return to the application
         $master_array           = array();  // for all the jobs in the calendar
         $programmers_array      = array();  // for all the jobs for the programmers
+        $programmers_ids        = array();  // holds all programmers ids currently available
         $all_array              = array();
 
         foreach($job_departments as $deps){
@@ -86,6 +87,7 @@ class SchedJobBagDepartment extends Model
                     $programmers_array[$job_programmer][$key][$job_dp_id]        = array();
                     $programmers_array[$job_programmer][$key][$job_dp_id]['dep'] = $deps;
                     $programmers_array[$job_programmer][$key][$job_dp_id]['bag'] = $deps->jobbag;
+                    $programmers_ids[] = $job_programmer;
 
                 }else{
                     // Now add the jobbag id using its id key
@@ -108,6 +110,7 @@ class SchedJobBagDepartment extends Model
         $depts = Department::orderBy("job_dep_order")->get();
 
         foreach($dates as $key => $date){
+            // FOR MASTER JOBS
             if(!isset($master_array[$key])){
                 $master_array[$key] = array();
                 // Populate the departments aswell
@@ -120,6 +123,15 @@ class SchedJobBagDepartment extends Model
                     if(!isset($master_array[$key][$dp->job_dept_id])){
                         $master_array[$key][$dp->job_dept_id] = array();
                     }
+                }
+            }
+        }
+        // Fill up empty days for the programmers jobs
+        $temp = array_unique($programmers_ids);
+        foreach($temp as $pid){
+            foreach($dates as $key=>$date){
+                if(!isset($programmers_array[$pid][$key])){
+                    $programmers_array[$pid][$key] = array();
                 }
             }
         }
