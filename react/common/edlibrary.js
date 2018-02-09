@@ -1,6 +1,11 @@
 // Get Parameter by name from the GET url
+// Lodash/Moment.js/JQuery is needed to use this library
+import moment from 'moment';
 function MyUtil(){
-
+/*
+Pad any text with value left or right
+eg: value: 9 , pad(00000,9,true) returns: 00009
+ */
 this.pad = function (pad, str, padLeft) {
     if (typeof str === 'undefined')
         return pad;
@@ -10,7 +15,45 @@ this.pad = function (pad, str, padLeft) {
         return (str + pad).substring(0, pad.length);
     }
 }
+/*
+Returns array of days of momentjs() from 1-7 from moment.js value
 
+ */
+this.getWeekFromDate = function(newDate,includeDayAndDate=true){
+    const today = newDate.format('dddd').toLowerCase();
+    let nextSunday, nextSaturday;
+
+    if(today=='sunday'){
+        nextSunday = newDate;
+        nextSaturday = moment(nextSunday).add(6,'days');
+
+    }else if(today =='saturday'){
+        nextSaturday  = newDate;
+        nextSunday= moment(nextSaturday).subtract(6,'days');
+
+
+    }else{
+        _.times(7,function(n){
+            let mToday = moment(newDate);
+            let theDay = mToday.add(n,'days').format('dddd').toLowerCase();
+
+            if(theDay=='saturday'){
+                nextSaturday = mToday;
+                nextSunday   = moment(nextSaturday).subtract(6,'days');
+            }
+        });
+    }
+    let daysArray = [];
+    _.times(7, function (n) {
+        const tempDate = moment(nextSunday).clone().add(n,'days');
+        if(includeDayAndDate){
+            daysArray[n] = {day: tempDate.format('dddd'),date: tempDate.format("DD/MM/YYYY")}
+        }else{
+            daysArray[n] = tempDate;
+        }
+    })
+    return daysArray;
+}
 this.getParameterByName = function(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, "\\$&");

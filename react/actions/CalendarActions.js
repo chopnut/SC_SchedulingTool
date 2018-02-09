@@ -4,6 +4,7 @@ import { CALENDAR_PAGE_ADD_SCHEDULE_TO,
          CALENDAR_PAGE_MOVE_DEP_SIDE_BY_SIDE,
          CALENDAR_PAGE_ADD_RECURRING_TO_DATE,
          CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB,
+         CALENDAR_VIEW_DAY_SET_CALENDAR_DATE,
          CALENDAR_PAGE_REFRESH,
          RESET_ALL_ACTION,
          IS_WORKING} from '../common/Constants';
@@ -11,6 +12,8 @@ import { CALENDAR_PAGE_ADD_SCHEDULE_TO,
 import app from '../modules/persistent';
 import _ from 'lodash';
 import axios from 'axios';
+
+// VIEW CALENDAR
 
 /*
 
@@ -194,6 +197,7 @@ export function reset_all_action(){
         dispatch({type: RESET_ALL_ACTION, action });
     });
 }
+
 /*
 * Create recurring jobs to the date selected, no duplicates of job will be created
 * job_departments will be based on number of the current jobs_deparments has been created in the past
@@ -238,3 +242,45 @@ export function calendar_page_move_dep_sbs_update_db(info){
     });
 }
 
+// VIEW DAY
+/* This is for changing the global state of the calendar_page days to weeks and day, or vice-versa
+ */
+export function calendar_view_day_set_calendar_date(days){
+    return ((dispatch)=>{
+
+        //  SET THE IS_WORKING VARIABLES FOR EVERY ACTION
+        dispatch({type: IS_WORKING, isWorking: true });
+
+        // DO PROCESSING BELOW
+        const action = {type: CALENDAR_VIEW_DAY_SET_CALENDAR_DATE, payload: days};
+        dispatch({type: CALENDAR_VIEW_DAY_SET_CALENDAR_DATE , action});
+        dispatch({type: IS_WORKING, isWorking: false });
+    });
+}
+// TEMPLATE FOR CREATING ACTION
+export function TEMPLATE(settings,data_to_pass){
+    return ((dispatch)=>{
+        //  SET THE IS_WORKING VARIABLES FOR EVERY ACTION
+        dispatch({type: IS_WORKING, isWorking: true });
+
+        // DO PROCESSING BELOW
+        const prom = app(settings);
+        prom.then((res)=> {
+            const path_api  = settings.setting.react_api_folder + '/calendar_actions/calendar_set_calendar_days.php?var='+data_to_pass;
+            const req       = axios.get(path_api);
+
+            req.then((res)=>{
+                const data       = res.data;
+
+                // ACTION NAME IS USE TO KNOW WHICH ACTION IS BEING EXECUTED
+                const action = {type: CALENDAR_PAGE_ADD_RECURRING_TO_DATE, payload: payload};
+                dispatch({type: REPLACE_THIS_WITH_ACTUAL_ACTION , action});
+
+                dispatch({type: IS_WORKING, isWorking: false });
+            });
+        })
+
+
+
+    });
+}

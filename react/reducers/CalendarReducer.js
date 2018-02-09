@@ -5,6 +5,7 @@ import {CALENDAR_PAGE_ADD_SCHEDULE_TO,
         CALENDAR_PAGE_MOVE_DEP_SIDE_BY_SIDE ,
         CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB,
         CALENDAR_PAGE_REFRESH,
+        CALENDAR_VIEW_DAY_SET_CALENDAR_DATE,
         RESET_ALL_ACTION,
         IS_WORKING} from '../common/Constants';
 
@@ -71,7 +72,6 @@ const CalendarReducer = function (state=[], action) {
 
             }else{
             // UPDATE PROGRAMMERS JOBS IN HERE WITH THE SAME SYNTAX AS ABOVE
-
                 let programmersJobs         = Object.assign({}, state.programmers_jobs);
                 let jobCopy                 = Object.assign({},programmersJobs[userId][fromDayKey][jobId]);
 
@@ -85,7 +85,11 @@ const CalendarReducer = function (state=[], action) {
 
 
             break;
-
+        // THIS WILL UPDATE THE CALENDAR DAYS STATE FROM 7 DAYS TO 1 DAY AND VICE-VERSA
+        case CALENDAR_VIEW_DAY_SET_CALENDAR_DATE:
+            const  calendarDaysState = Object.assign({},state,{ days: action.action.payload });
+            return calendarDaysState;
+            break;
         case RESET_ALL_ACTION:
             // RESET ALL ACTION IF NEEDED
             const  newState = Object.assign({},state,{ action: action.action });

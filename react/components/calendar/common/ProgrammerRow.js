@@ -112,9 +112,11 @@ class ProgrammerRow extends Component {
 
     }
     render(){
-        const colspan       = (this.props.isParent)?8:0;
+        const colspan       = (this.props.isParent)?this.props.calendar_page.days.length+1:0;
+
         const rowClassName  = this.props.isParent?"parent_dept":"child_dept head_link";
         const today         = this.props.calendar_page.today_date;
+
 
         if(this.state.isLoading){
             return(

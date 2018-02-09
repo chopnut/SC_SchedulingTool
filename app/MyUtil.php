@@ -207,6 +207,7 @@ class MyUtil{
 		if(empty($format)){
 			$format = "d/m/Y";
 		}
+		if(empty($date)) return false;
 
 
 		$d = DateTime::createFromFormat($format, $date);

@@ -1,20 +1,40 @@
 import React from 'react';
 import {Route,NavLink, connect, Component} from "../common/Modules"
-import PropTypes from 'prop-types';
 import '../../public/assets/js/jquery.sortable.min.js';
-
 import RouteWrapper from './common/RouteWrapper';
 import ManageJobs_JobsPage from './manage_jobs/JobsPage';
 import ManageJobs_NewEditPage from './manage_jobs/NewEditPage';
 import ManageJobs_SchedulePage from './manage_jobs/SchedulePage';
 
+// IMPORT FOR SETTING UP CALENDAR DATES RIGHT AGAIN
+import util from '../common/edlibrary';
+import moment from 'moment';
+import {calendar_view_day_set_calendar_date} from '../actions/CalendarActions';
+
 class ManageJobsPage extends Component {
 	constructor(props){
 		super(props);
-        const settings = props.settings;
-        this.state = {settings};
-        // console.log("From manage job page: ",props);
+        this.state = {
+            isLoading: true
+        };
+
 	}
+    componentWillReceiveProps(nextProps){
+        // WILL BE CALLED WHEN FIRST LOADED OR INVOKED
+        if(nextProps.calendar_view_day_set_calendar_date && this.props.calendar_page.days.length){
+            this.setUp();
+        }
+    }
+    setUp(){
+        this.setState((prevState, props) => ({
+            isLoading: false
+        }));
+    }
+	componentDidMount(){
+        const moSelectedDate = moment(this.props.calendar_page.selected_date, 'DD/MM/YYYY');
+        this.props.calendar_view_day_set_calendar_date(util.getWeekFromDate(moSelectedDate));
+    }
+
 	renderTabs(){
 	    return (
 	        <div className="menu_sub">
@@ -24,19 +44,27 @@ class ManageJobsPage extends Component {
             </div>
         );
     }
-	render(){
-		return(
-			<div className="ManageJobsPage">
-                {this.renderTabs()}
-                <RouteWrapper>
-                    <Route exact path="/managejobs" render ={(props) => <ManageJobs_JobsPage {...this.props} /> }   />
-                    <Route path="/managejobs/jobs" render ={(props) => <ManageJobs_JobsPage  {...this.props} /> }   />
-                    <Route path="/managejobs/schedule" render ={(props) => <ManageJobs_SchedulePage {...this.props} /> } />
-                    <Route path="/managejobs/newedit" render ={(props) => <ManageJobs_NewEditPage {...this.props}   /> } />
-                </RouteWrapper>
 
-			</div>
-		);
+	render(){
+	    if(!this.state.isLoading){
+            return(
+                <div className="ManageJobsPage">
+                    {this.renderTabs()}
+                    <RouteWrapper>
+                        <Route exact path="/managejobs" render ={(props) => <ManageJobs_JobsPage {...this.props} /> }   />
+                        <Route path="/managejobs/jobs" render ={(props) => <ManageJobs_JobsPage  {...this.props} /> }   />
+                        <Route path="/managejobs/schedule" render ={(props) => <ManageJobs_SchedulePage {...this.props} /> } />
+                        <Route path="/managejobs/newedit" render ={(props) => <ManageJobs_NewEditPage {...this.props}   /> } />
+                    </RouteWrapper>
+                </div>
+            );
+        }else{
+            return(
+                <div className="ManageJobsPage">
+                </div>
+            );
+        }
+
 	}
 }
 function mapStateToProps(state,ownprops) {
@@ -45,4 +73,11 @@ function mapStateToProps(state,ownprops) {
         calendar_page: state.calendar_page
     }
 }
-export default connect(mapStateToProps,null,null,{pure: false})(ManageJobsPage);
+function mapDispatchToProps(dispatch){
+    return({
+        calendar_view_day_set_calendar_date: (days)=>{
+            dispatch(calendar_view_day_set_calendar_date(days))
+        }
+    })
+}
+export default connect(mapStateToProps,mapDispatchToProps,null,{pure: false})(ManageJobsPage);

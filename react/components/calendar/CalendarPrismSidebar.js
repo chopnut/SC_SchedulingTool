@@ -21,6 +21,7 @@ class CalendarPrismSidebar extends Component {
     getPrismJobs(){
 
         // Grab prism job bags
+
         const from = this.props.days[0].date;
         const to   = this.props.days[6].date;
 

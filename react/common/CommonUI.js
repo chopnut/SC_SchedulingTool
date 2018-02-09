@@ -43,7 +43,16 @@ export function showDropDown(options,selections,onchangeFunction,placeholder,id)
         />
     );
 }
-
+export function displayWorkingLoading(that){
+    return <div style={{float: "left",width:"100px",height:"40px",position: "absolute"}}>
+        <div className="ui active tiny inline loader" style={{
+            marginLeft: '10px',
+            marginTop: '7px',
+            display: (that.props.calendar_page.isWorking) ? "inline-block" : "none",
+            float: "left"
+        }}></div>
+    </div>
+}
 export function getLoader(size=""){
     return <div className={"ui active "+size+" inline loader"}></div>;
 }

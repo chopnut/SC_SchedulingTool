@@ -2,25 +2,28 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import {NavLink} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 // Calendar Date picker
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
+import util from '../../common/edlibrary';
 
 // User define components
 import CalendarRow from "../../components/calendar/CalendarRow";
-import CalendarPrismSidebar from "../../components/calendar/CalendarPrismSidebar";
-import CalendarAddRecurring from "../../components/calendar/AddRecurring";
-import BottomLegend from "./BottomLegend";
-import {getLoader} from '../../common/CommonUI';
 import ProgrammerRow    from '../../components/calendar/common/ProgrammerRow';
+import CalendarPrismSidebar from "../../components/calendar/CalendarPrismSidebar";
+
+import BottomLegend from "./BottomLegend";
+import CalendarAddRecurring from "../../components/calendar/AddRecurring";
+import {getLoader} from '../../common/CommonUI';
 
 // Get actions for calendar page
 import {calendar_page_change_days,
         calendar_page_refresh,
+        calendar_view_day_set_calendar_date,
         reset_all_action } from '../../actions/CalendarActions';
 
 // Get constants for action
@@ -40,7 +43,6 @@ class Calendar_View extends Component {
         const saturday       = (calendar_page.days[6]);
 
         this.state = {
-            calendar_page,
             departments: props.dep.departments,
             departmentsOrder: props.dep.departmentsOrder,
             sunday,
@@ -49,9 +51,6 @@ class Calendar_View extends Component {
             sidebarSaturday: saturday,
             isLoading: true,
             calendar_date: moment(),
-
-            // Programming jobs
-            programmingJobs: {}
         };
 
         this.handleCalendarFunction     = this.handleCalendarFunction.bind(this);
@@ -59,9 +58,6 @@ class Calendar_View extends Component {
         this.handleOnChangeDateRange    = this.handleOnChangeDateRange.bind(this);
         this.handleCalendarDateChange   = this.handleCalendarDateChange.bind(this);
         this.handleViewDays             = this.handleViewDays.bind(this);
-
-        // Get programming jobs
-        this.getWeeklyJobs              = this.getWeeklyJobs.bind(this);
 	}
 	/*
 	* When new sunday and saturday has been selected update state and ui
@@ -121,7 +117,6 @@ class Calendar_View extends Component {
                 if(theDay=='saturday'){
                     nextSaturday = mToday;
                     nextSunday   = moment(nextSaturday).subtract(6,'days');
-                    return false;
                 }
             });
         }
@@ -180,7 +175,6 @@ class Calendar_View extends Component {
                     inlineRecursive(value,rowcollection);
                 }
             }else{
-
                 // THIS IS WHERE YOU PRINT OUT THE DEPARTMENT
 
                 rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId= {id}/>);
@@ -209,25 +203,26 @@ class Calendar_View extends Component {
             this.props.calendar_page_refresh(this.props.settings,this.state.sunday.date, this.state.saturday.date);
             this.props.reset_all_action();
         }
-    }
-    getWeeklyJobs(){
-        const from  = this.state.sunday.date;
-        const to    = this.state.saturday.date;
 
-        // GET JOBS FOR INDIVIDUAL PROGRAMMER WEEKLY
-        const api   = this.props.settings.setting.react_api_folder+"calendar_actions/calendar_get_programmers_job.php?from="+ from + "&to=" + to;
-        const promise        = axios.get(api);
-        promise.then((res)=>{
-            const programmingJobs          = res.data;
-            this.setState((prevState, props) => ({programmingJobs, isLoading: false }));
-        });
+        // WILL BE CALLED WHEN FIRST LOADED OR INVOKED
+        if(nextProps.calendar_view_day_set_calendar_date && this.props.calendar_page.days.length>1){
+            this.setUp();
+        }
+    }
+    setUp(){
+        const currentDays = this.props.calendar_page.days;
+        this.setState((prevState, props) => ({
+            isLoading: false,
+            sunday:     currentDays[0],
+            saturday:   currentDays[6],
+            sidebarSunday: currentDays[0],
+            sidebarSaturday: currentDays[6]
+        }));
     }
 	componentDidMount(){
-        this.setState((prevState, props) => ({isLoading: false }));
+        this.props.calendar_view_day_set_calendar_date(util.getWeekFromDate(this.state.calendar_date));
     }
 	render(){
-
-
 	    if(this.state.isLoading){
             return (<div className="calendar_view center">{getLoader()}</div>);
         }else{
@@ -295,8 +290,9 @@ class Calendar_View extends Component {
                                 <table className="ui fixed single purple unstackable celled table" >
                                     <thead>
                                     <tr>
-                                        <th className="header_department_label"><i className="bicycle icon"></i> Department</th>
-
+                                        <th className="header_department_label">
+                                            <i className="bicycle icon"></i> Department
+                                        </th>
                                         {this.props.calendar_page.days.map(function(item,i){
                                             let className = "header_date";
 
@@ -312,7 +308,8 @@ class Calendar_View extends Component {
                                                             (e)=>{
                                                                this.handleViewDays(item.date);
                                                             }
-                                                        }>{item.day}</a>
+                                                        }>{item.day}
+                                                        </a>
                                                     </span>
                                                     <span className="add_label">
                                                         <CalendarAddRecurring day ={item} />
@@ -341,7 +338,7 @@ class Calendar_View extends Component {
                                 <span className="range">{this.state.sidebarSunday.date} - {this.state.sidebarSaturday.date}</span>
                             </header>
                             <article>
-                                <CalendarPrismSidebar days={this.state.calendar_page.days} isLoading = {this.state.isLoading }/>
+                                <CalendarPrismSidebar days={this.props.calendar_page.days} isLoading = {this.state.isLoading }/>
                             </article>
                         </div>
                     </div>
@@ -367,11 +364,15 @@ function mapDispatchToProps(dispatch){
         },
         reset_all_action: ()=>{
              dispatch(reset_all_action());
+        },
+        calendar_view_day_set_calendar_date: (days)=>{
+            dispatch(calendar_view_day_set_calendar_date(days))
         }
+
     })
 }
 Calendar_View.propTypes = {
     web: PropTypes.object, // web is storage for user_log information
     dep: PropTypes.object  // information about departments
 }
-export default connect(mapStateToProps,mapDispatchToProps,null,{pure: false})(Calendar_View);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps,null,{pure: false})(Calendar_View));

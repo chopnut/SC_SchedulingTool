@@ -1,63 +1,113 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
-import {getLoader} from '../../common/CommonUI';
+
+// CUSTOM COMPONENT
+import CalendarRow      from "../../components/calendar/CalendarRow";
+import ProgrammerRow    from '../../components/calendar/common/ProgrammerRow';
+import {getLoader,displayWorkingLoading}      from '../../common/CommonUI';
+
+
+// Get actions for calendar page
+import {calendar_view_day_set_calendar_date} from '../../actions/CalendarActions';
 
 class ViewDate extends Component {
     constructor(props){
-
         super(props);
         this.state = {
             isLoading: true,
-            calendar_date: moment()
+            calendar_date: moment(),
+            viewDateJobs: []
         }
-
-        this.handleCalendarFunction = this.handleCalendarFunction.bind(this);
+        this.handleCalendarFunction     = this.handleCalendarFunction.bind(this);
+        this.handleChangeCalendarDate   = this.handleChangeCalendarDate.bind(this);
         this.renderHeader1          = this.renderHeader1.bind(this);
         this.renderHeader2          = this.renderHeader2.bind(this);
         this.renderHeader3          = this.renderHeader3.bind(this);
-    }
-    componentDidMount(){
-        const currentDate = moment(this.props.match.params[0], "DD-MM-YYYY");
-        this.setState(function(state,props){
-            return ({
-                isLoading: false,
-                calendar_date: currentDate}
-            );
-        });
-        console.log("Initial state: ", this.props);
-    }
-    handleCalendarFunction(date){
-        this.setState(function(state,props){
-            return ({calendar_date: date});
-        });
     }
     handleChangeDates(num){
         let thisdate       = moment(this.state.calendar_date);
         thisdate.add(num,'days');
         this.handleCalendarFunction(thisdate);
     }
+    handleCalendarFunction(date){
+        //CHANGE DATE AND GET THE CALENDAR DATE
+        this.setState(function(state,props){
+            return ({calendar_date: date});
+        }, this.handleChangeCalendarDate);
+    }
+    handleChangeCalendarDate(){
+        const selectedDate = this.state.calendar_date;
+        this.props.calendar_view_day_set_calendar_date(
+            [{day: selectedDate.format('dddd'), date: selectedDate.format('DD/MM/YYYY')}]
+        );
+    }
+
+    renderDepartments(){
+        let rowsCollection  = [];
+        const that          = this;
+        const programmingID = this.props.settings.programmingUsers.deptId;
+        const programmingU  = this.props.settings.programmingUsers.value;
+
+        // COLLECTIONGS OF TRS IN TABLE ELEMENT
+        function inlineRecursive(item,rowcollection){
+            const title     = item.title;
+            const id        = item.id;
+            const numkids   = item.kids.length;
+            const isParent  = (numkids>0);
+
+            if(numkids>0){
+                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId={id} />);
+
+                // IF DEPARTMENTS ID MATCHED PROGRAMMING ID ADD, ROWS FOR THE PROGRAMMERS
+
+                for(let value of item.kids){
+                    inlineRecursive(value,rowcollection);
+                }
+            }else{
+
+                // THIS IS WHERE YOU PRINT OUT THE DEPARTMENT
+
+                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId= {id}/>);
+
+                // DISPLAY THE ROW FOR THE PROGRAMMER
+                if(programmingID == id){
+                    programmingU.map((item , n)=>{
+                            rowcollection.push(<ProgrammerRow key={"pr_"+ n} user={item} isParent={isParent}  departmentId= {id} counter={n}/>);
+                        }
+                    )
+                }
+            }
+        }
+        this.props.dep.departmentsOrder.map(function(item,i){
+            inlineRecursive(item,rowsCollection);
+        })
+
+        return (rowsCollection);
+
+    }
     renderContent(){
         return(
-            <div className="content">
-                <table className="ui fixed single purple unstackable celled table">
-                    <thead>
-                    <tr>
-                        <th>Departments</th>
-                        <th>Data 3</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div className="third">
+                <div className="left">
+                    <table className="ui fixed single purple unstackable celled table">
+                        <thead>
+                        <tr>
+                            <th className="header_department_label">Departments</th>
+                            <th>Jobs</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {this.renderDepartments()}
+                        </tbody>
+                    </table>
+                </div>
+                <div className="right">
+                </div>
             </div>
         );
     }
@@ -97,14 +147,7 @@ class ViewDate extends Component {
     renderHeader2(){
         return(
             <div className="second">
-                <div style={{float: "left",width:"100px",height:"40px",position: "absolute"}}>
-                    <div className="ui active tiny inline loader" style={{
-                        marginLeft: '10px',
-                        marginTop: '7px',
-                        display: (this.props.calendar_page.isWorking) ? "inline-block" : "none",
-                        float: "left"
-                    }}></div>
-                </div>
+
                 <div className="date_range head_link">
                     <div className="day_label">
                         {this.state.calendar_date.format("dddd")}
@@ -129,14 +172,30 @@ class ViewDate extends Component {
     }
     renderHeader3(){
         return(
-            <div className="third">
-                Third row goes here.
+            <div className="fourth">
+                <div className="left">
+                    <div className="working">
+                        {displayWorkingLoading(this)}
+                    </div>
+                    <NavLink to={"/calendar/"} className="back_to_calendar"><i className="caret left icon"></i> BACK TO CALENDAR</NavLink>
+                </div>
+                <div className="right">
+
+                </div>
             </div>
 
         );
     }
+    componentDidMount(){
+        const currentDate = moment(this.props.match.params[0], "DD-MM-YYYY");
+        this.setState(function(state,props){
+            return ({
+                    isLoading: false,
+                    calendar_date: currentDate}
+            );
+        },this.handleChangeCalendarDate);
+    }
     render(){
-
         if(this.state.isLoading){
             return(
                 <div className="calendar_view_date">
@@ -165,7 +224,9 @@ function mapStateToProps(state,ownprops) {
 }
 function mapDispatchToProps(dispatch){
     return({
-
+        calendar_view_day_set_calendar_date: (days)=>{
+            dispatch(calendar_view_day_set_calendar_date(days))
+        }
     })
 }
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(ViewDate));

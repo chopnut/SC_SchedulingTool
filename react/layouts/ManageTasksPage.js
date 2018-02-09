@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {Sidebar, Segment, Menu} from 'semantic-ui-react'
 
+// IMPORT FOR SETTING UP CALENDAR DATES RIGHT AGAIN
+import util from '../common/edlibrary';
+import moment from 'moment';
+import {calendar_view_day_set_calendar_date} from '../actions/CalendarActions';
+
+
 class ManageTasksPage extends Component {
     constructor(props){
         super(props);
@@ -16,8 +22,21 @@ class ManageTasksPage extends Component {
             {visible: !this.state.visible}
         ));
     }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.calendar_view_day_set_calendar_date && this.props.calendar_page.days.length){
+            this.setUp();
+        }
+    }
+    setUp(){
+        this.setState((prevState, props) => ({
+            isLoading: false
+        }));
+    }
+    componentDidMount(){
+        const moSelectedDate = moment(this.props.calendar_page.selected_date, 'DD/MM/YYYY');
+        this.props.calendar_view_day_set_calendar_date(util.getWeekFromDate(moSelectedDate));
+    }
 	render(){
-
 		return(
 			<div className="ManageTasksPage">
                 <div className="first">
@@ -65,7 +84,8 @@ class ManageTasksPage extends Component {
 
 function mapStateToProps(state,ownprops) {
     return{
-        settings: state.settings
+        settings: state.settings,
+        calendar_page: state.calendar_page
     }
 }
 export default connect(mapStateToProps,null,null,{pure: false})(ManageTasksPage);

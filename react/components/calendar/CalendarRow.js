@@ -127,14 +127,18 @@ class CalendarRow extends Component {
         }  ));
     }
     render(){
-        const colspan = (this.props.isParent)?8:0;
-        const rowClassName = this.props.isParent?"parent_dept":"child_dept head_link";
-        const today   = this.props.calendar_page.today_date;
+        const daysLength    = this.props.calendar_page.days.length+1;
+        const colspan       = (this.props.isParent)?daysLength:0;
+        const rowClassName  = this.props.isParent?"parent_dept":"child_dept head_link";
+        const today         = this.props.calendar_page.today_date;
 
         let classProgramming = "";
         if(this.props.departmentId == this.props.programmingDeptId){
             classProgramming = "programming_main_row";
         }
+
+
+
 
         const dLink = ()=>{
             if(colspan==0){
@@ -150,7 +154,6 @@ class CalendarRow extends Component {
                     {
                         dLink()
                     }
-
                 </td>{this.props.calendar_page.days.map((item,i)=>{
                     const thisCellDate = item.date;
                     let tdClassName  = "tdCell";
@@ -159,7 +162,7 @@ class CalendarRow extends Component {
                     if(thisCellDate == today){
                         tdClassName = tdClassName+" today ";
                     }
-                    if(colspan==8){
+                    if(colspan==daysLength){
                         return;
                     }
                     return (
