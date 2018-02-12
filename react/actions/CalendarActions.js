@@ -6,6 +6,8 @@ import { CALENDAR_PAGE_ADD_SCHEDULE_TO,
          CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB,
          CALENDAR_VIEW_DAY_SET_CALENDAR_DATE,
          CALENDAR_PAGE_REFRESH,
+         CALENDAR_PAGE_VIEW_DATE_GET_JOBS,
+         CALENDAR_MAIN_PAGE_REFRESH,
          RESET_ALL_ACTION,
          IS_WORKING} from '../common/Constants';
 
@@ -14,7 +16,6 @@ import _ from 'lodash';
 import axios from 'axios';
 
 // VIEW CALENDAR
-
 /*
 
 This is where your logic is going to go
@@ -61,7 +62,6 @@ export function calendar_page_add_schedule_to(settings,job){
     });
 
 }
-
 /*
 * When calendar_page.days have change call all new job departments again to update all
 * @days the new days, jobs collection
@@ -111,7 +111,6 @@ export function calendar_page_change_days(settings,days){
         }
     );
 }
-
 /*
 * This is to move the job side by side, this is also used by the drag functionality
 * @job_id one of the entry from the calendar_page.calendar_jobs
@@ -188,6 +187,17 @@ export function calendar_page_refresh(settings, from, to){
 
     });
 }
+export function calendar_main_page_refresh(){
+    return ((dispatch)=>{
+        //  SET THE IS_WORKING VARIABLES FOR EVERY ACTION
+        dispatch({type: IS_WORKING, isWorking: true });
+        const action    = {type: CALENDAR_MAIN_PAGE_REFRESH , payload: {}};
+        dispatch({type: CALENDAR_MAIN_PAGE_REFRESH , action});
+        dispatch({type: IS_WORKING, isWorking: false });
+
+    });
+}
+
 /*
 * For resetting all actions when finished, so it doesnt call unneccessary action
 * */
@@ -220,7 +230,7 @@ export function calendar_page_add_recurring_to_date(settings,jobsIds,date){
             console.log("Sending recurring job: ",data);
             req.then((res)=>{
                 const payload = res.data;
-                const action = {type: CALENDAR_PAGE_ADD_RECURRING_TO_DATE, payload: payload};
+                const action = {type: CALENDAR_PAGE_ADD_RECURRING_TO_DATE, payload: {}};
 
                 console.log("Post recurring job ",payload);
                 dispatch({type: CALENDAR_PAGE_ADD_RECURRING_TO_DATE,action });
@@ -241,7 +251,6 @@ export function calendar_page_move_dep_sbs_update_db(info){
         dispatch({type: CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB , info});
     });
 }
-
 // VIEW DAY
 /* This is for changing the global state of the calendar_page days to weeks and day, or vice-versa
  */
@@ -254,9 +263,38 @@ export function calendar_view_day_set_calendar_date(days){
         // DO PROCESSING BELOW
         const action = {type: CALENDAR_VIEW_DAY_SET_CALENDAR_DATE, payload: days};
         dispatch({type: CALENDAR_VIEW_DAY_SET_CALENDAR_DATE , action});
+
+        // SET WORKING TO FALSE
         dispatch({type: IS_WORKING, isWorking: false });
     });
 }
+// Get jobs for a particular day
+/* Get all jobs, daily and programmers jobs
+ */
+export function calendar_page_view_date_get_jobs(settings,date){
+    return ((dispatch)=>{
+        //  SET THE IS_WORKING VARIABLES FOR EVERY ACTION
+        dispatch({type: IS_WORKING, isWorking: true });
+
+        // DO PROCESSING BELOW
+        const prom = app(settings);
+        prom.then((res)=> {
+
+            const path_api  = settings.setting.react_api_folder + '/calendar_actions/calendar_get_date_jobs.php?at='+ date;
+            const req       = axios.get(path_api);
+
+            req.then((res)=>{
+                const jobs              = res.data;
+
+                // ACTION NAME IS USE TO KNOW WHICH ACTION IS BEING EXECUTED
+                const action = {type: CALENDAR_PAGE_VIEW_DATE_GET_JOBS, payload: jobs};
+                dispatch({type: CALENDAR_PAGE_VIEW_DATE_GET_JOBS, action});
+                dispatch({type: IS_WORKING, isWorking: false });
+            });
+        })
+    });
+}
+
 // TEMPLATE FOR CREATING ACTION
 export function TEMPLATE(settings,data_to_pass){
     return ((dispatch)=>{
@@ -270,7 +308,7 @@ export function TEMPLATE(settings,data_to_pass){
             const req       = axios.get(path_api);
 
             req.then((res)=>{
-                const data       = res.data;
+                const payload = res.data;
 
                 // ACTION NAME IS USE TO KNOW WHICH ACTION IS BEING EXECUTED
                 const action = {type: CALENDAR_PAGE_ADD_RECURRING_TO_DATE, payload: payload};

@@ -5,7 +5,9 @@ import {CALENDAR_PAGE_ADD_SCHEDULE_TO,
         CALENDAR_PAGE_MOVE_DEP_SIDE_BY_SIDE ,
         CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB,
         CALENDAR_PAGE_REFRESH,
+        CALENDAR_PAGE_VIEW_DATE_GET_JOBS,
         CALENDAR_VIEW_DAY_SET_CALENDAR_DATE,
+        CALENDAR_MAIN_PAGE_REFRESH,
         RESET_ALL_ACTION,
         IS_WORKING} from '../common/Constants';
 
@@ -82,23 +84,34 @@ const CalendarReducer = function (state=[], action) {
                 return newCJobsState;
             }
             return state;
-
-
             break;
-        // THIS WILL UPDATE THE CALENDAR DAYS STATE FROM 7 DAYS TO 1 DAY AND VICE-VERSA
+        case CALENDAR_PAGE_VIEW_DATE_GET_JOBS:
+            // THIS WILL GET ALL JOBS FOR THE VIEW DATE PAGE, VIEWDATEJOBS IS NOT AVAILABLE IN THE GLOBAL STATE ITS JUST ADDED
+
+            const  calendarViewDateJobs = Object.assign({},state,{ view_date_jobs: action.action.payload });
+            return calendarViewDateJobs;
+            break;
         case CALENDAR_VIEW_DAY_SET_CALENDAR_DATE:
+            // THIS WILL UPDATE THE CALENDAR DAYS STATE FROM 7 DAYS TO 1 DAY AND VICE-VERSA
+
             const  calendarDaysState = Object.assign({},state,{ days: action.action.payload });
             return calendarDaysState;
             break;
+        case CALENDAR_MAIN_PAGE_REFRESH:
+            // HOOK TO FORCE ANY MAIN PAGE TO RELOAD ONCE AND GET THEIR RESPECTED DATA FROM THE API
+            const  mainRefreshState = Object.assign({},state,{ action: action.action });
+            return mainRefreshState;
+
+            break;
         case RESET_ALL_ACTION:
             // RESET ALL ACTION IF NEEDED
+
             const  newState = Object.assign({},state,{ action: action.action });
             return newState;
             break;
-
-
-        // MAKE IS WORKING THE LAST STATE CHANGER
         case IS_WORKING:
+            // MAKE IS WORKING THE LAST STATE CHANGER
+
             const  isWorkingState = Object.assign({},state,{ isWorking: action.isWorking });
             return isWorkingState;
             break;

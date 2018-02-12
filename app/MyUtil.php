@@ -201,6 +201,7 @@ class MyUtil{
 		$d = DateTime::createFromFormat('Y-m-d', $date);
 		return $d && $d->format('Y-m-d') === $date;
 	}
+	// Return a newly formated date from the one provided
 	static function getYmdHis($date,$format = "d/m/Y",$returnFormat="Y-m-d H:i:s"){
 
 		$format = $format;
@@ -280,7 +281,6 @@ class MyUtil{
         $pagel = http_build_query($dataArr);
         return $pagel;
 	}
-
 	// Return the Query Array and remove any unwanted ones @usage returnQ('delete_id','client');
 	static function returnQA(){
         $dataArr = array();

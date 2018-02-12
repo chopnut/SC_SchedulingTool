@@ -29,7 +29,8 @@ import {calendar_page_change_days,
 // Get constants for action
 import {
     CALENDAR_PAGE_ADD_SCHEDULE_TO,
-    CALENDAR_PAGE_ADD_RECURRING_TO_DATE
+    CALENDAR_PAGE_ADD_RECURRING_TO_DATE,
+    CALENDAR_MAIN_PAGE_REFRESH
 } from '../../common/Constants';
 
 class Calendar_View extends Component {
@@ -58,6 +59,8 @@ class Calendar_View extends Component {
         this.handleOnChangeDateRange    = this.handleOnChangeDateRange.bind(this);
         this.handleCalendarDateChange   = this.handleCalendarDateChange.bind(this);
         this.handleViewDays             = this.handleViewDays.bind(this);
+        this.refreshPage                = this.refreshPage.bind(this);
+        this.setUp                      = this.setUp.bind(this);
 	}
 	/*
 	* When new sunday and saturday has been selected update state and ui
@@ -167,7 +170,7 @@ class Calendar_View extends Component {
             const isParent  = (numkids>0);
 
             if(numkids>0){
-                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId={id} />);
+                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId={id} isViewDate={false}/>);
 
                 // IF DEPARTMENTS ID MATCHED PROGRAMMING ID ADD, ROWS FOR THE PROGRAMMERS
 
@@ -177,12 +180,12 @@ class Calendar_View extends Component {
             }else{
                 // THIS IS WHERE YOU PRINT OUT THE DEPARTMENT
 
-                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId= {id}/>);
+                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId= {id} isViewDate={false}/>);
 
                 // DISPLAY THE ROW FOR THE PROGRAMMER
                 if(programmingID == id){
                     programmingU.map((item , n)=>{
-                        rowcollection.push(<ProgrammerRow key={"pr_"+ n} user={item} isParent={isParent}  departmentId= {id} counter={n}/>);
+                        rowcollection.push(<ProgrammerRow key={"pr_"+ n} user={item} isParent={isParent}  departmentId= {id} counter={n} isViewDate={false}/>);
                         }
                     )
                 }
@@ -199,28 +202,45 @@ class Calendar_View extends Component {
 
         // REFRESH THE PAGE
         const act = nextProps.calendar_page.action;
-        if(act.type == CALENDAR_PAGE_ADD_RECURRING_TO_DATE || act.type == CALENDAR_PAGE_ADD_SCHEDULE_TO){
-            this.props.calendar_page_refresh(this.props.settings,this.state.sunday.date, this.state.saturday.date);
-            this.props.reset_all_action();
+
+        if(act.type == CALENDAR_PAGE_ADD_RECURRING_TO_DATE || act.type == CALENDAR_PAGE_ADD_SCHEDULE_TO || act.type==CALENDAR_MAIN_PAGE_REFRESH){
+            this.setUp(nextProps.calendar_page.days, true);
+        }
+        if(nextProps.reset_all_action){
+            this.setState((prevState, props) => (
+                {isLoading: false}
+            ));
+        }
+    }
+    setUp(days, callRefresh = false){
+        const currentDays = days;
+        if(!callRefresh){
+            this.setState((prevState, props) => ({
+                isLoading: false,
+                sunday:     currentDays[0],
+                saturday:   currentDays[6],
+                sidebarSunday: currentDays[0],
+                sidebarSaturday: currentDays[6]
+            }));
+        }else{
+            console.log("STATE: ",days);
+
+            this.setState((prevState, props) => ({
+                isLoading: true,
+                sunday:     currentDays[0],
+                saturday:   currentDays[6],
+                sidebarSunday: currentDays[0],
+                sidebarSaturday: currentDays[6]
+            }),this.refreshPage);
         }
 
-        // WILL BE CALLED WHEN FIRST LOADED OR INVOKED
-        if(nextProps.calendar_view_day_set_calendar_date && this.props.calendar_page.days.length>1){
-            this.setUp();
-        }
     }
-    setUp(){
-        const currentDays = this.props.calendar_page.days;
-        this.setState((prevState, props) => ({
-            isLoading: false,
-            sunday:     currentDays[0],
-            saturday:   currentDays[6],
-            sidebarSunday: currentDays[0],
-            sidebarSaturday: currentDays[6]
-        }));
+    refreshPage(){
+        this.props.calendar_page_refresh(this.props.settings,this.state.sunday.date, this.state.saturday.date);
+        this.props.reset_all_action();
     }
 	componentDidMount(){
-        this.props.calendar_view_day_set_calendar_date(util.getWeekFromDate(this.state.calendar_date));
+
     }
 	render(){
 	    if(this.state.isLoading){

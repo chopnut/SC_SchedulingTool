@@ -14,10 +14,13 @@ class CalendarPrismSidebar extends Component {
         this.state = {
             isLoading: true,
             jobsFound: [],
-            timestamp: moment()
+            timestamp: moment(),
+            fromDate:   props.days[0].date,
+            toDate:     props.days[6].date
         }
         this.getPrismJobs = this.getPrismJobs.bind(this);
     }
+
     getPrismJobs(){
 
         // Grab prism job bags
@@ -30,16 +33,29 @@ class CalendarPrismSidebar extends Component {
         // Acquire from Prism get API
         axios.get(req).then(function(res){
             this.setState(function(state,props){
-                return ({state,isLoading: false, jobsFound: res.data.jobs});
+                return ({state,isLoading: false, jobsFound: res.data.jobs, fromDate: from, toDate: to});
             });
 
         }.bind(this))
     }
     shouldComponentUpdate(){ return true; }
     componentWillReceiveProps(nextProps){
-        this.getPrismJobs();
+
+
+        // check for the days and only update when the dates has changed
+        if(nextProps.days.length>1){
+            const nextFrom  = nextProps.days[0].date;
+            const nextTo    = nextProps.days[6].date;
+
+            // update the state of this component
+            if(nextFrom!= this.state.fromDate || nextTo != this.state.toDate){
+                    this.getPrismJobs();
+            }
+        }
     }
-    componentDidUpdate(){}
+    componentDidUpdate(){
+
+    }
     componentDidMount(){
         this.getPrismJobs();
     }

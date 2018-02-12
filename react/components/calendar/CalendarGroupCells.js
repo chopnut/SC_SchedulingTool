@@ -26,17 +26,14 @@ class CalendarGroupCells extends Component {
         if(userId in this.props.programmers_jobs){
             if(currDayKey in this.props.programmers_jobs[userId] ){
                 allJobs             = this.props.programmers_jobs[userId][currDayKey];
-
             }else{
                 // IF THE USER DONT HAVE ANY JOB FOR THAT DAY
                 allJobs = [];
-
             }
 
         }else if(userId){
             // IF THIS IS A PROGRAMMERS CELL AND THERE IS NO PROGRAMMERS JOBS FOR JUST EMPTY THE JOBS.
             allJobs = [];
-
 
         }
 

@@ -2,6 +2,21 @@
 // Lodash/Moment.js/JQuery is needed to use this library
 import moment from 'moment';
 function MyUtil(){
+
+/*
+Check if 2 arrays are the same length and value
+return true or false
+ */
+this.isArrayTheSame = function(arr1,arr2){
+    if(arr1.length !== arr2.length)
+        return false;
+    for(var i = arr1.length; i--;) {
+        if(arr1[i] !== arr2[i])
+            return false;
+    }
+
+    return true;
+}
 /*
 Pad any text with value left or right
 eg: value: 9 , pad(00000,9,true) returns: 00009
@@ -17,7 +32,7 @@ this.pad = function (pad, str, padLeft) {
 }
 /*
 Returns array of days of momentjs() from 1-7 from moment.js value
-
+param: is newDate is a moment object
  */
 this.getWeekFromDate = function(newDate,includeDayAndDate=true){
     const today = newDate.format('dddd').toLowerCase();

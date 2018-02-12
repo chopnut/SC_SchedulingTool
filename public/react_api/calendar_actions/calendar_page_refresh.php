@@ -58,18 +58,6 @@ if($u::areTheseSetAndNotEmpty('get','from','to')){
     $programmers_jobs   = json_encode($calendarJobs['programmers_jobs']);
 
 
-// Timestamp in every state needs to change to retrigger re-render
-// When the calendar page days changed make sure you change the calendar_jobs state
-// calendar_jobs reflects the jobs that are in there from the dates of the calendar page days.
-
-//    echo "calendar_page:{
-//      days: $sevenDays,
-//      selected_date: '$todays_date',
-//      today: '$todayDay',
-//      today_date: '$todays_date',
-//      action: { type:'',payload:{} },
-//      calendar_jobs: $calendarJobs
-//      }";
     echo "{\"master\": $master_jobs, \"programmers_jobs\": $programmers_jobs }";
 }
 

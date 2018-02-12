@@ -7,13 +7,17 @@ import moment from 'moment';
 import DatePicker from 'react-datepicker';
 
 // CUSTOM COMPONENT
+import util from '../../common/edlibrary';
 import CalendarRow      from "../../components/calendar/CalendarRow";
 import ProgrammerRow    from '../../components/calendar/common/ProgrammerRow';
-import {getLoader,displayWorkingLoading}      from '../../common/CommonUI';
+import {getLoader,
+        displayWorkingLoading}      from '../../common/CommonUI';
 
 
 // Get actions for calendar page
-import {calendar_view_day_set_calendar_date} from '../../actions/CalendarActions';
+import {calendar_view_day_set_calendar_date,
+        calendar_page_view_date_get_jobs,
+        calendar_main_page_refresh} from '../../actions/CalendarActions';
 
 class ViewDate extends Component {
     constructor(props){
@@ -21,13 +25,25 @@ class ViewDate extends Component {
         this.state = {
             isLoading: true,
             calendar_date: moment(),
-            viewDateJobs: []
+            view_date_calendar_jobs: {},
+            view_date_programmers_jobs: {}
         }
         this.handleCalendarFunction     = this.handleCalendarFunction.bind(this);
         this.handleChangeCalendarDate   = this.handleChangeCalendarDate.bind(this);
         this.renderHeader1          = this.renderHeader1.bind(this);
         this.renderHeader2          = this.renderHeader2.bind(this);
         this.renderHeader3          = this.renderHeader3.bind(this);
+        this.goToMain               = this.goToMain.bind(this);
+    }
+    goToMain(e){
+        const newMoment = util.getWeekFromDate( moment(this.props.calendar_page.selected_date, "DD/MM/YYYY"));
+        this.props.calendar_view_day_set_calendar_date(newMoment);
+        this.props.calendar_main_page_refresh();
+        e.preventDefault();
+
+        // this changes the URL in the web-address text field
+        const { history } = this.props;
+        history.push('/calendar/');
     }
     handleChangeDates(num){
         let thisdate       = moment(this.state.calendar_date);
@@ -45,39 +61,75 @@ class ViewDate extends Component {
         this.props.calendar_view_day_set_calendar_date(
             [{day: selectedDate.format('dddd'), date: selectedDate.format('DD/MM/YYYY')}]
         );
-    }
 
+        // this changes the URL in the web-address text field
+        const { history } = this.props;
+        history.push('/calendar/' + selectedDate.format('DD-MM-YYYY'));
+
+        // call to get the jobs from the view date
+        this.props.calendar_page_view_date_get_jobs(this.props.settings, selectedDate.format('DD/MM/YYYY'));
+    }
+    componentWillReceiveProps(nextProps){
+
+        // change the state of the calendar jobs if they are different
+        if("view_date_jobs" in nextProps.calendar_page){
+            const jobs      = nextProps.calendar_page.view_date_jobs;
+            const master            = jobs.master;
+            const programmers_jobs  = jobs.programmers_jobs;
+
+            if(!util.isArrayTheSame(master, this.state.view_date_calendar_jobs) || !util.isArrayTheSame(programmers_jobs, this.state.view_date_programmers_jobs)){
+                this.setState((prevState, props) => (
+                    {
+                        view_date_calendar_jobs: master,
+                        view_date_programmers_jobs: programmers_jobs
+                    }
+                ));
+            }
+        }
+
+
+    }
     renderDepartments(){
         let rowsCollection  = [];
         const that          = this;
         const programmingID = this.props.settings.programmingUsers.deptId;
         const programmingU  = this.props.settings.programmingUsers.value;
 
+        let viewDateMasterJobs        = [];
+        let viewDateProgrammersJobs   = [];
+
         // COLLECTIONGS OF TRS IN TABLE ELEMENT
         function inlineRecursive(item,rowcollection){
-            const title     = item.title;
-            const id        = item.id;
-            const numkids   = item.kids.length;
+            const title     = item.title;               // department title
+            const id        = item.id;                  // department id
+            const numkids   = item.kids.length;         // department children
             const isParent  = (numkids>0);
 
+            // CAPTURE THE JOBS FOR THAT PARTICULAR DEPARTMENT
+            if(id in that.state.view_date_calendar_jobs) viewDateMasterJobs = that.state.view_date_calendar_jobs[id];
+
             if(numkids>0){
-                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId={id} />);
+                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId={id} isViewDate={true} />);
 
                 // IF DEPARTMENTS ID MATCHED PROGRAMMING ID ADD, ROWS FOR THE PROGRAMMERS
 
                 for(let value of item.kids){
                     inlineRecursive(value,rowcollection);
                 }
+
             }else{
-
                 // THIS IS WHERE YOU PRINT OUT THE DEPARTMENT
-
-                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId= {id}/>);
+                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId= {id} isViewDate={true} />);
 
                 // DISPLAY THE ROW FOR THE PROGRAMMER
                 if(programmingID == id){
                     programmingU.map((item , n)=>{
-                            rowcollection.push(<ProgrammerRow key={"pr_"+ n} user={item} isParent={isParent}  departmentId= {id} counter={n}/>);
+
+                            // CAPTURE THE JOBS FOR THAT PARTICULAR PROGRAMMER
+                            const user_id = item.login_id;
+                            if(user_id in that.state.view_date_programmers_jobs) viewDateProgrammersJobs = that.state.view_date_programmers_jobs[user_id];
+
+                            rowcollection.push(<ProgrammerRow key={"pr_"+ n} user={item} isParent={isParent}  departmentId= {id} counter={n} isViewDate={true} use_jobs={viewDateProgrammersJobs}/>);
                         }
                     )
                 }
@@ -86,6 +138,7 @@ class ViewDate extends Component {
         this.props.dep.departmentsOrder.map(function(item,i){
             inlineRecursive(item,rowsCollection);
         })
+
 
         return (rowsCollection);
 
@@ -177,7 +230,7 @@ class ViewDate extends Component {
                     <div className="working">
                         {displayWorkingLoading(this)}
                     </div>
-                    <NavLink to={"/calendar/"} className="back_to_calendar"><i className="caret left icon"></i> BACK TO CALENDAR</NavLink>
+                    <NavLink to={"/calendar/"} className="back_to_calendar" onClick={this.goToMain}><i className="caret left icon"></i> BACK TO CALENDAR</NavLink>
                 </div>
                 <div className="right">
 
@@ -226,6 +279,12 @@ function mapDispatchToProps(dispatch){
     return({
         calendar_view_day_set_calendar_date: (days)=>{
             dispatch(calendar_view_day_set_calendar_date(days))
+        },
+        calendar_page_view_date_get_jobs: (settings, date)=>{
+            dispatch(calendar_page_view_date_get_jobs(settings , date))
+        },
+        calendar_main_page_refresh: ()=>{
+            dispatch(calendar_main_page_refresh())
         }
     })
 }
