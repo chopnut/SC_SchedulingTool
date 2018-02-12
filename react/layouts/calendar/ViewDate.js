@@ -37,7 +37,7 @@ class ViewDate extends Component {
     }
     goToMain(e){
         const newMoment = util.getWeekFromDate( moment(this.props.calendar_page.selected_date, "DD/MM/YYYY"));
-        this.props.calendar_view_day_set_calendar_date(newMoment);
+        this.props.calendar_view_day_set_calendar_date(newMoment, this.state.calendar_date);
         this.props.calendar_main_page_refresh();
         e.preventDefault();
 
@@ -59,7 +59,8 @@ class ViewDate extends Component {
     handleChangeCalendarDate(){
         const selectedDate = this.state.calendar_date;
         this.props.calendar_view_day_set_calendar_date(
-            [{day: selectedDate.format('dddd'), date: selectedDate.format('DD/MM/YYYY')}]
+            [{day: selectedDate.format('dddd'), date: selectedDate.format('DD/MM/YYYY')}],
+            selectedDate
         );
 
         // this changes the URL in the web-address text field
@@ -277,8 +278,8 @@ function mapStateToProps(state,ownprops) {
 }
 function mapDispatchToProps(dispatch){
     return({
-        calendar_view_day_set_calendar_date: (days)=>{
-            dispatch(calendar_view_day_set_calendar_date(days))
+        calendar_view_day_set_calendar_date: (days,selected_date)=>{
+            dispatch(calendar_view_day_set_calendar_date(days,selected_date))
         },
         calendar_page_view_date_get_jobs: (settings, date)=>{
             dispatch(calendar_page_view_date_get_jobs(settings , date))

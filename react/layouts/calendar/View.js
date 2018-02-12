@@ -206,6 +206,9 @@ class Calendar_View extends Component {
         if(act.type == CALENDAR_PAGE_ADD_RECURRING_TO_DATE || act.type == CALENDAR_PAGE_ADD_SCHEDULE_TO || act.type==CALENDAR_MAIN_PAGE_REFRESH){
             this.setUp(nextProps.calendar_page.days, true);
         }
+        // WHEN RESET ALL ACTION IS CALLED EVERYTHING ELSE IS DONE LOADING
+        // CHANGE ISLOADING TO FALSE
+
         if(nextProps.reset_all_action){
             this.setState((prevState, props) => (
                 {isLoading: false}
@@ -223,7 +226,6 @@ class Calendar_View extends Component {
                 sidebarSaturday: currentDays[6]
             }));
         }else{
-            console.log("STATE: ",days);
 
             this.setState((prevState, props) => ({
                 isLoading: true,
@@ -240,6 +242,10 @@ class Calendar_View extends Component {
         this.props.reset_all_action();
     }
 	componentDidMount(){
+        const newMoment     = util.getWeekFromDate( moment(this.props.calendar_page.selected_date, "DD/MM/YYYY"));
+        const selected_date = moment(this.props.calendar_page.selected_date, "DD/MM/YYYY");
+        this.props.calendar_view_day_set_calendar_date(newMoment, selected_date);
+        this.setUp(newMoment, true);
 
     }
 	render(){
@@ -385,8 +391,8 @@ function mapDispatchToProps(dispatch){
         reset_all_action: ()=>{
              dispatch(reset_all_action());
         },
-        calendar_view_day_set_calendar_date: (days)=>{
-            dispatch(calendar_view_day_set_calendar_date(days))
+        calendar_view_day_set_calendar_date: (days,selected_date)=>{
+            dispatch(calendar_view_day_set_calendar_date(days,selected_date))
         }
 
     })
