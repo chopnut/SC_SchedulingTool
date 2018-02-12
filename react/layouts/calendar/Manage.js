@@ -3,11 +3,16 @@ import {connect}            from 'react-redux';
 import {Route}              from 'react-router-dom';
 import PropTypes            from 'prop-types';
 import {withRouter }        from 'react-router-dom';
+import moment from 'moment';
 
 // User created module
 import DaysView             from './manage/DaysView';
 import DepartmentView       from './manage/DepartmentView';
 import {getLoader}          from '../../common/CommonUI';
+// Get actions for calendar page
+import {
+    calendar_view_day_set_calendar_date
+} from '../../actions/CalendarActions';
 
 // Javascript Helpers and modules
 import '../../../public/assets/js/jquery.sortable.min.js';
@@ -51,10 +56,17 @@ function mapStateToProps(state,ownprops) {
         calendar_page: state.calendar_page
     }
 }
+function mapDispatchToProps(dispatch){
+    return({
+        calendar_view_day_set_calendar_date: (days,selected_date)=>{
+            dispatch(calendar_view_day_set_calendar_date(days,selected_date))
+        }
+    })
+}
 Calendar_Manage.propTypes = {
     web: PropTypes.object, // web is storage for user_log information
     dep: PropTypes.object  // information about departments
 }
-export default withRouter(connect(mapStateToProps,null,null,{pure: false})(Calendar_Manage));
+export default withRouter(connect(mapStateToProps,mapDispatchToProps,null,{pure: false})(Calendar_Manage));
 
 
