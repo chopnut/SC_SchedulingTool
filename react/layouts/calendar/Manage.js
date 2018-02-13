@@ -9,6 +9,8 @@ import moment from 'moment';
 import DaysView             from './manage/DaysView';
 import DepartmentView       from './manage/DepartmentView';
 import {getLoader}          from '../../common/CommonUI';
+import util from '../../common/edlibrary';
+
 // Get actions for calendar page
 import {
     calendar_view_day_set_calendar_date
@@ -29,13 +31,23 @@ class Calendar_Manage extends Component {
 	redirectTo(loc){
 	    this.props.history.push(loc);
     }
+    componentWillReceiveProps(nextProps){
+
+	    // WHEN ALL DATES ARE READY TO BE DISPLAYED SET ISLOADING TO FALSE.
+
+	    if(nextProps.calendar_view_day_set_calendar_date){
+            this.setState((prevState, props) => (
+                {
+                    isLoading: false
+                }
+            ));
+        }
+    }
 	componentDidMount(){
-	    // const routing = helper.getDaysOrDepartments();
-        this.setState((prevState, props) => (
-            {
-                isLoading: false
-            }
-        ));
+        // call set up first making sure the days and dates are present before making everything displayed.
+        const newMoment     = util.getWeekFromDate( moment(this.props.calendar_page.selected_date, "DD/MM/YYYY"));
+        const selected_date = moment(this.props.calendar_page.selected_date, "DD/MM/YYYY");
+        this.props.calendar_view_day_set_calendar_date(newMoment, selected_date);
     }
 	render(){
         if(this.state.isLoading){
