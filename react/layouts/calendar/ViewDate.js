@@ -71,7 +71,6 @@ class ViewDate extends Component {
         this.props.calendar_page_view_date_get_jobs(this.props.settings, selectedDate.format('DD/MM/YYYY'));
     }
     componentWillReceiveProps(nextProps){
-
         // change the state of the calendar jobs if they are different
         if("view_date_jobs" in nextProps.calendar_page){
             const jobs      = nextProps.calendar_page.view_date_jobs;
@@ -87,8 +86,6 @@ class ViewDate extends Component {
                 ));
             }
         }
-
-
     }
     renderDepartments(){
         let rowsCollection  = [];

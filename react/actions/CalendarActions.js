@@ -286,8 +286,10 @@ export function calendar_page_view_date_get_jobs(settings,date){
             const path_api  = settings.setting.react_api_folder + '/calendar_actions/calendar_get_date_jobs.php?at='+ date;
             const req       = axios.get(path_api);
 
+
             req.then((res)=>{
                 const jobs              = res.data;
+                console.log("API:", path_api, jobs);
 
                 // ACTION NAME IS USE TO KNOW WHICH ACTION IS BEING EXECUTED
                 const action = {type: CALENDAR_PAGE_VIEW_DATE_GET_JOBS, payload: jobs};
