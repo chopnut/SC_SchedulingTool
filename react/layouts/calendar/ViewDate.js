@@ -72,10 +72,12 @@ class ViewDate extends Component {
     }
     componentWillReceiveProps(nextProps){
         // change the state of the calendar jobs if they are different
+
         if("view_date_jobs" in nextProps.calendar_page){
             const jobs      = nextProps.calendar_page.view_date_jobs;
             const master            = jobs.master;
             const programmers_jobs  = jobs.programmers_jobs;
+            console.log("Will receive props!", jobs);
 
             if(!util.isArrayTheSame(master, this.state.view_date_calendar_jobs) || !util.isArrayTheSame(programmers_jobs, this.state.view_date_programmers_jobs)){
                 this.setState((prevState, props) => (
@@ -245,6 +247,7 @@ class ViewDate extends Component {
                     calendar_date: currentDate}
             );
         },this.handleChangeCalendarDate);
+
     }
     render(){
         if(this.state.isLoading){
