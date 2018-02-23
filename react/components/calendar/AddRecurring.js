@@ -41,11 +41,13 @@ class CalendarAddRecurring extends Component {
         }.bind(this))
     }
     componentWillReceiveProps(nextprops){
-        console.log("Recurring will receive props triggered.");
-        this.getJobs();
+
 
         // When finished adding
         if(nextprops.calendar_page_add_recurring_to_date){
+            console.log("Recurring will receive props triggered.");
+            this.getJobs();
+
             this.setState((prevState, props) => (
                 {isAdding: false, className: "ui small button"}
             ));

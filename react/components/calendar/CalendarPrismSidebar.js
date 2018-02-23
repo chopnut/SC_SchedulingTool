@@ -3,9 +3,8 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import u from '../../common/edlibrary';
 import PopUpControl from './CalendarPrismBagPopControl';
-import moment from 'moment';
-import {NavLink,Route} from 'react-router-dom';
 import {withRouter } from 'react-router-dom';
+import {getLoader} from '../../common/CommonUI';
 
 class CalendarPrismSidebar extends Component {
     constructor(props){
@@ -14,7 +13,7 @@ class CalendarPrismSidebar extends Component {
         this.state = {
             isLoading: true,
             jobsFound: [],
-            timestamp: moment(),
+            timestamp:  props.action_refresh,
             fromDate:   props.days[0].date,
             toDate:     props.days[6].date
         }
@@ -42,6 +41,11 @@ class CalendarPrismSidebar extends Component {
     componentWillReceiveProps(nextProps){
 
 
+        if(nextProps.action_refresh != this.state.action_refresh){
+            this.setState((prevState, props) => (
+                {action_refresh: nextProps.action_refresh, isLoading: true}
+            ), this.getPrismJobs);
+        }
         // check for the days and only update when the dates has changed
         if(nextProps.days.length>1){
             const nextFrom  = nextProps.days[0].date;
@@ -53,14 +57,12 @@ class CalendarPrismSidebar extends Component {
             }
         }
     }
-    componentDidUpdate(){
-
-    }
+    componentDidUpdate(){}
     componentDidMount(){
         this.getPrismJobs();
     }
     renderJobs(){
-        let cells       = []
+        let cells       = [];
 
         let i = 0;
         for(let d of this.props.days){
@@ -89,7 +91,6 @@ class CalendarPrismSidebar extends Component {
                         );
                     }
 
-
                     cells.push(cell());
                 }
             }
@@ -102,7 +103,7 @@ class CalendarPrismSidebar extends Component {
     render(){
 
         if(this.state.isLoading){
-            return(<div style={{display: 'table', margin: '0 auto'}}>Fetching data...</div>);
+            return(<div style={{display: 'table', margin: '0 auto'}}>{getLoader("tiny")}</div>);
         }else{
 
             return(

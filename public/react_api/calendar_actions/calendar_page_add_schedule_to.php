@@ -18,9 +18,8 @@ use Models\SchedJobBags;
 
 if(count($data)>0){
     $data['job_created_by']  = ($user)?$user->login_id:0;
-    $b                       = SchedJobBags::addScheduleTo($data);
+    SchedJobBags::addScheduleTo($data);
 
-    echo "{msg: 'Successfully scheduled a job.', error: 0 }";
 }else{
     echo "{msg: 'Error scheduling a job. Data not available', error: 1 }";
 }

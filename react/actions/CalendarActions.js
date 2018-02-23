@@ -253,6 +253,8 @@ export function calendar_page_move_dep_sbs_update_db(info){
 }
 // VIEW DAY
 /* This is for changing the global state of the calendar_page days to weeks and day, or vice-versa
+   @days is array of moments
+   @selected_date is a moment
  */
 export function calendar_view_day_set_calendar_date(days,selected_date){
     return ((dispatch)=>{
@@ -261,7 +263,8 @@ export function calendar_view_day_set_calendar_date(days,selected_date){
         dispatch({type: IS_WORKING, isWorking: true });
 
         // DO PROCESSING BELOW
-        const action = {type: CALENDAR_VIEW_DAY_SET_CALENDAR_DATE, payload: days, selected_date: selected_date};
+        const payload = {days , selected_date};
+        const action = {type: CALENDAR_VIEW_DAY_SET_CALENDAR_DATE, payload};
         dispatch({type: CALENDAR_VIEW_DAY_SET_CALENDAR_DATE , action});
 
         // SET WORKING TO FALSE

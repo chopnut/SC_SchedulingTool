@@ -17,24 +17,26 @@ class ManageJobsPage extends Component {
         this.state = {
             isLoading: true
         };
-
+        this.setUp = this.setUp.bind(this);
 	}
     componentWillReceiveProps(nextProps){
         // WILL BE CALLED WHEN FIRST LOADED OR INVOKED
-        if(nextProps.calendar_view_day_set_calendar_date && this.props.calendar_page.days.length){
+        if(nextProps.calendar_view_day_set_calendar_date && this.props.calendar_page.days.length==0){
             this.setUp();
         }
     }
     setUp(){
+        const moSelectedDate = moment(this.props.calendar_page.selected_date, 'DD/MM/YYYY');
+        const mo_dates          = util.getWeekFromDate(moSelectedDate);
+
+        this.props.calendar_view_day_set_calendar_date(mo_dates,moSelectedDate);
         this.setState((prevState, props) => ({
             isLoading: false
         }));
     }
 	componentDidMount(){
-        const moSelectedDate = moment(this.props.calendar_page.selected_date, 'DD/MM/YYYY');
-        this.props.calendar_view_day_set_calendar_date(util.getWeekFromDate(moSelectedDate));
+        this.setUp();
     }
-
 	renderTabs(){
 	    return (
 	        <div className="menu_sub">
@@ -75,8 +77,8 @@ function mapStateToProps(state,ownprops) {
 }
 function mapDispatchToProps(dispatch){
     return({
-        calendar_view_day_set_calendar_date: (days)=>{
-            dispatch(calendar_view_day_set_calendar_date(days))
+        calendar_view_day_set_calendar_date: (days, selected_date)=>{
+            dispatch(calendar_view_day_set_calendar_date(days, selected_date))
         }
     })
 }

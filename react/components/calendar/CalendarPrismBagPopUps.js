@@ -16,6 +16,8 @@ class CalendarPrismBagPopUps extends Component {
             isLoading: true,
             jobType: "once",
             startDate: moment(),
+            is_saving: false,
+            added: false,
             checkError: { err: 0 , msg: []}
         }
         this.handleChange           = this.handleChange.bind(this);
@@ -48,27 +50,27 @@ class CalendarPrismBagPopUps extends Component {
             return(<div>Loading...</div>);
         }else{
             let buttonSavingClass =  "ui small button";
-            if(this.props.isSaving){
+            if(this.state.is_saving){
                 buttonSavingClass =  "ui small loading button";
             }
             let buttonSaving      =  <button className={buttonSavingClass} onClick={
                 (e)=>{
                     e.preventDefault();
                     const checkError = this.props.handleCheckError();
-
                     // If there is no error submit otherwise show error
                     if(checkError.err == 0){
-
-                        this.props.addToSchedule(this.state.startDate.format("DD/MM/YYYY"),this.state.jobType )
+                        this.setState((prevState, props) => (
+                            {is_saving: true}
+                        ), (e)=>{
+                            this.props.addToSchedule(this.state.startDate.format("DD/MM/YYYY"),this.state.jobType );
+                        });
                     }else{
-
                         // Update the state to show error and re-render
                         this.setState((prevState, props) => (
-                            {checkError }
+                            {checkError}
                         ));
                         alert("Add atleast one department.");
                     }
-
                 }
             }  >Schedule Job to</button>;
 

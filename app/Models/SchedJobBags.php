@@ -82,6 +82,7 @@ class SchedJobBags extends Model
             unset($temp['job_prism_job_id']);
         }
         if(empty($temp['job_prism_number']) && $temp['job_prism_number']<=0){
+
             unset($temp['job_prism_number']);
         }
         return $temp;
@@ -131,7 +132,9 @@ class SchedJobBags extends Model
     static public function addScheduleTo($post){
         $extracted = array();
         $temp               = SchedJobBags::fillData($post,$extracted);
-        $jobBag             = SchedJobBags::isBagExist($temp['job_prism_job_id'],$temp['job_prism_number'] );
+        $job_prism_number   = (isset($temp['job_prism_number'])? $temp['job_prism_number']:0);
+
+        $jobBag             = SchedJobBags::isBagExist($temp['job_prism_job_id'],$job_prism_number );
 
         $date 			    = \MyUtil::dd('job_dp_date',$post, null);
         $departments        = \MyUtil::dd('job_departments',$post,[]);

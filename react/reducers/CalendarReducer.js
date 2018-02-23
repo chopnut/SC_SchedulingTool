@@ -93,8 +93,10 @@ const CalendarReducer = function (state=[], action) {
             break;
         case CALENDAR_VIEW_DAY_SET_CALENDAR_DATE:
             // THIS WILL UPDATE THE CALENDAR DAYS STATE FROM 7 DAYS TO 1 DAY AND VICE-VERSA
-            const selected_date      = action.action.selected_date.format("DD/MM/YYYY");
-            const  calendarDaysState = Object.assign({},state,{ days: action.action.payload , selected_date});
+            const selected_date      = action.action.payload.selected_date.format("DD/MM/YYYY");
+            const days               = action.action.payload.days;
+
+            const  calendarDaysState = Object.assign({},state,{days , selected_date});
             return calendarDaysState;
             break;
         case CALENDAR_MAIN_PAGE_REFRESH:

@@ -52,6 +52,7 @@ class Calendar_View extends Component {
             sidebarSaturday: saturday,
             isLoading: true,
             calendar_date: moment(),
+            action_refresh: moment()
         };
 
         this.handleCalendarFunction     = this.handleCalendarFunction.bind(this);
@@ -232,7 +233,8 @@ class Calendar_View extends Component {
                 sunday:     currentDays[0],
                 saturday:   currentDays[6],
                 sidebarSunday: currentDays[0],
-                sidebarSaturday: currentDays[6]
+                sidebarSaturday: currentDays[6],
+                action_refresh: moment()
             }),this.refreshPage);
         }
 
@@ -250,7 +252,11 @@ class Calendar_View extends Component {
     }
 	render(){
 	    if(this.state.isLoading){
-            return (<div className="calendar_view center">{getLoader()}</div>);
+            return (
+                <div className="calendar_view center">
+                        {getLoader()}
+                </div>
+            );
         }else{
             return(
                 <div className="calendar_view">
@@ -364,7 +370,7 @@ class Calendar_View extends Component {
                                 <span className="range">{this.state.sidebarSunday.date} - {this.state.sidebarSaturday.date}</span>
                             </header>
                             <article>
-                                <CalendarPrismSidebar days={this.props.calendar_page.days} isLoading = {this.state.isLoading }/>
+                                <CalendarPrismSidebar days={this.props.calendar_page.days} action_refresh ={this.state.action_refresh} />
                             </article>
                         </div>
                     </div>
