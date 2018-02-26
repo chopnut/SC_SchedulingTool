@@ -33,10 +33,10 @@ if($u::areTheseSetAndNotEmpty('get','at')){
         // its a programmers job
         if($uid>0 && !is_null($uid)){
             if(!isset($pDep[$uid]))       $pDep[$uid]           = array();
-            $pDep[$uid][] = array('bag'=> $j->jobbag()->get(),'dep' => $j);
+            $pDep[$uid][] = array('bag'=> $j->jobbag()->get()->first(),'dep' => $j);
         }else{
         // its everything else job
-            $aDep[$depId][] = array('bag'=> $j->jobbag()->get(),'dep' => $j);
+            $aDep[$depId][] = array('bag'=> $j->jobbag()->get()->first(),'dep' => $j);
         }
     }
 

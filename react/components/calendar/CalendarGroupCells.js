@@ -6,10 +6,19 @@ class CalendarGroupCells extends Component {
     constructor(props){
         super(props);
         this.state = {
-           isLoading: true
+            isLoading: true
+        }
+    }
+    componentWillReceiveProps(nextProps){
+        if(this.state.use_jobs != nextProps.use_jobs){
+            this.setState((prevState, props) => (
+                {use_jobs: nextProps.use_jobs}
+            ), ()=>{
+            });
         }
     }
     componentDidMount(){
+
         this.setState(function(state,props){
             return ({state,isLoading: false});
         });
@@ -17,13 +26,23 @@ class CalendarGroupCells extends Component {
     render(){
         // Calendar uses key value pair , not an array
         // You have to loop through using keys
-        const   currDayKey  = this.props.dayKey;
-        const userId        = this.props.userId;
 
-        let allJobs     = this.props.calendar_jobs[currDayKey][this.props.departmentId];
+        const currDayKey        = this.props.dayKey;
+        const userId            = this.props.userId;
+        const departmentId      = this.props.departmentId;
+        const view_date_jobs    = this.props.view_date_jobs;
+        let   allJobs           = this.props.calendar_jobs[currDayKey][departmentId];
 
-        // IF THIS IS GROUP CELL IS A PROGRAMMERS ROW USE THE PROGRAMMERS JOBS
-        if(userId in this.props.programmers_jobs){
+        // A.  CHECK FIRST IF THIS CALENDAR GROUP IS UNDER THE VIEW DATE OBJECT.
+        if(view_date_jobs && this.props.isViewDate){
+            if(departmentId in view_date_jobs.master){
+                allJobs = view_date_jobs.master[departmentId];
+            }
+        }
+        // B. IF THIS IS GROUP CELL IS A PROGRAMMERS ROW USE THE PROGRAMMERS JOBS
+        //1 . Programmers group cell for when you are calendar view
+        if(userId in this.props.programmers_jobs && !this.props.isViewDate){
+
             if(currDayKey in this.props.programmers_jobs[userId] ){
                 allJobs             = this.props.programmers_jobs[userId][currDayKey];
             }else{
@@ -31,9 +50,22 @@ class CalendarGroupCells extends Component {
                 allJobs = [];
             }
 
-        }else if(userId){
+        // 2. Programmers group cell for the view data
+        }else if(this.props.isViewDate && this.props.isProgrammersRow && this.props.view_date_jobs){
+            const programmers_jobs = this.props.view_date_jobs.programmers_jobs;
+            if(userId in programmers_jobs){
+                allJobs = programmers_jobs[userId];
+            }else{
+                allJobs = [];
+            }
+        }
+
+        // 3. If there is no jobs for a particular programmer empty the box itself.
+
+        else if(userId){
             // IF THIS IS A PROGRAMMERS CELL AND THERE IS NO PROGRAMMERS JOBS FOR JUST EMPTY THE JOBS.
             allJobs = [];
+
 
         }
 
@@ -70,9 +102,7 @@ class CalendarGroupCells extends Component {
                                       nextDayKey={nextDayKey}
                                       userId = {userId}
                                       origDate={currDate}
-                                      dayKey={this.props.dayKey}
-                                      initDrag={this.props.initDrag}
-                                      initDragEnd = {this.props.initDragEnd}
+                                      {... this.props}
                         />
                     );
                 }
@@ -86,6 +116,7 @@ function mapStateToProps(state,ownprops) {
     return ({
         calendar_jobs: state.calendar_page.calendar_jobs,
         programmers_jobs: state.calendar_page.programmers_jobs,
+        view_date_jobs: state.calendar_page.view_date_jobs,
         days: state.calendar_page.days
     });
 }

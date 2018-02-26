@@ -20,7 +20,6 @@ class CalendarPage extends Component {
             isLoading: true,
             departments: {}
         };
-
 	}
 	componentDidMount(){
 
@@ -56,9 +55,9 @@ class CalendarPage extends Component {
                     {this.renderLinkManager()}
                     <div className="body">
                         <RouteWrapper>
-                            <Route exact path="/calendar/"      render={(props) => <CalendarView   dep={this.state.departments} {...this.props}/>}/>
-                            <Route path="/calendar/(\d+-\d+-\d+)"      render={(props) => <CalendarViewDate   dep={this.state.departments} {...this.props}/>}/>
-                            <Route path="/calendar/manage/"     render={(props) => <Calendar_Manage dep={this.state.departments} {...this.props}/>}/>
+                            <Route exact path="/calendar/" render={(props) => <CalendarView   dep={this.state.departments} {...this.props}/>}/>
+                            <Route path="/calendar/(\d+-\d+-\d+)" render={(props) => <CalendarViewDate   dep={this.state.departments} {...this.props}/>}/>
+                            <Route path="/calendar/manage/" render={(props) => <Calendar_Manage dep={this.state.departments} {...this.props}/>}/>
                         </RouteWrapper>
                     </div>
                 </article>

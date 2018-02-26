@@ -52,7 +52,8 @@ class Calendar_View extends Component {
             sidebarSaturday: saturday,
             isLoading: true,
             calendar_date: moment(),
-            action_refresh: moment()
+            action_refresh: moment(),
+            colour_jobs_hover_array: []
         };
 
         this.handleCalendarFunction     = this.handleCalendarFunction.bind(this);
@@ -163,8 +164,8 @@ class Calendar_View extends Component {
         const programmingID = this.props.settings.programmingUsers.deptId;
         const programmingU  = this.props.settings.programmingUsers.value;
 
-        // COLLECTIONGS OF TRS IN TABLE ELEMENT
-	    function inlineRecursive(item,rowcollection){
+        // RECURSING OVER DEPARTMENTS ORDER
+        function inlineRecursive(item,rowcollection){
             const title     = item.title;
             const id        = item.id;
             const numkids   = item.kids.length;

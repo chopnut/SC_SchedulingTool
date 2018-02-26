@@ -113,8 +113,6 @@ class ProgrammerRow extends Component {
     }
     render(){
         const colspan       = (this.props.isParent)?this.props.calendar_page.days.length+1:0;
-
-        const rowClassName  = this.props.isParent?"parent_dept":"child_dept head_link";
         const today         = this.props.calendar_page.today_date;
 
 
@@ -170,6 +168,8 @@ class ProgrammerRow extends Component {
                     >
                         <CalendarGroupCells
                             dayKey={i}
+                            isViewDate = {this.props.isViewDate}
+                            isProgrammersRow = {true}
                             departmentId={this.props.departmentId}
                             userId = {this.props.user.login_id}
                             initDrag={this.handleDragging}

@@ -59,7 +59,7 @@ class ManageJobs_JobsPage extends Component {
                 this.getJobBags();
             },ms);
         }else if(this.state.jobsFound.length>0){
-            if(typeSearch.length<=4){
+            if(typeSearch.length==0){
                 this.setState((prevState,props)=>{
                         return {    jobsFound: []   }
                     }

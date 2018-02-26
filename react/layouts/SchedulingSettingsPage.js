@@ -234,6 +234,20 @@ class SchedulingSettingsPage extends Component {
                         </td>
                     </tr>
                     <tr>
+                        <td>
+                            <div className="field">
+                                <label contentEditable={true} onBlur={this.handleLabelChange} id={"production_hours_per_day"} className="production_hours_per_day">{this.state.setting.production_hours_per_day.setting_label}</label>
+                                <input value={this.state.setting.production_hours_per_day.setting_value} name="production_hours_per_day" onChange={this.handleOnChangeVal} />
+                            </div>
+                        </td>
+                        <td>
+                            <div className="field">
+                                <label contentEditable={true} onBlur={this.handleLabelChange} id={"colours_setting"} className="colours_setting">{this.state.setting.colours_setting.setting_label}</label>
+                                <textarea rows="2" value={this.state.setting.colours_setting.setting_value} name="colours_setting" onChange={this.handleOnChangeVal}/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
                         <td rowSpan={2}>
                             {this.renderSavingButton()}
                         </td>

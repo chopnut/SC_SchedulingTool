@@ -137,9 +137,6 @@ class CalendarRow extends Component {
             classProgramming = "programming_main_row";
         }
 
-
-
-
         const dLink = ()=>{
             if(colspan==0){
                 return (<NavLink to={"/calendar/manage/departments/"+this.props.departmentId}>{this.props.title}</NavLink>)
@@ -158,13 +155,9 @@ class CalendarRow extends Component {
                     const thisCellDate = item.date;
                     let tdClassName  = "tdCell";
 
+                    if(thisCellDate == today){  tdClassName = tdClassName+" today ";  }
+                    if(colspan==daysLength){ return; }
 
-                    if(thisCellDate == today){
-                        tdClassName = tdClassName+" today ";
-                    }
-                    if(colspan==daysLength){
-                        return;
-                    }
                     return (
                         <td key={i}
                             id={this.props.departmentId}
@@ -193,6 +186,8 @@ class CalendarRow extends Component {
                                 userId = {0}
                                 initDrag={this.handleDragging}
                                 initDragEnd = {this.handleDragEnd}
+                                isViewDate          = {this.props.isViewDate}
+                                isProgrammersRow    = {false}
                                 onDrop="return false"
                             />
                         </td>
