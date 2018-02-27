@@ -15,6 +15,7 @@ class MyUtil{
 		return $postData;
 
 	}
+	// usage function (TYPE,name1,name2,......) default is get return true or false
 	static function areTheseSet(){
 		$count = func_num_args();
 		$type = strtolower(func_get_arg(0));
@@ -42,7 +43,14 @@ class MyUtil{
 		}
 		return true;
 	}
-	// usage function (TYPE,name1,name2,......) default is get return true or false
+	/*
+	 * Return boolean to check if the data pass has the parameters
+	 * @usage:
+	 * @param
+	 * 	- type
+	 *  - arg_name...
+	 * eg: function('post','lastname','age')
+	 */
 	static function areTheseSetAndNotEmpty(){
 		$count = func_num_args();
 		$type = strtolower(func_get_arg(0));

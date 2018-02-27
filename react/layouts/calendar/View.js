@@ -63,6 +63,9 @@ class Calendar_View extends Component {
         this.handleViewDays             = this.handleViewDays.bind(this);
         this.refreshPage                = this.refreshPage.bind(this);
         this.setUp                      = this.setUp.bind(this);
+
+        // Populating colours
+        this.populate_colour_settings  = this.populate_colour_settings.bind(this);
 	}
 	/*
 	* When new sunday and saturday has been selected update state and ui
@@ -245,10 +248,39 @@ class Calendar_View extends Component {
         this.props.reset_all_action();
     }
 	componentDidMount(){
+        // Make sure when re-initialize the dates to the calendar view format
+
         const newMoment     = util.getWeekFromDate( moment(this.props.calendar_page.selected_date, "DD/MM/YYYY"));
         const selected_date = moment(this.props.calendar_page.selected_date, "DD/MM/YYYY");
         this.props.calendar_view_day_set_calendar_date(newMoment, selected_date);
         this.setUp(newMoment, true);
+
+        this.populate_colour_settings();
+    }
+    populate_colour_settings(){
+        // Repopulate the colour settings for each job in the calendar
+
+        // 1. For the non-programmers job
+        let colour_jobs_hover_array = [];
+        for(var day_key in this.props.calendar_jobs){
+            // first level is days
+            const jobs = this.props.calendar_jobs;
+
+            for(var dep_key in jobs[day_key]){
+                // second level is for department
+                const deps = jobs[day_key][dep_key];
+
+                for(var job_id in deps){
+                    // third level is for jobs
+                    const job = deps[job_id];
+                    const dep = job.dep;
+                    const bag = job.bag;
+
+                    const job_val = { job_id, job_colour: bag.job_colour }
+                }
+            }
+        }
+        // 2. For programmers-jobs
 
     }
 	render(){
@@ -383,8 +415,9 @@ class Calendar_View extends Component {
 function mapStateToProps(state,ownprops) {
     return{
         settings: state.settings,
-        calendar_page: state.calendar_page
-
+        calendar_page: state.calendar_page,
+        calendar_jobs: state.calendar_page.calendar_jobs,
+        programmers_jobs: state.calendar_page.programmers_jobs
     }
 }
 function mapDispatchToProps(dispatch){

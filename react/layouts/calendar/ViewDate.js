@@ -34,6 +34,12 @@ class ViewDate extends Component {
         this.renderHeader2          = this.renderHeader2.bind(this);
         this.renderHeader3          = this.renderHeader3.bind(this);
         this.goToMain               = this.goToMain.bind(this);
+
+        // Populating colours for view date
+        this.populate_colour_settings  = this.populate_colour_settings.bind(this);
+    }
+    populate_colour_settings(){
+
     }
     goToMain(e){
         const newMoment = util.getWeekFromDate( moment(this.props.calendar_page.selected_date, "DD/MM/YYYY"));

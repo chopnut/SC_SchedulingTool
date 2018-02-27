@@ -16,9 +16,8 @@ class AddEditJobForm extends Component {
         super(props);
 
         let settings        = this.props.settings;
-
-        this.api_folder = settings.setting.react_api_folder;
-        this.job_status = settings.setting.job_status;
+        this.api_folder     = settings.setting.react_api_folder;
+        this.job_status     = settings.setting.job_status;
 
         this.state = {
             job: {
@@ -43,7 +42,10 @@ class AddEditJobForm extends Component {
             isSaving: 0,
             jobsFound: [],
             err: 0,
-            msg: ""
+            msg: "",
+
+            programmers_selection:[],
+            programmers_options: []
         };
 
         // console.log("From addeditjobform ",settings);
@@ -63,11 +65,11 @@ class AddEditJobForm extends Component {
     // This will trigger when receiving a state change from global
     componentWillReceiveProps(nextProps){
 
-        if (nextProps.manage_job_add_new_edit) {
+        if (nextProps.manage_job_add_new_edit && nextProps.manage_jobs.resp) {
             const newData    = nextProps.manage_jobs.resp;
             const currentJob = this.state.job;
 
-            console.log("Component will received from api: ",newData);
+            console.log("Component will received from api: ",nextProps);
             const job  = newData.job;
             const msg  = newData.msg;
             const err  = newData.err;
@@ -147,6 +149,23 @@ class AddEditJobForm extends Component {
             });
 
 
+
+    }
+    getApiProgrammers(){
+        // GET PROGRAMMERS USERS FOR DROPDOWN
+        const req  = this.props.settings.setting.react_api_folder+'/misc_actions/get_programmers.php';
+        const prom_programmers = axios.get(req);
+
+        prom_programmers.then((res)=>{
+                let programmers = res.data.payload;
+                this.setState((prevState, props) => (
+                    {programmers_options: programmers}
+                ));
+            }
+        )
+    }
+    getApiJobDepartments(){
+        //  GET ALL RECENT DEPARTMENT JOB BAGS
     }
 
     //-------------------------------------
@@ -368,7 +387,7 @@ class AddEditJobForm extends Component {
         }
 
         // Get status for the job
-        let job_status = JSON.parse(this.job_status);
+        let job_status      = JSON.parse(this.job_status);
         let SelectJobStatus = (props) =>{
             return (
                 <select name="job_status" value={this.state.job.job_status} onChange={this.changeValue}>
@@ -392,7 +411,21 @@ class AddEditJobForm extends Component {
 
             );
         }
-
+        // Show programmers drop down
+        let ProgrammersDropdown = ()=>{
+            return(<div className="field">
+                <label><i className="user circle icon" aria-hidden="true"></i> Assign Programmer(s) to a job</label>
+                <input type="hidden" name="job_dp_allocated_to" id="job_dp_allocated_to" value={this.state.job.job_departments}/>
+                {showDropDown(
+                    this.state.programmers_options,
+                    this.state.programmers_selection,
+                    this.handleProgrammersAssign,
+                    "Pick Programmers",
+                    "job_departments"
+                )}
+            </div>);
+        }
+        // If job is recurring get the all recent programming job and select it to be assigned
 
         return (
             <div className="manage_job_ce_container">
@@ -484,6 +517,11 @@ class AddEditJobForm extends Component {
                                         "job_departments"
                                     )}
                                 </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ProgrammersDropdown/>
                             </td>
                         </tr>
                         <tr>

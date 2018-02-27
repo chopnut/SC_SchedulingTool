@@ -2,32 +2,52 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {calendar_page_move_dep_side_by_side} from '../../actions/CalendarActions';
+import {Popup} from 'semantic-ui-react';
 
+// Custom component
+import JobSummaryWindow from '../../layouts/calendar/JobSummaryWindow';
 
 class CalendarCell extends Component {
     constructor(props){
         super(props);
         this.state = {
             isLoading: true,
-            background_color: '#eee'
+            background_color: '#eee',
+
+            // Job Summary Window Options
+            is_window_open: false
         }
         this.actionChangeSideToSide = this.actionChangeSideToSide.bind(this);
         this.hover_in_job_bag      = this.hover_in_job_bag.bind(this);
         this.hover_out_job_bag     = this.hover_out_job_bag.bind(this);
 
+        // Window job summary functions below
+        this.handleWindowClose = this.handleWindowClose.bind(this);
+        this.handleWindowOpen  = this.handleWindowOpen.bind(this);
     }
-    componentDidUpdate(prevProps, prevState){
-        $(".chevron").popup();
+    handleWindowClose(){
+        this.setState((prevState, props) => (
+            {is_window_open: false}
+        ));
+    }
+    handleWindowOpen(){
+        this.setState((prevState, props) => (
+            {is_window_open: true}
+        ));
     }
     hover_in_job_bag(){
         this.setState((prevState, props) => (
             {background_color: this.props.colours_setting.hover_calendar_job}
         ));
+        this.handleWindowOpen();
     }
     hover_out_job_bag(){
-        this.setState((prevState, props) => (
-            {background_color: '#eee'}
-        ));
+        if(this.state.is_window_open){
+            this.setState((prevState, props) => (
+                {background_color: '#eee'}
+            ));
+            this.handleWindowClose();
+        }
     }
     actionChangeSideToSide(jobId,day,toKey){
         let info = {
@@ -43,11 +63,14 @@ class CalendarCell extends Component {
         // Call the action creator to update state
         this.props.calendar_page_move_dep_side_by_side(this.props.settings, info);
     }
+
+    componentDidUpdate(prevProps, prevState){
+        $(".chevron").popup();
+    }
     componentDidMount(){
         this.setState(function(state,props){
             return ({state,isLoading: false});
         });
-        console.log("COLOR: ", this.props.colours_setting);
     }
     render(){
 
@@ -68,7 +91,7 @@ class CalendarCell extends Component {
                          // pass the job department to the handler from row
                          this.props.initDrag(e,this.props.jd,this.props.dayKey);
                      }}
-                     onDragEnd={(e)=>{ this.props.initDragEnd(e) }}
+                     onDragEnd    = {(e)=>{ this.props.initDragEnd(e) }}
                      onMouseEnter = {()=>{  this.hover_in_job_bag() }}
                      onMouseLeave = {()=>{  this.hover_out_job_bag()}}
                 >
@@ -95,7 +118,20 @@ class CalendarCell extends Component {
                             </table>
                         </div>
                         <div className="cell_title">
-                            {bg.job_title}
+                            <Popup trigger={<i>{bg.job_title}</i>}
+                                   className="window_job_summary"
+                                   position="right center"
+                                   flowing
+                                   offset={35}
+                                   basic={true}
+                                   hoverable = {true}
+                                   id={" "}
+                                   onClose  ={this.handleWindowClose}
+                                   onOpen   ={this.handleWindowOpen}
+                                   open     ={this.state.is_window_open}>
+                                    <JobSummaryWindow/>
+                            </Popup>
+
                         </div>
                     </div>
                 </div>

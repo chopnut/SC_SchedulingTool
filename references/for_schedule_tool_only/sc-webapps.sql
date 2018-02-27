@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 26, 2018 at 04:28 AM
+-- Generation Time: Feb 27, 2018 at 06:45 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -613,7 +613,7 @@ INSERT INTO `sched_job_bags` (`job_id`, `job_prism_job_id`, `job_prism_number`, 
 (9, 93998, 68681, 'CFC80 Daily Ticketing Set up                                            ', 'Mater Foundation                                                        ', NULL, '1970-01-01', '2018-02-20', NULL, '', '', 'stand by', 0, '2018-02-23 15:58:45', '2018-02-23 15:58:45', '1', 'once', '1'),
 (10, 93994, NULL, 'Skoda UR                                                                ', 'Allianz Global Assistance                                               ', NULL, '1970-01-01', '2018-02-21', NULL, '', '', 'stand by', 0, '2018-02-26 08:45:00', '2018-02-26 08:45:00', '1', 'once', '1,4,5,6'),
 (11, 93979, 68669, 'Passion for Business Postcard                                           ', 'Australian Catholic University                                          ', NULL, '1970-01-01', '2018-02-20', NULL, '', '', 'stand by', 0, '2018-02-26 08:45:17', '2018-02-26 08:45:17', '130', 'once', '1,4,5,6'),
-(12, 94086, NULL, 'Discount Cards - Solution 1                                             ', 'UnitingCare Queensland                                                  ', NULL, '1970-01-01', '2018-02-27', NULL, '', '', 'stand by', 0, '2018-02-26 13:16:09', '2018-02-26 13:16:09', '1', 'once', '1');
+(12, 94086, NULL, 'Discount Cards - Solution 12', '', NULL, '1970-01-01', '2018-02-27', NULL, '', '', 'stand by', 0, '2018-02-26 13:16:09', '2018-02-27 13:15:07', '1', 'once', '1');
 
 -- --------------------------------------------------------
 
@@ -690,7 +690,7 @@ CREATE TABLE `sched_settings` (
 
 INSERT INTO `sched_settings` (`id`, `setting_name`, `setting_label`, `setting_value`) VALUES
 (1, 'tabs', 'Main Tabs', '[{"id":"calendar","label":"Calendar","icon":"calendar icon"},{"id":"managejobs","label":"Manage Jobs","icon":"list layout icon"},{"id":"managetasks","label":"My Tasks","icon":"hourglass end icon"},{"id":"usersettings","label": "User settings","url":"/webapps/admin.php","icon":"linkify icon"},{"id":"schedulingsettings","label":"Scheduling Tool Settings","icon":"setting icon"}]'),
-(2, 'job_it_status', 'Job IT Statuses', '["stand by","work in progress","done"]'),
+(2, 'job_it_status', 'Job IT Statuses', '["stand by","work in progress","on hold","done"]'),
 (3, 'job_prod_status', 'Job Production Statuses', '["stand by","work in progress","done"]'),
 (4, 'job_types', 'Job Types', '[{"id": "once","text":"Once"},{"id": "recurring","text":"Recurring"}]'),
 (5, 'react_api_folder', 'Application Api Folder', 'http://localhost:8181/webapps/schedulingtool/public/react_api/'),
@@ -699,7 +699,7 @@ INSERT INTO `sched_settings` (`id`, `setting_name`, `setting_label`, `setting_va
 (8, 'user_default_settings', 'User default setting', '[{"sched_us_calendar_hide_departments": [],"sched_us_department_group":[]}]'),
 (9, 'programming_dept_id', 'Programming Department ID', '1'),
 (10, 'production_hours_per_day', 'Production Hours Per Day', '13'),
-(11, 'colours_setting', 'Scheduling Tool Colour Scheme', '{"hover_calendar_job": "green" }');
+(11, 'colours_setting', 'Scheduling Tool Colour Scheme', '{"hover_calendar_job": "green","job_done": "grey" }');
 
 -- --------------------------------------------------------
 

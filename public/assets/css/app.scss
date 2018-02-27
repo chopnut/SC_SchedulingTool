@@ -235,6 +235,9 @@
                               .tdCell {
                                   vertical-align: top;
                                   .group{
+                                      .cell:hover{
+                                          cursor: pointer;
+                                      }
                                       .cell{
 
                                           box-sizing: border-box;
