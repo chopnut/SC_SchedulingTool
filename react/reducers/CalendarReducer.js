@@ -69,6 +69,8 @@ const CalendarReducer = function (state=[], action) {
                 newCalendarJobs[action.info.toKey][action.info.deptId][action.info.jobId] = jobCopy;
 
                 const  newCJobsState = Object.assign({},state,{calendar_jobs : newCalendarJobs});
+
+                console.log("NEWSTATEMOVE: ",newCJobsState);
                 return newCJobsState;
 
             }else{
