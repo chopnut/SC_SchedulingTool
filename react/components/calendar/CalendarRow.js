@@ -39,11 +39,11 @@ class CalendarRow extends Component {
         console.log('dropped',droppedDate,dayKey, this.state.job);
 
         let info = {
-            jobId: job.dep.job_dp_id,
             day: droppedDate,
             toKey : toKey,
-            deptId: job.dep.job_dp_dept,
             dayKey: dayKey,
+            jobId: job.dep.job_dp_id,
+            deptId: job.dep.job_dp_dept,
             userId: job.dep.job_dp_allocated_to
         }
 
@@ -106,13 +106,10 @@ class CalendarRow extends Component {
     * When the user starts dragging, set the job bag being drag*/
     handleDragging(e,job,currentDayKey){
         $(e.target).removeClass("highlight_drag");
-        this.setState((prevState, props) => ({
-            job
-        }));
-        this.setState((prevState, props) => ({
-            currentDayKey
-        }));
-
+        this.setState((prevState, props) => (
+            {job,currentDayKey}
+            )
+        )
     }
     handleDragEnd(e, userId){
         $(e.target).removeClass("highlight_drag");
@@ -124,10 +121,10 @@ class CalendarRow extends Component {
     // For optimizing speed
     shouldComponentUpdate(nextProps,nextState){
         // Let it change state when changing the component date.
-        if(nextState != this.state){
+        if(nextState != this.state || nextProps.calendar_page_move_dep_side_by_side){
             return true;
         }
-        return true;
+        return false;
     }
     componentDidMount(){
         this.setState((prevState, props) => (   {

@@ -65,8 +65,7 @@ const CalendarReducer = function (state=[], action) {
 
                 let newCalendarJobs         = Object.assign({}, state.calendar_jobs);
                 let jobCopy                 = Object.assign({},newCalendarJobs[action.info.dayKey][action.info.deptId][action.info.jobId]);
-                delete                                         newCalendarJobs[action.info.dayKey][action.info.deptId][action.info.jobId];
-
+                delete newCalendarJobs[action.info.dayKey][action.info.deptId][action.info.jobId];
                 newCalendarJobs[action.info.toKey][action.info.deptId][action.info.jobId] = jobCopy;
 
                 const  newCJobsState = Object.assign({},state,{calendar_jobs : newCalendarJobs});
