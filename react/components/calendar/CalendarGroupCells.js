@@ -116,7 +116,10 @@ class CalendarGroupCells extends Component {
         const n = Object.keys(next_jobs).length;
         const o = Object.keys(old_jobs).length;
 
-        console.log("NEXTJOBS: ",currDayKey,departmentId,next_jobs,old_jobs);
+        if(currDayKey==0 && departmentId==1){
+            console.log("NEWSTATE", nextProps, this.state);
+        }
+
         if(n!=o){
             this.setState((prevState,props)=>{
                 return({ jobs: next_jobs});
@@ -134,10 +137,10 @@ class CalendarGroupCells extends Component {
 
         // If there is no jobs for a group cell, dont update
         if(o == n){
-            console.log("NOUPDATE!", this.state.jobs);
+            // console.log("NOUPDATE!", this.state.jobs);
             return false;
         }
-        console.log("UPDATING!");
+        // console.log("UPDATING!");
 
         return true;
     }
@@ -146,6 +149,16 @@ class CalendarGroupCells extends Component {
         this.setState(function(state,props){
             return ({isLoading: false,jobs: this.getJobs()});
         });
+    }
+    componentDidUpdate(){
+        const currDayKey        = this.props.dayKey;
+        const userId            = this.props.userId;
+        const departmentId      = this.props.departmentId;
+        const view_date_jobs    = this.props.view_date_jobs;
+
+        if(currDayKey==0 && departmentId==1){
+            console.log("STATE", this.state);
+        }
     }
     render(){
         // Calendar uses key value pair , not an array
