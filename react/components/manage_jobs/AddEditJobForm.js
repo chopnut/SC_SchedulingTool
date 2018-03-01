@@ -44,8 +44,11 @@ class AddEditJobForm extends Component {
             err: 0,
             msg: "",
 
+            // For programming section allocation
+
             programmers_selection:[],
-            programmers_options: []
+            programmers_options:[],
+            programmers_job_departments: []
         };
 
         // console.log("From addeditjobform ",settings);
@@ -61,6 +64,11 @@ class AddEditJobForm extends Component {
         this.prepopulateJobBag      = this.prepopulateJobBag.bind(this);
         this.prepopulateClear       = this.prepopulateClear.bind(this);
 
+        // Render Functions for other parts
+        this.renderAssignProgrammer     = this.renderAssignProgrammer.bind(this);
+        this.getApiProgrammersSection   = this.getApiProgrammersSection.bind(this);
+        this.getApiJobDepartments       = this.getApiJobDepartments.bind(this);
+        this.getApiProgrammers          = this.getApiProgrammers.bind(this);
     }
     // This will trigger when receiving a state change from global
     componentWillReceiveProps(nextProps){
@@ -148,14 +156,26 @@ class AddEditJobForm extends Component {
                 }
             });
 
-
-
     }
+    // API QUERY: For multiple API queries for programming section
+    getApiProgrammersSection(){
+
+        const job_departments = this.state.job.job_departments;
+
+        // Only get assign programmers section when the department selected has programming as one of its department
+
+        if($.inArray(job_departments, this.props.programming_dept_id)<0){
+            this.getApiJobDepartments();
+            this.getApiProgrammers();
+        }
+    }
+
+
+    // API QUERY: For the assign programmers section
     getApiProgrammers(){
-        // GET PROGRAMMERS USERS FOR DROPDOWN
+
         const req  = this.props.settings.setting.react_api_folder+'/misc_actions/get_programmers.php';
         const prom_programmers = axios.get(req);
-
         prom_programmers.then((res)=>{
                 let programmers = res.data.payload;
                 this.setState((prevState, props) => (
@@ -164,13 +184,86 @@ class AddEditJobForm extends Component {
             }
         )
     }
+
+    // API QUERY: To get all the departments associate with the job bag
     getApiJobDepartments(){
-        //  GET ALL RECENT DEPARTMENT JOB BAGS
+
+
+        // Check if the job is recurring cause they will be multiple programming section for a recurring job
+        // And if you are creating a job dont show the job departments as you dont have a job department created yet.
+
+        if(this.state.job.job_type=='recurring' && this.state.job.job_id!=0){
+
+            //
+            const req  = this.props.settings.setting.react_api_folder+'/misc_actions/get_jobbags_departments.php';
+            const prom_programmers = axios.get(req);
+            prom_programmers.then((res)=>{
+                    let programmers_job = res.data.payload;
+                    this.setState((prevState, props) => (
+                        {programmers_job_departments: programmers_job}
+                    ));
+                }
+            )
+        }
     }
 
-    //-------------------------------------
-    // User created function below
-    //-------------------------------------
+    // Render the assign programmers section of the form
+    renderAssignProgrammer(){
+
+        const job_departments = this.state.job.job_departments;
+
+        // --------------------------------------------------------
+        // Job departments drop down for Editing a recurring job
+        // --------------------------------------------------------
+
+
+        let RecurringDepartmentsDropDown = () => {
+            return (<div></div>);
+        }
+
+        if(this.state.job.job_type == 'once'){
+            RecurringDepartmentsDropDown = () => {
+                return (
+                    <div className="field"><br/>
+                        <label><i className="file text outline icon"></i> Edit Job Bag Department</label>
+
+                    </div>
+                );
+            }
+        }
+        // --------------------------------------------------------
+        // Programmers drop down
+        // --------------------------------------------------------
+
+        const ProgrammersDropdown = ()=>{
+            return(
+                <div className="field">
+                    <label><i className="user circle icon" aria-hidden="true"></i> Assign Programmer(s) to a Job</label>
+                    <input type="hidden" name="job_dp_allocated_to" id="job_dp_allocated_to" value={this.state.job.job_departments}/>
+                    {showDropDown(
+                        this.state.programmers_options,
+                        this.state.programmers_selection,
+                        this.handleProgrammersAssign,
+                        "Pick Programmers",
+                        "job_departments"
+                    )}
+                </div>
+            );
+        }
+
+
+        // Only show the programming department is selected.
+        if($.inArray(job_departments, this.props.programming_dept_id)<0){
+            return (
+                <div className="job_bag_programmer_assignment">
+                    <RecurringDepartmentsDropDown />
+                    <ProgrammersDropdown/>
+                </div>
+            );
+        }
+    }
+    // Save the job created/edited
+
     saveOrEdit(e){
 
         // e.preventDefault(); // Prevent form to be submitted naturally
@@ -183,6 +276,9 @@ class AddEditJobForm extends Component {
         }
 
     }
+
+    // Change value from form element to the state of the component
+
     changeValue(e){
         let input_name = e.target.name;
         let input_value= e.target.value;
@@ -196,6 +292,9 @@ class AddEditJobForm extends Component {
             }
         ); // Update the fields of the data
     }
+
+    // Get the jobbag from database and start editing
+
     prepopulateJobBag(){
         console.log("Edit form initialize: ",this.props);
         const {history,location} = this.props;
@@ -203,7 +302,8 @@ class AddEditJobForm extends Component {
         const splitPathname = location.pathname.split('/');
         const jobId         = parseInt(splitPathname[splitPathname.length-1]);
 
-        // CHECK IF THE JOB ID IS A NUMBER
+        // Check if the job number id
+
         if(jobId!="NaN" && jobId>0){
             const req  = this.props.settings.setting.react_api_folder+'/manage_jobs_actions/manage_jobs_get.php?job_id='+jobId;
 
@@ -217,8 +317,14 @@ class AddEditJobForm extends Component {
                         {
                             job: job
                         }
-                    ));
-                    console.log("THIS IS JOB: ",res.data.job);
+                    ), ()=>
+                        {
+                            // Initialize when Editing a job
+                            this.getApiProgrammersSection();
+                        }
+                    );
+
+                    console.log("THIS IS JOB: ",job);
 
 
                     // VALIDATION INITIALIZATION 2: FOR EDITING
@@ -264,7 +370,9 @@ class AddEditJobForm extends Component {
         const curJobDepartments  = {value}.value;
         const job = Object.assign({},this.state.job,{job_departments: curJobDepartments });
 
-        this.setState((prevState, props) => ({job}));
+        this.setState((prevState, props) => ({
+            job
+        }), this.getApiProgrammersSection); // Initialize assign programmers on change
 
     }
     // Job type recurrence or once
@@ -293,9 +401,8 @@ class AddEditJobForm extends Component {
             }
         );
     }
-    componentDidUpdate(){
-        console.log("AddEditJobForm componentDidUpdate ", this.state.job);
-    }
+    componentDidUpdate(){   console.log("AddEditJobForm componentDidUpdate ", this.state.job); }
+    // Grab jobs already in prism
     prepopulateFromPrism(event){
 
         this.setState({ isSearching: 1});
@@ -334,11 +441,13 @@ class AddEditJobForm extends Component {
         }
 
     }
+    // Clear the jobs from the search prism job
     prepopulateClear() {
         this.setState(function(prevState,props){
             return ({jobsFound: [] });
         });
     }
+
     showHeader(){
         if(this.state.job.job_id>0){
             return (
@@ -358,6 +467,9 @@ class AddEditJobForm extends Component {
             );
         }
     }
+
+
+
     render(){
 
         let elements = this.state.jobsFound.map(
@@ -410,20 +522,6 @@ class AddEditJobForm extends Component {
                 </div>
 
             );
-        }
-        // Show programmers drop down
-        let ProgrammersDropdown = ()=>{
-            return(<div className="field">
-                <label><i className="user circle icon" aria-hidden="true"></i> Assign Programmer(s) to a job</label>
-                <input type="hidden" name="job_dp_allocated_to" id="job_dp_allocated_to" value={this.state.job.job_departments}/>
-                {showDropDown(
-                    this.state.programmers_options,
-                    this.state.programmers_selection,
-                    this.handleProgrammersAssign,
-                    "Pick Programmers",
-                    "job_departments"
-                )}
-            </div>);
         }
         // If job is recurring get the all recent programming job and select it to be assigned
 
@@ -482,7 +580,7 @@ class AddEditJobForm extends Component {
                                 <div className="four fields">
                                     <div className="field">
                                         <label><i className="calendar icon"></i> Scheduled Date </label>
-                                        <input type="text" name="job_dp_date" placeholder="DD/MM/YY" id="job_dp_date" value={this.state.job.job_dp_date} />
+                                        <input type="text" name="job_dp_date" placeholder="DD/MM/YY" id="job_dp_date" value={this.state.job.job_dp_date}/>
                                     </div>
                                     <div className="field">
                                         <label><i className="calendar icon"></i> Due date </label>
@@ -509,19 +607,20 @@ class AddEditJobForm extends Component {
                                 <div className="field">
                                     <label><i className="fa fa-tasks" aria-hidden="true"></i> Create Department Tasks</label>
                                     <input type="hidden" name="job_departments" id="job_departments" value={this.state.job.job_departments}/>
-                                    {showDropDown(
-                                        this.props.settings.departmentOptions,
-                                        this.state.job.job_departments,
-                                        this.jobDepartmentChange,
-                                        "Pick departments",
-                                        "job_departments"
-                                    )}
+                                        {
+                                            showDropDown(
+                                            this.props.settings.departmentOptions,
+                                            this.state.job.job_departments,
+                                            this.jobDepartmentChange,
+                                            "Pick departments",
+                                            "job_departments")
+                                        }
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <ProgrammersDropdown/>
+                                { this.renderAssignProgrammer()}
                             </td>
                         </tr>
                         <tr>
@@ -552,7 +651,8 @@ class AddEditJobForm extends Component {
 function mapStateToProps(state,ownprops) {
     return{
         settings: state.settings,
-        manage_jobs: state.manage_jobs
+        manage_jobs: state.manage_jobs,
+        programming_dept_id: state.settings.setting.programming_dept_id
     }
 }
 function mapDispatchToProps(dispatch){

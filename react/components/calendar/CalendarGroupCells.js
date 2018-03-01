@@ -17,6 +17,15 @@ class CalendarGroupCells extends Component {
             });
         }
     }
+    shouldComponentUpdate(nextProps, nextState){
+        if(nextState.isLoading != this.state.isLoading ||
+            nextProps.days!= this.props.days
+        ){
+
+            return false;
+        }
+        return false;
+    }
     componentDidMount(){
 
         this.setState(function(state,props){

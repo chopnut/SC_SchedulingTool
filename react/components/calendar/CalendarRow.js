@@ -121,6 +121,14 @@ class CalendarRow extends Component {
         }));
 
     }
+    // For optimizing speed
+    shouldComponentUpdate(nextProps,nextState){
+        // Let it change state when changing the component date.
+        if(nextState != this.state){
+            return true;
+        }
+        return true;
+    }
     componentDidMount(){
         this.setState((prevState, props) => (   {
             isLoading: false

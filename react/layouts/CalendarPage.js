@@ -11,6 +11,7 @@ import RouteWrapper from './common/RouteWrapper';
 import Calendar_Manage from './calendar/Manage';
 import CalendarView from './calendar/View';
 import CalendarViewDate from './calendar/ViewDate';
+import {getLoader} from "../common/CommonUI";
 
 class CalendarPage extends Component {
 	constructor(props){
@@ -18,7 +19,7 @@ class CalendarPage extends Component {
 
         this.state = {
             isLoading: true,
-            departments: {}
+            departments: []
         };
 	}
 	componentDidMount(){
@@ -63,13 +64,25 @@ class CalendarPage extends Component {
                 </article>
             )
         }else{
-
 	        return (<article className="CalendarPage">
                         {this.renderLinkManager()}
                         <div className="body">
-
+                                <div className="calendar_view">
+                                    <div className="first">
+                                        <div className="left">
+                                            <h2 className="title">
+                                                <img src="assets/img/scheduler_icon.svg" width="30" height="30" className="calendar_icon"/> Scheduled Jobs
+                                            </h2>
+                                        </div>
+                                        <div className="right">
+                                        </div>
+                                    </div>
+                                    <div className="second">
+                                        {getLoader()}
+                                    </div>
+                                </div>
                         </div>
-	                </article>);
+                    </article>);
         }
 	}
 }

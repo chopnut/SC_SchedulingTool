@@ -63,7 +63,18 @@ class CalendarCell extends Component {
         // Call the action creator to update state
         this.props.calendar_page_move_dep_side_by_side(this.props.settings, info);
     }
+    shouldComponentUpdate(nextProps,nextState){
 
+        // Let it change state when changing the component date.
+        if(nextState != this.state){
+            return true;
+        }
+        // If the same job bag department is still the same do not update
+        if(nextProps.jd.dep.job_dp_id == this.props.jd.dep.job_dp_id){
+            return false;
+        }
+        return true;
+    }
     componentDidUpdate(prevProps, prevState){
         $(".chevron").popup();
     }

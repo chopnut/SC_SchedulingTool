@@ -37,7 +37,13 @@ class CalendarPrismSidebar extends Component {
 
         }.bind(this))
     }
-    shouldComponentUpdate(){ return true; }
+    shouldComponentUpdate(nextProps,nextState){
+        // Let it change state when changing the component date.
+        if(nextState != this.state){
+            return true;
+        }
+        return false;
+    }
     componentWillReceiveProps(nextProps){
 
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2018 at 06:45 AM
+-- Generation Time: Mar 01, 2018 at 06:59 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -613,7 +613,17 @@ INSERT INTO `sched_job_bags` (`job_id`, `job_prism_job_id`, `job_prism_number`, 
 (9, 93998, 68681, 'CFC80 Daily Ticketing Set up                                            ', 'Mater Foundation                                                        ', NULL, '1970-01-01', '2018-02-20', NULL, '', '', 'stand by', 0, '2018-02-23 15:58:45', '2018-02-23 15:58:45', '1', 'once', '1'),
 (10, 93994, NULL, 'Skoda UR                                                                ', 'Allianz Global Assistance                                               ', NULL, '1970-01-01', '2018-02-21', NULL, '', '', 'stand by', 0, '2018-02-26 08:45:00', '2018-02-26 08:45:00', '1', 'once', '1,4,5,6'),
 (11, 93979, 68669, 'Passion for Business Postcard                                           ', 'Australian Catholic University                                          ', NULL, '1970-01-01', '2018-02-20', NULL, '', '', 'stand by', 0, '2018-02-26 08:45:17', '2018-02-26 08:45:17', '130', 'once', '1,4,5,6'),
-(12, 94086, NULL, 'Discount Cards - Solution 12', '', NULL, '1970-01-01', '2018-02-27', NULL, '', '', 'stand by', 0, '2018-02-26 13:16:09', '2018-02-27 13:15:07', '1', 'once', '1');
+(12, 94086, NULL, 'Discount Cards - Solution 12', '', NULL, '1970-01-01', '2018-02-27', NULL, '', '', 'stand by', 0, '2018-02-26 13:16:09', '2018-02-27 13:15:07', '1', 'once', '1'),
+(13, 94087, NULL, 'Discount Card - Solution 2                                              ', '', NULL, '1970-01-01', '2018-02-27', NULL, '', '', 'stand by', 0, '2018-03-01 09:22:44', '2018-03-01 11:29:50', '1', 'recurring', '1,5,6'),
+(18, 94079, 68722, 'ICE Brochure Printing                                                   ', 'ICE Vacations Asia Pacific Pty Ltd                                      ', NULL, '1970-01-01', '2018-02-27', NULL, '', '', 'stand by', 0, '2018-03-01 12:56:13', '2018-03-01 12:56:13', '300', 'once', '1,4'),
+(19, 89613, 66047, 'RD Mag Renewal Spoils', 'Direct Publishing Pty Ltd                                               ', NULL, '2017-07-21', '2017-07-31', '2017-07-31', '', '', 'stand by', 0, '2018-03-01 13:05:38', '2018-03-01 13:05:38', '21', 'once', '1,4'),
+(20, 94083, 68725, 'RD Renewals Spoils', 'Direct Publishing Pty Ltd                                               ', NULL, '1970-01-01', '2018-02-27', '2018-02-27', '', '', 'stand by', 0, '2018-03-01 13:13:30', '2018-03-01 13:13:30', '21', 'recurring', '1,5'),
+(21, 94091, 68728, 'Supercheap NZ Club Plus 260218', 'Supercheap Auto                                                         ', NULL, '2018-03-01', '2018-03-01', '2018-03-01', '', '', 'stand by', 0, '2018-03-01 13:18:37', '2018-03-01 13:18:37', '35', 'recurring', '1,4'),
+(22, 94105, NULL, 'Executive Leadership Posters                                            ', 'Qld Police-Citizens Youth Welfare                                       ', NULL, '1970-01-01', '2018-02-28', NULL, '', '', 'stand by', 0, '2018-03-01 15:09:54', '2018-03-01 15:09:54', '1', 'once', '1'),
+(23, 94076, 68719, 'Interim Dividend mailing - 1-7                                          ', 'The Star Entertainment Group                                            ', NULL, '1970-01-01', '2018-02-27', NULL, '', '', 'stand by', 0, '2018-03-01 15:37:12', '2018-03-01 15:37:12', '40759', 'once', '1'),
+(24, 94093, NULL, 'Data Prep DM                                                            ', 'Cornerstone Press Pty Ltd                                               ', NULL, '1970-01-01', '2018-02-27', NULL, '', '', 'stand by', 0, '2018-03-01 15:58:31', '2018-03-01 15:58:31', '1', 'once', '1,6,5,7,8'),
+(25, 94080, 68723, 'Ducati Recall Letter                                                    ', 'Allianz Global Assistance                                               ', NULL, '2018-02-27', '2018-02-27', NULL, '', '', 'stand by', 0, '2018-03-01 16:01:09', '2018-03-01 16:01:09', '1000', 'once', '1'),
+(26, 94094, NULL, 'Future Dated Renewals DM                                                ', 'GIO                                                                     ', NULL, '1970-01-01', '2018-02-28', NULL, '', '', 'stand by', 0, '2018-03-01 16:09:57', '2018-03-01 16:09:57', '100', 'once', '1,4');
 
 -- --------------------------------------------------------
 
@@ -625,6 +635,7 @@ CREATE TABLE `sched_job_bag_department` (
   `job_dp_id` int(11) NOT NULL,
   `job_id` int(11) DEFAULT NULL,
   `job_dp_dept` int(11) NOT NULL,
+  `job_group_id` int(11) NOT NULL,
   `job_dp_date` date DEFAULT NULL,
   `job_dp_created_date` date DEFAULT NULL,
   `job_dp_started_date` datetime DEFAULT NULL,
@@ -647,29 +658,145 @@ CREATE TABLE `sched_job_bag_department` (
 -- Dumping data for table `sched_job_bag_department`
 --
 
-INSERT INTO `sched_job_bag_department` (`job_dp_id`, `job_id`, `job_dp_dept`, `job_dp_date`, `job_dp_created_date`, `job_dp_started_date`, `job_dp_finished_date`, `job_dp_proof_date`, `job_dp_print_date`, `job_dp_status`, `job_dp_comments`, `job_dp_order`, `job_dp_minutes`, `created_at`, `updated_at`, `job_dp_allocated_to`, `job_dp_allocatee_comments`, `job_dp_qty`, `job_dp_stock_picked`) VALUES
-(1, 1, 1, '2018-02-23', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:28:32', '2018-02-23 15:28:32', NULL, NULL, '1881', NULL),
-(2, 2, 1, '2018-02-24', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:36:06', '2018-02-23 15:47:23', NULL, NULL, '129', NULL),
-(3, 3, 1, '2018-02-23', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:36:26', '2018-02-23 15:36:26', NULL, NULL, '1', NULL),
-(4, 4, 1, '2018-02-23', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:36:48', '2018-02-23 15:36:48', NULL, NULL, '960', NULL),
-(5, 4, 5, '2018-02-23', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:36:48', '2018-02-23 15:36:48', NULL, NULL, '960', NULL),
-(6, 5, 1, '2018-02-22', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:43:07', '2018-02-23 15:47:28', NULL, NULL, '1', NULL),
-(7, 5, 4, '2018-02-22', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:43:07', '2018-02-23 15:47:31', NULL, NULL, '1', NULL),
-(8, 6, 1, '2018-02-23', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:43:19', '2018-02-23 15:43:19', NULL, NULL, '936', NULL),
-(9, 6, 4, '2018-02-24', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:43:19', '2018-02-23 15:47:34', NULL, NULL, '936', NULL),
-(10, 7, 1, '2018-02-23', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:47:07', '2018-02-23 15:47:07', NULL, NULL, '525', NULL),
-(11, 8, 1, '2018-02-23', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:58:02', '2018-02-23 15:58:02', NULL, NULL, '0', NULL),
-(12, 8, 4, '2018-02-23', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:58:02', '2018-02-23 15:58:02', NULL, NULL, '0', NULL),
-(13, 9, 1, '2018-02-23', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:58:45', '2018-02-23 15:58:45', NULL, NULL, '1', NULL),
-(14, 10, 1, '2018-02-26', '2018-02-26', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-26 08:45:00', '2018-02-26 13:14:24', NULL, NULL, '1', NULL),
-(15, 10, 4, '2018-02-26', '2018-02-26', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-26 08:45:00', '2018-02-26 08:45:00', NULL, NULL, '1', NULL),
-(16, 10, 5, '2018-02-26', '2018-02-26', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-26 08:45:00', '2018-02-26 08:45:00', NULL, NULL, '1', NULL),
-(17, 10, 6, '2018-02-26', '2018-02-26', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-26 08:45:00', '2018-02-26 08:45:00', NULL, NULL, '1', NULL),
-(18, 11, 1, '2018-02-26', '2018-02-26', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-26 08:45:17', '2018-02-26 08:45:17', NULL, NULL, '130', NULL),
-(19, 11, 4, '2018-02-26', '2018-02-26', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-26 08:45:17', '2018-02-26 08:45:17', NULL, NULL, '130', NULL),
-(20, 11, 5, '2018-02-26', '2018-02-26', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-26 08:45:17', '2018-02-26 08:45:17', NULL, NULL, '130', NULL),
-(21, 11, 6, '2018-02-26', '2018-02-26', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-26 08:45:17', '2018-02-26 08:45:17', NULL, NULL, '130', NULL),
-(22, 12, 1, '2018-02-27', '2018-02-27', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-26 13:16:09', '2018-02-26 13:16:09', NULL, NULL, '1', NULL);
+INSERT INTO `sched_job_bag_department` (`job_dp_id`, `job_id`, `job_dp_dept`, `job_group_id`, `job_dp_date`, `job_dp_created_date`, `job_dp_started_date`, `job_dp_finished_date`, `job_dp_proof_date`, `job_dp_print_date`, `job_dp_status`, `job_dp_comments`, `job_dp_order`, `job_dp_minutes`, `created_at`, `updated_at`, `job_dp_allocated_to`, `job_dp_allocatee_comments`, `job_dp_qty`, `job_dp_stock_picked`) VALUES
+(1, 1, 1, 0, '2018-02-23', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:28:32', '2018-02-23 15:28:32', NULL, NULL, '1881', NULL),
+(2, 2, 1, 0, '2018-02-24', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:36:06', '2018-02-23 15:47:23', NULL, NULL, '129', NULL),
+(3, 3, 1, 0, '2018-02-23', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:36:26', '2018-02-23 15:36:26', NULL, NULL, '1', NULL),
+(4, 4, 1, 0, '2018-02-23', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:36:48', '2018-02-23 15:36:48', NULL, NULL, '960', NULL),
+(5, 4, 5, 0, '2018-02-23', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:36:48', '2018-02-23 15:36:48', NULL, NULL, '960', NULL),
+(6, 5, 1, 0, '2018-02-22', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:43:07', '2018-02-23 15:47:28', NULL, NULL, '1', NULL),
+(7, 5, 4, 0, '2018-02-22', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:43:07', '2018-02-23 15:47:31', NULL, NULL, '1', NULL),
+(8, 6, 1, 0, '2018-02-23', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:43:19', '2018-02-23 15:43:19', NULL, NULL, '936', NULL),
+(9, 6, 4, 0, '2018-02-24', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:43:19', '2018-02-23 15:47:34', NULL, NULL, '936', NULL),
+(10, 7, 1, 0, '2018-02-23', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:47:07', '2018-02-23 15:47:07', NULL, NULL, '525', NULL),
+(11, 8, 1, 0, '2018-02-23', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:58:02', '2018-02-23 15:58:02', NULL, NULL, '0', NULL),
+(12, 8, 4, 0, '2018-02-23', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:58:02', '2018-02-23 15:58:02', NULL, NULL, '0', NULL),
+(13, 9, 1, 0, '2018-02-23', '2018-02-23', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-23 15:58:45', '2018-02-23 15:58:45', NULL, NULL, '1', NULL),
+(14, 10, 1, 0, '2018-02-26', '2018-02-26', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-26 08:45:00', '2018-02-26 13:14:24', NULL, NULL, '1', NULL),
+(15, 10, 4, 0, '2018-02-26', '2018-02-26', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-26 08:45:00', '2018-03-01 15:53:19', NULL, NULL, '1', NULL),
+(16, 10, 5, 0, '2018-02-26', '2018-02-26', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-26 08:45:00', '2018-02-26 08:45:00', NULL, NULL, '1', NULL),
+(17, 10, 6, 0, '2018-02-26', '2018-02-26', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-26 08:45:00', '2018-02-26 08:45:00', NULL, NULL, '1', NULL),
+(18, 11, 1, 0, '2018-02-26', '2018-02-26', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-26 08:45:17', '2018-02-26 08:45:17', NULL, NULL, '130', NULL),
+(19, 11, 4, 0, '2018-02-27', '2018-02-26', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-26 08:45:17', '2018-03-01 15:36:14', NULL, NULL, '130', NULL),
+(20, 11, 5, 0, '2018-02-26', '2018-02-26', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-26 08:45:17', '2018-02-26 08:45:17', NULL, NULL, '130', NULL),
+(21, 11, 6, 0, '2018-02-26', '2018-02-26', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-26 08:45:17', '2018-02-26 08:45:17', NULL, NULL, '130', NULL),
+(22, 12, 1, 0, '2018-02-27', '2018-02-27', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-02-26 13:16:09', '2018-02-26 13:16:09', NULL, NULL, '1', NULL),
+(23, 13, 1, 0, '2018-02-28', '2018-02-28', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 09:22:44', '2018-03-01 09:22:44', NULL, NULL, '1', NULL),
+(24, 13, 5, 0, '2018-02-28', '2018-02-28', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 09:22:44', '2018-03-01 09:22:44', NULL, NULL, '1', NULL),
+(25, 13, 6, 0, '2018-02-28', '2018-02-28', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 09:22:44', '2018-03-01 09:22:44', NULL, NULL, '1', NULL),
+(26, 13, 1, 0, '2018-03-01', '2018-03-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 11:30:28', '2018-03-01 11:30:28', NULL, NULL, NULL, NULL),
+(27, 13, 5, 0, '2018-03-01', '2018-03-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 11:30:28', '2018-03-01 11:30:28', NULL, NULL, NULL, NULL),
+(28, 13, 6, 0, '2018-03-01', '2018-03-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 11:30:28', '2018-03-01 11:30:28', NULL, NULL, NULL, NULL),
+(29, 18, 1, 9, '2018-03-02', '2018-03-02', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 12:56:13', '2018-03-01 12:56:13', NULL, NULL, '300', NULL),
+(30, 18, 4, 9, '2018-03-02', '2018-03-02', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 12:56:13', '2018-03-01 12:56:13', NULL, NULL, '300', NULL),
+(31, 13, 1, 11, '2018-03-03', '2018-03-03', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 12:58:26', '2018-03-01 12:58:26', NULL, NULL, NULL, NULL),
+(32, 13, 5, 11, '2018-03-03', '2018-03-03', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 12:58:26', '2018-03-01 12:58:26', NULL, NULL, NULL, NULL),
+(33, 13, 6, 11, '2018-03-03', '2018-03-03', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 12:58:26', '2018-03-01 12:58:26', NULL, NULL, NULL, NULL),
+(34, 19, 1, 12, '2018-03-01', '2018-03-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 13:05:38', '2018-03-01 13:05:38', NULL, NULL, '21', NULL),
+(35, 19, 4, 12, '2018-03-01', '2018-03-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 13:05:38', '2018-03-01 13:05:38', NULL, NULL, '21', NULL),
+(36, 21, 1, 14, '2018-03-02', '2018-03-02', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 13:18:37', '2018-03-01 13:18:37', NULL, NULL, '35', NULL),
+(37, 21, 4, 14, '2018-03-02', '2018-03-02', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 13:18:37', '2018-03-01 13:18:37', NULL, NULL, '35', NULL),
+(38, 20, 1, 15, '2018-03-01', '2018-03-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 13:27:03', '2018-03-01 13:27:03', NULL, NULL, NULL, NULL),
+(39, 20, 5, 15, '2018-03-01', '2018-03-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 13:27:03', '2018-03-01 13:27:03', NULL, NULL, NULL, NULL),
+(40, 21, 1, 16, '2018-03-01', '2018-03-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 13:27:31', '2018-03-01 13:27:31', NULL, NULL, NULL, NULL),
+(41, 21, 4, 16, '2018-03-01', '2018-03-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 13:27:31', '2018-03-01 13:27:31', NULL, NULL, NULL, NULL),
+(42, 13, 1, 17, '2018-02-26', '2018-02-26', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 13:28:45', '2018-03-01 13:28:45', NULL, NULL, NULL, NULL),
+(43, 13, 5, 17, '2018-02-26', '2018-02-26', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 13:28:45', '2018-03-01 13:28:45', NULL, NULL, NULL, NULL),
+(44, 13, 6, 17, '2018-02-27', '2018-02-26', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 13:28:45', '2018-03-01 15:53:07', NULL, NULL, NULL, NULL),
+(45, 13, 1, 18, '2018-02-27', '2018-02-27', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 13:39:34', '2018-03-01 13:39:34', NULL, NULL, NULL, NULL),
+(46, 13, 5, 18, '2018-02-27', '2018-02-27', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 13:39:34', '2018-03-01 13:39:34', NULL, NULL, NULL, NULL),
+(47, 13, 6, 18, '2018-02-27', '2018-02-27', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 13:39:34', '2018-03-01 13:39:34', NULL, NULL, NULL, NULL),
+(48, 20, 1, 19, '2018-02-27', '2018-02-27', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 13:39:49', '2018-03-01 13:39:49', NULL, NULL, NULL, NULL),
+(49, 20, 5, 19, '2018-02-27', '2018-02-27', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 13:39:49', '2018-03-01 13:39:49', NULL, NULL, NULL, NULL),
+(50, 13, 1, 20, '2018-03-02', '2018-03-02', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 14:43:24', '2018-03-01 14:43:24', NULL, NULL, NULL, NULL),
+(51, 13, 5, 20, '2018-03-02', '2018-03-02', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 14:43:24', '2018-03-01 14:43:24', NULL, NULL, NULL, NULL),
+(52, 13, 6, 20, '2018-03-02', '2018-03-02', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 14:43:24', '2018-03-01 14:43:24', NULL, NULL, NULL, NULL),
+(53, 20, 1, 21, '2018-02-28', '2018-02-28', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 14:44:08', '2018-03-01 14:44:08', NULL, NULL, NULL, NULL),
+(54, 20, 5, 21, '2018-02-28', '2018-02-28', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 14:44:08', '2018-03-01 14:44:08', NULL, NULL, NULL, NULL),
+(55, 21, 1, 22, '2018-02-28', '2018-02-28', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 14:46:48', '2018-03-01 14:46:48', NULL, NULL, NULL, NULL),
+(56, 21, 4, 22, '2018-02-28', '2018-02-28', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 14:46:48', '2018-03-01 14:46:48', NULL, NULL, NULL, NULL),
+(57, 20, 1, 23, '2018-03-03', '2018-03-02', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 14:56:26', '2018-03-01 15:35:42', NULL, NULL, NULL, NULL),
+(58, 20, 5, 23, '2018-03-02', '2018-03-02', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 14:56:26', '2018-03-01 14:56:26', NULL, NULL, NULL, NULL),
+(59, 21, 1, 24, '2018-02-27', '2018-02-27', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 14:59:41', '2018-03-01 16:23:49', NULL, NULL, NULL, NULL),
+(60, 21, 4, 24, '2018-02-27', '2018-02-27', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 14:59:41', '2018-03-01 14:59:41', NULL, NULL, NULL, NULL),
+(61, 13, 1, 25, '2018-02-11', '2018-02-11', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:02:09', '2018-03-01 15:02:09', NULL, NULL, NULL, NULL),
+(62, 13, 5, 25, '2018-02-11', '2018-02-11', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:02:09', '2018-03-01 15:02:09', NULL, NULL, NULL, NULL),
+(63, 13, 6, 25, '2018-02-11', '2018-02-11', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:02:09', '2018-03-01 15:02:09', NULL, NULL, NULL, NULL),
+(64, 13, 1, 26, '2018-02-28', '2018-02-28', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:03:25', '2018-03-01 15:03:25', NULL, NULL, NULL, NULL),
+(65, 13, 5, 26, '2018-03-01', '2018-02-28', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:03:25', '2018-03-01 15:52:37', NULL, NULL, NULL, NULL),
+(66, 13, 6, 26, '2018-02-28', '2018-02-28', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:03:25', '2018-03-01 15:03:25', NULL, NULL, NULL, NULL),
+(67, 20, 1, 27, '2018-02-25', '2018-02-25', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:08:43', '2018-03-01 15:08:43', NULL, NULL, NULL, NULL),
+(68, 20, 5, 27, '2018-02-25', '2018-02-25', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:08:43', '2018-03-01 15:08:43', NULL, NULL, NULL, NULL),
+(69, 22, 1, 28, '2018-02-25', '2018-02-27', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:09:54', '2018-03-01 15:52:18', NULL, NULL, '1', NULL),
+(70, 20, 1, 29, '2018-03-03', '2018-03-03', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:33:03', '2018-03-01 15:33:03', NULL, NULL, NULL, NULL),
+(71, 20, 5, 29, '2018-03-03', '2018-03-03', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:33:03', '2018-03-01 15:33:03', NULL, NULL, NULL, NULL),
+(72, 23, 1, 30, '2018-03-02', '2018-02-28', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:37:12', '2018-03-01 15:51:33', NULL, NULL, '40759', NULL),
+(73, 13, 1, 31, '2018-02-25', '2018-02-25', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:40:32', '2018-03-01 15:40:32', NULL, NULL, NULL, NULL),
+(74, 13, 5, 31, '2018-02-25', '2018-02-25', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:40:32', '2018-03-01 15:40:32', NULL, NULL, NULL, NULL),
+(75, 13, 6, 31, '2018-02-25', '2018-02-25', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:40:32', '2018-03-01 15:40:32', NULL, NULL, NULL, NULL),
+(76, 21, 1, 32, '2018-03-03', '2018-03-03', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:52:44', '2018-03-01 15:52:44', NULL, NULL, NULL, NULL),
+(77, 21, 4, 32, '2018-03-03', '2018-03-03', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:52:44', '2018-03-01 15:52:44', NULL, NULL, NULL, NULL),
+(78, 24, 1, 33, '2018-02-26', '2018-02-25', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:58:31', '2018-03-01 16:54:45', NULL, NULL, '1', NULL),
+(79, 24, 6, 33, '2018-02-25', '2018-02-25', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:58:31', '2018-03-01 15:58:31', NULL, NULL, '1', NULL),
+(80, 24, 5, 33, '2018-02-25', '2018-02-25', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:58:31', '2018-03-01 15:58:31', NULL, NULL, '1', NULL),
+(81, 24, 7, 33, '2018-02-25', '2018-02-25', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:58:31', '2018-03-01 15:58:31', NULL, NULL, '1', NULL),
+(82, 24, 8, 33, '2018-02-25', '2018-02-25', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 15:58:31', '2018-03-01 15:58:31', NULL, NULL, '1', NULL),
+(83, 25, 1, 34, '2018-03-01', '2018-03-01', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 16:01:09', '2018-03-01 16:01:09', NULL, NULL, '1000', NULL),
+(84, 26, 1, 35, '2018-02-27', '2018-02-27', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 16:09:57', '2018-03-01 16:09:57', NULL, NULL, '100', NULL),
+(85, 26, 4, 35, '2018-02-27', '2018-02-27', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-01 16:09:57', '2018-03-01 16:09:57', NULL, NULL, '100', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sched_job_bag_department_group`
+--
+
+CREATE TABLE `sched_job_bag_department_group` (
+  `job_group_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sched_job_bag_department_group`
+--
+
+INSERT INTO `sched_job_bag_department_group` (`job_group_id`, `created_at`, `updated_at`) VALUES
+(1, '2018-03-01 12:36:30', '2018-03-01 12:36:30'),
+(2, '2018-03-01 12:39:46', '2018-03-01 12:39:46'),
+(3, '2018-03-01 12:52:17', '2018-03-01 12:52:17'),
+(4, '2018-03-01 12:52:41', '2018-03-01 12:52:41'),
+(5, '2018-03-01 12:53:40', '2018-03-01 12:53:40'),
+(6, '2018-03-01 12:54:24', '2018-03-01 12:54:24'),
+(7, '2018-03-01 12:55:15', '2018-03-01 12:55:15'),
+(8, '2018-03-01 12:55:25', '2018-03-01 12:55:25'),
+(9, '2018-03-01 12:56:13', '2018-03-01 12:56:13'),
+(10, '2018-03-01 12:56:51', '2018-03-01 12:56:51'),
+(11, '2018-03-01 12:58:26', '2018-03-01 12:58:26'),
+(12, '2018-03-01 13:05:38', '2018-03-01 13:05:38'),
+(13, '2018-03-01 13:13:30', '2018-03-01 13:13:30'),
+(14, '2018-03-01 13:18:37', '2018-03-01 13:18:37'),
+(15, '2018-03-01 13:27:03', '2018-03-01 13:27:03'),
+(16, '2018-03-01 13:27:31', '2018-03-01 13:27:31'),
+(17, '2018-03-01 13:28:45', '2018-03-01 13:28:45'),
+(18, '2018-03-01 13:39:34', '2018-03-01 13:39:34'),
+(19, '2018-03-01 13:39:49', '2018-03-01 13:39:49'),
+(20, '2018-03-01 14:43:24', '2018-03-01 14:43:24'),
+(21, '2018-03-01 14:44:08', '2018-03-01 14:44:08'),
+(22, '2018-03-01 14:46:48', '2018-03-01 14:46:48'),
+(23, '2018-03-01 14:56:26', '2018-03-01 14:56:26'),
+(24, '2018-03-01 14:59:41', '2018-03-01 14:59:41'),
+(25, '2018-03-01 15:02:09', '2018-03-01 15:02:09'),
+(26, '2018-03-01 15:03:25', '2018-03-01 15:03:25'),
+(27, '2018-03-01 15:08:43', '2018-03-01 15:08:43'),
+(28, '2018-03-01 15:09:54', '2018-03-01 15:09:54'),
+(29, '2018-03-01 15:33:03', '2018-03-01 15:33:03'),
+(30, '2018-03-01 15:37:12', '2018-03-01 15:37:12'),
+(31, '2018-03-01 15:40:32', '2018-03-01 15:40:32'),
+(32, '2018-03-01 15:52:44', '2018-03-01 15:52:44'),
+(33, '2018-03-01 15:58:31', '2018-03-01 15:58:31'),
+(34, '2018-03-01 16:01:09', '2018-03-01 16:01:09'),
+(35, '2018-03-01 16:09:57', '2018-03-01 16:09:57');
 
 -- --------------------------------------------------------
 
@@ -689,7 +816,7 @@ CREATE TABLE `sched_settings` (
 --
 
 INSERT INTO `sched_settings` (`id`, `setting_name`, `setting_label`, `setting_value`) VALUES
-(1, 'tabs', 'Main Tabs', '[{"id":"calendar","label":"Calendar","icon":"calendar icon"},{"id":"managejobs","label":"Manage Jobs","icon":"list layout icon"},{"id":"managetasks","label":"My Tasks","icon":"hourglass end icon"},{"id":"usersettings","label": "User settings","url":"/webapps/admin.php","icon":"linkify icon"},{"id":"schedulingsettings","label":"Scheduling Tool Settings","icon":"setting icon"}]'),
+(1, 'tabs', 'Main Tabs', '[{"id":"calendar","label":"Calendar","icon":"calendar icon"},{"id":"managejobs","label":"Manage Jobs","icon":"list layout icon"},{"id":"managetasks","label":"My Tasks","icon":"hourglass end icon"},{"id":"usersettings","label": "User settings","url":"/webapps/admin.php","icon":"linkify icon"},{"id":"reports","label":"Reports","icon":"linkify icon"},{"id":"schedulingsettings","label":"Scheduling Tool Settings","icon":"setting icon"}]'),
 (2, 'job_it_status', 'Job IT Statuses', '["stand by","work in progress","on hold","done"]'),
 (3, 'job_prod_status', 'Job Production Statuses', '["stand by","work in progress","done"]'),
 (4, 'job_types', 'Job Types', '[{"id": "once","text":"Once"},{"id": "recurring","text":"Recurring"}]'),
@@ -796,6 +923,12 @@ ALTER TABLE `sched_job_bag_department`
   ADD PRIMARY KEY (`job_dp_id`);
 
 --
+-- Indexes for table `sched_job_bag_department_group`
+--
+ALTER TABLE `sched_job_bag_department_group`
+  ADD PRIMARY KEY (`job_group_id`);
+
+--
 -- Indexes for table `sched_settings`
 --
 ALTER TABLE `sched_settings`
@@ -855,12 +988,17 @@ ALTER TABLE `sched_department`
 -- AUTO_INCREMENT for table `sched_job_bags`
 --
 ALTER TABLE `sched_job_bags`
-  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `sched_job_bag_department`
 --
 ALTER TABLE `sched_job_bag_department`
-  MODIFY `job_dp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `job_dp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+--
+-- AUTO_INCREMENT for table `sched_job_bag_department_group`
+--
+ALTER TABLE `sched_job_bag_department_group`
+  MODIFY `job_group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT for table `sched_settings`
 --

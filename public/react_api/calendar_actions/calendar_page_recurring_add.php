@@ -2,13 +2,16 @@
 
 $folder_level = '../';
 include('../includes.php');
+use Illuminate\Database\Capsule\Manager as Capsule;
+
 use Models\SchedJobBags;
 use Models\SchedJobBagDepartment;
-use Illuminate\Database\Capsule\Manager as Capsule;
+use Models\SchedJobBagDepartmentGroup;
 
 // @USAGE
 // @date
 // Description: Add daily jobs into a particular date.
+
 $post = $u::getRequestData();
 
 if(count($post)>0){
@@ -23,7 +26,14 @@ if(count($post)>0){
             $deps = $job->job_departments;
 
             $tmp = array();
+
+            // Create group id
+
+            $jd_group = new SchedJobBagDepartmentGroup();
+            $jd_group->save();
+
             // Departments
+
             foreach($deps as $dpid){
                 $jd                 = new SchedJobBagDepartment();
                 $jd->job_dp_dept    = $dpid;
@@ -31,10 +41,14 @@ if(count($post)>0){
                 $jd->job_dp_date    = $date;
                 $jd->job_dp_created_date = $date;
                 $jd->job_dp_qty     = $job->qty;
+                $jd->job_group_id   = $jd_group->job_group_id;
                 $tmp[] = $jd;
             }
+
             // Save the departments
+
             $job->dept()->saveMany($tmp);
+
         }else{
             continue;
         }
@@ -42,9 +56,7 @@ if(count($post)>0){
     }
     if($jbCounter==0){
         echo "{msg: 'No jobs added to the schedule', error: 1}";
-
     }else{
-
         echo "{msg: 'Successfully added daily jobs', error: 0}";
     }
 

@@ -46,7 +46,7 @@ class Calendar_AddRecurringWindow extends Component {
                         </tr>
                         <tr>
                             <td className="button">
-                                <button className={this.props.className} onClick={this.props.handleAdd}>{this.props.buttonLabel}</button>
+                                <button className={this.props.className} onClick={this.props.handleAdd} disabled={this.props.isAdding}>{this.props.buttonLabel}</button>
                             </td>
                         </tr>
                     </tbody>

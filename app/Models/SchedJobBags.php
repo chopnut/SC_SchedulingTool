@@ -110,8 +110,13 @@ class SchedJobBags extends Model
 
 
     static public function createDepartments($job_bag,$departments,$date){
+
         // Create the bags department for each
         $job_depts = array();
+
+        // Create group id
+        $jd_group = new SchedJobBagDepartmentGroup();
+        $jd_group->save();
 
         foreach($departments as $departmentId){
             $jd  				      = new SchedJobBagDepartment();
@@ -122,11 +127,13 @@ class SchedJobBags extends Model
             $jd->job_dp_date	     = $date;
             $jd->job_dp_created_date = $date;
             $jd->job_dp_qty          = $job_bag->job_qty;
+            $jd->job_group_id        = $jd_group->job_group_id;
             $job_depts[]		     = $jd;
         }
 
         // Now create the job_departments you currently have set up.
         $job_bag->dept()->saveMany($job_depts);
+
         return $job_bag->dept();
     }
     static public function addScheduleTo($post){

@@ -57,6 +57,7 @@ class CalendarPrismBagPopUps extends Component {
                 (e)=>{
                     e.preventDefault();
                     const checkError = this.props.handleCheckError();
+
                     // If there is no error submit otherwise show error
                     if(checkError.err == 0){
                         this.setState((prevState, props) => (

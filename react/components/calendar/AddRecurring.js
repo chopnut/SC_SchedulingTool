@@ -44,8 +44,8 @@ class CalendarAddRecurring extends Component {
 
 
         // When finished adding
-        if(nextprops.calendar_page_add_recurring_to_date){
-            console.log("Recurring will receive props triggered.");
+        if(nextprops.calendar_page_add_recurring_to_date && nextprops.action.type=="CALENDAR_PAGE_ADD_RECURRING_TO_DATE"){
+            console.log("Recurring will receive props triggered.", nextprops);
             this.getJobs();
 
             this.setState((prevState, props) => (
@@ -58,9 +58,11 @@ class CalendarAddRecurring extends Component {
     }
     handleAdd(){
         if(this.state.isAdding== false){
+
             if(this.state.jobsSelected.length<=0){
                 alert("Select atleast one job");
             }else{
+
                 this.props.calendar_page_add_recurring_to_date(this.props.settings,this.state.jobsSelected,this.props.day.date);
                 this.setState((prevState,props)=>{
                     return({isAdding:true, className: "ui small loading button",jobsSelected: [] });
@@ -120,6 +122,7 @@ class CalendarAddRecurring extends Component {
                         jobsSelected = {this.state.jobsSelected}
                         className    = {this.state.className}
                         day          = {this.props.day}
+                        is_adding = {this.state.isAdding}
                     />
                 </Popup>
             </span>);

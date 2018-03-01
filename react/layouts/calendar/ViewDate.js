@@ -63,6 +63,7 @@ class ViewDate extends Component {
         }, this.handleChangeCalendarDate);
     }
     handleChangeCalendarDate(){
+
         const selectedDate = this.state.calendar_date;
         this.props.calendar_view_day_set_calendar_date(
             [{day: selectedDate.format('dddd'), date: selectedDate.format('DD/MM/YYYY')}],
@@ -75,6 +76,10 @@ class ViewDate extends Component {
 
         // call to get the jobs from the view date
         this.props.calendar_page_view_date_get_jobs(this.props.settings, selectedDate.format('DD/MM/YYYY'));
+    }
+    shouldComponentUpdate(nextProps,nextState){
+        console.log("CALLING!");
+        return true;
     }
     componentWillReceiveProps(nextProps){ }
     renderDepartments(){
@@ -140,6 +145,7 @@ class ViewDate extends Component {
                         </tr>
                         </thead>
                         <tbody>
+
                         {this.renderDepartments()}
                         </tbody>
                     </table>

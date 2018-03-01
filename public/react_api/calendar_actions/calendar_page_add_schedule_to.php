@@ -10,6 +10,7 @@ $data = $u::getRequestData();
 
 // -------- CUSTOM CODE BELOW ------------//
 use Models\SchedJobBags;
+use Models\SchedJobBagDepartmentGroup;
 
 // You need to read the php://input stream to get the raw data
 // before php applies their _post _get etc. on the stream
@@ -18,6 +19,7 @@ use Models\SchedJobBags;
 
 if(count($data)>0){
     $data['job_created_by']  = ($user)?$user->login_id:0;
+
     SchedJobBags::addScheduleTo($data);
 
 }else{
