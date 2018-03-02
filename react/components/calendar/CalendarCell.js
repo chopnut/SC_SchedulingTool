@@ -69,10 +69,6 @@ class CalendarCell extends Component {
         if(nextState != this.state){
             return true;
         }
-        // If the same job bag department is still the same do not update
-        if(nextProps.jd.dep.job_dp_id == this.props.jd.dep.job_dp_id){
-            return false;
-        }
         return true;
     }
     componentDidUpdate(prevProps, prevState){
