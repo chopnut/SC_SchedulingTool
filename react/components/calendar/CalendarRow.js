@@ -4,6 +4,7 @@ import  {calendar_page_move_dep_side_by_side} from '../../actions/CalendarAction
 import CalendarGroupCells from "./CalendarGroupCells";
 import {withRouter } from 'react-router-dom';
 import NavLink from "react-router-dom/es/NavLink";
+import moment from 'moment';
 
 class CalendarRow extends Component {
     constructor(props){
@@ -24,7 +25,6 @@ class CalendarRow extends Component {
     handleViewDepartments(deptId){
         const { history } = this.props;
         history.push('/calendar/manage/departments/'+deptId);
-
     }
     startDrop(e,droppedDate,toKey){
         const el        = $(e.target);
@@ -186,14 +186,14 @@ class CalendarRow extends Component {
                             }}
                         >
                             <CalendarGroupCells
-                                dayKey={i}
-                                departmentId={this.props.departmentId}
-                                userId = {0}
-                                initDrag={this.handleDragging}
-                                initDragEnd = {this.handleDragEnd}
-                                isViewDate          = {this.props.isViewDate}
-                                isProgrammersRow    = {false}
-                                onDrop="return false"
+                                dayKey          ={i}
+                                departmentId    ={this.props.departmentId}
+                                userId          = {0}
+                                initDrag        ={this.handleDragging}
+                                initDragEnd     = {this.handleDragEnd}
+                                isViewDate      = {this.props.isViewDate}
+                                isProgrammersRow= {false}
+
                             />
                         </td>
                     );

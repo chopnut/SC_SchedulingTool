@@ -57,25 +57,40 @@ const CalendarReducer = function (state=[], action) {
             const userId      = action.info.userId;
             const fromDayKey  = action.info.dayKey;
             const toDayKey    = action.info.toKey;
+            const deptId      = action.info.deptId;
             const jobId       = action.info.jobId;
+
+            // IMPORTANT NOTE: You must copy the whole state not just the child, when mutating!
 
 
             // ONLY UPDATE THE CALENDAR JOBS FOR NON-PROGRAMMERS JOBS
             if(!userId){
+                console.log("BEFORE:",state);
 
-                let newCalendarJobs         = Object.assign({}, state.calendar_jobs);
-                let jobCopy                 = Object.assign({},newCalendarJobs[action.info.dayKey][action.info.deptId][action.info.jobId]);
-                delete newCalendarJobs[action.info.dayKey][action.info.deptId][action.info.jobId];
-                newCalendarJobs[action.info.toKey][action.info.deptId][action.info.jobId] = jobCopy;
+                // DEEP COPY!!!!
+                let copy_state              = Object.assign({}, state);
+                copy_state.calendar_jobs    = Object.assign({}, copy_state.calendar_jobs);
+                copy_state.calendar_jobs[fromDayKey]            = Object.assign({}, copy_state.calendar_jobs[fromDayKey]);
+                copy_state.calendar_jobs[fromDayKey][deptId]    = Object.assign({}, copy_state.calendar_jobs[fromDayKey][deptId]);
+                copy_state.calendar_jobs[fromDayKey][deptId][jobId] = Object.assign({}, copy_state.calendar_jobs[fromDayKey][deptId][jobId]);
 
-                const  newCJobsState = Object.assign({},state,{calendar_jobs : newCalendarJobs});
+                const jobCopy               = Object.assign({}, copy_state.calendar_jobs[fromDayKey][deptId][jobId]);
 
-                console.log("NEWSTATEMOVE: ",newCJobsState);
-                return newCJobsState;
+                delete copy_state.calendar_jobs[fromDayKey][deptId][jobId];         // DELETE
+                copy_state.calendar_jobs[toDayKey][deptId][jobId] = jobCopy;        // ADD
+
+                console.log("OLD:",state,"NEW:",copy_state);
+
+                const new_state = Object.assign({},state,{calendar_jobs: copy_state.calendar_jobs});
+
+                console.log("NEW STATE: ", new_state);
+
+                return new_state;
 
             }else{
             // UPDATE PROGRAMMERS JOBS IN HERE WITH THE SAME SYNTAX AS ABOVE
-                let programmersJobs         = Object.assign({}, state.programmers_jobs);
+                let copy_state              = Object.assign({}, state);
+                let programmersJobs         = Object.assign({}, copy_state.programmers_jobs);
                 let jobCopy                 = Object.assign({},programmersJobs[userId][fromDayKey][jobId]);
 
                 delete programmersJobs[userId][fromDayKey][jobId];
@@ -84,7 +99,9 @@ const CalendarReducer = function (state=[], action) {
                 const  newCJobsState = Object.assign({},state,{programmers_jobs : programmersJobs});
                 return newCJobsState;
             }
-            return state;
+
+            const  sbs_state = Object.assign({},state,{ action: action.action });
+            return sbs_state;
             break;
         case CALENDAR_PAGE_VIEW_DATE_GET_JOBS:
             // THIS WILL GET ALL JOBS FOR THE VIEW DATE PAGE, VIEWDATEJOBS IS NOT AVAILABLE IN THE GLOBAL STATE ITS JUST ADDED

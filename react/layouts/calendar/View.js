@@ -30,7 +30,8 @@ import {calendar_page_change_days,
 import {
     CALENDAR_PAGE_ADD_SCHEDULE_TO,
     CALENDAR_PAGE_ADD_RECURRING_TO_DATE,
-    CALENDAR_MAIN_PAGE_REFRESH
+    CALENDAR_MAIN_PAGE_REFRESH,
+    CALENDAR_PAGE_MOVE_DEP_SIDE_BY_SIDE
 } from '../../common/Constants';
 
 class Calendar_View extends Component {
@@ -208,7 +209,7 @@ class Calendar_View extends Component {
         // REFRESH THE PAGE
         const act = nextProps.calendar_page.action;
 
-        if(act.type == CALENDAR_PAGE_ADD_RECURRING_TO_DATE || act.type == CALENDAR_PAGE_ADD_SCHEDULE_TO || act.type==CALENDAR_MAIN_PAGE_REFRESH){
+        if(act.type == CALENDAR_PAGE_ADD_RECURRING_TO_DATE || act.type == CALENDAR_PAGE_ADD_SCHEDULE_TO || act.type == CALENDAR_PAGE_MOVE_DEP_SIDE_BY_SIDE){
             this.setUp(nextProps.calendar_page.days, true);
         }
         // WHEN RESET ALL ACTION IS CALLED EVERYTHING ELSE IS DONE LOADING

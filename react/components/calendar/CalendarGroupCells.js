@@ -19,7 +19,7 @@ class CalendarGroupCells extends Component {
         const userId            = this.props.userId;
         const departmentId      = this.props.departmentId;
         const view_date_jobs    = this.props.view_date_jobs;
-        let jobs =[];
+        let jobs ={};
 
         jobs           = this.props.calendar_jobs[currDayKey][departmentId];
 
@@ -37,7 +37,7 @@ class CalendarGroupCells extends Component {
                 jobs             = this.props.programmers_jobs[userId][currDayKey];
             }else{
                 // IF THE USER DONT HAVE ANY JOB FOR THAT DAY
-                jobs = [];
+                jobs = {};
             }
 
             // 2. Programmers group cell for the view date
@@ -46,7 +46,7 @@ class CalendarGroupCells extends Component {
             if(userId in programmers_jobs){
                 jobs = programmers_jobs[userId];
             }else{
-                jobs = [];
+                jobs = {};
             }
         }
 
@@ -54,7 +54,7 @@ class CalendarGroupCells extends Component {
 
         else if(userId){
             // IF THIS IS A PROGRAMMERS CELL AND THERE IS NO PROGRAMMERS JOBS FOR JUST EMPTY THE JOBS.
-            jobs = [];
+            jobs = {};
         }
 
 
@@ -66,7 +66,7 @@ class CalendarGroupCells extends Component {
         const userId            = this.props.userId;
         const departmentId      = this.props.departmentId;
         const view_date_jobs    = this.props.view_date_jobs;
-        let jobs =[];
+        let jobs = {};
 
         // --- FOR NON-PROGRAMMER-ROW -----
         if(!this.props.isProgrammersRow){
@@ -104,61 +104,76 @@ class CalendarGroupCells extends Component {
 
         return jobs;
     }
-    componentWillReceiveProps(nextProps){
-        const currDayKey        = this.props.dayKey;
-        const userId            = this.props.userId;
-        const departmentId      = this.props.departmentId;
-        const view_date_jobs    = this.props.view_date_jobs;
 
-        const next_jobs = this.getNewJobs(nextProps);
+    // ComponentWillReceiveProps will trigger the change
+    componentWillReceiveProps(nextProps){
+        const currDayKey        = nextProps.dayKey;
+        const departmentId      = nextProps.departmentId;
+
+        // console.log(nextProps);
+
+        let next_jobs   = nextProps.calendar_jobs[currDayKey];
+        let old_jobs    = this.props.calendar_jobs[currDayKey];
+
+        const njob = next_jobs[departmentId];
+        const ojob =  old_jobs[departmentId];
+
+        console.log(next_jobs, old_jobs);
+
+        const new_length = Object.keys(njob).length;
+        const old_length = Object.keys(ojob).length;
+
+        if(new_length!=old_length){
+            console.log("CHANGING STATE!", next_jobs, old_jobs);
+            this.setState((prevState,props)=>{
+                return({ jobs: next_jobs });
+            });
+        }
+
+
+
+
+    }
+
+    componentDidUpdate(){}
+    componentWillUpdate(nextProps, nextState){}
+
+    // Optimizing speed, only update when needed
+
+    shouldComponentUpdate(nextProps, nextState){
+
+        const next_jobs = nextState.jobs;
         const old_jobs  = this.state.jobs;
 
         const n = Object.keys(next_jobs).length;
         const o = Object.keys(old_jobs).length;
 
-        if(currDayKey==0 && departmentId==1){
-            console.log("NEWSTATE", nextProps, this.state);
+        if(n!==o){
+            return true
         }
 
-        if(n!=o){
-            this.setState((prevState,props)=>{
-                return({ jobs: next_jobs});
-            });
+        if(nextState.isLoading != this.state.isLoading){
+            return true;
         }
-    }
 
-    // Optimizing speed, only update when needed
-    shouldComponentUpdate(nextProps, nextState){
+        // const currDayKey        = this.props.dayKey;
+        // const departmentId      = this.props.departmentId;
+        //
+        // if(departmentId== 1 && currDayKey==0 && !this.props.isProgrammersRow){
+        //     console.log("UPDATING THIS WITH SUNDAY",nextProps, this.state.jobs);
+        //     return true;
+        // }
+        // if(departmentId== 1 && currDayKey==1 && !this.props.isProgrammersRow){
+        //     console.log("UPDATING THIS WITH NO MONDAY",nextProps, this.state.jobs);
+        //     return true;
+        // }
 
-
-        const n = Object.keys(nextState.jobs).length;
-        const o = Object.keys(this.state.jobs).length;
-
-
-        // If there is no jobs for a group cell, dont update
-        if(o == n){
-            // console.log("NOUPDATE!", this.state.jobs);
-            return false;
-        }
-        // console.log("UPDATING!");
-
-        return true;
+        return false;
     }
     componentDidMount(){
-
-        this.setState(function(state,props){
-            return ({isLoading: false,jobs: this.getJobs()});
-        });
-    }
-    componentDidUpdate(){
-        const currDayKey        = this.props.dayKey;
-        const userId            = this.props.userId;
-        const departmentId      = this.props.departmentId;
-        const view_date_jobs    = this.props.view_date_jobs;
-
-        if(currDayKey==0 && departmentId==1){
-            console.log("STATE", this.state);
-        }
+        this.setState((prevState, props) => (
+            {jobs: this.getJobs(), isLoading: false}
+        ));
     }
     render(){
         // Calendar uses key value pair , not an array
@@ -181,9 +196,9 @@ class CalendarGroupCells extends Component {
         const currDate = this.props.days[currDayKey];
 
 
-        // if(this.state.isLoading){
-        //     return(<div>Loading...</div>);
-        // }else{
+        if(this.state.isLoading){
+            return(<div>Loading...</div>);
+        }else{
 
             return(
             <div className="group">
@@ -205,7 +220,7 @@ class CalendarGroupCells extends Component {
 
                 )}<br/>
             </div>);
-        // }
+        }
     }
 }
 function mapStateToProps(state,ownprops) {
