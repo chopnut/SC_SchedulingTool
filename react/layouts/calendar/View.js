@@ -333,7 +333,6 @@ class Calendar_View extends Component {
                                 float: "left"
                             }}></div>
                         </div>
-
                         <div className="date_range head_link">
                             <span className="previous">
                                 <a className="click_prev" onClick={() => {

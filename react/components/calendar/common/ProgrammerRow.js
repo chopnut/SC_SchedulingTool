@@ -17,11 +17,31 @@ class ProgrammerRow extends Component {
         this.handleDragLeave = this.handleDragLeave.bind(this);
         this.handleDragOver  = this.handleDragOver.bind(this);
         this.handleDragEnd   = this.handleDragEnd.bind(this);
+
+        this.getJobs                = this.getJobs.bind(this);
     }
     componentDidMount(){
         this.setState(function(state,props){
             return ({state,isLoading: false});
         });
+    }
+    // Getting all jobs from current space
+    getJobs(day_key){
+        const login_id       = this.props.user.login_id;
+        const view_date_jobs = this.props.calendar_page.view_date_jobs;
+
+        let jobs ={};
+        if(this.props.isViewDate){
+            if(login_id in view_date_jobs.programmers_jobs){
+                jobs = view_date_jobs.programmers_jobs[login_id];
+            }
+        }else{
+            if(login_id in this.props.calendar_page.programmers_jobs){
+                jobs = this.props.calendar_page.programmers_jobs[login_id];
+            }
+        }
+
+        return jobs;
     }
     startDrop(e,droppedDate,toKey){
         const el        = $(e.target);
@@ -167,14 +187,15 @@ class ProgrammerRow extends Component {
                         }}
                     >
                         <CalendarGroupCells
-                            dayKey={i}
-                            isViewDate = {this.props.isViewDate}
-                            isProgrammersRow = {true}
-                            departmentId={this.props.departmentId}
-                            userId = {this.props.user.login_id}
-                            initDrag={this.handleDragging}
-                            initDragEnd = {this.handleDragEnd}
-                            onDrop="return false"
+                            onDrop          = "return false"
+                            dayKey          = {i}
+                            userId          = {this.props.user.login_id}
+                            isProgrammersRow= {true}
+                            isViewDate      = {this.props.isViewDate}
+                            departmentId    = {this.props.departmentId}
+                            initDrag        = {this.handleDragging}
+                            initDragEnd     = {this.handleDragEnd}
+                            jobs            = {this.getJobs(i)}
                         />
                     </td>
                 );
@@ -187,6 +208,7 @@ function mapStateToProps(state,ownprops) {
     return ({
         calendar_page: state.calendar_page,
         calendar_jobs: state.calendar_page.calendar_jobs,
+        programmingDeptId: state.settings.programmingUsers.deptId,
         settings: state.settings
     })
 }

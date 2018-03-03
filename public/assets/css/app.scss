@@ -246,40 +246,38 @@
                                           overflow: hidden;
                                           margin-bottom: 10px;
 
-                                          .contain{
-                                              margin: 1px;
-
-
-                                              .cell_head{
-                                                  td{
-                                                      border: 0px solid #fff !important;
-                                                      padding: 0px !important;
-                                                      color: #fff;
-                                                      i{
-                                                          margin: 0px;
-                                                      }
+                                          .cell_head{
+                                              td{
+                                                  border: 0px solid #fff !important;
+                                                  padding: 0px !important;
+                                                  color: #fff;
+                                                  i{
+                                                      margin: 0px;
                                                   }
-                                                  ._arrow{
-                                                      width: 18px;
-                                                      background-color: transparent;
-                                                  }
-                                                  .cell_left{
-                                                      @extend ._arrow;
-                                                      text-align: left;
-                                                      i{ cursor: pointer; }
-
-                                                  }
-                                                  .cell_middle{  text-align: center; }
-                                                  .cell_right{
-                                                      @extend ._arrow;
-                                                      text-align: right;
-                                                      i{ cursor: pointer; }
-
-                                                  }
+                                              }
+                                              ._arrow{
+                                                  width: 18px;
+                                                  background-color: transparent;
+                                              }
+                                              .cell_left{
+                                                  @extend ._arrow;
+                                                  text-align: left;
+                                                  i{ cursor: pointer; }
 
                                               }
+                                              .cell_middle{  text-align: center; }
+                                              .cell_right{
+                                                  @extend ._arrow;
+                                                  text-align: right;
+                                                  i{ cursor: pointer; }
+
+                                              }
+
+                                          }
+                                          .contain{
+
                                               .cell_title{
-                                                  background-color: #fff;
+                                                  background-color: #ff00ff;
                                                   padding: 5px;
                                               }
                                           }

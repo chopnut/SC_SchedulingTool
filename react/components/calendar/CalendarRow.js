@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import  {calendar_page_move_dep_side_by_side} from '../../actions/CalendarActions';
+import {calendar_page_move_dep_side_by_side} from '../../actions/CalendarActions';
 import CalendarGroupCells from "./CalendarGroupCells";
 import {withRouter } from 'react-router-dom';
 import NavLink from "react-router-dom/es/NavLink";
-import moment from 'moment';
+import util from "../../common/edlibrary";
 
 class CalendarRow extends Component {
     constructor(props){
@@ -21,10 +21,28 @@ class CalendarRow extends Component {
         this.handleDragOver         = this.handleDragOver.bind(this);
         this.handleDragEnd          = this.handleDragEnd.bind(this);
         this.handleViewDepartments  = this.handleViewDepartments.bind(this);
+
+        this.getJobs                = this.getJobs.bind(this);
     }
-    handleViewDepartments(deptId){
-        const { history } = this.props;
-        history.push('/calendar/manage/departments/'+deptId);
+
+    // Getting all jobs from current space
+    getJobs(day_key){
+        const departmentId      = this.props.departmentId;
+        let jobs ={};
+
+        if(this.props.isViewDate){
+            const view_date_jobs = this.props.calendar_page.view_date_jobs;
+            jobs = view_date_jobs.master[departmentId];
+        }else{
+            jobs = this.props.calendar_jobs[day_key][departmentId];
+        }
+        if(util.isArray(jobs)){
+            if(jobs.length<=0){
+                jobs = {};
+            }
+        }
+
+        return jobs;
     }
     startDrop(e,droppedDate,toKey){
         const el        = $(e.target);
@@ -50,6 +68,10 @@ class CalendarRow extends Component {
         // Trigger the action creator side to side functionality with drag and drop
         this.props.calendar_page_move_dep_side_by_side(this.props.settings, info);
     }
+    handleViewDepartments(deptId){
+        const { history } = this.props;
+        history.push('/calendar/manage/departments/'+deptId);
+    }
     handleDragOver(e,departmentId){
         let dpIdfromBag = 0;
         try{
@@ -66,9 +88,6 @@ class CalendarRow extends Component {
 
         }
     }
-    /*
-    * You are not allowed to drop to a different department
-    * */
     handleDragEnter(e,departmentId){
         let dpIdfromBag = 0;
         try{
@@ -102,8 +121,6 @@ class CalendarRow extends Component {
             // console.log('Department: ',departmentId,dpIdfromBag,this.state.job.dep);
         }
     }
-    /*
-    * When the user starts dragging, set the job bag being drag*/
     handleDragging(e,job,currentDayKey){
         $(e.target).removeClass("highlight_drag");
         this.setState((prevState, props) => (
@@ -118,13 +135,14 @@ class CalendarRow extends Component {
         }));
 
     }
+
     // For optimizing speed
     shouldComponentUpdate(nextProps,nextState){
         // Let it change state when changing the component date.
-        if(nextState != this.state || nextProps.calendar_page_move_dep_side_by_side){
-            return true;
-        }
-        return false;
+        return true;
+    }
+    componentDidUpdate(){
+        console.log("COMPONENT UPDATED!");
     }
     componentDidMount(){
         this.setState((prevState, props) => (   {
@@ -163,6 +181,16 @@ class CalendarRow extends Component {
                     if(thisCellDate == today){  tdClassName = tdClassName+" today ";  }
                     if(colspan==daysLength){ return; }
 
+                // if(i==0 && this.props.departmentId==1){
+                //     console.log("SUN", this.getJobs(i), this.props.calendar_jobs);
+                //
+                // }
+                // if(i==1 && this.props.departmentId==1){
+                //     console.log("MON", this.getJobs(i), this.props.calendar_jobs);
+                //
+                // }
+
+
                     return (
                         <td key={i}
                             id={this.props.departmentId}
@@ -186,14 +214,14 @@ class CalendarRow extends Component {
                             }}
                         >
                             <CalendarGroupCells
-                                dayKey          ={i}
-                                departmentId    ={this.props.departmentId}
+                                dayKey          = {i}
                                 userId          = {0}
-                                initDrag        ={this.handleDragging}
-                                initDragEnd     = {this.handleDragEnd}
-                                isViewDate      = {this.props.isViewDate}
                                 isProgrammersRow= {false}
-
+                                isViewDate      = {this.props.isViewDate}
+                                departmentId    = {this.props.departmentId}
+                                initDrag        = {this.handleDragging}
+                                initDragEnd     = {this.handleDragEnd}
+                                jobs            = {this.getJobs(i)}
                             />
                         </td>
                     );

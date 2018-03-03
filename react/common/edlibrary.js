@@ -17,6 +17,9 @@ this.isArrayTheSame = function(arr1,arr2){
 
     return true;
 }
+this.isArray = function(value){
+        return value && typeof value === 'object' && value.constructor === Array;
+}
 /*
 Pad any text with value left or right
 eg: value: 9 , pad(00000,9,true) returns: 00009
