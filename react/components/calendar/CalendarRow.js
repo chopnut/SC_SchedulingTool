@@ -143,11 +143,26 @@ class CalendarRow extends Component {
     }
     componentDidUpdate(){
         console.log("COMPONENT UPDATED!");
+
+        // initiate border only drag
+        let cells = document.getElementsByClassName('cell_child');
+
+        for (let i = 0 ; i < cells.length; i++) {
+
+            cells[i].addEventListener('mousedown', function() {
+                this.parentNode.setAttribute("draggable", false);
+
+            });
+            cells[i].addEventListener('mouseup', function() {
+                this.parentNode.setAttribute("draggable", true);
+            });
+        }
     }
     componentDidMount(){
         this.setState((prevState, props) => (   {
             isLoading: false
         }  ));
+
     }
     render(){
         const daysLength    = this.props.calendar_page.days.length+1;

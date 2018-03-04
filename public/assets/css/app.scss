@@ -236,7 +236,7 @@
                                   vertical-align: top;
                                   .group{
                                       .cell:hover{
-                                          cursor: pointer;
+                                          cursor: w-resize;
                                       }
                                       .cell{
 
@@ -275,9 +275,10 @@
 
                                           }
                                           .contain{
-
+                                              background-color: #ffffff;
+                                              cursor: default;
                                               .cell_title{
-                                                  background-color: #ff00ff;
+
                                                   padding: 5px;
                                               }
                                           }

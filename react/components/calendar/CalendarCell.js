@@ -42,7 +42,7 @@ class CalendarCell extends Component {
     hover_out_job_bag(){
         if(this.state.is_window_open){
             this.setState((prevState, props) => (
-                {background_color: '#eee'}
+                {background_color: 'red'}
             ));
             this.handleWindowClose();
         }
@@ -67,16 +67,10 @@ class CalendarCell extends Component {
         return true;
     }
     componentDidUpdate(prevProps, prevState){
-        const jd = this.props.jd.dep;
         $(".chevron").popup();
 
     }
-    componentDidMount(){
-        var cell = document.getElementsByClassName('cell_child');
-        console.log("HELLLLLOOO",this.props.jd.dep);
-        cell.addEventListener('mousedown', function() { this.parentNode.setAttribute("draggable", false); });
-        cell.addEventListener('mouseup', function() { this.parentNode.setAttribute("draggable", true); });
-    }
+    componentDidMount(){}
     render(){
 
         const jd = this.props.jd.dep;
