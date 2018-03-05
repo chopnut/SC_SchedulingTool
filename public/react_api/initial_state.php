@@ -47,7 +47,7 @@ $todaysT      = time();
 $todayDay     = date("l",$todaysT);
 $daysDate     = array();
 
-// Todays date 
+// Todays date
 $todays_date  = date("d/m/Y",$todaysT);
 
 // If today is sunday or saturday make it todays range
@@ -92,7 +92,7 @@ $paramDateString = implode(',',$paramDates);
 $calendarJobs    = \Models\SchedJobBagDepartment::getCalendarJobs($paramDateString);
 
 $master_jobs        = json_encode($calendarJobs['master_jobs'], JSON_FORCE_OBJECT);
-$programmers_jobs   = json_encode($calendarJobs['programmers_jobs']);
+$programmers_jobs   = json_encode($calendarJobs['programmers_jobs'],JSON_FORCE_OBJECT);
 
 
 // Timestamp in every state needs to change to retrigger re-render

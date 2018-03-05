@@ -54,8 +54,8 @@ if($u::areTheseSetAndNotEmpty('get','from','to')){
     $paramDateString = implode(',',$paramDates);
     $calendarJobs    = \Models\SchedJobBagDepartment::getCalendarJobs($paramDateString);
 
-    $master_jobs        = json_encode($calendarJobs['master_jobs']);
-    $programmers_jobs   = json_encode($calendarJobs['programmers_jobs']);
+    $master_jobs        = json_encode($calendarJobs['master_jobs'], JSON_FORCE_OBJECT);
+    $programmers_jobs   = json_encode($calendarJobs['programmers_jobs'], JSON_FORCE_OBJECT);
 
 
     echo "{\"master\": $master_jobs, \"programmers_jobs\": $programmers_jobs }";

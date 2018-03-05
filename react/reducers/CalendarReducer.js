@@ -71,14 +71,9 @@ const CalendarReducer = function (state=[], action) {
                 const copystate             = fromJS(state);
                 const copied_job            = copystate.get('calendar_jobs').get(fromDayKey).get(deptId).get(jobId);
                 const calendar_job_removed  = copystate.get('calendar_jobs').deleteIn([fromDayKey,deptId,jobId]);
+                const calendar_job_add      = calendar_job_removed.setIn([toDayKey,deptId,jobId], copied_job.toJS());
 
-                // --------------------------------------
-                let calendar_job_tmp                = calendar_job_removed.toJS();
-                const tmp_add                       = Object.assign({}, calendar_job_tmp[toDayKey][deptId], {[jobId]: copied_job.toJS()} );
-                calendar_job_tmp[toDayKey][deptId]  = tmp_add;
-                // --------------------------------------
-
-                const newstate              = Object.assign({},state,{calendar_jobs: calendar_job_tmp } );
+                const newstate              = Object.assign({},state,{calendar_jobs: calendar_job_add.toJS() } );
                 return newstate;
 
             }else{
@@ -87,15 +82,9 @@ const CalendarReducer = function (state=[], action) {
                 const copystate             = fromJS(state);
                 const copied_job            = copystate.get('programmers_jobs').get(userId).get(fromDayKey).get(jobId);
                 const calendar_job_removed  = copystate.get('programmers_jobs').deleteIn([userId,fromDayKey,jobId]);
+                const calendar_job_add      = calendar_job_removed.setIn([userId,toDayKey,jobId], copied_job.toJS());
 
-                // --------------------------------------
-                let calendar_job_tmp                = calendar_job_removed.toJS();
-                const tmp                           = Object.assign({}, calendar_job_tmp[userId][toDayKey], {[jobId]: copied_job.toJS()} );
-                calendar_job_tmp[userId][toDayKey]  = tmp;
-                // --------------------------------------
-
-
-                const newstate              = Object.assign({},state,{programmers_jobs: calendar_job_tmp });
+                const newstate              = Object.assign({},state,{programmers_jobs: calendar_job_add.toJS() });
                 return newstate;
             }
 

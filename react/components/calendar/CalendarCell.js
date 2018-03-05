@@ -126,15 +126,23 @@ class CalendarCell extends Component {
                         </table>
                     </div>
                     <div className="contain cell_child">
-                        <Modal trigger={<div className="cell_title">{bg.job_title}</div>}
+                        <Modal
+                            trigger={<div className="cell_title">{bg.job_title}</div>}
                             dimmer={"blurring"}
+                            size = {"tiny"}
                         >
                             <Modal.Header>{bg.job_title}</Modal.Header>
                             <Modal.Content>
-                                Content goes here
+                                <table className="modal_table" border="1">
+                                    <thead>
+
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
                             </Modal.Content>
                         </Modal>
-
                     </div>
                 </div>
             );
