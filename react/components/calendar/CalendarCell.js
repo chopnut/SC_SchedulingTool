@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {calendar_page_move_dep_side_by_side} from '../../actions/CalendarActions';
-import {Popup} from 'semantic-ui-react';
+import {Button, Header, Image, Modal } from 'semantic-ui-react';
 
 // Custom component
 import JobSummaryWindow from '../../layouts/calendar/JobSummaryWindow';
@@ -12,7 +12,7 @@ class CalendarCell extends Component {
     constructor(props){
         super(props);
         this.state = {
-            background_color: 'red',
+            background_color: '#6BACDE',
             // Job Summary Window Options
             is_window_open: false
         }
@@ -86,11 +86,14 @@ class CalendarCell extends Component {
         const leftArrowClass  = "chevron left icon";
         const rightArrowClass = "chevron right icon";
 
-
+        // Cell class name on hover
+        let class_cell = "cell";
+        if(this.state.is_window_open){
+            class_cell = class_cell+ " open";
+        }
 
             return(
-                <div className="cell"
-                     style={{backgroundColor: this.state.background_color}}
+                <div className={class_cell}
                      draggable={true}
                      onDragStart={(e)=>{
                          // pass the job department to the handler from row
@@ -101,7 +104,7 @@ class CalendarCell extends Component {
                      onMouseEnter = {()=>{  this.hover_in_job_bag() }}
                      onMouseLeave = {()=>{  this.hover_out_job_bag()}}
                 >
-                    <div className="cell_head">
+                    <div className="cell_head" style={{backgroundColor: this.state.background_color}}>
                         <table width="100%" cellPadding={0} cellSpacing={0}>
                             <tbody>
                             <tr>
@@ -123,18 +126,15 @@ class CalendarCell extends Component {
                         </table>
                     </div>
                     <div className="contain cell_child">
+                        <Modal trigger={<div className="cell_title">{bg.job_title}</div>}
+                            dimmer={"blurring"}
+                        >
+                            <Modal.Header>{bg.job_title}</Modal.Header>
+                            <Modal.Content>
+                                Content goes here
+                            </Modal.Content>
+                        </Modal>
 
-                        <Popup trigger={<div className="cell_title">{bg.job_title}</div>}
-                                   className="window_job_summary"
-                                   basic={true}
-                                   on = 'click'
-                                   onOpen  = {this.handleWindowOpen}
-                                   onClose = {this.handleWindowClose}
-                                   position= {"right center"}
-                                   offset = {100}
-                                   >
-                                    <JobSummaryWindow/>
-                        </Popup>
                     </div>
                 </div>
             );

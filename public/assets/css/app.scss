@@ -238,13 +238,16 @@
                                       .cell:hover{
                                           cursor: w-resize;
                                       }
-                                      .cell{
 
+                                      .cell{
+                                          border-radius: $calendar_job_cell_raius;
                                           box-sizing: border-box;
                                           clear: both;
                                           white-space: nowrap;
                                           overflow: hidden;
                                           margin-bottom: 10px;
+                                          box-shadow: 1px 1px 2px #bbb;
+
 
                                           .cell_head{
                                               td{
@@ -280,12 +283,13 @@
                                               .cell_title{
                                                   cursor: pointer;
                                                   padding: 5px;
-
                                               }
                                           }
 
                                       }
-
+                                      .cell.open{
+                                          box-shadow: 1px 1px 5px #555;
+                                      }
                                   }
                               }
                           }
@@ -878,13 +882,6 @@ th.dat{width: $job_table_w_dat; }
 th.pri{width: $job_table_w_pri; }
 th.sto{width: $job_table_w_sto; }
 
-// the popup window when job is hovered.
-.window_job_container{
-    @include  check();
-}
-.window_job_summary{
-    @include  check();
-}
 // Add recurring window
 .add_recurring{
     position: relative;

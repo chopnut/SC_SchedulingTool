@@ -19,7 +19,11 @@ class JobSummaryWindow extends Component {
         }else{
             return(
             <div className="window_job_container">
-                My Component here
+                <div className="main_content">
+                    <div className="content">
+                        MAIN CONTENT HERE
+                    </div>
+                </div>
             </div>);
         }
     }

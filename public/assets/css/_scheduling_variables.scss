@@ -1,3 +1,4 @@
+// COLOURS THEME
 $main_header_link_size: 16px;
 $main_blue_color: #6BACDE;
 $main_purple_color: #7F5CA2;
@@ -6,10 +7,17 @@ $main_orange_color: #FF7F2A;
 $main_teal_color: #A9D6CB;
 $main_orange_color: #FF7F2A;
 $main_grey_color: #EEEEEE;
-
+$calendar_job_border_color: #000000;
 $calendar_page_selected_bg: #6BACDE;
+
+// BORDERS
 $managejobs_border: 1px solid #ccc;
+
+// PADDING
 $managejobs_page_padding: 10px;
+
+// BORDER RADIUS
+$calendar_job_cell_raius: 3px;
 $managejobs_border_radius: 8px;
 
 // Individual Calendar Manage page job table layout width

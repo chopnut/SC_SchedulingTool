@@ -25,8 +25,7 @@ class ViewDate extends Component {
 
         this.state = {
             isLoading: true,
-            calendar_date: moment(),
-            view_date_programmers_jobs: (props.view_date_jobs? props.view_date_jobs.programmers_jobs: [])
+            calendar_date: moment()
         }
         this.handleCalendarFunction     = this.handleCalendarFunction.bind(this);
         this.handleChangeCalendarDate   = this.handleChangeCalendarDate.bind(this);
@@ -38,9 +37,7 @@ class ViewDate extends Component {
         // Populating colours for view date
         this.populate_colour_settings  = this.populate_colour_settings.bind(this);
     }
-    populate_colour_settings(){
-
-    }
+    populate_colour_settings(){}
     goToMain(e){
         const newMoment = util.getWeekFromDate( moment(this.props.calendar_page.selected_date, "DD/MM/YYYY"));
         this.props.calendar_view_day_set_calendar_date(newMoment, this.state.calendar_date);
@@ -81,16 +78,19 @@ class ViewDate extends Component {
         console.log("CALLING!");
         return true;
     }
-    componentWillReceiveProps(nextProps){ }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.view_date_jobs){
+            this.setState((prevState, props) => (
+                {isLoading: false}
+            ));
+        }
+    }
     renderDepartments(){
 
         let rowsCollection  = [];
         const that          = this;
         const programmingID = this.props.settings.programmingUsers.deptId;
         const programmingU  = this.props.settings.programmingUsers.value;
-
-        let viewDateMasterJobs        = [];
-        let viewDateProgrammersJobs   = [];
 
         // RECURSING OVER DEPARTMENTS ORDER
         function inlineRecursive(item,rowcollection){
@@ -127,13 +127,9 @@ class ViewDate extends Component {
         this.props.dep.departmentsOrder.map(function(item,i){
             inlineRecursive(item,rowsCollection);
         })
-
-
         return (rowsCollection);
-
     }
     renderContent(){
-
         return(
             <div className="third">
                 <div className="left">
@@ -233,9 +229,8 @@ class ViewDate extends Component {
     componentDidMount(){
         const currentDate = moment(this.props.match.params[0], "DD-MM-YYYY");
         this.setState(function(state,props){
-            return ({
-                    isLoading: false,
-                    calendar_date: currentDate}
+            return (
+                {calendar_date: currentDate}
             );
         },this.handleChangeCalendarDate);
 

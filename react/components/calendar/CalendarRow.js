@@ -32,15 +32,13 @@ class CalendarRow extends Component {
 
         if(this.props.isViewDate){
             const view_date_jobs = this.props.calendar_page.view_date_jobs;
-            jobs = view_date_jobs.master[departmentId];
+            if(departmentId in view_date_jobs.master){
+                jobs = view_date_jobs.master[departmentId];
+
+            }
+
         }else{
             jobs = this.props.calendar_jobs[day_key][departmentId];
-
-            // const keysLength = Object.keys(jobs).length;
-            //
-            // if(keysLength>0){
-            //     console.log("GROUPCELLS:", day_key, Object.keys(jobs).length, this.props.calendar_jobs[day_key]);
-            // }
 
         }
         if(util.isArray(jobs)){
@@ -48,7 +46,6 @@ class CalendarRow extends Component {
                 jobs = {};
             }
         }
-
         return jobs;
     }
     startDrop(e,droppedDate,toKey){
