@@ -35,6 +35,13 @@ class CalendarRow extends Component {
             jobs = view_date_jobs.master[departmentId];
         }else{
             jobs = this.props.calendar_jobs[day_key][departmentId];
+
+            // const keysLength = Object.keys(jobs).length;
+            //
+            // if(keysLength>0){
+            //     console.log("GROUPCELLS:", day_key, Object.keys(jobs).length, this.props.calendar_jobs[day_key]);
+            // }
+
         }
         if(util.isArray(jobs)){
             if(jobs.length<=0){
@@ -142,8 +149,6 @@ class CalendarRow extends Component {
         return true;
     }
     componentDidUpdate(){
-        console.log("COMPONENT UPDATED!");
-
         // initiate border only drag
         let cells = document.getElementsByClassName('cell_child');
 
@@ -195,15 +200,6 @@ class CalendarRow extends Component {
 
                     if(thisCellDate == today){  tdClassName = tdClassName+" today ";  }
                     if(colspan==daysLength){ return; }
-
-                // if(i==0 && this.props.departmentId==1){
-                //     console.log("SUN", this.getJobs(i), this.props.calendar_jobs);
-                //
-                // }
-                // if(i==1 && this.props.departmentId==1){
-                //     console.log("MON", this.getJobs(i), this.props.calendar_jobs);
-                //
-                // }
 
 
                     return (

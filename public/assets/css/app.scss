@@ -278,8 +278,9 @@
                                               background-color: #ffffff;
                                               cursor: default;
                                               .cell_title{
-
+                                                  cursor: pointer;
                                                   padding: 5px;
+
                                               }
                                           }
 
@@ -877,6 +878,13 @@ th.dat{width: $job_table_w_dat; }
 th.pri{width: $job_table_w_pri; }
 th.sto{width: $job_table_w_sto; }
 
+// the popup window when job is hovered.
+.window_job_container{
+    @include  check();
+}
+.window_job_summary{
+    @include  check();
+}
 // Add recurring window
 .add_recurring{
     position: relative;

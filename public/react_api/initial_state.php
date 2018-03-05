@@ -91,7 +91,7 @@ $departments = json_encode($dropDownOptionsDepartment);
 $paramDateString = implode(',',$paramDates);
 $calendarJobs    = \Models\SchedJobBagDepartment::getCalendarJobs($paramDateString);
 
-$master_jobs        = json_encode($calendarJobs['master_jobs']);
+$master_jobs        = json_encode($calendarJobs['master_jobs'], JSON_FORCE_OBJECT);
 $programmers_jobs   = json_encode($calendarJobs['programmers_jobs']);
 
 

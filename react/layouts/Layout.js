@@ -83,6 +83,7 @@ class Layout extends Component {
         );
     }
     render() {
+
         if(!this.state.isLoading){
             return (
                 <div className="content_holder">

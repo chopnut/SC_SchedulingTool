@@ -6,6 +6,7 @@ import {Popup} from 'semantic-ui-react';
 
 // Custom component
 import JobSummaryWindow from '../../layouts/calendar/JobSummaryWindow';
+import util from '../../common/edlibrary';
 
 class CalendarCell extends Component {
     constructor(props){
@@ -62,6 +63,7 @@ class CalendarCell extends Component {
         this.props.calendar_page_move_dep_side_by_side(this.props.settings, info);
     }
     shouldComponentUpdate(nextProps,nextState){
+
         if(nextState.background_color!=this.state.background_color)  return true;
         if(this.props.jd.dep.job_dp_id== nextProps.jd.dep.job_dp_id) return false;
         return true;
@@ -73,10 +75,18 @@ class CalendarCell extends Component {
     componentDidMount(){}
     render(){
 
+        if(util.isArray(this.props.jd)){
+            console.log("INSTAnCE OF ARRAY");
+        }else{
+
+        }
+
         const jd = this.props.jd.dep;
         const bg = this.props.jd.bag;
         const leftArrowClass  = "chevron left icon";
         const rightArrowClass = "chevron right icon";
+
+
 
             return(
                 <div className="cell"
@@ -97,8 +107,8 @@ class CalendarCell extends Component {
                             <tr>
                                 <td className="cell_left">
                                     <i className={leftArrowClass} data-content="Move previous day" data-variation="tiny" onClick={()=>{
-                                        this.actionChangeSideToSide(jd.job_dp_id, this.props.prevDate, this.props.prevDayKey );
-                                    }
+                                            this.actionChangeSideToSide(jd.job_dp_id, this.props.prevDate, this.props.prevDayKey );
+                                        }
                                     }></i>
                                 </td>
                                 <td className="cell_middle">{bg.job_prism_number}</td>
@@ -113,22 +123,18 @@ class CalendarCell extends Component {
                         </table>
                     </div>
                     <div className="contain cell_child">
-                        <div className="cell_title">
-                            <Popup trigger={<i>{bg.job_title}</i>}
-                                   className="window_job_summary"
-                                   position="right center"
-                                   flowing
-                                   offset={35}
-                                   basic={true}
-                                   hoverable = {true}
-                                   id={" "}
-                                   onClose  ={this.handleWindowClose}
-                                   onOpen   ={this.handleWindowOpen}
-                                   open     ={this.state.is_window_open}>
-                                    <JobSummaryWindow/>
-                            </Popup>
 
-                        </div>
+                        <Popup trigger={<div className="cell_title">{bg.job_title}</div>}
+                                   className="window_job_summary"
+                                   basic={true}
+                                   on = 'click'
+                                   onOpen  = {this.handleWindowOpen}
+                                   onClose = {this.handleWindowClose}
+                                   position= {"right center"}
+                                   offset = {100}
+                                   >
+                                    <JobSummaryWindow/>
+                        </Popup>
                     </div>
                 </div>
             );

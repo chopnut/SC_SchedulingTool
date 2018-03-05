@@ -99,8 +99,6 @@ class SchedJobBagDepartment extends Model
                     $master_array[$key][$job_dept_id][$job_dp_id]['bag'] = $deps->jobbag;
                 }
 
-
-
             }
         }
 

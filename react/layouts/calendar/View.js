@@ -285,6 +285,7 @@ class Calendar_View extends Component {
 
     }
 	render(){
+
 	    if(this.state.isLoading){
             return (
                 <div className="calendar_view center">
