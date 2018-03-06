@@ -116,6 +116,8 @@ class SchedJobBags extends Model
 
         // Create group id
         $jd_group = new SchedJobBagDepartmentGroup();
+        $jd_group->job_group_qty = $job_bag->job_qty;
+        $jd_group->job_id        = $job_bag->job_id;
         $jd_group->save();
 
         foreach($departments as $departmentId){
@@ -126,7 +128,6 @@ class SchedJobBags extends Model
             // This must call mutator when date is being set
             $jd->job_dp_date	     = $date;
             $jd->job_dp_created_date = $date;
-            $jd->job_dp_qty          = $job_bag->job_qty;
             $jd->job_group_id        = $jd_group->job_group_id;
             $job_depts[]		     = $jd;
         }

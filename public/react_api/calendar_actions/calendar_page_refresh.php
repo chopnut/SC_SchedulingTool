@@ -52,6 +52,8 @@ if($u::areTheseSetAndNotEmpty('get','from','to')){
 
 // Set the calendar jobs
     $paramDateString = implode(',',$paramDates);
+
+
     $calendarJobs    = \Models\SchedJobBagDepartment::getCalendarJobs($paramDateString);
 
     $master_jobs        = json_encode($calendarJobs['master_jobs'], JSON_FORCE_OBJECT);

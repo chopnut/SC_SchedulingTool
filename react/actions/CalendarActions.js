@@ -24,6 +24,11 @@ Special Note: With the use of thunk middleware , normally action creators only r
 but with thunk you can return a function
 
 */
+/*
+
+calendar_page_add_schedule_to
+description: Adds a job quickly from the prism sidebar
+ */
 export function calendar_page_add_schedule_to(settings,job){
     return((dispatch)=>{
         const prom = app(settings);

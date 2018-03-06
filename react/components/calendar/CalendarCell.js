@@ -75,14 +75,11 @@ class CalendarCell extends Component {
     componentDidMount(){}
     render(){
 
-        if(util.isArray(this.props.jd)){
-            console.log("INSTAnCE OF ARRAY");
-        }else{
-
-        }
-
         const jd = this.props.jd.dep;
         const bg = this.props.jd.bag;
+        const gp = this.props.jd.grp;
+
+
         const leftArrowClass  = "chevron left icon";
         const rightArrowClass = "chevron right icon";
 
@@ -130,15 +127,48 @@ class CalendarCell extends Component {
                             trigger={<div className="cell_title">{bg.job_title}</div>}
                             dimmer={"blurring"}
                             size = {"tiny"}
+                            className= {"window_job_card"}
                         >
-                            <Modal.Header>{bg.job_title}</Modal.Header>
-                            <Modal.Content>
-                                <table className="modal_table" border="1">
+                            <Modal.Header
+                                className={"modal_header"}
+                            >
+                                <table className="job_bag_header">
                                     <thead>
-
+                                        <tr>
+                                            <th className="job_prism_number">
+                                                <span className="label">Job Number: </span><span className="value">{ (bg.job_prism_number || "0")}</span>
+                                            </th>
+                                            <th className="job_prism_job_id">{bg.job_prism_job_id}</th>
+                                        </tr>
+                                        <tr>
+                                            <th className="job_title" colSpan={2}>{bg.job_title}</th>
+                                        </tr>{
+                                            (
+                                                bg.job_customer_name!=""?
+                                                <tr>
+                                                    <th className="job_customer_name" colSpan={2}>{bg.job_customer_name}</th>
+                                                </tr>: ""
+                                            )
+                                        }
                                     </thead>
+                                </table>
+                            </Modal.Header>
+                            <Modal.Content
+                                className={"modal_body"}>
+                                <table className="job_bag_info">
                                     <tbody>
-
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table className="job_dep_info">
+                                    <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </Modal.Content>

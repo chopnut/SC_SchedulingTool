@@ -9,7 +9,7 @@ class SchedJobBagDepartmentGroup extends Model
 
     protected $primaryKey   = "job_group_id";
     protected $table        = "sched_job_bag_department_group";
-    protected $fillable     = ["updated_at","created_at"];
+    protected $fillable     = ["updated_at","created_at","job_group_qty"];
 
     public function sched_departments()
     {

@@ -30,6 +30,8 @@ if(count($post)>0){
             // Create group id
 
             $jd_group = new SchedJobBagDepartmentGroup();
+            $jd_group->job_group_qty = $job->job_qty;
+            $jd_group->job_id        = $job->job_id;
             $jd_group->save();
 
             // Departments
