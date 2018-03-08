@@ -29,16 +29,20 @@ class SchedJobBagDepartment extends Model
         'job_dp_stock_picked'
     ];
 
-  public function jobbag()
-  {
-    return $this->belongsTo('Models\SchedJobBags','job_id');
-  }
-    public function jobGroup()
-    {
-        return $this->belongsTo('Models\SchedJobBagDepartmentGroup','job_group_id');
-    }
-    /*
+        public function jobbag()
+        {
+        return $this->belongsTo('Models\SchedJobBags','job_id');
+        }
+        public function jobGroup()
+        {
+            return $this->belongsTo('Models\SchedJobBagDepartmentGroup','job_group_id');
+        }
+        public function dept()
+        {
+            return $this->hasOne('Models\Department', 'job_dept_id');
+        }
 
+    /*
         get departments according to date range
         @string_delimited_range: eg. "04/02/19, 05/02/19 .... 10/02/19"
     */
@@ -56,12 +60,13 @@ class SchedJobBagDepartment extends Model
         $job_departments = SchedJobBagDepartment::whereIn('job_dp_date',$temp)->orderBy('job_dp_order','DESC')->get();
 
 
-
         // Restructure the JSON file to be return to the application
         $master_array           = array();  // for all the jobs in the calendar
         $programmers_array      = array();  // for all the jobs for the programmers
         $programmers_ids        = array();  // holds all programmers ids currently available
         $all_array              = array();
+
+
 
         foreach($job_departments as $deps){
             $job_dp_id      = $deps->job_dp_id;
@@ -99,10 +104,13 @@ class SchedJobBagDepartment extends Model
                     $programmers_array[$job_programmer][$key][$job_dp_id]['dep'] = $deps->jobGroup;
                     $programmers_array[$job_programmer][$key][$job_dp_id]['bag'] = $deps->jobbag;
                     $programmers_array[$job_programmer][$key][$job_dp_id]['grp'] = $deps->jobGroup;
+                    $programmers_array[$job_programmer][$key][$job_dp_id]['dp']  = $deps->dept;
+
 
                     // DELETE THE DUPLICATE JOBBAG
                     // For some reason jobbag relation gets added when $deps->jobbag is called
                     unset($programmers_array[$job_programmer][$key][$job_dp_id]['dep']['jobbag']);
+                    unset($programmers_array[$job_programmer][$key][$job_dp_id]['dep']['dp']);
                     unset($programmers_array[$job_programmer][$key][$job_dp_id]['dep']['jobGroup']);
 
                     $programmers_ids[] = $job_programmer;
@@ -116,9 +124,12 @@ class SchedJobBagDepartment extends Model
                     $master_array[$key][$job_dept_id][$job_dp_id]['dep'] = $deps;
                     $master_array[$key][$job_dept_id][$job_dp_id]['bag'] = $deps->jobbag;
                     $master_array[$key][$job_dept_id][$job_dp_id]['grp'] = $deps->jobGroup;
+                    $master_array[$key][$job_dept_id][$job_dp_id]['dp']  = $deps->dept;
+
 
                     // DELETE THE DUPLICATE JOBBAG
                     // For some reason jobbag relation gets added when $deps->jobbag is called
+                    unset($master_array[$key][$job_dept_id][$job_dp_id]['dep']['dp']);
                     unset($master_array[$key][$job_dept_id][$job_dp_id]['dep']['jobbag']);
                     unset($master_array[$key][$job_dept_id][$job_dp_id]['dep']['jobGroup']);
 
@@ -129,9 +140,6 @@ class SchedJobBagDepartment extends Model
             }
         }
 
-//        $tmp = $master_array[$key][$job_dept_id][$job_dp_id]['dep']->toArray();
-//        print_r($tmp);
-//        exit;
 
         // Fill up all the empty days in the master array also the dept ids
         $depts = Department::orderBy("job_dep_order")->get();

@@ -73,6 +73,20 @@ class CalendarCell extends Component {
 
     }
     componentDidMount(){}
+    renderJobBagInfo(jd,bg,gp){
+        if(bg.job_type){
+
+        }
+        return
+        (<tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>);
+    }
     render(){
 
         const jd = this.props.jd.dep;
@@ -158,6 +172,8 @@ class CalendarCell extends Component {
                                 <table className="job_bag_info">
                                     <tbody>
                                         <tr>
+                                            <td></td>
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                         </tr>
