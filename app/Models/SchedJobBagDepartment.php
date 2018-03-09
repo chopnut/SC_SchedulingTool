@@ -26,7 +26,8 @@ class SchedJobBagDepartment extends Model
         'job_dp_allocated_to',
         'job_dp_allocatee_comments',
         'job_dp_qty',
-        'job_dp_stock_picked'
+        'job_dp_stock_picked',
+        'job_allocated_hours'
     ];
 
         public function jobbag()
@@ -39,7 +40,7 @@ class SchedJobBagDepartment extends Model
         }
         public function dept()
         {
-            return $this->hasOne('Models\Department', 'job_dept_id');
+            return $this->hasOne('Models\Department', 'job_dept_id','job_dp_dept');
         }
 
     /*
@@ -109,6 +110,7 @@ class SchedJobBagDepartment extends Model
 
                     // DELETE THE DUPLICATE JOBBAG
                     // For some reason jobbag relation gets added when $deps->jobbag is called
+                    unset($programmers_array[$job_programmer][$key][$job_dp_id]['dp']);
                     unset($programmers_array[$job_programmer][$key][$job_dp_id]['dep']['jobbag']);
                     unset($programmers_array[$job_programmer][$key][$job_dp_id]['dep']['dp']);
                     unset($programmers_array[$job_programmer][$key][$job_dp_id]['dep']['jobGroup']);
@@ -129,6 +131,7 @@ class SchedJobBagDepartment extends Model
 
                     // DELETE THE DUPLICATE JOBBAG
                     // For some reason jobbag relation gets added when $deps->jobbag is called
+                    unset($master_array[$key][$job_dept_id][$job_dp_id]['dp']);
                     unset($master_array[$key][$job_dept_id][$job_dp_id]['dep']['dp']);
                     unset($master_array[$key][$job_dept_id][$job_dp_id]['dep']['jobbag']);
                     unset($master_array[$key][$job_dept_id][$job_dp_id]['dep']['jobGroup']);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {calendar_page_move_dep_side_by_side} from '../../actions/CalendarActions';
-import {Button, Header, Image, Modal } from 'semantic-ui-react';
+import {Button, Header, Image, Modal, Icon} from 'semantic-ui-react';
 
 // Custom component
 import JobSummaryWindow from '../../layouts/calendar/JobSummaryWindow';
@@ -21,8 +21,11 @@ class CalendarCell extends Component {
         this.hover_out_job_bag     = this.hover_out_job_bag.bind(this);
 
         // Window job summary functions below
-        this.handleWindowClose = this.handleWindowClose.bind(this);
-        this.handleWindowOpen  = this.handleWindowOpen.bind(this);
+        this.handleWindowClose      = this.handleWindowClose.bind(this);
+        this.handleWindowOpen       = this.handleWindowOpen.bind(this);
+        this.renderJobBagInfo       = this.renderJobBagInfo.bind(this);
+        this.renderJobDepInfo       = this.renderJobDepInfo.bind(this);
+        this.renderJobFooter        = this.renderJobFooter.bind(this);
     }
     handleWindowClose(){
         this.setState((prevState, props) => (
@@ -73,19 +76,111 @@ class CalendarCell extends Component {
 
     }
     componentDidMount(){}
-    renderJobBagInfo(jd,bg,gp){
-        if(bg.job_type){
-
-        }
-        return
-        (<tbody>
+    renderJobFooter(jd,bg,gp){
+        return <table className="job_bag_footer">
+            <thead>
+                <tr>
+                    <td>
+                        FOOTER
+                    </td>
+                </tr>
+            </thead>
+        </table>
+    }
+    renderJobHeader(jd,bg,gp){
+        return <table className="job_bag_header">
+            <thead>
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <th className="job_prism_number">
+                    <span className="label">JOB NUMBER </span><span className="value">{ (bg.job_prism_number || "0")}</span>
+                </th>
+                <th className="job_prism_job_id">PRISM ID {bg.job_prism_job_id}</th>
             </tr>
-        </tbody>);
+            <tr>
+                <th className="job_title" colSpan={2}>{bg.job_title}</th>
+            </tr>
+            <tr>
+                <th className="job_customer_name">{bg.job_customer_name}</th>
+                <th className="job_departments">{jd.dept.job_dept_desc}</th>
+            </tr>
+            </thead>
+        </table>
+    }
+    renderJobDepInfo(jd,bg,gp){
+        return <table className="job_dep_info">
+            <tbody>
+            <tr>
+                <th colSpan={4}>DEPARTMENT SUMMARY</th>
+            </tr>
+            <tr>
+                <td>Scheduled Date</td>
+                <td>{jd.job_dp_date}</td>
+                <td>Created Date</td>
+                <td>{jd.job_dp_created_date}</td>
+            </tr>
+            <tr>
+                <td>Job Proof Date</td>
+                <td>he</td>
+                <td>Print Date</td>
+                <td>he</td>
+            </tr>
+            <tr>
+                <td>Department Status</td>
+                <td>{jd.job_dp_status}</td>
+                <td>Job Allocated to</td>
+                <td>___</td>
+            </tr>
+            <tr>
+                <td colSpan={4}>
+                    <Button color='grey' size={"mini"}>
+                        <Icon name='write' /> EDIT DEPARTMENT
+                    </Button>
+                </td>
+            </tr>
+            </tbody>
+        </table>;
+    }
+    renderJobBagInfo(jd,bg,gp){
+        let job_due_date    = bg.job_due_date;
+        let job_lodge_date  = bg.job_lodge_date;
+        let job_print_date  = bg.job_print_date;
+        let job_type        = bg.job_type;
+        let job_qty         = bg.job_qty;
+        let job_status      = bg.job_status;
+
+        return <table className="job_bag_info">
+            <tbody>
+            <tr>
+                <th colSpan={4}>JOB SUMMARY</th>
+            </tr>
+            <tr>
+                <td>Due</td>
+                <td>{bg.job_due_date}</td>
+                <td>Lodgement</td>
+                <td>{bg.job_lodge_date || "Not set yet"}</td>
+            </tr>
+            <tr>
+                <td>Print Date</td>
+                <td>{bg.job_print_date}</td>
+                <td>Job Type</td>
+                <td>{bg.job_type}</td>
+            </tr>
+            <tr>
+                <td>Job Qty</td>
+                <td>{bg.job_qty}</td>
+                <td>Job Status</td>
+                <td>{bg.job_status}</td>
+            </tr>
+            <tr>
+                <td colSpan={4}>
+                    <Button color='grey' size={"mini"}>
+                        <Icon name='write' /> EDIT JOB BAG
+                    </Button>
+                </td>
+            </tr>
+            </tbody>
+        </table>;
+
     }
     render(){
 
@@ -146,48 +241,15 @@ class CalendarCell extends Component {
                             <Modal.Header
                                 className={"modal_header"}
                             >
-                                <table className="job_bag_header">
-                                    <thead>
-                                        <tr>
-                                            <th className="job_prism_number">
-                                                <span className="label">Job Number: </span><span className="value">{ (bg.job_prism_number || "0")}</span>
-                                            </th>
-                                            <th className="job_prism_job_id">{bg.job_prism_job_id}</th>
-                                        </tr>
-                                        <tr>
-                                            <th className="job_title" colSpan={2}>{bg.job_title}</th>
-                                        </tr>{
-                                            (
-                                                bg.job_customer_name!=""?
-                                                <tr>
-                                                    <th className="job_customer_name" colSpan={2}>{bg.job_customer_name}</th>
-                                                </tr>: ""
-                                            )
-                                        }
-                                    </thead>
-                                </table>
+                                {this.renderJobHeader(jd,bg,gp)}
                             </Modal.Header>
-                            <Modal.Content
-                                className={"modal_body"}>
-                                <table className="job_bag_info">
-                                    <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <table className="job_dep_info">
-                                    <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                            <Modal.Content className={"modal_body"}>
+                                { this.renderJobBagInfo(jd,bg,gp) }
+                                { this.renderJobDepInfo(jd,bg,gp) }
                             </Modal.Content>
+                            <Modal.Actions>
+                                { this.renderJobFooter(jd,bg,gp) }
+                            </Modal.Actions>
                         </Modal>
                     </div>
                 </div>

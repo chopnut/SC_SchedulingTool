@@ -884,13 +884,10 @@
     $padding: 10px;
     // main header of the card
     .modal_header{
+
         padding: $padding !important;
         table.job_bag_header{
-            .job_prism_number{
-                font-size: 14px !important;
-            }
             .job_prism_job_id{
-                font-size: 14px !important;
                 text-align: right;
                 width: auto;
             }
@@ -899,14 +896,55 @@
                 font-weight: normal;
                 font-style: italic;
             }
-            th{}
+            .job_departments{
+                text-align: right;
+            }
+            .job_title{
+                font-size: 22px !important;
+
+            }
+            th{
+                font-size: 11px !important;
+            }
         }
     }
     // main body of the card
     .modal_body{
-        padding: $padding !important;
-        table.job_bag_info{
 
+        padding: $padding !important;
+        // JOB BAG INFORMATION
+        table.job_bag_info{
+            tr:last-child{
+                td{
+                    text-align: right;
+                    padding-top: 10px;
+                }
+            }
+            th{
+                font-size: 11px;
+                font-weight: normal;
+                color: #777777;
+            }
+            td{
+                border-spacing: 10px;
+            }
+            td:nth-child(even) {
+                background-color: #EEEEEE;
+                text-align: center;
+
+            }
+            td:nth-child(odd) {
+                background-color: white;
+                font-weight: bold;
+                width: 150px;
+            }
+            td:nth-child(2n+3){
+                padding-left: 10px;
+            }
+        }
+        // JOB DEPARTMENT INFO
+        table.job_dep_info{
+            @extend table.job_bag_info;
         }
     }
 

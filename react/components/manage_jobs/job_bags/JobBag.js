@@ -28,7 +28,6 @@ class JobBag extends Component {
         );
     }
     render(){
-        console.log('Job console: ', this.props.job);
 
         // ----------------------------------------------
         // ROW 1

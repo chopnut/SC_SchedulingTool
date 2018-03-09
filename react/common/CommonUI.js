@@ -28,12 +28,13 @@ export function showJobType(jobType,onChangeFunc,includeLabel=false){
     );
 }
 
-export function showDropDown(options,selections,onchangeFunction,placeholder,id){
+export function showDropDown(options,selections,onchangeFunction,placeholder,id, multiple){
+    const multiple_prop = (typeof(multiple)=='undefined');
     return(
         <Dropdown placeholder={placeholder}
                   fluid
                   floating
-                  multiple
+                  multiple  = {multiple_prop}
                   selection
                   id        = {id}
                   name      = {id}

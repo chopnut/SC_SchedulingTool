@@ -46,7 +46,7 @@ class AddEditJobForm extends Component {
 
             // For programming section allocation
 
-            programmers_selection:[],
+            programmers_selection: [],
             programmers_options:[],
             programmers_job_departments: []
         };
@@ -157,6 +157,8 @@ class AddEditJobForm extends Component {
             });
 
     }
+
+
     // API QUERY: For multiple API queries for programming section
     getApiProgrammersSection(){
 
@@ -238,14 +240,16 @@ class AddEditJobForm extends Component {
         const ProgrammersDropdown = ()=>{
             return(
                 <div className="field">
-                    <label><i className="user circle icon" aria-hidden="true"></i> Assign Programmer(s) to a Job</label>
+                    <label><i className="user circle icon" aria-hidden="true"></i> Assign Programmer to a Job</label>
                     <input type="hidden" name="job_dp_allocated_to" id="job_dp_allocated_to" value={this.state.job.job_departments}/>
-                    {showDropDown(
+                    {showDropDown
+                    (
                         this.state.programmers_options,
                         this.state.programmers_selection,
                         this.handleProgrammersAssign,
-                        "Pick Programmers",
-                        "job_departments"
+                        "Pick a Programmer",
+                        "job_departments",
+                        true
                     )}
                 </div>
             );
