@@ -27,16 +27,17 @@ if($u::areTheseSetAndNotEmpty('get','at')){
         $depId  = $j->job_dp_dept;
         $uid    = $j->job_dp_allocated_to;
         $date   = $j->job_dp_date;
+        $dept   = $j->dept;
 
         if(!isset($aDep[$depId]))     $aDep[$depId]         = array();
 
         // its a programmers job
         if($uid>0 && !is_null($uid)){
             if(!isset($pDep[$uid]))       $pDep[$uid]           = array();
-            $pDep[$uid][] = array('bag'=> $j->jobbag()->get()->first(),'dep' => $j);
+            $pDep[$uid][] = array('bag'=> $j->jobbag()->get()->first(),'dep'  => $j, 'grp'=> $j->jobGroup()->get()->first());
         }else{
         // its everything else job
-            $aDep[$depId][] = array('bag'=> $j->jobbag()->get()->first(),'dep' => $j);
+            $aDep[$depId][] = array('bag'=> $j->jobbag()->get()->first(),'dep'=> $j,'grp'=> $j->jobGroup()->get()->first());
         }
     }
 

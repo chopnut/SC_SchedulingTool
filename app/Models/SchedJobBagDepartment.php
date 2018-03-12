@@ -42,6 +42,10 @@ class SchedJobBagDepartment extends Model
         {
             return $this->hasOne('Models\Department', 'job_dept_id','job_dp_dept');
         }
+        public function programmer()
+        {
+            return $this->hasOne('Models\Login', 'login_id','job_dp_allocated_to');
+        }
 
     /*
         get departments according to date range
@@ -106,10 +110,12 @@ class SchedJobBagDepartment extends Model
                     $programmers_array[$job_programmer][$key][$job_dp_id]['bag'] = $deps->jobbag;
                     $programmers_array[$job_programmer][$key][$job_dp_id]['grp'] = $deps->jobGroup;
                     $programmers_array[$job_programmer][$key][$job_dp_id]['dp']  = $deps->dept;
+                    $programmers_array[$job_programmer][$key][$job_dp_id]['programmer']  = $deps->programmer;
 
 
                     // DELETE THE DUPLICATE JOBBAG
                     // For some reason jobbag relation gets added when $deps->jobbag is called
+                    unset($programmers_array[$job_programmer][$key][$job_dp_id]['programmer']);
                     unset($programmers_array[$job_programmer][$key][$job_dp_id]['dp']);
                     unset($programmers_array[$job_programmer][$key][$job_dp_id]['dep']['jobbag']);
                     unset($programmers_array[$job_programmer][$key][$job_dp_id]['dep']['dp']);
@@ -127,10 +133,12 @@ class SchedJobBagDepartment extends Model
                     $master_array[$key][$job_dept_id][$job_dp_id]['bag'] = $deps->jobbag;
                     $master_array[$key][$job_dept_id][$job_dp_id]['grp'] = $deps->jobGroup;
                     $master_array[$key][$job_dept_id][$job_dp_id]['dp']  = $deps->dept;
-
+                    $master_array[$key][$job_dept_id][$job_dp_id]['programmer']  = $deps->programmer;
 
                     // DELETE THE DUPLICATE JOBBAG
                     // For some reason jobbag relation gets added when $deps->jobbag is called
+
+                    unset($master_array[$key][$job_dept_id][$job_dp_id]['programmer']);
                     unset($master_array[$key][$job_dept_id][$job_dp_id]['dp']);
                     unset($master_array[$key][$job_dept_id][$job_dp_id]['dep']['dp']);
                     unset($master_array[$key][$job_dept_id][$job_dp_id]['dep']['jobbag']);

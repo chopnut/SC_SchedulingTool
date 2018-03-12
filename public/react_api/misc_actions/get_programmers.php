@@ -4,10 +4,10 @@
     $folder_level = '../';
     include('../includes.php');
     use Illuminate\Database\Capsule\Manager as Capsule;
-    // print_r( Capsule::getQueryLog());
     $data = $u::getRequestData();
 
     // -------- CUSTOM CODE BELOW ------------ //
+
     use \Models\SchedSettings;
     use \Models\UserSchedSettings;
     /*

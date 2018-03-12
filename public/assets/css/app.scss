@@ -892,7 +892,7 @@
                 width: auto;
             }
             .job_customer_name{
-                font-size: 13px;
+                font-size: 14px;
                 font-weight: normal;
                 font-style: italic;
             }
@@ -912,14 +912,32 @@
     .modal_body{
 
         padding: $padding !important;
+
+
+        .edit_button{
+            border: 0px solid #000000 !important;
+            background: none !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            color: #000000 !important;
+            font-weight: bold;
+            font-size: 11px;
+        }
         // JOB BAG INFORMATION
         table.job_bag_info{
-            tr:last-child{
-                td{
+            margin-bottom: 5px;
+            tr:first-child{
+                th:first-child{
+                    padding-bottom: $padding;
+                }
+                th:last-child{
                     text-align: right;
-                    padding-top: 10px;
+                    width: 200px;
+                    padding-bottom: $padding;
+
                 }
             }
+
             th{
                 font-size: 11px;
                 font-weight: normal;
@@ -931,12 +949,11 @@
             td:nth-child(even) {
                 background-color: #EEEEEE;
                 text-align: center;
-
             }
             td:nth-child(odd) {
                 background-color: white;
                 font-weight: bold;
-                width: 150px;
+                width: 130px;
             }
             td:nth-child(2n+3){
                 padding-left: 10px;

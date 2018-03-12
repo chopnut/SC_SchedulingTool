@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import {connect} from 'react-redux';
 import {calendar_page_move_dep_side_by_side} from '../../actions/CalendarActions';
-import {Button, Header, Image, Modal, Icon} from 'semantic-ui-react';
+import {Button, Modal, Icon} from 'semantic-ui-react';
+import {withRouter } from 'react-router-dom';
 
 // Custom component
 import JobSummaryWindow from '../../layouts/calendar/JobSummaryWindow';
@@ -14,7 +14,9 @@ class CalendarCell extends Component {
         this.state = {
             background_color: '#6BACDE',
             // Job Summary Window Options
-            is_window_open: false
+            is_window_open: false,
+            is_working: false,
+            is_editing: true
         }
         this.actionChangeSideToSide = this.actionChangeSideToSide.bind(this);
         this.hover_in_job_bag      = this.hover_in_job_bag.bind(this);
@@ -26,11 +28,17 @@ class CalendarCell extends Component {
         this.renderJobBagInfo       = this.renderJobBagInfo.bind(this);
         this.renderJobDepInfo       = this.renderJobDepInfo.bind(this);
         this.renderJobFooter        = this.renderJobFooter.bind(this);
+        this.handleEditJobBag       = this.handleEditJobBag.bind(this);
+    }
+    handleEditJobBag(){
+        const { history } = this.props;
+        history.push('/managejobs/newedit/'+this.props.jd.bag.job_id);
     }
     handleWindowClose(){
         this.setState((prevState, props) => (
             {is_window_open: false}
         ));
+        console.log("CLOSE BUTTON CALLED!", this.state.is_window_open);
     }
     handleWindowOpen(){
         this.setState((prevState, props) => (
@@ -41,14 +49,13 @@ class CalendarCell extends Component {
         this.setState((prevState, props) => (
             {background_color: this.props.colours_setting.hover_calendar_job}
         ));
-        this.handleWindowOpen();
+
     }
     hover_out_job_bag(){
         if(this.state.is_window_open){
             this.setState((prevState, props) => (
                 {background_color: 'red'}
             ));
-            this.handleWindowClose();
         }
     }
     actionChangeSideToSide(jobId,day,toKey){
@@ -68,6 +75,7 @@ class CalendarCell extends Component {
     shouldComponentUpdate(nextProps,nextState){
 
         if(nextState.background_color!=this.state.background_color)  return true;
+        if(nextState.is_window_open!=this.state.is_window_open)      return true;
         if(this.props.jd.dep.job_dp_id== nextProps.jd.dep.job_dp_id) return false;
         return true;
     }
@@ -81,7 +89,7 @@ class CalendarCell extends Component {
             <thead>
                 <tr>
                     <td>
-                        FOOTER
+                        <Button color="red" size="mini" onClick ={this.handleWindowClose}>Close</Button>
                     </td>
                 </tr>
             </thead>
@@ -101,7 +109,9 @@ class CalendarCell extends Component {
             </tr>
             <tr>
                 <th className="job_customer_name">{bg.job_customer_name}</th>
-                <th className="job_departments">{jd.dept.job_dept_desc}</th>
+                <th className="job_departments">
+                    { (jd.job_dp_dept == this.props.global_department_id && jd.programmer!==null)?jd.dept.job_dept_desc+":":jd.dept.job_dept_desc }
+                </th>
             </tr>
             </thead>
         </table>
@@ -110,7 +120,8 @@ class CalendarCell extends Component {
         return <table className="job_dep_info">
             <tbody>
             <tr>
-                <th colSpan={4}>DEPARTMENT SUMMARY</th>
+                <th colSpan={2}>DEPARTMENT SUMMARY</th>
+                <th colSpan={2}></th>
             </tr>
             <tr>
                 <td>Scheduled Date</td>
@@ -130,13 +141,6 @@ class CalendarCell extends Component {
                 <td>Job Allocated to</td>
                 <td>___</td>
             </tr>
-            <tr>
-                <td colSpan={4}>
-                    <Button color='grey' size={"mini"}>
-                        <Icon name='write' /> EDIT DEPARTMENT
-                    </Button>
-                </td>
-            </tr>
             </tbody>
         </table>;
     }
@@ -151,7 +155,12 @@ class CalendarCell extends Component {
         return <table className="job_bag_info">
             <tbody>
             <tr>
-                <th colSpan={4}>JOB SUMMARY</th>
+                <th colSpan={2}>JOB SUMMARY</th>
+                <th colSpan={2}>
+                    <Button basic size="small" className="edit_button" onClick={this.handleEditJobBag}>
+                        <Icon name='write' /> EDIT
+                    </Button>
+                </th>
             </tr>
             <tr>
                 <td>Due</td>
@@ -170,13 +179,6 @@ class CalendarCell extends Component {
                 <td>{bg.job_qty}</td>
                 <td>Job Status</td>
                 <td>{bg.job_status}</td>
-            </tr>
-            <tr>
-                <td colSpan={4}>
-                    <Button color='grey' size={"mini"}>
-                        <Icon name='write' /> EDIT JOB BAG
-                    </Button>
-                </td>
             </tr>
             </tbody>
         </table>;
@@ -233,10 +235,12 @@ class CalendarCell extends Component {
                     </div>
                     <div className="contain cell_child">
                         <Modal
-                            trigger={<div className="cell_title">{bg.job_title}</div>}
+                            trigger={<div className="cell_title" onClick={this.handleWindowOpen}>{bg.job_title}</div>}
                             dimmer={"blurring"}
                             size = {"tiny"}
                             className= {"window_job_card"}
+                            open = {this.state.is_window_open}
+                            onClose = {this.handleWindowClose}
                         >
                             <Modal.Header
                                 className={"modal_header"}
@@ -260,7 +264,8 @@ class CalendarCell extends Component {
 function mapStateToProps(state,ownprops) {
     return({
         settings: state.settings,
-        colours_setting: JSON.parse(state.settings.setting.colours_setting)
+        colours_setting: JSON.parse(state.settings.setting.colours_setting),
+        global_department_id: state.settings.setting.programming_dept_id
     });
 }
 function mapDispatchToProps(dispatch){
@@ -270,4 +275,4 @@ function mapDispatchToProps(dispatch){
         }
     });
 }
-export default connect(mapStateToProps,mapDispatchToProps)(CalendarCell);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(CalendarCell));
