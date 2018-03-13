@@ -52,6 +52,7 @@ class SchedJobBags extends Model
         $temp['job_comments']     = \MyUtil::dd('job_comments',$data,'');
         $temp['job_type']         = \MyUtil::dd('job_type',$data,'once');
         $temp['job_customer_name']= \MyUtil::dd('job_customer_name',$data,'');
+        $temp['job_status']       = \MyUtil::dd('job_status',$data,'');
 
         // Extracted below
         $date 			                = \MyUtil::dd('job_dp_date',$data);
@@ -109,7 +110,7 @@ class SchedJobBags extends Model
     }
 
 
-    static public function createDepartments($job_bag,$departments,$date){
+    static public function createDepartments($job_bag,$departments,$date, $department_setup=null){
 
         // Create the bags department for each
         $job_depts = array();
@@ -121,14 +122,28 @@ class SchedJobBags extends Model
         $jd_group->save();
 
         foreach($departments as $departmentId){
-            $jd  				      = new SchedJobBagDepartment();
+            $jd  				     = new SchedJobBagDepartment();
             $jd->job_id              = $job_bag->job_id;
             $jd->job_dp_dept	     = $departmentId;
 
             // This must call mutator when date is being set
+
             $jd->job_dp_date	     = $date;
             $jd->job_dp_created_date = $date;
             $jd->job_group_id        = $jd_group->job_group_id;
+            $jd->job_dp_status       = $job_bag->job_status;
+
+            // Allocate programmer below only when the programmer is not empty
+            if(is_array($department_setup) && !empty($department_setup['selected_programmer'])){
+
+                $programming_dept_id = $department_setup['programming_dept_id'];
+                $programmer_id       = $department_setup['selected_programmer'];
+
+                // catch the department id = same to the settings department id
+                if($departmentId == $programming_dept_id){
+                    $jd->job_dp_allocated_to  = intval($programmer_id);
+                }
+            }
             $job_depts[]		     = $jd;
         }
 
@@ -138,7 +153,7 @@ class SchedJobBags extends Model
         return $job_bag->dept();
     }
     static public function addScheduleTo($post){
-        $extracted = array();
+        $extracted          = array();
         $temp               = SchedJobBags::fillData($post,$extracted);
         $job_prism_number   = (isset($temp['job_prism_number'])? $temp['job_prism_number']:0);
 

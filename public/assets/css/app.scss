@@ -746,6 +746,18 @@
               }
               // This is the container of the main create/edit job page
               .manage_job_ce_container{
+                  $job_assignment_padding: 10px;
+                  // Job edit form assignment programmer box
+                  .job_bag_programmer_assignment{
+
+                      background-color: lighten($main_teal_color,20%);
+                      border: 1px solid lighten($main_teal_color,10%);
+                      border-radius: $managejobs_border_radius;
+                      padding: 15px;
+                      padding-bottom: $job_assignment_padding;
+                      margin-top:     $job_assignment_padding;
+                      margin-bottom:  $job_assignment_padding;
+                  }
                   .manage_page_ce_header{
                       .head{
                           font-size: 25px;

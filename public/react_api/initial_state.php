@@ -95,6 +95,7 @@ $master_jobs        = json_encode($calendarJobs['master_jobs'], JSON_FORCE_OBJEC
 $programmers_jobs   = json_encode($calendarJobs['programmers_jobs'],JSON_FORCE_OBJECT);
 
 
+
 // Timestamp in every state needs to change to retrigger re-render
 // When the calendar page days changed make sure you change the calendar_jobs state
 // calendar_jobs reflects the jobs that are in there from the dates of the calendar page days.

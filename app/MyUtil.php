@@ -70,7 +70,7 @@ class MyUtil{
 
 		for ($i=1; $i < $count ; $i++) { 
 
-			if(!isset($val[func_get_arg($i)]) || empty($val[func_get_arg($i)])){
+			if(!isset($val[func_get_arg($i)]) || (empty($val[func_get_arg($i)]) && $val[func_get_arg($i)]=="")){
 
 				return false;
 			}

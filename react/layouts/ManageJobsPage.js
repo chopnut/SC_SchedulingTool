@@ -56,7 +56,7 @@ class ManageJobsPage extends Component {
                         <Route exact path="/managejobs" render ={(props) => <ManageJobs_JobsPage {...this.props} /> }   />
                         <Route path="/managejobs/jobs" render ={(props) => <ManageJobs_JobsPage  {...this.props} /> }   />
                         <Route path="/managejobs/schedule" render ={(props) => <ManageJobs_SchedulePage {...this.props} /> } />
-                        <Route path="/managejobs/newedit" render ={(props) => <ManageJobs_NewEditPage {...this.props}   /> } />
+                        <Route path="/managejobs/newedit/:jobid?/:depid?" render ={(props) => <ManageJobs_NewEditPage {...this.props}   /> } />
                     </RouteWrapper>
                 </div>
             );

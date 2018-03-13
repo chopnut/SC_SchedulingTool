@@ -21,6 +21,7 @@ class ProgrammerRow extends Component {
         this.getJobs                = this.getJobs.bind(this);
     }
     componentDidMount(){
+
         this.setState(function(state,props){
             return ({state,isLoading: false});
         });
@@ -37,7 +38,8 @@ class ProgrammerRow extends Component {
             }
         }else{
             if(login_id in this.props.calendar_page.programmers_jobs){
-                jobs = this.props.calendar_page.programmers_jobs[login_id];
+                jobs = this.props.calendar_page.programmers_jobs[login_id][day_key];
+
             }
         }
 
@@ -136,6 +138,7 @@ class ProgrammerRow extends Component {
         const today         = this.props.calendar_page.today_date;
 
 
+
         if(this.state.isLoading){
             return(
                 <tr>
@@ -155,6 +158,7 @@ class ProgrammerRow extends Component {
                 <td >
                     {this.props.user.first_name} ({ this.props.user.login_id})
                 </td>{this.props.calendar_page.days.map((item,i)=>{
+
                 const thisCellDate = item.date;
                 let tdClassName  = "tdCell";
 
@@ -164,6 +168,9 @@ class ProgrammerRow extends Component {
                 if(colspan==8){
                     return;
                 }
+                const jobs = this.getJobs(i);
+                console.log("DAYS: ",this.props.user.login_id, i , jobs);
+
                 return (
                     <td key={i}
                         id={this.props.departmentId}
@@ -195,7 +202,7 @@ class ProgrammerRow extends Component {
                             departmentId    = {this.props.departmentId}
                             initDrag        = {this.handleDragging}
                             initDragEnd     = {this.handleDragEnd}
-                            jobs            = {this.getJobs(i)}
+                            jobs            = {jobs}
                         />
                     </td>
                 );

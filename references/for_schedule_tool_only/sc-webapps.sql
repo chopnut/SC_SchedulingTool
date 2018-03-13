@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2018 at 06:41 AM
+-- Generation Time: Mar 13, 2018 at 06:11 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -609,7 +609,8 @@ INSERT INTO `sched_job_bags` (`job_id`, `job_prism_job_id`, `job_prism_number`, 
 (5, 94278, 68852, 'Allianz EHA Retail WP                                                   ', 'Allianz Global Assistance                                               ', NULL, '2018-02-28', '2018-02-16', NULL, '', '', 'stand by', 0, '2018-03-09 13:08:02', '2018-03-09 13:08:02', '30', 'once', '1,4,5,6,7'),
 (6, 94275, 68849, 'Toyota UR                                                               ', 'Allianz Global Assistance                                               ', NULL, '2018-02-28', '2018-02-02', NULL, '', '', 'stand by', 0, '2018-03-09 13:08:21', '2018-03-09 13:08:21', '619', 'once', '1,5,6,7'),
 (7, 94276, 68850, 'Toyota UR                                                               ', 'Allianz Global Assistance                                               ', NULL, '2018-02-28', '2018-02-09', NULL, '', '', 'stand by', 0, '2018-03-09 13:08:41', '2018-03-09 13:08:41', '673', 'once', '1,4,6,5,8'),
-(8, 94273, 68847, 'All Other Pallet                                                        ', 'Allianz Global Assistance                                               ', NULL, '2018-02-27', '2018-02-27', NULL, '', '', 'stand by', 0, '2018-03-09 13:09:04', '2018-03-09 13:09:04', '53', 'recurring', '1,5,6'),
+(8, 94273, 68847, 'All Other Pallet                                                        ', '', NULL, '2018-02-27', '2018-02-27', NULL, '', '', 'stand by', 0, '2018-03-09 13:09:04', '2018-03-13 08:45:36', '53', 'recurring', '1,5,6'),
+(23, 94441, 68985, 'AU354 - Reminder Batch 2                                                ', 'RSL Art Union                                                           ', NULL, '1970-01-01', '2018-03-29', NULL, '', '', 'stand by', 0, '2018-03-13 11:22:13', '2018-03-13 11:22:13', '85000', 'recurring', '1,4,5'),
 (9, 94274, 68848, 'All Other Freight                                                       ', 'Allianz Global Assistance                                               ', NULL, '2018-02-28', '2018-02-28', NULL, '', '', 'stand by', 0, '2018-03-09 13:09:25', '2018-03-09 13:09:25', '1', 'once', '4,6,7,8'),
 (10, 94271, 68845, 'PCYC Marketing Portal Monthly - Mar                                     ', 'Qld Police-Citizens Youth Welfare                                       ', NULL, '1970-01-01', '2018-03-31', NULL, '', '', 'stand by', 0, '2018-03-09 13:10:00', '2018-03-09 13:10:00', '1', 'once', '1,4,5'),
 (11, 94265, 68841, 'BCF Member Cards 050318                                                 ', 'Super Retail Group Services                                             ', NULL, '2018-03-07', '2018-03-08', NULL, '', '', 'stand by', 0, '2018-03-09 13:11:18', '2018-03-09 13:11:18', '1524', 'once', '1,4,6,5'),
@@ -617,9 +618,11 @@ INSERT INTO `sched_job_bags` (`job_id`, `job_prism_job_id`, `job_prism_number`, 
 (13, 94272, 68846, 'Monthly Email send costs - MARCH                                        ', '', NULL, '1970-01-01', '2018-03-30', NULL, '', '', 'stand by', 0, '2018-03-09 13:12:35', '2018-03-12 13:59:59', '0', 'once', '1,4,5'),
 (20, 94439, 68983, 'BlueCare Self Seal Env Supply                                           ', 'Blue Care                                                               ', NULL, '1970-01-01', '2018-03-13', NULL, '', '', 'stand by', 0, '2018-03-12 14:51:29', '2018-03-12 14:51:29', '3000', 'once', '4,1'),
 (14, 94277, 68851, 'Skoda UR                                                                ', 'Allianz Global Assistance                                               ', NULL, '2018-02-28', '2018-02-19', NULL, '', '', 'stand by', 0, '2018-03-09 13:12:55', '2018-03-09 13:12:55', '136', 'once', '1,4'),
-(19, 94438, NULL, '2pp A4 Duplex Black 90gsm SunOffset                                     ', 'QSuper Fulfilment                                                       ', NULL, '1970-01-01', '2018-03-13', NULL, '', '', 'stand by', 0, '2018-03-12 11:04:47', '2018-03-12 11:04:47', '1', 'once', '1,4'),
+(19, 94438, NULL, '2pp A4 Duplex Black 90gsm SunOffset                                     ', '', NULL, '1970-01-01', '2018-03-13', NULL, '', '', 'stand by', 0, '2018-03-12 11:04:47', '2018-03-13 15:50:52', '1', 'once', '1,4'),
+(24, NULL, NULL, 'Return stock freight', '', NULL, NULL, NULL, NULL, '', '', 'stand by', 0, '2018-03-13 16:00:16', '2018-03-13 16:00:16', '0', 'once', '1'),
 (16, 94369, 68942, 'Toyota Yaris & Camry WP Set-up                                          ', 'Allianz Global Assistance                                               ', NULL, '2018-03-07', '2018-03-07', NULL, '', '', 'stand by', 0, '2018-03-12 10:27:08', '2018-03-12 10:27:08', '222', 'once', '1'),
-(21, 94440, 68984, 'AU354 - Reminder Batch 1                                                ', 'RSL Art Union                                                           ', NULL, '1970-01-01', '2018-03-22', NULL, '', '', 'stand by', 0, '2018-03-12 16:20:23', '2018-03-12 16:20:23', '85000', 'once', '1');
+(21, 94440, 68984, 'AU354 - Reminder Batch 1                                                ', '', NULL, '1970-01-01', '2018-03-22', NULL, '', '', 'stand by', 0, '2018-03-12 16:20:23', '2018-03-13 16:03:45', '85000', 'once', '1'),
+(22, 94366, 68939, 'Skoda Renewal                                                           ', 'Allianz Global Assistance                                               ', NULL, '2018-02-27', '2018-02-27', NULL, '', '', 'stand by', 0, '2018-03-12 16:55:54', '2018-03-12 16:55:54', '19', 'once', '5,6,7,1');
 
 -- --------------------------------------------------------
 
@@ -656,7 +659,7 @@ CREATE TABLE `sched_job_bag_department` (
 --
 
 INSERT INTO `sched_job_bag_department` (`job_dp_id`, `job_id`, `job_dp_dept`, `job_group_id`, `job_dp_date`, `job_dp_created_date`, `job_dp_started_date`, `job_dp_finished_date`, `job_dp_proof_date`, `job_dp_print_date`, `job_dp_status`, `job_dp_comments`, `job_dp_order`, `job_dp_minutes`, `created_at`, `updated_at`, `job_dp_allocated_to`, `job_dp_allocatee_comments`, `job_dp_qty`, `job_allocated_hours`, `job_dp_stock_picked`) VALUES
-(1, 1, 1, 1, '2018-03-05', '2018-03-06', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-06 09:35:19', '2018-03-08 15:38:20', NULL, NULL, '0', '0', NULL),
+(1, 1, 1, 1, '2018-03-05', '2018-03-06', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-06 09:35:19', '2018-03-13 16:03:09', 2, NULL, '0', '0', NULL),
 (2, 1, 4, 1, '2018-03-06', '2018-03-06', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-06 09:35:19', '2018-03-06 09:35:19', NULL, NULL, '0', '0', NULL),
 (3, 2, 1, 2, '2018-03-10', '2018-03-09', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-06 09:37:04', '2018-03-08 14:46:00', NULL, NULL, '0', '0', NULL),
 (4, 2, 4, 2, '2018-03-08', '2018-03-09', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-06 09:37:04', '2018-03-09 15:02:01', NULL, NULL, '0', '0', NULL),
@@ -666,7 +669,7 @@ INSERT INTO `sched_job_bag_department` (`job_dp_id`, `job_id`, `job_dp_dept`, `j
 (8, 4, 1, 4, '2018-03-07', '2018-03-07', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-09 13:07:42', '2018-03-09 13:07:42', NULL, NULL, '0', '0', NULL),
 (9, 4, 5, 4, '2018-03-07', '2018-03-07', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-09 13:07:42', '2018-03-09 13:07:42', NULL, NULL, '0', '0', NULL),
 (10, 4, 6, 4, '2018-03-07', '2018-03-07', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-09 13:07:42', '2018-03-09 13:07:42', NULL, NULL, '0', '0', NULL),
-(11, 4, 7, 4, '2018-03-07', '2018-03-07', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-09 13:07:42', '2018-03-09 13:07:42', NULL, NULL, '0', '0', NULL),
+(11, 4, 7, 4, '2018-03-08', '2018-03-07', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-09 13:07:42', '2018-03-12 16:57:39', NULL, NULL, '0', '0', NULL),
 (12, 5, 1, 5, '2018-03-05', '2018-03-05', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-09 13:08:02', '2018-03-09 13:08:02', NULL, NULL, '0', '0', NULL),
 (13, 5, 4, 5, '2018-03-05', '2018-03-05', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-09 13:08:02', '2018-03-09 13:08:02', NULL, NULL, '0', '0', NULL),
 (14, 5, 5, 5, '2018-03-05', '2018-03-05', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-09 13:08:02', '2018-03-09 13:08:02', NULL, NULL, '0', '0', NULL),
@@ -704,14 +707,28 @@ INSERT INTO `sched_job_bag_department` (`job_dp_id`, `job_id`, `job_dp_dept`, `j
 (46, 13, 1, 14, '2018-03-09', '2018-03-09', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-09 13:12:35', '2018-03-09 13:12:35', NULL, NULL, '0', '0', NULL),
 (47, 13, 4, 14, '2018-03-09', '2018-03-09', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-09 13:12:35', '2018-03-09 13:12:35', NULL, NULL, '0', '0', NULL),
 (48, 13, 5, 14, '2018-03-09', '2018-03-09', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-09 13:12:35', '2018-03-09 13:12:35', NULL, NULL, '0', '0', NULL),
-(57, 19, 1, 22, '2018-03-12', '2018-03-12', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-12 11:04:47', '2018-03-12 11:04:47', NULL, NULL, '0', '0', NULL),
+(57, 19, 1, 22, '2018-03-12', '2018-03-12', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-12 11:04:47', '2018-03-13 15:56:57', 2, NULL, '0', '0', NULL),
 (58, 19, 4, 22, '2018-03-12', '2018-03-12', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-12 11:04:47', '2018-03-12 11:04:47', NULL, NULL, '0', '0', NULL),
 (59, 20, 4, 23, '2018-03-12', '2018-03-12', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-12 14:51:29', '2018-03-12 14:51:29', NULL, NULL, '0', '0', NULL),
 (60, 20, 1, 23, '2018-03-13', '2018-03-12', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-12 14:51:29', '2018-03-12 14:51:35', NULL, NULL, '0', '0', NULL),
 (61, 8, 1, 24, '2018-03-14', '2018-03-14', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-12 15:32:20', '2018-03-12 15:32:20', NULL, NULL, NULL, '0', NULL),
 (62, 8, 5, 24, '2018-03-14', '2018-03-14', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-12 15:32:20', '2018-03-12 15:32:20', NULL, NULL, NULL, '0', NULL),
 (63, 8, 6, 24, '2018-03-14', '2018-03-14', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-12 15:32:20', '2018-03-12 15:32:20', NULL, NULL, NULL, '0', NULL),
-(64, 21, 1, 25, '2018-03-12', '2018-03-12', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-12 16:20:23', '2018-03-12 16:20:23', NULL, NULL, '0', '0', NULL);
+(64, 21, 1, 25, '2018-03-12', '2018-03-12', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-12 16:20:23', '2018-03-13 16:03:45', 2, NULL, '0', '0', NULL),
+(65, 8, 1, 26, '2018-03-12', '2018-03-12', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-12 16:52:37', '2018-03-13 16:09:25', 2, NULL, NULL, '0', NULL),
+(66, 8, 5, 26, '2018-03-12', '2018-03-12', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-12 16:52:37', '2018-03-12 16:52:37', NULL, NULL, NULL, '0', NULL),
+(67, 8, 6, 26, '2018-03-12', '2018-03-12', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-12 16:52:37', '2018-03-12 16:52:37', NULL, NULL, NULL, '0', NULL),
+(68, 22, 5, 27, '2018-03-10', '2018-03-10', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-12 16:55:54', '2018-03-12 16:55:54', NULL, NULL, '0', '0', NULL),
+(69, 22, 6, 27, '2018-03-10', '2018-03-10', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-12 16:55:54', '2018-03-12 16:55:54', NULL, NULL, '0', '0', NULL),
+(70, 22, 7, 27, '2018-03-10', '2018-03-10', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-12 16:55:54', '2018-03-12 16:55:54', NULL, NULL, '0', '0', NULL),
+(71, 22, 1, 27, '2018-03-10', '2018-03-10', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-12 16:55:54', '2018-03-12 16:55:54', NULL, NULL, '0', '0', NULL),
+(72, 8, 1, 28, '2018-03-11', '2018-03-11', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-13 08:38:17', '2018-03-13 16:11:38', 8, NULL, NULL, '0', NULL),
+(73, 8, 5, 28, '2018-03-11', '2018-03-11', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-13 08:38:17', '2018-03-13 08:38:17', NULL, NULL, NULL, '0', NULL),
+(74, 8, 6, 28, '2018-03-11', '2018-03-11', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-03-13 08:38:17', '2018-03-13 08:38:17', NULL, NULL, NULL, '0', NULL),
+(75, 23, 1, 29, '2018-03-13', '2018-03-13', NULL, NULL, NULL, NULL, 'stand by', NULL, 0, NULL, '2018-03-13 11:22:13', '2018-03-13 11:22:13', NULL, NULL, '0', '0', NULL),
+(76, 23, 4, 29, '2018-03-13', '2018-03-13', NULL, NULL, NULL, NULL, 'stand by', NULL, 0, NULL, '2018-03-13 11:22:13', '2018-03-13 11:22:13', NULL, NULL, '0', '0', NULL),
+(77, 23, 5, 29, '2018-03-13', '2018-03-13', NULL, NULL, NULL, NULL, 'stand by', NULL, 0, NULL, '2018-03-13 11:22:13', '2018-03-13 11:22:13', NULL, NULL, '0', '0', NULL),
+(78, 24, 1, 30, '2018-03-12', '2018-03-12', NULL, NULL, NULL, NULL, 'stand by', NULL, 0, NULL, '2018-03-13 16:00:16', '2018-03-13 16:00:16', 2, NULL, '0', '0', NULL);
 
 -- --------------------------------------------------------
 
@@ -756,7 +773,12 @@ INSERT INTO `sched_job_bag_department_group` (`job_group_id`, `job_group_qty`, `
 (22, 1, 19, '2018-03-12 11:04:47', '2018-03-12 11:04:47'),
 (23, 3000, 20, '2018-03-12 14:51:29', '2018-03-12 14:51:29'),
 (24, 53, 8, '2018-03-12 15:32:20', '2018-03-12 15:32:20'),
-(25, 85000, 21, '2018-03-12 16:20:23', '2018-03-12 16:20:23');
+(25, 85000, 21, '2018-03-12 16:20:23', '2018-03-12 16:20:23'),
+(26, 53, 8, '2018-03-12 16:52:37', '2018-03-12 16:52:37'),
+(27, 19, 22, '2018-03-12 16:55:54', '2018-03-12 16:55:54'),
+(28, 53, 8, '2018-03-13 08:38:17', '2018-03-13 08:38:17'),
+(29, 85000, 23, '2018-03-13 11:22:13', '2018-03-13 11:22:13'),
+(30, 0, 24, '2018-03-13 16:00:16', '2018-03-13 16:00:16');
 
 -- --------------------------------------------------------
 
@@ -948,17 +970,17 @@ ALTER TABLE `sched_department`
 -- AUTO_INCREMENT for table `sched_job_bags`
 --
 ALTER TABLE `sched_job_bags`
-  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `sched_job_bag_department`
 --
 ALTER TABLE `sched_job_bag_department`
-  MODIFY `job_dp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `job_dp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 --
 -- AUTO_INCREMENT for table `sched_job_bag_department_group`
 --
 ALTER TABLE `sched_job_bag_department_group`
-  MODIFY `job_group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `job_group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `sched_settings`
 --

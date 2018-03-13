@@ -106,7 +106,7 @@ class SchedJobBagDepartment extends Model
                     if(!isset($programmers_array[$job_programmer][$key])) $programmers_array[$job_programmer][$key] = array();
 
                     $programmers_array[$job_programmer][$key][$job_dp_id]        = array();
-                    $programmers_array[$job_programmer][$key][$job_dp_id]['dep'] = $deps->jobGroup;
+                    $programmers_array[$job_programmer][$key][$job_dp_id]['dep'] = $deps;
                     $programmers_array[$job_programmer][$key][$job_dp_id]['bag'] = $deps->jobbag;
                     $programmers_array[$job_programmer][$key][$job_dp_id]['grp'] = $deps->jobGroup;
                     $programmers_array[$job_programmer][$key][$job_dp_id]['dp']  = $deps->dept;
@@ -120,6 +120,9 @@ class SchedJobBagDepartment extends Model
                     unset($programmers_array[$job_programmer][$key][$job_dp_id]['dep']['jobbag']);
                     unset($programmers_array[$job_programmer][$key][$job_dp_id]['dep']['dp']);
                     unset($programmers_array[$job_programmer][$key][$job_dp_id]['dep']['jobGroup']);
+
+//                    print_r($programmers_array[$job_programmer][$key][$job_dp_id]);
+//                    exit;
 
                     $programmers_ids[] = $job_programmer;
 

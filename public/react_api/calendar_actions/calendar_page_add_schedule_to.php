@@ -16,7 +16,6 @@ use Models\SchedJobBagDepartmentGroup;
 // before php applies their _post _get etc. on the stream
 
 
-
 if(count($data)>0){
     $data['job_created_by']  = ($user)?$user->login_id:0;
 

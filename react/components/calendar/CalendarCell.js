@@ -32,7 +32,7 @@ class CalendarCell extends Component {
     }
     handleEditJobBag(){
         const { history } = this.props;
-        history.push('/managejobs/newedit/'+this.props.jd.bag.job_id);
+        history.push('/managejobs/newedit/'+this.props.jd.bag.job_id+'/'+ this.props.jd.dep.job_dp_id);
     }
     handleWindowClose(){
         this.setState((prevState, props) => (
@@ -83,13 +83,25 @@ class CalendarCell extends Component {
         $(".chevron").popup();
 
     }
-    componentDidMount(){}
+    componentDidMount(){
+        console.log("NON PROGRAMMERS JOBS");
+    }
     renderJobFooter(jd,bg,gp){
         return <table className="job_bag_footer">
             <thead>
                 <tr>
+                    <td style={{textAlign: "left"}}>
+                        <Button color="red" size="mini" onClick ={()=>{
+                            let conf = confirm("This will remove all once off job and departments. If this is a recurring job, it will only delete all departments but not the job bag itself. Are you sure you want to continue?");
+                        }
+                        }>
+                            <i className="delete icon"></i>Delete
+                        </Button>
+                    </td>
                     <td>
-                        <Button color="red" size="mini" onClick ={this.handleWindowClose}>Close</Button>
+                        <Button color="blue" size="mini" onClick ={this.handleWindowClose}>
+                            <i className="close icon"></i>Close
+                        </Button>
                     </td>
                 </tr>
             </thead>
@@ -158,7 +170,7 @@ class CalendarCell extends Component {
                 <th colSpan={2}>JOB SUMMARY</th>
                 <th colSpan={2}>
                     <Button basic size="small" className="edit_button" onClick={this.handleEditJobBag}>
-                        <Icon name='write' /> EDIT
+                        <Icon name='write' /> EDIT JOB
                     </Button>
                 </th>
             </tr>

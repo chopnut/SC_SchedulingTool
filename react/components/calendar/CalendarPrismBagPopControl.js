@@ -29,7 +29,8 @@ class CalendarPrismBagPopControl extends Component {
         this.handleChangeDepartment = this.handleChangeDepartment.bind(this); // this is for updating departments to schedule
         this.handleCheckError   = this.handleCheckError.bind(this);
     }
-
+    componentDidMount(){
+    }
     // Adding job to the scheduled date
     //---------------------------------
     addToSchedule(date,jobType){
@@ -41,7 +42,8 @@ class CalendarPrismBagPopControl extends Component {
         const postJob = Object.assign({}, this.props.job,{
             job_type: jobType,
             job_dp_date: date,
-            job_departments: this.state.departmentValues
+            job_departments: this.state.departmentValues,
+            job_status: this.props.default_status[0]
         });
         this.props.calendar_page_add_schedule_to(
             this.props.settings,
@@ -132,9 +134,10 @@ class CalendarPrismBagPopControl extends Component {
         }
     }
 }
-function mapStateToProps(state,ownprops) {
+function mapStateToProps(state, ownprops) {
     return{
-        days: state.calendar_page.days
+        days: state.calendar_page.days,
+        default_status: JSON.parse(state.settings.setting.job_prod_status)
     }
 }
 function mapDispatchToProps(dispatch){

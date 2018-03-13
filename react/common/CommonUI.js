@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown, Header } from 'semantic-ui-react'
 
 export function showJobType(jobType,onChangeFunc,includeLabel=false){
     let once        = <input type="radio" name="job_type" tabIndex="0" value="once" onChange={onChangeFunc} checked/>;
@@ -28,13 +28,26 @@ export function showJobType(jobType,onChangeFunc,includeLabel=false){
     );
 }
 
-export function showDropDown(options,selections,onchangeFunction,placeholder,id, multiple){
-    const multiple_prop = (typeof(multiple)=='undefined');
+export function showDropDown(options,
+                             selections,
+                             onchangeFunction,
+                             placeholder,
+                             id,
+                             multiple,
+                             search){
+    const multiple_prop = (typeof(multiple)=='undefined'); // if multiple is set MULTIPLE IS FALSE
+    const search_prop   = !(typeof(search)=='undefined');   // if search   is set SEARCH IS TRUE
+
+    // if(id=='job_departments_recurring_days_ago'){
+    //     console.log("DAYSAGO: ", multiple_prop);
+    // }
+
     return(
         <Dropdown placeholder={placeholder}
                   fluid
                   floating
                   multiple  = {multiple_prop}
+                  search    = {search_prop}
                   selection
                   id        = {id}
                   name      = {id}

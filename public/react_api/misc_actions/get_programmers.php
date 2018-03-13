@@ -19,7 +19,8 @@
 
         if($programmers_dep_id){
             $u_setting = UserSchedSettings::where('sched_us_department_group','like', "%$programmers_dep_id%")->get();
-            $users = [];
+            $users   = [];
+            $users[] = ["key"=>0,"text"=> "--- clear --","value"=>""];
 
             foreach($u_setting as $user){
                 $u          = $user->login()->get()->first();
