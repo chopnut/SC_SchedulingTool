@@ -108,6 +108,7 @@ class CalendarCell extends Component {
         </table>
     }
     renderJobHeader(jd,bg,gp){
+
         return <table className="job_bag_header">
             <thead>
             <tr>
@@ -122,7 +123,7 @@ class CalendarCell extends Component {
             <tr>
                 <th className="job_customer_name">{bg.job_customer_name}</th>
                 <th className="job_departments">
-                    { (jd.job_dp_dept == this.props.global_department_id && jd.programmer!==null)?jd.dept.job_dept_desc+":":jd.dept.job_dept_desc }
+                    { (jd.job_dp_dept == this.props.global_department_id && jd.programmer!==null)?"Programmer: "+ jd.programmer.first_name:jd.dept.job_dept_desc }
                 </th>
             </tr>
             </thead>

@@ -65,9 +65,7 @@ const CalendarReducer = function (state=[], action) {
 
             // ONLY UPDATE THE CALENDAR JOBS FOR NON-PROGRAMMERS JOBS
             if(!userId){
-                if(userId!=null){
-                    userId = userId.toString();
-                }
+
                 const copystate             = fromJS(state);
                 const copied_job            = copystate.get('calendar_jobs').get(fromDayKey).get(deptId).get(jobId);
                 const calendar_job_removed  = copystate.get('calendar_jobs').deleteIn([fromDayKey,deptId,jobId]);
@@ -78,6 +76,8 @@ const CalendarReducer = function (state=[], action) {
 
             }else{
             // UPDATE PROGRAMMERS JOBS IN HERE WITH THE SAME SYNTAX AS ABOVE
+
+                userId = userId.toString();
 
                 const copystate             = fromJS(state);
                 const copied_job            = copystate.get('programmers_jobs').get(userId).get(fromDayKey).get(jobId);

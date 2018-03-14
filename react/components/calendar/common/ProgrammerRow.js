@@ -137,8 +137,6 @@ class ProgrammerRow extends Component {
         const colspan       = (this.props.isParent)?this.props.calendar_page.days.length+1:0;
         const today         = this.props.calendar_page.today_date;
 
-
-
         if(this.state.isLoading){
             return(
                 <tr>
@@ -169,7 +167,6 @@ class ProgrammerRow extends Component {
                     return;
                 }
                 const jobs = this.getJobs(i);
-                console.log("DAYS: ",this.props.user.login_id, i , jobs);
 
                 return (
                     <td key={i}
