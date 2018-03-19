@@ -50,20 +50,21 @@ if($u::areTheseSetAndNotEmpty('get','job_id','num_days_ago','department_id')){
     $allocatee_list       = [];
 
     foreach($job_departments as $d){
-        $job_group              = $d->jobGroup;
-        $dept                   = $d->dept;
+        $job_group                      = $d->jobGroup;
+        $dept                           = $d->dept;
+        $prog                           = $d->programmer;
 
-        $content                   = "DEPARTMENT: ". $dept->job_dept_desc ." | ID: ".$d->job_dp_id." | DATE: ".$d->job_dp_date." | QTY: ".$job_group->job_group_qty;
-        $drop_down_options[]       = array("key"=>$d->job_dp_id, "text"=>$content, "value"=> $d->job_dp_id);
-
-        $allocatee_list[$d->job_dp_id]  = $d->programmer;;
+        $content                        = "DEPARTMENT: ". $dept->job_dept_desc ." | ID: ".$d->job_dp_id." | DATE: ".$d->job_dp_date." | QTY: ".$job_group->job_group_qty;
+        $drop_down_options[]            = array("key"=>$d->job_dp_id, "text"=>$content, "value"=> $d->job_dp_id);
+        $allocatee_list[$d->job_dp_id]  = $d->programmer;
     }
 
     $drop_down_options  = json_encode($drop_down_options);
     $json_list          = json_encode($allocatee_list,JSON_FORCE_OBJECT);
-
     echo "{\"error\": 0 , \"msg\": \"\" ,\"payload\": $drop_down_options, \"list\": $json_list }";
+
 }else{
     echo "{\"error\": 1 , \"msg\": \"job_id and num_days_ago not set.\" ,\"payload\": [], \"list\": {}}";
+
 }
 ?>

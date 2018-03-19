@@ -30,10 +30,11 @@ class ManageJobs_JobsPage extends Component {
 
 
             optionsDateType: [
-                {key:'created_at', value:'created_at', text: 'Created at'},
-                {key:'job_due_date', value:'job_due_date', text: 'Due Date'}
+                {key: 'job_dp_date', value: 'job_dp_date', text: 'Scheduled date'},
+                {key: 'created_at', value:'created_at', text: 'Created at'},
+                {key:'job_due_date', value:'job_due_date', text: 'Due date'}
             ],
-            dateType: "created_at",
+            dateType: "job_dp_date",
             searchTerm: "",
             filterJobType: 'once'
         }
@@ -108,7 +109,7 @@ class ManageJobs_JobsPage extends Component {
                 search_terms: this.state.searchTerm
         };
         const prom        = axios.post(calendar_department_api,postData);
-        console.log("getJobBags: ", postData);
+        console.log("getJobBags: ", postData,calendar_department_api);
         prom.then((res)=>{
             console.log("Jobs Page: ",res.data);
             const jobsDp          = res.data.payload;

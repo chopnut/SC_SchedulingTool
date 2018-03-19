@@ -24,6 +24,7 @@ class AddEditJobForm extends Component {
             job: {
                 job_id: 0,
                 job_prism_job_id: 0,
+                job_prism_job_id: 0,
                 job_prism_number: 0,
                 job_title: "",
                 job_colour: "",
@@ -205,6 +206,8 @@ class AddEditJobForm extends Component {
         if(this.isProgrammersDepSelected()){
             this.getApiJobDepartments();
             this.getApiProgrammers();
+
+
         }else{
             // Else empty the array of the programmers
             this.setState((prevState, props) => (
@@ -252,9 +255,11 @@ class AddEditJobForm extends Component {
 
                         // after preloading pre-select the department
                         if(this.state.dep_id!=='undefined'){
+                            const programmer    = programmers_list[this.state.dep_id];
+                            const programmers_selection = (programmer!=null)? programmer.login_id: "";
 
                             this.setState((prevState, props) => (
-                                {recurring_departments_job_selection: parseInt(this.state.dep_id)}
+                                {recurring_departments_job_selection: parseInt(this.state.dep_id), programmers_selection}
                             ));
                         }
                     });
@@ -655,6 +660,9 @@ class AddEditJobForm extends Component {
                         <SelectJobStatus />
                     </div>
                     {showJobType(this.state.job.job_type,this.handleJobTypeChange,true)}
+                    <div className="field">
+                        <input type="text" placeholder="Pick a background color" name="job_colour"/>
+                    </div>
                 </div>
 
             );
