@@ -23,6 +23,7 @@ if($u::areTheseSetAndNotEmpty('get','at')){
     $at     = $u::getYmdHis($at,'d/m/Y','Y-m-d');
     $jobs   = SchedJobBagDepartment::where('job_dp_date','=', $at)->get();
 
+    $ctr = 0;
     foreach($jobs as $j){
         $depId  = $j->job_dp_dept;
         $uid    = $j->job_dp_allocated_to;
@@ -33,12 +34,17 @@ if($u::areTheseSetAndNotEmpty('get','at')){
 
         // its a programmers job
         if($uid>0 && !is_null($uid)){
-            if(!isset($pDep[$uid]))       $pDep[$uid]           = array();
-            $pDep[$uid][] = array('bag'=> $j->jobbag()->get()->first(),'dep'  => $j, 'grp'=> $j->jobGroup()->get()->first());
+            if(!isset($pDep[$uid])) $pDep[$uid] = array();
+
+            $pDep[$uid][$ctr]               = array('bag'=> $j->jobbag()->get()->first(),'dep'  => $j, 'grp'=> $j->jobGroup()->get()->first());
+            $pDep[$uid][$ctr]['bag']['programmer'] = $j->programmer()->get()->first();
+
+
         }else{
-        // its everything else job
-            $aDep[$depId][] = array('bag'=> $j->jobbag()->get()->first(),'dep'=> $j,'grp'=> $j->jobGroup()->get()->first());
+            // its everything else job
+            $aDep[$depId][$ctr] = array('bag'=> $j->jobbag()->get()->first(),'dep'=> $j,'grp'=> $j->jobGroup()->get()->first());
         }
+        $ctr++;
     }
 
     $temp = [];

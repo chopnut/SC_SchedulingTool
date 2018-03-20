@@ -21,7 +21,6 @@ class CalendarRow extends Component {
         this.handleDragOver         = this.handleDragOver.bind(this);
         this.handleDragEnd          = this.handleDragEnd.bind(this);
         this.handleViewDepartments  = this.handleViewDepartments.bind(this);
-
         this.getJobs                = this.getJobs.bind(this);
     }
 
@@ -163,7 +162,7 @@ class CalendarRow extends Component {
     componentDidMount(){
         this.setState((prevState, props) => (   {
             isLoading: false
-        }  ));
+        }));
 
     }
     render(){
@@ -198,7 +197,7 @@ class CalendarRow extends Component {
                     if(thisCellDate == today){  tdClassName = tdClassName+" today ";  }
                     if(colspan==daysLength){ return; }
 
-
+                    const jobs =    this.getJobs(i);
                     return (
                         <td key={i}
                             id={this.props.departmentId}
@@ -229,7 +228,7 @@ class CalendarRow extends Component {
                                 departmentId    = {this.props.departmentId}
                                 initDrag        = {this.handleDragging}
                                 initDragEnd     = {this.handleDragEnd}
-                                jobs            = {this.getJobs(i)}
+                                jobs            = {jobs}
                             />
                         </td>
                     );

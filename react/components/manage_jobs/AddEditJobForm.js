@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import _ from 'lodash';
 import axios from 'axios';
 import {withRouter } from 'react-router-dom';
+import { ChromePicker } from 'react-color';
 
 // UI Common functionality
 import {showJobType,showDropDown} from "../../common/CommonUI";
@@ -21,13 +22,14 @@ class AddEditJobForm extends Component {
         this.job_status     = settings.setting.job_status;
 
         this.state = {
+            displayColorPicker: false,
             job: {
                 job_id: 0,
                 job_prism_job_id: 0,
                 job_prism_job_id: 0,
                 job_prism_number: 0,
                 job_title: "",
-                job_colour: "",
+                job_colour: "#ffffff",
                 job_print_date: "",
                 job_due_date: "",
                 job_lodge_date: "",
@@ -91,13 +93,22 @@ class AddEditJobForm extends Component {
         this.handleProgrammersAssign    = this.handleProgrammersAssign.bind(this);
         this.handleRecurringDaysAgo     = this.handleRecurringDaysAgo.bind(this);
         this.handleDepartmentListSelect = this.handleDepartmentListSelect.bind(this);
-
+        this.handleColorPickerOpen      = this.handleColorPickerOpen.bind(this);
+        this.handleColorPickerClose     = this.handleColorPickerClose.bind(this);
+        this.handleColorPickerChange    = this.handleColorPickerChange.bind(this);
 
         // Render Functions for other parts
         this.renderAssignProgrammer     = this.renderAssignProgrammer.bind(this);
-
-
     }
+    handleColorPickerOpen(){ this.setState({ displayColorPicker: !this.state.displayColorPicker })}
+    handleColorPickerClose(){this.setState({ displayColorPicker: false }) }
+    handleColorPickerChange(color){
+        const job = Object.assign({}, this.state.job, {job_colour: color.hex});
+        this.setState({job},()=>{
+            console.log("COLOR CHANGE: ", job.job_colour);
+        });
+    }
+
     // This will trigger when receiving a state change from global
     componentWillReceiveProps(nextProps){
 
@@ -612,6 +623,17 @@ class AddEditJobForm extends Component {
 
 
     render(){
+        const popover = {
+            position: 'absolute',
+            zIndex: '2',
+        }
+        const cover = {
+            position: 'fixed',
+            top: '0px',
+            right: '0px',
+            bottom: '0px',
+            left: '0px',
+        }
 
         let elements = this.state.jobsFound.map(
             (element,i) =>{
@@ -654,17 +676,47 @@ class AddEditJobForm extends Component {
 
         let SelectAndRadio = () => {
             return(
-                <div className="inline three fields">
-                    <div className="field">
-                        <label><i className="fa fa-heart" aria-hidden="true"></i> Status</label>
-                        <SelectJobStatus />
-                    </div>
-                    {showJobType(this.state.job.job_type,this.handleJobTypeChange,true)}
-                    <div className="field">
-                        <input type="text" placeholder="Pick a background color" name="job_colour"/>
-                    </div>
-                </div>
+                <table className="status_jobtype_bgcolor">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div className="field">
+                                <label><i className="fa fa-heart" aria-hidden="true"></i> Status</label>
+                                <SelectJobStatus />
+                            </div>
+                        </td>
+                        <td style={{paddingLeft: "20px"}}>
+                            {showJobType(this.state.job.job_type,this.handleJobTypeChange,true)}
+                        </td>
+                        <td>
+                            <table className="pick_a_background">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <div className="color_preview" style={{backgroundColor: this.state.job.job_colour}} onClick={ this.handleColorPickerOpen }>
+                                            &nbsp;
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="field">
+                                            <input type="text" placeholder="Pick a background color" name="job_colour" onClick={ this.handleColorPickerOpen } value={this.state.job.job_colour} readOnly={true}/>
+                                            {this.state.displayColorPicker ? <div style={ popover }>
+                                                <div style={ cover } onClick={ this.handleColorPickerClose }/>
+                                                <ChromePicker
+                                                    color={this.state.job.job_colour}
+                                                    onChange = {this.handleColorPickerChange}
+                                                />
+                                            </div> : null}
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
 
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             );
         }
         // If job is recurring get the all recent programming job and select it to be assigned

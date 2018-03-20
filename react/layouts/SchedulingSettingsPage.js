@@ -153,30 +153,25 @@ class SchedulingSettingsPage extends Component {
                     <tr>
                         <td>
                             <div className="field">
-                                <label contentEditable={true} onBlur={this.handleLabelChange} id={"tabs"} className="tabs">{this.state.setting.tabs.setting_label}</label>
-                                <textarea rows="2" value={this.state.setting.tabs.setting_value} name="tabs" onChange={this.handleOnChangeVal}/>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="field">
-                                <label contentEditable={true} onBlur={this.handleLabelChange}  id={"user_default_settings"} className="user_default_settings">{this.state.setting.user_default_settings.setting_label}</label>
-                                <textarea rows="2" value={this.state.setting.user_default_settings.setting_value} name="user_default_settings" onChange={this.handleOnChangeVal} />
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div className="field">
                                 <label contentEditable={true} onBlur={this.handleLabelChange}  id={"job_it_status"} className="job_it_status">{this.state.setting.job_it_status.setting_label}</label>
                                 <input value={this.state.setting.job_it_status.setting_value} name="job_it_status" onChange={this.handleOnChangeVal}/>
                             </div>
                         </td>
+                        <td>
+                            COLOR
+                        </td>
+                    </tr>
+                    <tr>
                         <td>
                             <div className="field">
                                 <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_prod_status"} className="job_prod_status">{this.state.setting.job_prod_status.setting_label}</label>
                                 <input value={this.state.setting.job_prod_status.setting_value} name="job_prod_status" onChange={this.handleOnChangeVal} />
                             </div>
                         </td>
+                        <td>
+                            COLOR
+                        </td>
+
                     </tr>
                     <tr>
                         <td>
@@ -186,9 +181,40 @@ class SchedulingSettingsPage extends Component {
                             </div>
                         </td>
                         <td>
+                            COLOR
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             <div className="field">
                                 <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_types"} className="job_types">{this.state.setting.job_types.setting_label}</label>
                                 <input value={this.state.setting.job_types.setting_value} name="job_types" onChange={this.handleOnChangeVal} />
+                            </div>
+                        </td>
+                        <td>
+                            COLOR
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div className="field">
+                            <label contentEditable={true} onBlur={this.handleLabelChange} id={"colours_setting"} className="colours_setting">{this.state.setting.colours_setting.setting_label}</label>
+                            <textarea rows="2" value={this.state.setting.colours_setting.setting_value} name="colours_setting" onChange={this.handleOnChangeVal}/>
+                            </div>
+                        </td>
+                        <td>COLOR</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div className="field">
+                                <label contentEditable={true} onBlur={this.handleLabelChange} id={"tabs"} className="tabs">{this.state.setting.tabs.setting_label}</label>
+                                <textarea rows="2" value={this.state.setting.tabs.setting_value} name="tabs" onChange={this.handleOnChangeVal}/>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="field">
+                                <label contentEditable={true} onBlur={this.handleLabelChange}  id={"user_default_settings"} className="user_default_settings">{this.state.setting.user_default_settings.setting_label}</label>
+                                <textarea rows="2" value={this.state.setting.user_default_settings.setting_value} name="user_default_settings" onChange={this.handleOnChangeVal} />
                             </div>
                         </td>
                     </tr>
@@ -241,10 +267,7 @@ class SchedulingSettingsPage extends Component {
                             </div>
                         </td>
                         <td>
-                            <div className="field">
-                                <label contentEditable={true} onBlur={this.handleLabelChange} id={"colours_setting"} className="colours_setting">{this.state.setting.colours_setting.setting_label}</label>
-                                <textarea rows="2" value={this.state.setting.colours_setting.setting_value} name="colours_setting" onChange={this.handleOnChangeVal}/>
-                            </div>
+                            EMPTY
                         </td>
                     </tr>
                     <tr>

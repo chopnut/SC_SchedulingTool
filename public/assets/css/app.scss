@@ -770,6 +770,22 @@
                       border-bottom: 1px solid #eee;
                       padding: 10px;
                   }
+                  .status_jobtype_bgcolor{
+                      width:  100% !important;
+                  }
+                  .color_preview{
+                      width: 25px;
+                      height:  25px;
+                      display: inline-block;
+                      border: solid 1px #000000;
+                  }
+                  .pick_a_background{
+                      width: 100%;
+                      td:last-child{
+                          text-align: right;
+                      }
+                  }
+
               }
           }
 

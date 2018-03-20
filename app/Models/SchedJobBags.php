@@ -18,6 +18,7 @@ class SchedJobBags extends Model
         'job_prism_number',
         'job_title',
         'job_print_date',
+        'job_colour',
         'job_due_date',
         'job_lodge_date',
         'job_reports_ids',

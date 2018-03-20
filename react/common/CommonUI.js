@@ -10,20 +10,18 @@ export function showJobType(jobType,onChangeFunc,includeLabel=false){
         once        = <input type="radio" name="job_type" tabIndex="0" value="once" onChange={onChangeFunc} checked={false}/>;
     }
     return(
-        <div className="inline two fields job_type">
-            {includeLabel?<label> Job Type: </label>:""}
-            <span className="field">
+        <div className="inline fields job_type">
+            <div className="field">
+                {includeLabel?<label> Job Type: &nbsp; &nbsp;</label>:""}
                 <span className="ui radio checkbox">
                     {once}
                     <label> Once &nbsp;</label>
                 </span>
-            </span>
-            <span className="field">
                 <span className="ui radio checkbox">
                     {recurring}
                     <label> Recurring </label>
                 </span>
-            </span>
+            </div>
         </div>
     );
 }
