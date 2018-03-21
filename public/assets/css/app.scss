@@ -896,19 +896,35 @@
                             color: #aaaaaa;
                         }
                     }
-                    $all-columns: (
+                    $three-columns: (
                         columns: 13,
                         gutter: 5px
                     );
+                    $two-columns: (
+                        columns: 12,
+                        gutter: 5px
+                    );
+                    div.two_cols{
+                        @include grid-container;
+                        .column{
+                            @include grid-column(6, $two-columns);
+                        }
+                        .column:first-child{
+                            margin-left:0px;
+                        }
+                    }
                     div.three_cols{
                         @include grid-container;
-                        padding-top: 22px;
+                        padding-top: 20px;
+                        .input_text{
+                            width: 100% !important;
+                        }
                         .column{
-                            @include grid-column(6, $all-columns);
-                            //@include check();
+                            @include grid-column(6, $three-columns);
+
                         }
                         .middle{
-                            @include grid-column(1, $all-columns);
+                            @include grid-column(1, $three-columns);
                             padding-top: 5px;
                             .preview_box{
                                 border-radius: 15px;

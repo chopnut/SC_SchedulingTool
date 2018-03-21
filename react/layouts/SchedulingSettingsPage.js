@@ -229,7 +229,7 @@ class SchedulingSettingsPage extends Component {
                </div>
             </div>
             <div className="column">
-                <Input placeholder="Select background colour" onClick={ ()=>{  this.handleColorPickerOpen(setting_name) } } readOnly={true} value={ this.state.color_selections[setting_name].color}/>
+                <Input className="input_text" placeholder="Select background colour" onClick={ ()=>{  this.handleColorPickerOpen(setting_name) } } readOnly={true} value={ this.state.color_selections[setting_name].color}/>
                 {this.state.color_selections[setting_name].isOpen ? <div style={ popover }>
                     <div style={ cover } onClick={ ()=>{  this.handleColorPickerClose(setting_name) } }/>
                     <ChromePicker
@@ -266,67 +266,49 @@ class SchedulingSettingsPage extends Component {
             <div className="ui form">
             <table cellSpacing={10}>
                 <tbody>
-
                     <tr>
                         <td>
-                            <div className="field">
-                                <label contentEditable={true} onBlur={this.handleLabelChange}  id={"job_it_status"} className="job_it_status">{this.state.setting.job_it_status.setting_label}</label>
-                                <span className="setting_name">{this.state.setting.job_it_status.name}</span>
-                                <input value={this.state.setting.job_it_status.setting_value} name="job_it_status" onChange={this.handleOnChangeVal}/>
+                            <div className="two_cols">
+                                <div className="column">
+                                    <div className="field">
+                                        <label contentEditable={true} onBlur={this.handleLabelChange}  id={"job_it_status"} className="job_it_status">{this.state.setting.job_it_status.setting_label}</label>
+                                        <span className="setting_name">{this.state.setting.job_it_status.name}</span>
+                                        <input value={this.state.setting.job_it_status.setting_value} name="job_it_status" onChange={this.handleOnChangeVal}/>
+                                    </div>
+                                    <div className="field">
+                                        <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_prod_status"} className="job_prod_status">{this.state.setting.job_prod_status.setting_label}</label>
+                                        <span className="setting_name">{this.state.setting.job_prod_status.name}</span>
+                                        <input value={this.state.setting.job_prod_status.setting_value} name="job_prod_status" onChange={this.handleOnChangeVal} />
+                                    </div>
+                                    <div className="field">
+                                        <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_status"} className="job_status">{this.state.setting.job_status.setting_label}</label>
+                                        <span className="setting_name">{this.state.setting.job_status.name}</span>
+                                        <input value={this.state.setting.job_status.setting_value} name="job_status" onChange={this.handleOnChangeVal}/>
+                                    </div>
+                                    <div className="field">
+                                        <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_types"} className="job_types">{this.state.setting.job_types.setting_label}</label>
+                                        <span className="setting_name">{this.state.setting.job_types.name}</span>
+                                        <input value={this.state.setting.job_types.setting_value} name="job_types" onChange={this.handleOnChangeVal} />
+                                    </div>
+                                    <div className="field">
+                                        <label contentEditable={true} onBlur={this.handleLabelChange} id={"colours_setting"} className="colours_setting">{this.state.setting.colours_setting.setting_label}</label>
+                                        <span className="setting_name">{this.state.setting.colours_setting.name}</span>
+                                        <input value={this.state.setting.colours_setting.setting_value} name="colours_setting" onChange={this.handleOnChangeVal}/>
+                                    </div>
+                                </div>
+                                <div className="column">
+                                    Right Side
+                                </div>
                             </div>
+
                         </td>
-                        <td className="three_cols">
+                        <td style={{verticalAlign: "top"}}>
                             {this.renderColourOptions(this.state.setting.job_it_status.name)}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div className="field">
-                                <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_prod_status"} className="job_prod_status">{this.state.setting.job_prod_status.setting_label}</label>
-                                <span className="setting_name">{this.state.setting.job_prod_status.name}</span>
-                                <input value={this.state.setting.job_prod_status.setting_value} name="job_prod_status" onChange={this.handleOnChangeVal} />
-                            </div>
-                        </td>
-                        <td>
                             {this.renderColourOptions(this.state.setting.job_prod_status.name)}
-
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>
-                            <div className="field">
-                                <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_status"} className="job_status">{this.state.setting.job_status.setting_label}</label>
-                                <span className="setting_name">{this.state.setting.job_status.name}</span>
-                                <input value={this.state.setting.job_status.setting_value} name="job_status" onChange={this.handleOnChangeVal}/>
-                            </div>
-                        </td>
-                        <td>
                             {this.renderColourOptions(this.state.setting.job_status.name)}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div className="field">
-                                <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_types"} className="job_types">{this.state.setting.job_types.setting_label}</label>
-                                <span className="setting_name">{this.state.setting.job_types.name}</span>
-                                <input value={this.state.setting.job_types.setting_value} name="job_types" onChange={this.handleOnChangeVal} />
-                            </div>
-                        </td>
-                        <td>
                             {this.renderColourOptions(this.state.setting.job_types.name)}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div className="field">
-                                <label contentEditable={true} onBlur={this.handleLabelChange} id={"colours_setting"} className="colours_setting">{this.state.setting.colours_setting.setting_label}</label>
-                                <span className="setting_name">{this.state.setting.colours_setting.name}</span>
-                                <textarea rows="2" value={this.state.setting.colours_setting.setting_value} name="colours_setting" onChange={this.handleOnChangeVal}/>
-                            </div>
-                        </td>
-                        <td style={{verticalAlign: 'top'}}>
                             {this.renderColourOptions(this.state.setting.colours_setting.name)}
+
                         </td>
                     </tr>
                     <tr>
