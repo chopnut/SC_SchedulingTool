@@ -7,7 +7,7 @@
     "axios": "^0.16.2",
     "babel-polyfill": "^6.26.0",
     "bourbon": "^4.3.4",
-    "bourbon-neat": "^1.9.0",
+    "bourbon-neat": "^2.1.0",
     "es5-shim": "^4.5.9",
     "immutable": "^3.8.2",
     "jquery": "^3.2.1",

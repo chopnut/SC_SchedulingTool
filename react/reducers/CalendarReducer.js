@@ -10,7 +10,7 @@ import {CALENDAR_PAGE_ADD_SCHEDULE_TO,
         CALENDAR_MAIN_PAGE_REFRESH,
         RESET_ALL_ACTION,
         IS_WORKING} from '../common/Constants';
-import {fromJS, Map} from 'immutable';
+import {fromJS} from 'immutable';
 
 const CalendarReducer = function (state=[], action) {
     switch (action.type){

@@ -19,6 +19,8 @@ foreach($settings as $val){
     $settingArr[$val->setting_name]                  = array();
     $settingArr[$val->setting_name]['setting_label'] = $val->setting_label;
     $settingArr[$val->setting_name]['setting_value'] = $val->setting_value;
+    $settingArr[$val->setting_name]['name']  = $val->setting_name;
+
 }
 // ***********************************************
 $usersArr       = array();

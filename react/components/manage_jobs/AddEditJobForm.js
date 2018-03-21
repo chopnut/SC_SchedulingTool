@@ -663,12 +663,14 @@ class AddEditJobForm extends Component {
 
         // Get status for the job
         let job_status      = JSON.parse(this.job_status);
+
+        console.log('job_status',job_status);
         let SelectJobStatus = (props) =>{
             return (
                 <select name="job_status" value={this.state.job.job_status} onChange={this.changeValue}>
                     <option value="">Choose job status</option>
                     { job_status.map(function(item,i){
-                        return (<option value={item} key={i}>{item}</option>);
+                        return (<option value={item.text} key={i}>{item.text}</option>);
                     })}
                 </select>
             );
