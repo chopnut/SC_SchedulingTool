@@ -897,14 +897,15 @@
                         }
                     }
                     $all-columns: (
-                        columns: 12,
+                        columns: 13,
                         gutter: 5px
                     );
                     div.three_cols{
                         @include grid-container;
                         padding-top: 22px;
                         .column{
-                            @include grid-column(5.5, $all-columns);
+                            @include grid-column(6, $all-columns);
+                            //@include check();
                         }
                         .middle{
                             @include grid-column(1, $all-columns);
