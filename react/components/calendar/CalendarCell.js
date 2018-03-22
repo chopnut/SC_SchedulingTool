@@ -202,8 +202,6 @@ class CalendarCell extends Component {
         const jd = this.props.jd.dep;
         const bg = this.props.jd.bag;
         const gp = this.props.jd.grp;
-
-
         const leftArrowClass  = "chevron left icon";
         const rightArrowClass = "chevron right icon";
 

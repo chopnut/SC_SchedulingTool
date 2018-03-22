@@ -255,6 +255,16 @@ class SchedulingSettingsPage extends Component {
             return <button className="ui primary button" onClick={this.handleSave}>Save</button>
         }
     }
+    renderTextField(setting_name,type){
+        let ltype = <input value={this.state.setting[setting_name].setting_value} name={setting_name} onChange={this.handleOnChangeVal}/>;
+        if(type=="textarea") ltype=<textarea rows="2" value={this.state.setting[setting_name].setting_value} name={setting_name} onChange={this.handleOnChangeVal} />;
+
+        return <div className="field">
+            <label contentEditable={true} onBlur={this.handleLabelChange}  id={setting_name} className={setting_name}>{this.state.setting[setting_name].setting_label}</label>
+            <span className="setting_name">{this.state.setting[setting_name].name}</span>
+            {ltype}
+        </div>;
+    }
     renderAddStatusField(setting_name){
         return <div className="two fields">
             <div className="field">

@@ -899,7 +899,7 @@
                     }
                     $three-columns: (
                         columns: 13,
-                        gutter: 5px
+                        gutter: 0px
                     );
                     $two-columns: (
                         columns: 12,
@@ -940,7 +940,7 @@
                             padding-bottom: 10px;
                         }
                         .middle{
-                            @include grid-column(1, $three-columns);
+                            @include grid-column(.9, $three-columns);
                             padding-top: 5px;
                             .preview_box{
                                 border-radius: 15px;
