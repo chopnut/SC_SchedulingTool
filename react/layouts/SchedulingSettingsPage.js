@@ -255,87 +255,110 @@ class SchedulingSettingsPage extends Component {
             return <button className="ui primary button" onClick={this.handleSave}>Save</button>
         }
     }
+    renderAddStatusField(setting_name){
+        return <div className="two fields">
+            <div className="field">
+                <label>&nbsp;</label>
+                <input type="text" placeholder="Type status to add"/>
+            </div>
+            <div className="field">
+                <label>&nbsp;</label>
+                <button className="ui fluid blue medium button">Add</button>
+            </div>
+        </div>;
+
+    }
     componentDidMount(){
         this.getSettings();
     }
     renderContent(){
-        console.log("Props settings: ",this.props);
-
-
         return (
             <div className="ui form">
-            <table cellSpacing={10}>
-                <tbody>
+                <table cellSpacing={10}>
+                    <tbody>
                     <tr>
                         <td>
-                            <div className="two_cols">
-                                <div className="column">
-                                    <div className="field">
-                                        <label contentEditable={true} onBlur={this.handleLabelChange}  id={"job_it_status"} className="job_it_status">{this.state.setting.job_it_status.setting_label}</label>
-                                        <span className="setting_name">{this.state.setting.job_it_status.name}</span>
-                                        <input value={this.state.setting.job_it_status.setting_value} name="job_it_status" onChange={this.handleOnChangeVal}/>
+                            <div className="wrapper">
+                                <div className="header">MODIFY STATUSES</div>
+                                <div className="two_cols">
+                                    <div className="column">
+                                        <div className="field">
+                                            <label contentEditable={true} onBlur={this.handleLabelChange}  id={"job_it_status"} className="job_it_status">{this.state.setting.job_it_status.setting_label}</label>
+                                            <span className="setting_name">{this.state.setting.job_it_status.name}</span>
+                                            <input value={this.state.setting.job_it_status.setting_value} name="job_it_status" onChange={this.handleOnChangeVal}/>
+                                        </div>
+                                        <div className="field">
+                                            <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_prod_status"} className="job_prod_status">{this.state.setting.job_prod_status.setting_label}</label>
+                                            <span className="setting_name">{this.state.setting.job_prod_status.name}</span>
+                                            <input value={this.state.setting.job_prod_status.setting_value} name="job_prod_status" onChange={this.handleOnChangeVal} />
+                                        </div>
+                                        <div className="field">
+                                            <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_status"} className="job_status">{this.state.setting.job_status.setting_label}</label>
+                                            <span className="setting_name">{this.state.setting.job_status.name}</span>
+                                            <input value={this.state.setting.job_status.setting_value} name="job_status" onChange={this.handleOnChangeVal}/>
+                                        </div>
+                                        <div className="field">
+                                            <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_types"} className="job_types">{this.state.setting.job_types.setting_label}</label>
+                                            <span className="setting_name">{this.state.setting.job_types.name}</span>
+                                            <input value={this.state.setting.job_types.setting_value} name="job_types" onChange={this.handleOnChangeVal} />
+                                        </div>
+                                        <div className="field">
+                                            <label contentEditable={true} onBlur={this.handleLabelChange} id={"colours_setting"} className="colours_setting">{this.state.setting.colours_setting.setting_label}</label>
+                                            <span className="setting_name">{this.state.setting.colours_setting.name}</span>
+                                            <input value={this.state.setting.colours_setting.setting_value} name="colours_setting" onChange={this.handleOnChangeVal}/>
+                                        </div>
                                     </div>
-                                    <div className="field">
-                                        <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_prod_status"} className="job_prod_status">{this.state.setting.job_prod_status.setting_label}</label>
-                                        <span className="setting_name">{this.state.setting.job_prod_status.name}</span>
-                                        <input value={this.state.setting.job_prod_status.setting_value} name="job_prod_status" onChange={this.handleOnChangeVal} />
-                                    </div>
-                                    <div className="field">
-                                        <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_status"} className="job_status">{this.state.setting.job_status.setting_label}</label>
-                                        <span className="setting_name">{this.state.setting.job_status.name}</span>
-                                        <input value={this.state.setting.job_status.setting_value} name="job_status" onChange={this.handleOnChangeVal}/>
-                                    </div>
-                                    <div className="field">
-                                        <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_types"} className="job_types">{this.state.setting.job_types.setting_label}</label>
-                                        <span className="setting_name">{this.state.setting.job_types.name}</span>
-                                        <input value={this.state.setting.job_types.setting_value} name="job_types" onChange={this.handleOnChangeVal} />
-                                    </div>
-                                    <div className="field">
-                                        <label contentEditable={true} onBlur={this.handleLabelChange} id={"colours_setting"} className="colours_setting">{this.state.setting.colours_setting.setting_label}</label>
-                                        <span className="setting_name">{this.state.setting.colours_setting.name}</span>
-                                        <input value={this.state.setting.colours_setting.setting_value} name="colours_setting" onChange={this.handleOnChangeVal}/>
+                                    <div className="column">
+                                        {this.renderAddStatusField(this.state.setting.job_it_status.name)}
+                                        {this.renderAddStatusField(this.state.setting.job_prod_status.name)}
+                                        {this.renderAddStatusField(this.state.setting.job_status.name)}
+                                        {this.renderAddStatusField(this.state.setting.job_types.name)}
+                                        {this.renderAddStatusField(this.state.setting.colours_setting.name)}
                                     </div>
                                 </div>
-                                <div className="column">
-                                    Right Side
+
+                            </div>
+                            <div className="wrapper">
+                                <div className="header">PRODUCTION SET UP</div>
+                                <div className="field">
+                                    <label contentEditable={true} onBlur={this.handleLabelChange} id={"production_hours_per_day"} className="production_hours_per_day">{this.state.setting.production_hours_per_day.setting_label}</label>
+                                    <span className="setting_name">{this.state.setting.production_hours_per_day.name}</span>
+                                    <input value={this.state.setting.production_hours_per_day.setting_value} name="production_hours_per_day" onChange={this.handleOnChangeVal} />
                                 </div>
                             </div>
 
                         </td>
-                        <td style={{verticalAlign: "top"}}>
-                            {this.renderColourOptions(this.state.setting.job_it_status.name)}
-                            {this.renderColourOptions(this.state.setting.job_prod_status.name)}
-                            {this.renderColourOptions(this.state.setting.job_status.name)}
-                            {this.renderColourOptions(this.state.setting.job_types.name)}
-                            {this.renderColourOptions(this.state.setting.colours_setting.name)}
-
-                        </td>
-                    </tr>
-                    <tr>
                         <td>
-                            <div className="field">
-
-                                <div className="user_departments">
-                                    <strong>User Department Group</strong>
-                                    <div className="info">
-                                        User department group settings lets you appoint a user to a particular department. <br/>
-                                    </div>
-                                    <div className="user_selects">
-                                        <Dropdown placeholder='Select a user'
-                                                  selection options={this.state.usersOptions}
-                                                  className="user_select"
-                                                  onChange={this.handleUserSelect} />
-                                    </div>
-                                    {this.renderDepartmentsDropdown()}
-                                </div>
-
+                            <div className="wrapper">
+                                <div className="header">STATUS COLOURS</div>
+                                {this.renderColourOptions(this.state.setting.job_it_status.name)}
+                                {this.renderColourOptions(this.state.setting.job_prod_status.name)}
+                                {this.renderColourOptions(this.state.setting.job_status.name)}
+                                {this.renderColourOptions(this.state.setting.job_types.name)}
+                                {this.renderColourOptions(this.state.setting.colours_setting.name)}
                             </div>
-                        </td>
-                        <td>
-                            <div className="field">
-                                <label contentEditable={true} onBlur={this.handleLabelChange} id={"programming_dept_id"} className="programming_dept_id">{this.state.setting.programming_dept_id.setting_label}</label>
-                                <span className="setting_name">{this.state.setting.programming_dept_id.name}</span>
-                                <input value={this.state.setting.programming_dept_id.setting_value} name="programming_dept_id" onChange={this.handleOnChangeVal} />
+                            <div className="wrapper">
+                                <div className="header">USER DEPARTMENT SET UP</div>
+                                <div className="field">
+                                    <div className="user_departments">
+                                        <strong>User Department Group</strong>
+                                        <div className="info">
+                                            User department group settings lets you appoint a user to a particular department. <br/>
+                                        </div>
+                                        <div className="user_selects">
+                                            <Dropdown placeholder='Select a user'
+                                                      selection options={this.state.usersOptions}
+                                                      className="user_select"
+                                                      onChange={this.handleUserSelect} />
+                                        </div>
+                                        {this.renderDepartmentsDropdown()}
+                                    </div>
+                                </div>
+                                <div className="field">
+                                    <label contentEditable={true} onBlur={this.handleLabelChange} id={"programming_dept_id"} className="programming_dept_id">{this.state.setting.programming_dept_id.setting_label}</label>
+                                    <span className="setting_name">{this.state.setting.programming_dept_id.name}</span>
+                                    <input value={this.state.setting.programming_dept_id.setting_value} name="programming_dept_id" onChange={this.handleOnChangeVal} />
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -378,27 +401,18 @@ class SchedulingSettingsPage extends Component {
                     </tr>
 
                     <tr>
-                        <td>
-                            <div className="field">
-                                <label contentEditable={true} onBlur={this.handleLabelChange} id={"production_hours_per_day"} className="production_hours_per_day">{this.state.setting.production_hours_per_day.setting_label}</label>
-                                <span className="setting_name">{this.state.setting.production_hours_per_day.name}</span>
-                                <input value={this.state.setting.production_hours_per_day.setting_value} name="production_hours_per_day" onChange={this.handleOnChangeVal} />
-                            </div>
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
                         <td rowSpan={2}>
                             {this.renderSavingButton()}
                         </td>
                     </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
 
             </div>
         );
+
+
+        console.log("Props settings: ",this.props);
     }
 	render(){
 

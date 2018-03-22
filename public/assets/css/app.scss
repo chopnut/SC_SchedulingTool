@@ -869,6 +869,7 @@
                     td {
                         width: 50%;
                         text-align: left;
+                        vertical-align: top;
 
                         .user_departments{
                             .info{
@@ -902,8 +903,24 @@
                     );
                     $two-columns: (
                         columns: 12,
-                        gutter: 5px
+                        gutter: 15px
                     );
+                    div.wrapper{
+                        border: 1px solid darken($main_grey_color,20);
+                        padding: 10px;
+                        border-radius: $main_border_radius;
+                        margin-bottom: 20px;
+
+                        .header{
+                            background-color: #ffffff;
+                            position: relative;
+                            padding-left: 10px;
+                            padding-right: 10px;
+                            display:  inline-block;
+                            top: -20px;
+                            left: 15px;
+                        }
+                    }
                     div.two_cols{
                         @include grid-container;
                         .column{
@@ -915,13 +932,12 @@
                     }
                     div.three_cols{
                         @include grid-container;
-                        padding-top: 20px;
                         .input_text{
                             width: 100% !important;
                         }
                         .column{
                             @include grid-column(6, $three-columns);
-
+                            padding-bottom: 10px;
                         }
                         .middle{
                             @include grid-column(1, $three-columns);
