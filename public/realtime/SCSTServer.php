@@ -1,9 +1,14 @@
 <?php
 
-<<<<<<< HEAD
-=======
 require_once("../react_api/includes.php");
 
->>>>>>> 1401649899e55b08970178af7b993ac690fe7ee6
+use Ratchet\Server\IoServer;
+use Models\SCSTRealtimeObject;
+
+$server = IoServer::factory(
+    new SCSTRealtimeObject(),
+    8080
+);
+$server->run();
 
 ?>
