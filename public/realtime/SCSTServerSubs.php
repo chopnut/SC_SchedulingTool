@@ -17,9 +17,9 @@ $pusher =  new SCSTRealtimeSubsObject();
 $context = new React\ZMQ\Context($loop);
 $pull = $context->getSocket(ZMQ::SOCKET_PULL);
 //Binding to itself means the client can only connect to itself
-$pull->bind("tcp://127.0.0.1:11111");
+$pull->bind("tcp://192.168.70.9:11111");
 //On a 'message' event, pass the data to the myMessageHandler method of the MyPusherClass
-$pull->on('message', array($pusher, 'onMessage'));
+//$pull->on('message', array($pusher, 'onMessage'));
 
 // Set up our WebSocket server for clients wanting real-time updates
 $webSock = new React\Socket\Server('0.0.0.0:8282', $loop); // Binding to 0.0.0.0 means remotes can connect
