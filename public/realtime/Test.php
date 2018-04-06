@@ -10,8 +10,7 @@ $entryData = array(
 $context    = new \ZMQContext();
 $socket     = $context->getSocket(ZMQ::SOCKET_PUSH,'SCSTRealtimeSubsObject');
 $socket->connect('tcp://localhost:11111');
-sleep(2);
-$socket->send(json_encode($entryData));
+$socket->send("HELLO");
 
 echo "SocketType: ".$socket->getSocketType();
 print_r($socket->getEndpoints());
