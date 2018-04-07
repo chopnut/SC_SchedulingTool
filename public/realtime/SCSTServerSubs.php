@@ -16,13 +16,16 @@ $pusher =  new SCSTRealtimeSubsObject();
 // Listen for the web server to make a ZeroMQ push after an ajax request
 $context = new React\ZMQ\Context($loop);
 $pull = $context->getSocket(ZMQ::SOCKET_PULL);
-//Binding to itself means the client can only connect to itself
-$pull->bind("tcp://192.168.0.12:11111");
+$pull->setSockOpt(ZMQ::SOCKOPT_HWM, 0);
+$pull->bind("tcp://127.0.0.1:50000"); //Binding to itself means the client can only connect to itself
+$pull->on('error', function ($e) { 
+        echo $e->getMessage();
+ });
 //On a 'message' event, pass the data to the myMessageHandler method of the MyPusherClass
-//$pull->on('message', array($pusher, 'onMessage'));
+$pull->on('message', array($pusher, 'onMessage'));
 
 // Set up our WebSocket server for clients wanting real-time updates
-$webSock = new React\Socket\Server('0.0.0.0:8282', $loop); // Binding to 0.0.0.0 means remotes can connect
+$webSock = new React\Socket\Server('0.0.0.0:8383', $loop); // Binding to 0.0.0.0 means remotes can connect
 $webServer = new Ratchet\Server\IoServer(
     new HttpServer(
         new WsServer(

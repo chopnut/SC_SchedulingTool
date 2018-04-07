@@ -6,7 +6,7 @@
     <script src="https://rawgit.com/cboden/fcae978cfc016d506639c5241f94e772/raw/e974ce895df527c83b8e010124a034cfcf6c9f4b/autobahn.js"></script>
     <script>
         ab.debug(true,true);
-        var conn = new ab.Session('ws://192.168.70.9:8282',
+        var conn = new ab.Session('ws://127.0.0.1:8282',
                 function() {
                     conn.subscribe('kittensCategory', function(data) {
                         // This is where you would add the new article to the DOM (beyond the scope of this tutorial)
