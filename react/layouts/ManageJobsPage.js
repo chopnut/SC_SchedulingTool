@@ -10,6 +10,7 @@ import ManageJobs_SchedulePage from './manage_jobs/SchedulePage';
 import util from '../common/edlibrary';
 import moment from 'moment';
 import {calendar_view_day_set_calendar_date} from '../actions/CalendarActions';
+var autobahn = require('autobahn');
 
 class ManageJobsPage extends Component {
 	constructor(props){

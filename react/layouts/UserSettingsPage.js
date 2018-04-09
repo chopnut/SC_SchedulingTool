@@ -3,6 +3,8 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import {getLoader} from "../common/CommonUI"
 
+var autobahn = require('autobahn');
+
 class UserSettingsPage extends Component {
     constructor(props){
         super(props);

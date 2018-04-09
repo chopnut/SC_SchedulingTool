@@ -20,11 +20,11 @@ $globalvar  = $level.'global_variables.php';
 $myapp      = $level.'../../app/App.php';
 
 
-require ($config);
-require ($autoload);
-require ($myutil);
-require ($globalvar);
-require ($myapp);
+require_once($config);
+require_once($autoload);
+require_once($myutil);
+require_once($globalvar);
+require_once($myapp);
 
 $db      = new Models\Database();
 $capsule = $db->getCapsule();

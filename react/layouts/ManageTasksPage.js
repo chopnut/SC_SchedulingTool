@@ -35,6 +35,7 @@ class ManageTasksPage extends Component {
     componentDidMount(){
         const moSelectedDate = moment(this.props.calendar_page.selected_date, 'DD/MM/YYYY');
         this.props.calendar_view_day_set_calendar_date(util.getWeekFromDate(moSelectedDate));
+        console.log("MANAGE TASK PAGE: ", this.props);
     }
 	render(){
 		return(

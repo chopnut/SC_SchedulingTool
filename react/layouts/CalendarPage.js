@@ -22,7 +22,9 @@ class CalendarPage extends Component {
             departments: []
         };
 	}
+
 	componentDidMount(){
+
 
         // Get the departments from API Call from axios
         // This will build the rows and cells based on the departments and calendar_page.days
@@ -90,6 +92,8 @@ CalendarPage.propTypes = {
     web: PropTypes.object // web is storage for user_log information
 }
 function mapStateToProps(state,ownprops) {
-    return{ settings: state.settings }
+    return{
+        settings: state.settings
+    }
 }
 export default withRouter(connect(mapStateToProps,null,null,{pure: false})(CalendarPage));

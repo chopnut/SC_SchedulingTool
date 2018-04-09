@@ -843,6 +843,10 @@
 
           }
       }
+      .ReportsPage{
+          @extend  .ManageTasksPage;
+
+      }
       .SchedulingSettingsPage{
           @extend  .ManageTasksPage;
             header{

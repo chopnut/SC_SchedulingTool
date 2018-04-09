@@ -10,6 +10,7 @@ require ('../../config.php'); // This is getting the file from landing page DONT
 require ('../../internalreports/app/MyUtil.php');
 require ('app/App.php');
 require ('vendor/autoload.php');
+require_once('public/react_api/global_variables.php');
 
 use Models\Login;
 use Models\Database;

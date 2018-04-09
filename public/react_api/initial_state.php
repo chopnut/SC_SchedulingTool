@@ -106,7 +106,8 @@ echo "window.__initial_state__ = {
         departmentOptions: $departments,
         action: { type:'',payload:{} },
         isWorking: false,
-        programmingUsers: { deptId: $programmingId , value: $pUsers }
+        programmingUsers: { deptId: $programmingId , value: $pUsers },
+        clientPort: ".RT_CLIENT_PORT."
     },
     calendar_page:{
       days: $sevenDays,

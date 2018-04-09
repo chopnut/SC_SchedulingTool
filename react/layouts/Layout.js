@@ -9,8 +9,13 @@ import ManageJobsPage from './ManageJobsPage';
 import ManageTasksPage from './ManageTasksPage';
 import SchedulingSettingsPage from './SchedulingSettingsPage';
 import UserSettingsPage from './UserSettingsPage';
+import ReportsPage from './ReportsPage';
 
 // THE LAYOUT COMPONENT WILL BE THE ONE POLLING THE DATABASE FOR ANY CHANGES COMING FROM THE DATABASE
+// Import needed functions for realtime behaviour
+
+var autobahn = require('autobahn');
+import {realtime_server} from "../common/common";
 
 class Layout extends Component {
 
@@ -20,11 +25,10 @@ class Layout extends Component {
 
         this.state = {
             isLoading: true,
-            web: {}
+            web: {},
+            realtime_server_trigger_data: {},
+            realtime_server_online: false
         };
-
-        // console.log("Constructor from layout", props);
-
     }
     componentDidMount(){
         // Get the persistent/readonly data
@@ -93,6 +97,7 @@ class Layout extends Component {
                         <Route path="/managejobs" render ={(props) => <ManageJobsPage web={this.state.web} {...this.props} /> } />
                         <Route path="/managetasks" render ={(props) => <ManageTasksPage web={this.state.web} {...this.props} /> }/>
                         <Route path="/usersettings" render ={(props) => <UserSettingsPage web={this.state.web} {...this.props} /> }/>
+                        <Route path="/reports" render ={(props) => <ReportsPage web={this.state.web} {...this.props} /> }/>
                         <Route path="/schedulingsettings" render ={(props) => <SchedulingSettingsPage web={this.state.web} {...this.props} /> }/>
                     </div>
                 </div>

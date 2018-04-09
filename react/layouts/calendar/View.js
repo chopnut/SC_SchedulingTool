@@ -308,9 +308,9 @@ class Calendar_View extends Component {
                                          <i className="calendar large icon"></i>
                                       <DatePicker
                                        selected={this.state.calendar_date}
-                                       onChange={(date) => {
-                                           this.handleCalendarFunction(date);
-                                       }
+                                           onChange={(date) => {
+                                               this.handleCalendarFunction(date);
+                                           }
                                        }
 
                                        dropdownMode="select"

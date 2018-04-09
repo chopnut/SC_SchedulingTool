@@ -11,7 +11,7 @@ import {getLoader} from "../common/CommonUI"
 import Doc from './docs/SchedulingToolSettingsDoc';
 import DBRefDoc from './docs/DBReferenceDoc';
 
-
+var autobahn = require('autobahn');
 // Get constatnt action
 import {st_settings_save} from "../actions/SchedulingToolSettingsActions";
 
