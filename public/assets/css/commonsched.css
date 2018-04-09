@@ -1,12 +1,18 @@
-.container-view-content {
-    padding: 5px;  background-color: #7F5CA2!important;
+body, div, li, ul{
+    padding: 0px;
+    margin: 0px;
 }
+.wrapper-view-content{
+    background-color: #7F5CA2;
+}
+.container-view-content {}
 .container-view-content .loader{
     font-family: arial;
+    display: block;
     color: #fff;
     font-weight: bold;
     font-size: 12px;
-    display: table;
-    margin:100px auto;
     text-align: center;
+    padding-top: 150px;
+    padding-bottom: 150px;
 }

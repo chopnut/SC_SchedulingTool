@@ -4,7 +4,8 @@
         realtime_server_trigger_data: object
         realtime_server_online: bool
  */
-export function realtime_server(port){
+export function realtimeServer(port){
+    const autobahn = require('autobahn');
     const url = 'ws://127.0.0.1:'+ port;
     let conn = new autobahn.Connection(
         {

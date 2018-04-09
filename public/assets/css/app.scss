@@ -38,17 +38,51 @@
     padding-right: 10px;
   }
 }
-
-
-
 /* ----------- Container, Menu and Pages  ------------ */
 
+.wrapper-header{
+    .container-header{
 
+        .left{
+            padding-bottom: 10px;
+            vertical-align: top;
+            .logo{
+                width: 230px;
+                img{
+                    display: block !important;
+                    width: 100% !important;
+                    height: auto !important;
+                }
+            }
+        }
+        .right{
+            padding-left: 20px;
+        }
+    }
+}
 .content_holder{
-  .page_holder{
-      margin-top: 10px;
-      /** PAGES GOES BELOW **/
-      .CalendarPage{
+    background-color:  $main_purple_color;
+    .extra{
+        z-index: -9;
+        text-align: right;
+        margin-bottom: 10px;
+        margin-top: -25px;
+        background-color: white;
+        .holder{
+           background-color: #cccccc;
+            display: inline-block;
+        }
+    }
+    .menu{
+        padding: 5px;
+        padding-bottom: 0px;
+    }
+    .page_holder{
+        padding: 5px;
+        margin-top: 9px;
+
+        /** PAGES GOES BELOW **/
+        .CalendarPage{
 
           background-color: white;
           border-radius: $managejobs_border_radius;
@@ -533,8 +567,8 @@
 
               }
           }
-      }
-      .ManageJobsPage{
+        }
+        .ManageJobsPage{
           padding: 10px;
           background-color: white;
           border-radius: $managejobs_border_radius;
@@ -789,8 +823,8 @@
               }
           }
 
-      }
-      .ManageTasksPage{
+        }
+        .ManageTasksPage{
           padding: 10px;
           background-color: white;
           border-radius: $managejobs_border_radius;
@@ -832,8 +866,8 @@
                 }
              }
           }
-      }
-      .UserSettingsPage{
+        }
+        .UserSettingsPage{
          @extend  .ManageTasksPage;
 
           header{
@@ -842,12 +876,12 @@
           article{
 
           }
-      }
-      .ReportsPage{
+        }
+        .ReportsPage{
           @extend  .ManageTasksPage;
 
-      }
-      .SchedulingSettingsPage{
+        }
+        .SchedulingSettingsPage{
           @extend  .ManageTasksPage;
             header{
                 @extend ._header_page;
@@ -968,10 +1002,8 @@
 
               }
           }
-      }
-
-
-  }
+        }
+    }
 }
 // CALENDAR JOB CARD WHEN CLICK
 .window_job_card{

@@ -14,8 +14,8 @@ import ReportsPage from './ReportsPage';
 // THE LAYOUT COMPONENT WILL BE THE ONE POLLING THE DATABASE FOR ANY CHANGES COMING FROM THE DATABASE
 // Import needed functions for realtime behaviour
 
-var autobahn = require('autobahn');
-import {realtime_server} from "../common/common";
+
+import {realtimeServer} from "../common/common";
 
 class Layout extends Component {
 
@@ -29,16 +29,17 @@ class Layout extends Component {
             realtime_server_trigger_data: {},
             realtime_server_online: false
         };
+        this.realtimeServer = realtimeServer.bind(this);
+        this.renderTop       = this.renderTop.bind(this);
     }
     componentDidMount(){
+        this.realtimeServer(this.props.settings.clientPort);
+        console.log("LAYOUT IS MOUNTED");
         // Get the persistent/readonly data
         // userlog details , and todays date
-
         const promise = app(this.props.settings);
-
-
         promise.then((res)=>{
-            // console.log("From Layout Web: ",res.data);
+            console.log("From Layout Web: ",res.data);
             this.setState((state,prop)=>{
                 return ({state,web: res.data,isLoading: false});
             });
@@ -56,7 +57,11 @@ class Layout extends Component {
             history.push('/calendar');
         }
     }
-
+    renderTop(){
+        return <div className="extra">
+            <div className="holder">Holder here</div>
+        </div>
+    }
     // Render the Pages Links Tabs
     renderTabs(){
         let tabs = JSON.parse(this.props.settings.setting.tabs);
@@ -91,6 +96,7 @@ class Layout extends Component {
         if(!this.state.isLoading){
             return (
                 <div className="content_holder">
+                    {this.renderTop()}
                     {this.renderTabs()}
                     <div className="page_holder">
                         <Route path="/calendar/:date?"  render ={(props) => <CalendarPage web={this.state.web} {...this.props} /> }/>
