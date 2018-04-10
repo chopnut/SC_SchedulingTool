@@ -62,15 +62,18 @@
 }
 .content_holder{
     background-color:  $main_purple_color;
+    $padding-five: 5px;
     .extra{
         z-index: -9;
         text-align: right;
         margin-bottom: 10px;
-        margin-top: -25px;
+        margin-top: -40px;
+        padding: $padding-five;
+        padding-right: 30px;
         background-color: white;
         .holder{
-           background-color: #cccccc;
             display: inline-block;
+            padding: $padding-five;
         }
     }
     .menu{

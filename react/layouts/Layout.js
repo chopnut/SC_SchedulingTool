@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {NavLink,Route} from 'react-router-dom';
 import {withRouter } from 'react-router-dom';
-
 import app from '../modules/persistent';
 import CalendarPage from './CalendarPage';
 import ManageJobsPage from './ManageJobsPage';
@@ -18,11 +17,9 @@ import ReportsPage from './ReportsPage';
 import {realtimeServer} from "../common/common";
 
 class Layout extends Component {
-
     // Do some initiliazing in the constructor
     constructor(props){
         super(props);
-
         this.state = {
             isLoading: true,
             web: {},
@@ -43,9 +40,7 @@ class Layout extends Component {
             this.setState((state,prop)=>{
                 return ({state,web: res.data,isLoading: false});
             });
-
         });
-
     }
     // This is for redirecting using history props pass from router
     // Otherwise the main menu wont update its state of selection.
@@ -58,8 +53,17 @@ class Layout extends Component {
         }
     }
     renderTop(){
+        let icon = (online)=>{
+            if(online){
+                return <span><i className="circle small green icon"></i>Online</span>
+            }else{
+                return <span><i className="circle small red icon"></i>Offline</span>
+            }
+        }
         return <div className="extra">
-            <div className="holder">Holder here</div>
+            <div className="holder">
+                Realtime Server Status: {icon(this.realtime_server_online)}
+            </div>
         </div>
     }
     // Render the Pages Links Tabs
@@ -68,7 +72,6 @@ class Layout extends Component {
         return (
           <div className="menu">{tabs.map( function (item , i)
               {
-                  // console.log(item,i);
                   // Make the first one link to /
                   let className     = item.id;
                   let defaultLinkto = '/'+className;
@@ -80,7 +83,6 @@ class Layout extends Component {
                 }
                 if(i>0){
                     // This is for the rest of the links
-
                     return (<NavLink key={i} to={defaultLinkto} activeClassName="RouterLinkSelected" className={"RouterLink "+className+" "+endClass}><i className={icon}></i> {item.label}</NavLink>);
                 }else{
                     // This is for the base /home
