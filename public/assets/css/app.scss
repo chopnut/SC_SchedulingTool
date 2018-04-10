@@ -99,7 +99,6 @@
               .left{
                   @include make_children_flex(58%);
 
-
                   .current_date{
                       color: lighten($main_blue_color,30%);
                       font-size: 12px;
