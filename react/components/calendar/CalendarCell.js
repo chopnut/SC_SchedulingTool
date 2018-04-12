@@ -252,6 +252,12 @@ class CalendarCell extends Component {
                             className= {"window_job_card"}
                             open = {this.state.is_window_open}
                             onClose = {this.handleWindowClose}
+                            style = {{
+                                display: "flex !important",
+                                marginTop: '100px!important',
+                                marginLeft: 'auto',
+                                marginRight: 'auto'
+                            }}
                         >
                             <Modal.Header
                                 className={"modal_header"}
