@@ -16,7 +16,7 @@ class SCSTRealtimeSubsObject implements WampServerInterface {
     }
     public function onSend($msg){ // Message from the onMessage
         $data   = json_decode($msg);
-        $action = array_key_exists('action', $data)? $data['action']:'';
+        $action = isset($data['action'])? $data['action']:'';
         if(array_key_exists($action,$this->subscriber_topics)){
             echo "Received msg, broacasting to $action";
             $this->subscriber_topics[$action]->broadcast($msg);

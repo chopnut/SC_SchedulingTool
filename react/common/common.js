@@ -5,13 +5,20 @@
         realtime_server_trigger_data: object
         realtime_server_online: bool
  */
-const ab = require("autobahn");
-
+import "../common/autobahn";
 export function realtimeServer(port){
-    const url = 'ws://localhost:' + port;
-    const connection = new ab.Connection({
-        url: url,
-        realm: "votesapp"
-    });
-    connection.open();
+    const url = 'ws://127.0.0.1:' + port;
+    ab.debug(true,true);
+    var conn = new ab.Session(url,
+        function() {
+            conn.subscribe('kittensCategory', function(data) {
+                // This is where you would add the new article to the DOM (beyond the scope of this tutorial)
+                console.log("New data available: ",data);
+            });
+        },
+        function() {
+            console.warn('WebSocket connection closed');
+        },
+        {'skipSubprotocolCheck': true}
+    );
 }
