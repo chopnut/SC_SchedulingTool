@@ -22,7 +22,8 @@ $pull->on('error', function ($e) {
     echo $e->getMessage();
  });
 //On a 'message' event, pass the data to the myMessageHandler method of the MyPusherClass
-$pull->on('message', array($pusher, 'onMessage'));
+$pull->on('message', array($pusher, 'onSend'));
+echo "Realtime server now listening on localhost@".RT_CLIENT_PORT."\n";
 
 // Set up our WebSocket server for clients wanting real-time updates
 $webSock = new React\Socket\Server('0.0.0.0:'.RT_CLIENT_PORT, $loop); // Binding to 0.0.0.0 means remotes can connect

@@ -96,8 +96,6 @@ class CalendarGroupCells extends Component {
             <div className="group">
                 {Object.keys(this.props.jobs).map((key,index)=>{
 
-
-
                     return(
                         <CalendarCell key={index}
                                       jd ={this.props.jobs[key]}
