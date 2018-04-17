@@ -30,6 +30,7 @@ if($u::areTheseSet('get','job_id')){
         $t['job_type']          = $schedBag->job_type;
         $t['job_departments']   = $schedBag->job_departments;
         $t['job_dp_date']       = '';
+        $t['job_customer_name'] = $schedBag->job_customer_name;
 
         $json = json_encode($t);
         echo "{\"msg\": \"\", \"error\": 0 , \"job\": $json }";

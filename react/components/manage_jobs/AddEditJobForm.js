@@ -414,7 +414,7 @@ class AddEditJobForm extends Component {
     prepopulateJobBag(){
         console.log("INITIALIZE EDITFORM: ", this.props);
         const {history,match} = this.props;
-        const jobId         = parseInt(match.params.jobid);
+        const jobId           = parseInt(match.params.jobid);
 
         // Check if the job number id
 
@@ -541,19 +541,20 @@ class AddEditJobForm extends Component {
         let jobs = JSON.parse(JSON.stringify( this.state.jobsFound));
         let job  = jobs[jobsKey];
         const newJob = Object.assign({},job,{
+            job_id: 0,
             job_comments: this.state.job.comments,
             job_type: this.state.job.job_type,
             job_departments: this.state.job.job_departments
         });
 
         this.setState((prevState,props)=>{
-                return ({job: newJob})
+                return ({
+                    job: newJob
+                })
             }
         );
     }
-    componentDidUpdate(){
 
-    }
     // Grab jobs already in prism
     prepopulateFromPrism(event){
 
@@ -722,8 +723,12 @@ class AddEditJobForm extends Component {
                 </table>
             );
         }
-        // If job is recurring get the all recent programming job and select it to be assigned
+        const {history,match} = this.props;
+        const jobId           = match.params.jobid;
 
+        // If job is recurring get the all recent programming job and select it to be assigned
+        console.log("TEST", this.state.job.job_departments,"|",this.state.job.job_id,"|",this.state.programmers_selection
+            ,"|", this.state.job.job_qty, "|",this.state.job.job_prism_number, "|",this.state.job.job_customer_name);
         return (
             <div className="manage_job_ce_container">
                 <form className="ui form" onSubmit={(e)=>{  e.preventDefault();  }} method="post">
@@ -740,7 +745,7 @@ class AddEditJobForm extends Component {
                                     <label>
                                         Search for Job bag by Number or Title from PRISM to link and pre-populate the fields [OPTIONAL]
                                     </label>
-                                    <input type="text" name="job_search" placeholder="Type Job Number or Title to pre-populate or leave empty." id="job_search" onChange={this.prepopulateFromPrism} />
+                                    <input type="text" disabled={jobId!==""?true:false} name="job_search" placeholder="Type Job Number or Title to pre-populate or leave empty." id="job_search" onChange={this.prepopulateFromPrism} />
                                 </div>
                                 {(SearchResult)?<SearchResult />:""}
                             </td>
@@ -758,6 +763,7 @@ class AddEditJobForm extends Component {
                         </tr>
                         <tr>
                             <td>
+
                                 <div className="three fields">
                                     <div className="field">
                                         <label><i className="fa fa-shopping-bag" aria-hidden="true"></i> Job bag number</label>
