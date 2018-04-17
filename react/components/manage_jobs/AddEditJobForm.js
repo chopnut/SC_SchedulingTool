@@ -723,12 +723,14 @@ class AddEditJobForm extends Component {
                 </table>
             );
         }
-        const {history,match} = this.props;
-        const jobId           = match.params.jobid;
+        const {history,match}   = this.props;
+        let jobId               = match.params.jobid;
+        if(!jobId) jobId        = 0;
 
         // If job is recurring get the all recent programming job and select it to be assigned
-        console.log("TEST", this.state.job.job_departments,"|",this.state.job.job_id,"|",this.state.programmers_selection
-            ,"|", this.state.job.job_qty, "|",this.state.job.job_prism_number, "|",this.state.job.job_customer_name);
+        // console.log("TEST", this.state.job.job_departments,"|",this.state.job.job_id,"|",this.state.programmers_selection
+        //     ,"|", this.state.job.job_qty, "|",this.state.job.job_prism_number, "|",this.state.job.job_customer_name);
+        
         return (
             <div className="manage_job_ce_container">
                 <form className="ui form" onSubmit={(e)=>{  e.preventDefault();  }} method="post">
@@ -743,9 +745,10 @@ class AddEditJobForm extends Component {
                                 <div className="ui error message"></div>
                                 <div className="field">
                                     <label>
+
                                         Search for Job bag by Number or Title from PRISM to link and pre-populate the fields [OPTIONAL]
                                     </label>
-                                    <input type="text" disabled={jobId!==""?true:false} name="job_search" placeholder="Type Job Number or Title to pre-populate or leave empty." id="job_search" onChange={this.prepopulateFromPrism} />
+                                    <input type="text" disabled={jobId?true:false} name="job_search" placeholder="Type Job Number or Title to pre-populate or leave empty." id="job_search" onChange={this.prepopulateFromPrism} />
                                 </div>
                                 {(SearchResult)?<SearchResult />:""}
                             </td>
