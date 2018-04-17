@@ -83,6 +83,7 @@ class App {
 		return $user;
 	} 
 	public function init(){
+		global $LOGIN_REDIRECT;
 		$this->logging_out();
 
  		// check if somebody is trying to log in 
@@ -92,7 +93,10 @@ class App {
 
  				$b = $this->check_password($password,$username,true);
 
- 				header('Location: '.SCHEDULING_URL);
+ 				if(!isset($LOGIN_REDIRECT)){
+ 					$LOGIN_REDIRECT = SCHEDULING_URL;
+ 				}
+ 				header('Location: '.$LOGIN_REDIRECT);
  				exit;
 
  		}
