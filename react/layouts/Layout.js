@@ -30,7 +30,7 @@ class Layout extends Component {
         this.renderTop       = this.renderTop.bind(this);
     }
     componentDidMount(){
-        this.realtimeServer(this.props.settings.clientPort);
+        // this.realtimeServer(this.props.settings.clientPort);
         console.log("LAYOUT IS MOUNTED");
         // Get the persistent/readonly data
         // userlog details , and todays date

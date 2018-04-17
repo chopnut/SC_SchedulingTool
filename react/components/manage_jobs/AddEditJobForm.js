@@ -571,6 +571,7 @@ class AddEditJobForm extends Component {
 
                 const reactApiPrePop = this.api_folder+'manage_jobs_prepopulate.php?q='+typeSearch;
                 const promiseJobResult = axios.get(reactApiPrePop);
+                console.log("Prepopulate URL: ", reactApiPrePop);
 
                 promiseJobResult.then((res)=>{
                         let jobs = res.data;
