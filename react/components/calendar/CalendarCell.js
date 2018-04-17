@@ -253,7 +253,12 @@ class CalendarCell extends Component {
                             open = {this.state.is_window_open}
                             onClose = {this.handleWindowClose}
                             style = {{
+<<<<<<< HEAD
                                 marginTop: '100',
+=======
+                                display: "flex !important",
+                                marginTop: '150',
+>>>>>>> 7e765022c3af06a1a157efae5ae57c9a10c6e469
                                 marginLeft: 'auto',
                                 marginRight: 'auto'
                             }}

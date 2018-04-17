@@ -1057,12 +1057,12 @@
         table.job_bag_info{
             margin-bottom: 5px;
             tr:first-child{
+
                 th:first-child{
                     padding-bottom: $padding;
                 }
                 th:last-child{
                     text-align: right;
-                    width: 200px;
                     padding-bottom: $padding;
 
                 }
@@ -1079,11 +1079,12 @@
             td:nth-child(even) {
                 background-color: #EEEEEE;
                 text-align: center;
+                min-width: 100px;
             }
             td:nth-child(odd) {
                 background-color: white;
                 font-weight: bold;
-                width: 130px;
+                width: 120px;
             }
             td:nth-child(2n+3){
                 padding-left: 10px;
