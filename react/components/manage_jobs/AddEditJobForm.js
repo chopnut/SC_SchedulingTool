@@ -730,7 +730,7 @@ class AddEditJobForm extends Component {
         // If job is recurring get the all recent programming job and select it to be assigned
         // console.log("TEST", this.state.job.job_departments,"|",this.state.job.job_id,"|",this.state.programmers_selection
         //     ,"|", this.state.job.job_qty, "|",this.state.job.job_prism_number, "|",this.state.job.job_customer_name);
-        
+
         return (
             <div className="manage_job_ce_container">
                 <form className="ui form" onSubmit={(e)=>{  e.preventDefault();  }} method="post">

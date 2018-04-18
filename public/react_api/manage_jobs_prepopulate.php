@@ -17,6 +17,7 @@
         $limit      = 7;
         $counter    = 0;
         $temp       = array();
+        $left       = 0;
 
         foreach($jobs as $job){
             $id          = $job->JOB_ID;
@@ -47,12 +48,17 @@
             $temp[$counter]['job_customer_name']    = (!$job->RM_NAME)?"":$job->RM_NAME;
 
 
+            // Creating left entry tells how many more is left in the search cause theres a limit to how many to get
             if($limit<$counter){
                 $left = count($jobs)-$limit;
                 $temp[$counter+1]["left"] = $left;
                 break;
             }
             $counter ++;
+        }
+
+        if($left==0){
+            $temp[$counter]["left"] = $left;    
         }
 
         $jsonDecode = json_encode($temp);
