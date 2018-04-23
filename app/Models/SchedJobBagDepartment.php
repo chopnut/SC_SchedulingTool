@@ -10,7 +10,6 @@ class SchedJobBagDepartment extends Model
     protected $primaryKey = "job_dp_id";
     protected $table = 'sched_job_bag_department';
     protected $fillable = [
-        'job_pd_job_id',
         'job_id',
         'job_dp_dept',
         'job_dp_date',
