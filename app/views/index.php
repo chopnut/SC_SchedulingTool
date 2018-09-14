@@ -9,8 +9,7 @@
         <title>Smartcomm Schedulling Tool</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../../common/common.css">
-        <link rel="stylesheet" href="assets/css/commonsched.css">
+        <link rel="stylesheet" href="assets/css/styles.css">
         <!--  Using font-awesome -->
         <script src="https://use.fontawesome.com/7f86d44e53.js"></script>
 

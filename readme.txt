@@ -1,3 +1,11 @@
+
+========================================================================
+How to start developing after cloning
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1. npm install
+2. composer install
+3. npm run start 
+4. (START Development)
 ========================================================================
 This is a React/Redux Application tandem with PHP/MySql/Eloquent ORM
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

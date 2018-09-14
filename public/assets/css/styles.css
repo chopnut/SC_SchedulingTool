@@ -1,0 +1,1516 @@
+body, div, li, ul{
+    padding: 0px;
+    margin: 0px;
+}
+.wrapper-view-content{
+    background-color: #7F5CA2;
+}
+.container-view-content {}
+.container-view-content .loader{
+    font-family: arial;
+    display: block;
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    padding-top: 150px;
+    padding-bottom: 150px;
+}
+/* ----------------HEADER START---------------------*/
+
+.wrapper-header {
+  overflow: auto;
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  min-width: 700px;
+}
+
+.wrapper-header .container-header {
+  vertical-align: middle;
+  overflow: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.wrapper-header .container-header .left {
+  -ms-flex-preferred-size: 230px;
+  flex-basis: 230px;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.wrapper-header .container-header .left .logo {
+  floaft: left;
+}
+
+.wrapper-header .container-header .left .logo img {
+  height: 75px;
+}
+
+.wrapper-header .container-header .right {
+  border: 0px black solid;
+  float: right;
+  text-align: right;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-right: 10px;
+}
+
+/* ----------- Container, Menu and Pages  ------------ */
+
+.wrapper-header .container-header .left {
+  padding-bottom: 10px;
+  vertical-align: top;
+}
+
+.wrapper-header .container-header .left .logo {
+  width: 230px;
+}
+
+.wrapper-header .container-header .left .logo img {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+}
+
+.wrapper-header .container-header .right {
+  padding-left: 20px;
+}
+
+.content_holder {
+  background-color: #7F5CA2;
+}
+
+.content_holder .extra {
+  z-index: -9;
+  text-align: right;
+  margin-bottom: 10px;
+  margin-top: -40px;
+  padding: 5px;
+  padding-right: 30px;
+  background-color: white;
+}
+
+.content_holder .extra .holder {
+  display: inline-block;
+  padding: 5px;
+}
+
+.content_holder .menu {
+  padding: 5px;
+  padding-bottom: 0px;
+}
+
+.content_holder .page_holder {
+  padding: 5px;
+  margin-top: 9px;
+  /** PAGES GOES BELOW **/
+}
+
+.content_holder .page_holder .CalendarPage {
+  background-color: white;
+  border-radius: 8px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.content_holder .page_holder .CalendarPage .menu_sub {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #6BACDE;
+}
+
+.content_holder .page_holder .CalendarPage .menu_sub .left {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 58%;
+  flex: 0 1 58%;
+}
+
+.content_holder .page_holder .CalendarPage .menu_sub .left .current_date {
+  color: #e8f2fa;
+  font-size: 12px;
+  padding: 10px;
+  float: left;
+}
+
+.content_holder .page_holder .CalendarPage .menu_sub .right {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  text-align: right;
+}
+
+.content_holder .page_holder .CalendarPage .menu_sub .right .links {
+  font-size: 15px;
+  padding: 10px 20px;
+  border: 0px solid #ccc;
+  display: inline-block;
+  color: #fff;
+}
+
+.content_holder .page_holder .CalendarPage .menu_sub .right .selected {
+  color: #000;
+  background-color: #fff;
+}
+
+.content_holder .page_holder .CalendarPage .body {
+  padding: 10px;
+  padding-top: 20px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view.center,
+.content_holder .page_holder .CalendarPage .body .center.calendar_view_date,
+.content_holder .page_holder .CalendarPage .body .center.calendar_manage {
+  text-align: center;
+  margin: 20px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date,
+.content_holder .page_holder .CalendarPage .body .calendar_manage {
+  font-size: 11px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view ._padding_between,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date ._padding_between,
+.content_holder .page_holder .CalendarPage .body .calendar_manage ._padding_between,
+.content_holder .page_holder .CalendarPage .body .calendar_view .first .left,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .first .left,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .first .left,
+.content_holder .page_holder .CalendarPage .body .calendar_view .first .right,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .first .right,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .first .right,
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left,
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .right,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .right,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .right {
+  margin: 5px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .first,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .first,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .first {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .first .left,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .first .left,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .first .left {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .first .left .title,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .first .left .title,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .first .left .title {
+  font-size: 20px;
+  padding: 0px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .first .left .title img,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .first .left .title img,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .first .left .title img {
+  margin-bottom: -6px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .first .right,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .first .right,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .first .right {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 200px;
+  flex: 0 1 200px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .first .right .mini_calendar_text_field,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .first .right .mini_calendar_text_field,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .first .right .mini_calendar_text_field {
+  width: 200px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .first .right i,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .first .right i,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .first .right i {
+  margin-top: 5px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .second,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .second,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .second {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .second .date_range .date_label,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .second .date_range .date_label,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .second .date_range .date_label {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .second .date_range .day_label,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .second .date_range .day_label,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .second .date_range .day_label {
+  font-size: 25px;
+  color: #6BACDE;
+  margin-bottom: 7px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .second .date_range .range_date,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .second .date_range .range_date,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .second .date_range .range_date {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .second .date_range i,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .second .date_range i,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .second .date_range i {
+  border: 0px solid #fff;
+  font-size: 17px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .second .date_range .calendar_holder .change_range_label,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .second .date_range .calendar_holder .change_range_label,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .second .date_range .calendar_holder .change_range_label {
+  font-size: 15px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table {
+  width: 100%;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table tr.programming_main_row td,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table tr.programming_main_row td,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table tr.programming_main_row td {
+  border-bottom: 1px solid #4c3761;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table tr.programmer_row td:first-child,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table tr.programmer_row td:first-child,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table tr.programmer_row td:first-child {
+  font-weight: bold;
+  text-align: right;
+  background-color: #f7f5f9;
+  color: #4c3761;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table tr td:first-child,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table tr td:first-child,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table tr td:first-child,
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table tr th:first-child,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table tr th:first-child,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table tr th:first-child {
+  border-right: 1px solid white;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .header_department_label,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .header_department_label,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .header_department_label {
+  font-size: 15px;
+  width: 140px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .header_date,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .header_date,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .header_date {
+  text-align: center;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .header_date .day_label,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .header_date .day_label,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .header_date .day_label {
+  font-size: 14px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .header_date .add_label,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .header_date .add_label,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .header_date .add_label {
+  font-size: 14px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .header_date .date_label a,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .header_date .date_label a,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .header_date .date_label a {
+  color: #000;
+  text-decoration: underline;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .today,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .today,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .today {
+  background-color: #fffaf6;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .today .day_label,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .today .day_label,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .today .day_label {
+  color: #297bba;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .today .add_label,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .today .add_label,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .today .add_label {
+  color: #297bba;
+  cursor: pointer;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .highlight_drag,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .highlight_drag,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .highlight_drag {
+  background-color: #efefef;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .parent_dept,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .parent_dept,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .parent_dept {
+  background-color: #f2eef5;
+  border-top: 1px solid #4c3761;
+  font-weight: bold;
+  font-size: 17px;
+  color: #4c3761;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .child_dept,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .child_dept,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .child_dept {
+  font-weight: bold;
+  vertical-align: top;
+  color: #e8f2fa;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .tdCell,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .tdCell,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .tdCell {
+  vertical-align: top;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .tdCell .group .cell:hover,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .tdCell .group .cell:hover,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .tdCell .group .cell:hover {
+  cursor: w-resize;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .tdCell .group .cell,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .tdCell .group .cell,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .tdCell .group .cell {
+  border-radius: 3px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  clear: both;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-bottom: 10px;
+  -webkit-box-shadow: 1px 1px 2px #bbb;
+  box-shadow: 1px 1px 2px #bbb;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .tdCell .group .cell .cell_head td,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .tdCell .group .cell .cell_head td,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .tdCell .group .cell .cell_head td {
+  border: 0px solid #fff !important;
+  padding: 0px !important;
+  color: #fff;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .tdCell .group .cell .cell_head td i,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .tdCell .group .cell .cell_head td i,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .tdCell .group .cell .cell_head td i {
+  margin: 0px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .tdCell .group .cell .cell_head ._arrow,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .tdCell .group .cell .cell_head ._arrow,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .tdCell .group .cell .cell_head ._arrow,
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .tdCell .group .cell .cell_head .cell_left,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .tdCell .group .cell .cell_head .cell_left,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .tdCell .group .cell .cell_head .cell_left,
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .tdCell .group .cell .cell_head .cell_right,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .tdCell .group .cell .cell_head .cell_right,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .tdCell .group .cell .cell_head .cell_right {
+  width: 18px;
+  background-color: transparent;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .tdCell .group .cell .cell_head .cell_left,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .tdCell .group .cell .cell_head .cell_left,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .tdCell .group .cell .cell_head .cell_left {
+  text-align: left;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .tdCell .group .cell .cell_head .cell_left i,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .tdCell .group .cell .cell_head .cell_left i,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .tdCell .group .cell .cell_head .cell_left i {
+  cursor: pointer;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .tdCell .group .cell .cell_head .cell_middle,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .tdCell .group .cell .cell_head .cell_middle,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .tdCell .group .cell .cell_head .cell_middle {
+  text-align: center;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .tdCell .group .cell .cell_head .cell_right,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .tdCell .group .cell .cell_head .cell_right,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .tdCell .group .cell .cell_head .cell_right {
+  text-align: right;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .tdCell .group .cell .cell_head .cell_right i,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .tdCell .group .cell .cell_head .cell_right i,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .tdCell .group .cell .cell_head .cell_right i {
+  cursor: pointer;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .tdCell .group .cell .contain,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .tdCell .group .cell .contain,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .tdCell .group .cell .contain {
+  background-color: #ffffff;
+  cursor: default;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .tdCell .group .cell .contain .cell_title,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .tdCell .group .cell .contain .cell_title,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .tdCell .group .cell .contain .cell_title {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .left table .tdCell .group .cell.open,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left table .tdCell .group .cell.open,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .left table .tdCell .group .cell.open {
+  -webkit-box-shadow: 1px 1px 5px #555;
+  box-shadow: 1px 1px 5px #555;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .right,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .right,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .right {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 160px;
+  flex: 0 0 160px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .right header,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .right header,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .right header {
+  padding: 10px;
+  background-color: #e8f2fa;
+  border-top: 2px solid #205f90;
+  color: #205f90;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .right header .label,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .right header .label,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .right header .label {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .right header .range,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .right header .range,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .right header .range {
+  font-size: 12px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .right article,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .right article,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .right article {
+  margin-top: 7px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .right article .aside_label,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .right article .aside_label,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .right article .aside_label {
+  border-bottom: 2px solid #205f90;
+  padding: 3px;
+  clear: both;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .right article .aside_label .day,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .right article .aside_label .day,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .right article .aside_label .day {
+  font-weight: bold;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .right article .aside_jobs,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .right article .aside_jobs,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .right article .aside_jobs {
+  width: 160px;
+  border-bottom: 1px solid #eee;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  padding-left: 5px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .right article .aside_jobs.selected,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .right article .aside_jobs.selected,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .right article .aside_jobs.selected {
+  background-color: #ffeadd;
+  color: #903900;
+  font-weight: bold;
+  border-bottom: 1px solid #fff;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .third .right article .aside_jobs.scheduled,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .right article .aside_jobs.scheduled,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .third .right article .aside_jobs.scheduled {
+  background-color: #eef7f5;
+  color: #000;
+  border-bottom: 1px solid #fff;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .head_link i,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .head_link i,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .head_link i {
+  color: #205f90;
+  cursor: pointer !important;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .head_link i:hover,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .head_link i:hover,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .head_link i:hover {
+  color: #7F5CA2 !important;
+  cursor: pointer !important;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .head_link a,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .head_link a,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .head_link a {
+  color: #205f90 !important;
+  cursor: pointer !important;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view .head_link a:hover,
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .head_link a:hover,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .head_link a:hover {
+  color: #7F5CA2 !important;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .content th:first-child {
+  width: 150px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .left {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .third .right {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 0%;
+  flex: 0 1 0%;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .fourth .left .working {
+  margin-top: -30px;
+  position: absolute;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .fourth .left .back_to_calendar {
+  background-color: #fff;
+  color: #a2a2a2;
+  border: 1px solid #EEEEEE;
+  display: inline-block;
+  padding-right: 10px;
+  padding-left: 5px;
+  padding-bottom: 3px;
+  padding-top: 3px;
+  margin: 5px;
+  font-size: 10px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .fourth .left .back_to_calendar:hover {
+  color: black;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_view_date .fourth .right {
+  text-align: right;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_manage .job_header {
+  width: 100%;
+  border-bottom: 1px solid #EEEEEE;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_manage .job_header th {
+  border-right: 1px solid #EEEEEE;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_manage .job_header th:first-child {
+  border-left: 1px solid #EEEEEE;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_manage .fourth {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_manage .fourth .left {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_manage .fourth .left .all_days .container .header {
+  background-color: #EEEEEE;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_manage .fourth .left .all_days .container .header .left_of_all_days {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_manage .fourth .left .all_days .container .header .left_of_all_days .content {
+  padding: 10px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_manage .fourth .left .all_days .container .header .left_of_all_days .content .day {
+  font-size: 20px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_manage .fourth .left .all_days .container .header .left_of_all_days .content .date {
+  padding-left: 20px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_manage .fourth .left .all_days .container .header .right_of_all_days {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 50px;
+  flex: 0 1 50px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_manage .fourth .left .all_days .container .body {
+  padding: 0px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_manage .fourth .left .all_days .container .body .department_container .department_header {
+  color: #256da5;
+  border-top: 1px solid #EEEEEE;
+  margin-top: 10px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_manage .fourth .left .all_days .container .body .department_container .department_header_main,
+.content_holder .page_holder .CalendarPage .body .calendar_manage .fourth .left .all_days .container .body .department_container .department_body .department_container_kid .kid_header {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_manage .fourth .left .all_days .sortable.list {
+  text-align: left;
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_manage .fourth .left .all_days .sortable.list li table {
+  width: 100%;
+  margin-bottom: 1px;
+  background-color: #e8f2fa;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_manage .fourth .left .all_days .sortable.list li table th {
+  border-right: 1px solid #ffffff;
+  padding: 5px;
+  font-weight: normal;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_manage .fourth .left .all_days .sortable.list li table th:last-child {
+  border-right: 0px solid #fff;
+}
+
+.content_holder .page_holder .CalendarPage .body .calendar_manage .fourth .right {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 0px;
+  flex: 0 1 0px;
+}
+
+.content_holder .page_holder .ManageJobsPage {
+  padding: 10px;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.content_holder .page_holder .ManageJobsPage .menu_sub {
+  margin-bottom: 0px;
+  margin-top: 5px;
+  padding-bottom: 5px;
+}
+
+.content_holder .page_holder .ManageJobsPage .menu_sub a {
+  color: #ccc;
+}
+
+.content_holder .page_holder .ManageJobsPage .menu_sub .links {
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-bottom: 6px;
+  padding-top: 5px;
+  border-bottom: 0px;
+  font-size: 16px;
+  margin-right: 10px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  position: relative;
+  z-index: 10;
+  background-color: #777;
+  color: white;
+}
+
+.content_holder .page_holder .ManageJobsPage .menu_sub .selected {
+  border: 1px solid #ccc;
+  border-bottom: 2px solid #fff;
+  position: relative;
+  color: #000;
+  z-index: 30;
+  background-color: #ffffff;
+}
+
+.content_holder .page_holder .ManageJobsPage ._manage_job_page,
+.content_holder .page_holder .ManageJobsPage .jobs,
+.content_holder .page_holder .ManageJobsPage .schedule,
+.content_holder .page_holder .ManageJobsPage .edit {
+  z-index: 20;
+  position: relative;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  border-top-left-radius: 0px;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .left {
+  background-color: none;
+  border: "1px" "#000" solid;
+  padding: 0px;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 250px;
+  flex: 0 1 250px;
+  text-align: center;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .left .datepicker {
+  width: 250px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .left .header {
+  margin-bottom: 10px;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .left .header .top {
+  font-size: .8em;
+  font-weight: bold;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .left .header .bottom .day {
+  font-weight: bold;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .left .header .bottom .date_from {
+  font-size: 15px;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .left .header .bottom .date_to {
+  font-size: 15px;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right {
+  background-color: none;
+  border: "1px" "#000" solid;
+  padding: 0px;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right ._content,
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .header.jobbags .content,
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .header.schedules .content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 10px;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right ._content .left,
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .header.jobbags .content .left,
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .header.schedules .content .left {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 200px;
+  flex: 0 1 200px;
+  text-align: left;
+  font-size: 25px;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right ._content .right,
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .header.jobbags .content .right,
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .header.schedules .content .right {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  text-align: right;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .header.jobbags .content .right .dateType i {
+  margin-top: -8px;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .header.schedules .content .left {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 300px;
+  flex: 0 1 300px;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .body .info {
+  border-top: 1px solid #EEEEEE;
+  border-bottom: 1px solid #EEEEEE;
+  padding: 5px;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .job_row {
+  margin-bottom: 10px;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .job_row .job_card {
+  display: inline-block;
+  padding-right: 5px;
+  font-size: 15px;
+  text-align: right !important;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .job_row .job_card .job_card_label {
+  font-size: 0.55em;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .job_row .job_card .job_card_value {
+  font-weight: bold;
+  margin-top: -5px;
+  display: block;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .job_row .job_title {
+  font-size: 20px;
+  padding: 7px;
+  background-color: #eee;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .job_row .wrapper .card {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .job_row .wrapper .card .row_1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .job_row .wrapper .card .row_1 .left {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  text-align: left;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .job_row .wrapper .card .row_1 .right {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 190px;
+  flex: 0 1 190px;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .job_row .wrapper .card .row_1 .right div {
+  float: right;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .job_row .wrapper .card .row_2 .left {
+  text-align: left;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .job_row .wrapper .card .row_3 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .job_row .wrapper .card .row_3 .left {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 50%;
+  flex: 0 1 50%;
+}
+
+.content_holder .page_holder .ManageJobsPage .jobs .main_container .right .job_row .wrapper .card .row_3 .right {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 50%;
+  flex: 0 1 50%;
+  text-align: right;
+}
+
+.content_holder .page_holder .ManageJobsPage .edit .job_bag_add_edit {
+  width: 100%;
+}
+
+.content_holder .page_holder .ManageJobsPage .edit .job_bag_add_edit td {
+  padding: 0px;
+}
+
+.content_holder .page_holder .ManageJobsPage .edit .manage_job_ce_container .job_bag_programmer_assignment {
+  background-color: #eef7f5;
+  border: 1px solid #cce6e0;
+  border-radius: 8px;
+  padding: 15px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.content_holder .page_holder .ManageJobsPage .edit .manage_job_ce_container .manage_page_ce_header {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  padding: 10px;
+}
+
+.content_holder .page_holder .ManageJobsPage .edit .manage_job_ce_container .manage_page_ce_header .head {
+  font-size: 25px;
+}
+
+.content_holder .page_holder .ManageJobsPage .edit .manage_job_ce_container .manage_page_ce_header .head .title {
+  color: #2e89ce;
+}
+
+.content_holder .page_holder .ManageJobsPage .edit .manage_job_ce_container .status_jobtype_bgcolor {
+  width: 100% !important;
+}
+
+.content_holder .page_holder .ManageJobsPage .edit .manage_job_ce_container .color_preview {
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  border: solid 1px #000000;
+}
+
+.content_holder .page_holder .ManageJobsPage .edit .manage_job_ce_container .pick_a_background {
+  width: 100%;
+}
+
+.content_holder .page_holder .ManageJobsPage .edit .manage_job_ce_container .pick_a_background td:last-child {
+  text-align: right;
+}
+
+.content_holder .page_holder .ManageTasksPage,
+.content_holder .page_holder .UserSettingsPage,
+.content_holder .page_holder .ReportsPage,
+.content_holder .page_holder .SchedulingSettingsPage {
+  padding: 10px;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.content_holder .page_holder .ManageTasksPage ._header_page,
+.content_holder .page_holder .UserSettingsPage ._header_page,
+.content_holder .page_holder .ReportsPage ._header_page,
+.content_holder .page_holder .SchedulingSettingsPage ._header_page,
+.content_holder .page_holder .ManageTasksPage header,
+.content_holder .page_holder .ManageTasksPage .UserSettingsPage header,
+.content_holder .page_holder .UserSettingsPage .ManageTasksPage header,
+.content_holder .page_holder .UserSettingsPage header,
+.content_holder .page_holder .ManageTasksPage .ReportsPage header,
+.content_holder .page_holder .ReportsPage .ManageTasksPage header,
+.content_holder .page_holder .ReportsPage header,
+.content_holder .page_holder .ManageTasksPage .SchedulingSettingsPage header,
+.content_holder .page_holder .SchedulingSettingsPage .ManageTasksPage header,
+.content_holder .page_holder .SchedulingSettingsPage header {
+  font-size: 20px;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+.content_holder .page_holder .ManageTasksPage .first,
+.content_holder .page_holder .UserSettingsPage .first,
+.content_holder .page_holder .ReportsPage .first,
+.content_holder .page_holder .SchedulingSettingsPage .first {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.content_holder .page_holder .ManageTasksPage .first .left,
+.content_holder .page_holder .UserSettingsPage .first .left,
+.content_holder .page_holder .ReportsPage .first .left,
+.content_holder .page_holder .SchedulingSettingsPage .first .left {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.content_holder .page_holder .ManageTasksPage .first .right,
+.content_holder .page_holder .UserSettingsPage .first .right,
+.content_holder .page_holder .ReportsPage .first .right,
+.content_holder .page_holder .SchedulingSettingsPage .first .right {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 200px;
+  flex: 0 1 200px;
+}
+
+.content_holder .page_holder .ManageTasksPage article.second .sidebar_container,
+.content_holder .page_holder .UserSettingsPage article.second .sidebar_container,
+.content_holder .page_holder .ReportsPage article.second .sidebar_container,
+.content_holder .page_holder .SchedulingSettingsPage article.second .sidebar_container,
+.content_holder .page_holder .ManageTasksPage article.second .sidebar_container .sidebar,
+.content_holder .page_holder .UserSettingsPage article.second .sidebar_container .sidebar,
+.content_holder .page_holder .ReportsPage article.second .sidebar_container .sidebar,
+.content_holder .page_holder .SchedulingSettingsPage article.second .sidebar_container .sidebar {
+  border-radius: 0px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  padding: 0px;
+  border: 1px solid #ccc;
+}
+
+.content_holder .page_holder .ManageTasksPage article.second .sidebar_container .sidebar,
+.content_holder .page_holder .UserSettingsPage article.second .sidebar_container .sidebar,
+.content_holder .page_holder .ReportsPage article.second .sidebar_container .sidebar,
+.content_holder .page_holder .SchedulingSettingsPage article.second .sidebar_container .sidebar {
+  border: 0px solid #fff;
+  background-color: #6BACDE;
+}
+
+.content_holder .page_holder .ManageTasksPage article.second .sidebar_container .main_content,
+.content_holder .page_holder .UserSettingsPage article.second .sidebar_container .main_content,
+.content_holder .page_holder .ReportsPage article.second .sidebar_container .main_content,
+.content_holder .page_holder .SchedulingSettingsPage article.second .sidebar_container .main_content {
+  text-align: left;
+}
+
+.content_holder .page_holder .ManageTasksPage article.second .sidebar_container .main_content .header,
+.content_holder .page_holder .UserSettingsPage article.second .sidebar_container .main_content .header,
+.content_holder .page_holder .ReportsPage article.second .sidebar_container .main_content .header,
+.content_holder .page_holder .SchedulingSettingsPage article.second .sidebar_container .main_content .header {
+  background-color: #eee;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article .important_note {
+  background-color: #e8f2fa;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article textarea {
+  width: 100%;
+  padding: 5px;
+  height: 100px;
+  min-height: 100px;
+  max-height: 100px;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article table {
+  width: 100%;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article table td {
+  width: 50%;
+  text-align: left;
+  vertical-align: top;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article table td .user_departments .info {
+  margin-bottom: 10px;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article table td .user_departments .user_selects {
+  margin-bottom: 10px;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article table td .user_departments .user_selects .user_select {
+  width: 100%;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article table td .user_departments .dept_selects .dept_select {
+  width: 100%;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article table td label {
+  width: 50%;
+  display: inline-block;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article table td label + span {
+  float: right;
+  font-size: 11px;
+  color: #aaaaaa;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article table div.wrapper {
+  border: 1px solid #bbbbbb;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article table div.wrapper .header {
+  background-color: #ffffff;
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: inline-block;
+  top: -20px;
+  left: 15px;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article table div.two_cols::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article table div.two_cols .column {
+  width: calc(50% - 22.5px);
+  float: left;
+  margin-left: 15px;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article table div.two_cols .column:first-child {
+  margin-left: 0px;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article table div.three_cols::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article table div.three_cols .input_text {
+  width: 100% !important;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article table div.three_cols .column {
+  width: calc(46.15385%);
+  float: left;
+  margin-left: 0px;
+  padding-bottom: 10px;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article table div.three_cols .middle {
+  width: calc(6.92308%);
+  float: left;
+  margin-left: 0px;
+  padding-top: 5px;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage article table div.three_cols .middle .preview_box {
+  border-radius: 15px;
+  margin: 0 auto;
+  border: 1px solid #c8c8c8;
+  display: block;
+  height: 25px;
+  width: 25px;
+}
+
+.content_holder .page_holder .SchedulingSettingsPage .reference_doc {
+  padding: 10px;
+}
+
+.window_job_card table {
+  width: 100%;
+}
+
+.window_job_card .modal_header {
+  padding: 10px !important;
+}
+
+.window_job_card .modal_header table.job_bag_header .job_prism_job_id {
+  text-align: right;
+  width: auto;
+}
+
+.window_job_card .modal_header table.job_bag_header .job_customer_name {
+  font-size: 14px;
+  font-weight: normal;
+  font-style: italic;
+}
+
+.window_job_card .modal_header table.job_bag_header .job_departments {
+  text-align: right;
+}
+
+.window_job_card .modal_header table.job_bag_header .job_title {
+  font-size: 22px !important;
+}
+
+.window_job_card .modal_header table.job_bag_header th {
+  font-size: 11px !important;
+}
+
+.window_job_card .modal_body {
+  padding: 10px !important;
+}
+
+.window_job_card .modal_body .edit_button {
+  border: 0px solid #000000 !important;
+  background: none !important;
+  border-radius: 0 !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  color: #000000 !important;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.window_job_card .modal_body table.job_bag_info,
+.window_job_card .modal_body table.job_dep_info {
+  margin-bottom: 5px;
+}
+
+.window_job_card .modal_body table.job_bag_info tr:first-child th:first-child,
+.window_job_card .modal_body table.job_dep_info tr:first-child th:first-child {
+  padding-bottom: 10px;
+}
+
+.window_job_card .modal_body table.job_bag_info tr:first-child th:last-child,
+.window_job_card .modal_body table.job_dep_info tr:first-child th:last-child {
+  text-align: right;
+  padding-bottom: 10px;
+}
+
+.window_job_card .modal_body table.job_bag_info th,
+.window_job_card .modal_body table.job_dep_info th {
+  font-size: 11px;
+  font-weight: normal;
+  color: #777777;
+}
+
+.window_job_card .modal_body table.job_bag_info td,
+.window_job_card .modal_body table.job_dep_info td {
+  border-spacing: 10px;
+}
+
+.window_job_card .modal_body table.job_bag_info td:nth-child(even),
+.window_job_card .modal_body table.job_dep_info td:nth-child(even) {
+  background-color: #EEEEEE;
+  text-align: center;
+  min-width: 100px;
+}
+
+.window_job_card .modal_body table.job_bag_info td:nth-child(odd),
+.window_job_card .modal_body table.job_dep_info td:nth-child(odd) {
+  background-color: white;
+  font-weight: bold;
+  width: 120px;
+}
+
+.window_job_card .modal_body table.job_bag_info td:nth-child(2n+3),
+.window_job_card .modal_body table.job_dep_info td:nth-child(2n+3) {
+  padding-left: 10px;
+}
+
+th.jnu {
+  width: 80px;
+}
+
+th.csr {
+  width: 30px;
+}
+
+th.cli {
+  width: 100px;
+}
+
+th.qty {
+  width: 100px;
+}
+
+th.dat {
+  width: 100px;
+}
+
+th.pri {
+  width: 100px;
+}
+
+th.sto {
+  width: 70px;
+}
+
+.add_recurring {
+  position: relative;
+  margin-right: 35px !important;
+  padding: 5px !important;
+}
+
+.add_recurring .add_recurring_window {
+  width: 200px;
+}
+
+.add_recurring .add_recurring_window table {
+  width: 100%;
+}
+
+.add_recurring .add_recurring_window table td {
+  padding: 6px;
+}
+
+.add_recurring .add_recurring_window table .head {
+  color: #fff;
+  background-color: #6bacde;
+}
+
+.add_recurring .add_recurring_window table .day {
+  font-weight: bold;
+  font-size: 22px;
+  padding-bottom: 0px !important;
+}
+
+.add_recurring .add_recurring_window table .date {
+  font-size: 11px;
+  border-bottom: 0px solid #ccc;
+  padding-top: 0px !important;
+}
+
+.job_card_datepicker {
+  width: 135px !important;
+  font-size: 11px;
+}
+
+.prism_popup {
+  position: relative;
+  margin-top: -100px !important;
+  padding: 0px !important;
+}
+
+.prism_popup .job_card {
+  border-top: 2px solid #428a79 !important;
+}
+
+.prism_popup .job_card .schedule_to_container {
+  border: 1px solid #eee;
+  padding: 5px;
+}
+
+.prism_popup .job_card .schedule_to_container .job_type {
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+
+.prism_popup .job_card ._padding,
+.prism_popup .job_card header,
+.prism_popup .job_card .body,
+.prism_popup .job_card footer {
+  padding: 5px;
+}
+
+.prism_popup .job_card header {
+  background-color: #eef7f5;
+  border-bottom: 1px solid #eee;
+}
+
+.prism_popup .job_card header .first table {
+  font-size: 10px;
+  width: 100%;
+}
+
+.prism_popup .job_card header .first table td {
+  border: 0px solid #ccc;
+}
+
+.prism_popup .job_card header .first table .cell_qty {
+  text-align: right;
+}
+
+.prism_popup .job_card header .first table .title {
+  font-weight: bold;
+  font-size: 15px;
+  color: #4a9c88;
+}
+
+.prism_popup .job_card .body table {
+  width: 100%;
+}
+
+.prism_popup .job_card .body table td {
+  border-bottom: 1px solid #eee;
+}
+
+.prism_popup .job_card .body table .label {
+  font-weight: bold;
+}
+
+.prism_popup .job_card .body table .info {
+  border-bottom: 0px solid #ccc;
+}
+
+.menu {
+  padding-top: 10px;
+}
+
+.menu .RouterLink {
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+.menu .RouterLinkSelected {
+  background-color: #fff;
+  color: #000;
+  border-radius: 8px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  padding-bottom: 15px;
+  border: 0px solid #2C7198 !important;
+}
+
+.menu .RouterLinkSelected.calendar {
+  background-color: #6BACDE;
+  color: #fff;
+}

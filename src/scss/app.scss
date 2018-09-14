@@ -1,0 +1,1215 @@
+@import "../../node_modules/bourbon/app/assets/stylesheets/bourbon";
+@import "../../node_modules/bourbon-neat/core/neat";
+@import "commonsched.css";
+@import "~compass-mixins";
+@import "edmixins";
+@import "scheduling_variables";
+
+/* ----------------HEADER START---------------------*/
+
+.wrapper-header {
+  overflow: auto;
+  padding: 5px;
+  box-sizing: border-box;
+  min-width: 700px;
+
+  .container-header {
+    vertical-align: middle;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .container-header .left {
+    flex-basis: 230px;
+    flex-shrink: 0;
+  }
+  .container-header .left .logo {
+    floaft: left;
+  }
+  .container-header .left .logo img {
+    height: 75px;
+  }
+  .container-header .right {
+    border: 0px black solid;
+    float: right;
+    text-align: right;
+    flex: 1;
+    box-sizing: border-box;
+    padding-right: 10px;
+  }
+}
+/* ----------- Container, Menu and Pages  ------------ */
+
+.wrapper-header{
+    .container-header{
+
+        .left{
+            padding-bottom: 10px;
+            vertical-align: top;
+            .logo{
+                width: 230px;
+                img{
+                    display: block !important;
+                    width: 100% !important;
+                    height: auto !important;
+                }
+            }
+        }
+        .right{
+            padding-left: 20px;
+        }
+    }
+}
+.content_holder{
+    background-color:  $main_purple_color;
+    $padding-five: 5px;
+    .extra{
+        z-index: -9;
+        text-align: right;
+        margin-bottom: 10px;
+        margin-top: -40px;
+        padding: $padding-five;
+        padding-right: 30px;
+        background-color: white;
+        .holder{
+            display: inline-block;
+            padding: $padding-five;
+        }
+    }
+    .menu{
+        padding: 5px;
+        padding-bottom: 0px;
+    }
+    .page_holder{
+        padding: 5px;
+        margin-top: 9px;
+
+        /** PAGES GOES BELOW **/
+        .CalendarPage{
+
+          background-color: white;
+          border-radius: $managejobs_border_radius;
+          border-top-left-radius: 0px;
+          border-top-right-radius:  0px;
+
+          .menu_sub{
+              display: flex;
+              background-color: $calendar_page_selected_bg;
+
+              .left{
+                  @include make_children_flex(58%);
+
+                  .current_date{
+                      color: lighten($main_blue_color,30%);
+                      font-size: 12px;
+                      padding: 10px;
+                      float: left;
+                  }
+              }
+              .right{
+                  @include make_children_flex();
+                  text-align: right;
+                  .links{
+                        font-size: 15px;
+                        padding: 10px 20px;
+                        border: 0px solid #ccc;
+                        display: inline-block;
+                      color: #fff;
+
+                  }
+                  .selected{
+                      color: #000;
+                      background-color: #fff;
+
+                  }
+
+              }
+          }
+          .body{
+              padding: 10px;
+              padding-top:20px;
+
+              // Calendar Main Page
+              .calendar_view.center{
+                  text-align: center;
+                  margin: 20px;
+              }
+              .calendar_view{
+
+                    font-size: 11px;
+                    ._padding_between{
+                        margin: 5px;
+                    }
+                    .first{
+                        display: flex;
+                        .left{
+                            @extend ._padding_between;
+                            @include make_children_flex();
+                            .title{
+                                font-size: 20px;
+                                padding: 0px;
+                                img{
+                                    margin-bottom: -6px;
+                                }
+                            }
+                        }
+                        .right{
+                            @extend ._padding_between;
+                            @include make_children_flex(200px);
+                            .mini_calendar_text_field{
+                                width: 200px;
+                            }
+                            i{
+                                margin-top: 5px;
+                            }
+                        }
+
+                    }
+                    .second{
+                      text-align:  center;
+                      margin-bottom: 10px;
+
+                      .date_range{
+                          .labels{ }
+                          .date_label{ font-size: 15px; font-weight: bold; }
+                          .day_label{ font-size: 25px; color: $main_blue_color; margin-bottom: 7px;}
+                          .range_date{
+                              font-size: 15px;
+                              font-weight: bold;
+                          }
+                          i{border: 0px solid #fff; font-size: 17px;}
+                          .calendar_holder{
+                              .change_range_label{
+                                  font-size:  15px;
+                              }
+
+                          }
+                      }
+                  }
+                    .third{
+                      display: flex;
+
+                      // This is the main calendar itself
+                      .left{
+                          // Below are CSS RULE for ui's
+
+                          @extend ._padding_between;
+                          @include make_children_flex();
+
+                          // Main grid table
+                          table{
+
+                              width:  100%;
+
+                              tr.programming_main_row{
+                                  td{
+                                      border-bottom: 1px solid darken($main_purple_color, 20%);
+
+                                  }
+                              }
+                              tr.programmer_row{
+                                  td:first-child{
+                                      font-weight:  bold;
+                                      text-align:  right;
+                                      background-color: lighten($main_purple_color, 47%);
+                                      color: darken($main_purple_color, 20%);
+
+                                  }
+                              }
+                              tr td:first-child, tr th:first-child{
+                                  border-right: 1px solid lighten($main_grey_color, 20%);
+                              }
+
+                              // LEFT DEPARTMENT LABEL
+                              .header_department_label{
+                                  font-size: 15px;
+                                  width: 140px;
+                              }
+
+                              .header_date{
+                                  text-align:center;
+                                  .day_label{
+                                      font-size: 14px;
+
+                                  }
+                                  .add_label{ font-size: 14px; }
+                                  .date_label{
+                                      a{
+                                          color: #000;
+                                          text-decoration: underline;
+                                      }
+                                  }
+                              }
+                              .today{
+                                  background-color: lighten($main_orange_color,40%);
+                                  .day_label{
+                                      color: darken($main_blue_color,20%);
+                                  }
+                                  .add_label{
+                                      color:darken($main_blue_color,20%);
+                                      cursor: pointer;
+                                  }
+                              }
+                              .highlight_drag{
+                                  background-color: #efefef;
+                              }
+                              // Department labels
+                              .parent_dept{
+                                  background-color: lighten($main_purple_color, 45%);
+                                  border-top: 1px solid darken($main_purple_color, 20%);
+                                  font-weight:  bold;
+                                  font-size: 17px;
+                                  color: darken($main_purple_color, 20%);
+                              }
+                              .child_dept{
+                                  font-weight: bold;
+                                  vertical-align: top;
+                                  color: lighten($main_blue_color,30%);
+
+                              }
+                              // Individual cell data
+                              .tdCell {
+                                  vertical-align: top;
+
+                                  // GROUP CELL
+                                  .group{
+                                      .cell:hover{
+                                          cursor: w-resize;
+                                      }
+
+                                      // IND CELL
+                                      .cell{
+                                          border-radius: $calendar_job_cell_raius;
+                                          box-sizing: border-box;
+                                          clear: both;
+                                          white-space: nowrap;
+                                          overflow: hidden;
+                                          margin-bottom: 10px;
+                                          box-shadow: 1px 1px 2px #bbb;
+
+
+                                          .cell_head{
+                                              td{
+                                                  border: 0px solid #fff !important;
+                                                  padding: 0px !important;
+                                                  color: #fff;
+                                                  i{
+                                                      margin: 0px;
+                                                  }
+                                              }
+                                              ._arrow{
+                                                  width: 18px;
+                                                  background-color: transparent;
+                                              }
+                                              .cell_left{
+                                                  @extend ._arrow;
+                                                  text-align: left;
+                                                  i{ cursor: pointer; }
+
+                                              }
+                                              .cell_middle{  text-align: center; }
+                                              .cell_right{
+                                                  @extend ._arrow;
+                                                  text-align: right;
+                                                  i{ cursor: pointer; }
+
+                                              }
+
+                                          }
+                                          .contain{
+                                              background-color: #ffffff;
+                                              cursor: default;
+
+                                              // cell click title
+                                              .cell_title{
+                                                  cursor: pointer;
+                                                  padding: 5px;
+                                              }
+
+                                          }
+                                      }
+                                      .cell.open{
+                                          box-shadow: 1px 1px 5px #555;
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                      // This is the prism side bar
+                      .right{
+                          @extend ._padding_between;
+                          @include make_children_flex(160px,0);
+
+                          header{
+                              padding: 10px;
+                              background-color: lighten($main_blue_color,30%);
+                              border-top: 2px solid darken($main_blue_color,30%);
+                              color: darken($main_blue_color,30%);
+
+                              .label{ font-weight: bold; font-size: 12px; }
+                              .range{ font-size: 12px; }
+                          }
+                          // This is the main content for the job bags in prism
+                          article{
+                              margin-top: 7px;
+                              .aside_label{
+                                  border-bottom: 2px solid darken($main_blue_color,30%);
+                                  padding: 3px;
+                                  clear: both;
+                                  .day{ font-weight: bold; }
+                                  .date{
+
+                                  }
+                              }
+                              //This is for link on side prism job
+
+                              .aside_jobs{
+                                  width: 160px;
+                                  border-bottom: 1px solid #eee;
+                                  overflow: hidden;
+                                  white-space: nowrap;
+                                  cursor: pointer;
+                                  padding-left: 5px;
+                              }
+                              .aside_jobs:hover{
+
+                              }
+                              .aside_jobs.selected{
+                                  background-color: lighten($main_orange_color,35%);
+                                  color: darken($main_orange_color,30%);
+                                  font-weight: bold;
+                                  border-bottom: 1px solid #fff;
+
+                              }
+                              .aside_jobs.scheduled{
+                                  background-color: lighten($main_teal_color,20%);
+                                  color: #000;
+                                  border-bottom: 1px solid #fff;
+                              }
+
+                          }
+
+                      }
+                  }
+                    .head_link i{
+                        color: darken($main_blue_color,30%);
+                        cursor: pointer !important;
+                    }
+                    .head_link i:hover{
+                      color: $main_purple_color !important;
+                      cursor: pointer !important;
+                    }
+                    .head_link a{
+                        color: darken($main_blue_color,30%) !important;
+                        cursor: pointer !important;
+
+                    }
+                    .head_link a:hover{
+                      color: $main_purple_color !important;
+                    }
+
+
+
+              }
+              // Viewing a day individually
+              .calendar_view_date{
+                  @extend .calendar_view;
+
+                  .content{
+                      th:first-child{
+                          width: 150px;
+                      }
+                  }
+                  // third is the main content
+                  .third{
+                      .left {
+                          @include make_children_flex();
+                      }
+                      .right {
+                          @include make_children_flex(0%);
+                      }
+                  }
+                  .fourth{
+                      .left{
+                          .working{
+                              margin-top: -30px;
+                              position:  absolute;
+                          }
+                          .back_to_calendar{
+                              background-color: #fff;
+                              color: darken($main_grey_color,30%);
+                              border: 1px solid $main_grey_color;
+                              display: inline-block;
+                              padding-right: 10px;
+                              padding-left: 5px;
+                              padding-bottom: 3px;
+                              padding-top: 3px;
+                              margin: 5px;
+                              font-size: 10px;
+                          }
+                          .back_to_calendar:hover{
+                              color: black;
+                          }
+                      }
+                      .right{
+                          text-align:  right;
+                      }
+                  }
+              }
+              // Viewing and managing the job with same layout as Pete's
+              .calendar_manage{
+                  @extend .calendar_view;
+                  // The header labels for viewing days
+
+                    .job_header{
+                        width: 100%;
+                        border-bottom: 1px solid $main_grey_color;
+                        th{
+                            border-right: 1px solid $main_grey_color;
+                        }
+                        th:first-child{
+                            border-left: 1px solid $main_grey_color;
+                        }
+                    }
+
+                  // Manage Page
+                  .fourth{
+                      display: flex;
+                      // The actual content of manage page
+                      .left{
+                          @include make_children_flex();
+                          // ---------------------------------------------------
+                          // Viewing all days from the manage tab page
+                          .all_days{
+                              // Container of each day
+                              .container{
+                                  .header{
+                                      background-color: $main_grey_color;
+                                      display: flex;
+                                      .left_of_all_days {
+                                          @include make_children_flex();
+                                          .content{
+                                              padding: 10px;
+                                              .day{ font-size: 20px; }
+                                              .date{ padding-left: 20px; }
+                                          }
+                                      }
+                                      .right_of_all_days{
+
+                                          @include make_children_flex(50px);
+                                      }
+                                  }
+                                  .body{
+                                      padding: 0px;
+                                      margin-top: 10px;
+                                      text-align: center;
+
+                                      // Individual departments per day
+                                      .department_container{
+                                          .department_header{
+                                              color: darken($main_blue_color,25%);
+                                              border-top: 1px solid $main_grey_color;
+                                              margin-top: 10px;
+                                          }
+                                          .department_header_main{
+                                              font-size: 15px;
+                                              font-weight: bold;
+                                          }
+                                          .department_body{
+                                                // The children of the department
+                                                .department_container_kid{
+                                                    .kid_header{
+                                                       @extend  .department_header_main;
+                                                    }
+                                                    .kid_body{
+
+                                                    }
+                                                }
+                                          }
+                                      }
+                                  }
+                              }
+                              // UL group job sortable
+                              .sortable.list{
+                                  text-align: left;
+                                  list-style:  none;
+                                  margin: 0px;
+                                  padding: 0px;
+                                  li{
+
+                                      table{
+                                          width: 100%;
+                                          margin-bottom: 1px;
+                                          background-color: lighten($main_blue_color,30%);
+
+                                          th{
+                                              border-right: 1px solid #ffffff;
+                                              padding: 5px;
+                                              font-weight: normal;
+                                          }
+                                          th:last-child{ border-right: 0px solid #fff; }
+                                      }
+                                  }
+                              }
+                          }
+
+                      }
+                      // You can have extra navigation here
+                      .right{
+                          @include make_children_flex(0px);
+
+                      }
+                  }
+                  // When viewing a particular department in a week
+                  .department_view{
+                      .container{
+
+                      }
+                  }
+
+              }
+          }
+        }
+        .ManageJobsPage{
+          padding: 10px;
+          background-color: white;
+          border-radius: $managejobs_border_radius;
+
+          .menu_sub{
+              margin-bottom: 0px;
+              margin-top:  5px;
+              padding-bottom: 5px;
+
+
+              a{
+                  color: #ccc;
+              }
+              .links{
+                  padding-right: 10px;
+                  padding-left: 10px;
+                  padding-bottom: 6px;
+                  padding-top: 5px;
+                  border-bottom: 0px;
+                  font-size: 16px;
+                  margin-right: 10px;
+                  @include border-top-radius($managejobs_border_radius);
+                  position: relative;
+                  z-index: 10;
+                  background-color: #777;
+                  color: white;
+
+              }
+              .selected{
+                  border: $managejobs_border;
+                  border-bottom: 2px solid #fff;
+                  position: relative;
+                  color: #000;
+                  z-index: 30;
+                  background-color: #ffffff;
+              }
+              // This is for sub links of the manage jobs
+              .jobs_link{}
+              .schedule_link{}
+              .newedit_link{}
+          }
+          ._manage_job_page {
+              z-index: 20;
+              position: relative;
+              border: $managejobs_border;
+              padding: $managejobs_page_padding;
+              border-radius: $managejobs_border_radius;
+              border-top-left-radius: 0px;
+          }
+          // MANAGE JOB - JOBS PAGE
+          .jobs{
+            @extend ._manage_job_page;
+              .main_container{
+                  display: flex;
+                  .left{
+                      @include make_div();
+                      @include make_children_flex(250px);
+                      text-align: center;
+
+                      // DATE PICKER LIVES IN THE LEFT CORNER
+                      .datepicker{
+                          width: 250px !important;
+                            @include make_middle();
+                      }
+                      .header{
+                            margin-bottom:  10px;
+                          .top{
+                              font-size: .8em;
+                              font-weight: bold;
+                          }
+                          .bottom{
+                              .day{  font-weight: bold;   }
+                              .date_from{  font-size: 15px;   }
+                              .date_to{    font-size: 15px;   }
+                          }
+                      }
+                  }
+                  .right{
+                      @include make_div();
+                      @include make_children_flex(auto);
+
+
+                      // Template for content
+                      ._content{
+
+                          display:  flex;
+                          padding: 10px;
+                          .left{
+
+                              @include make_children_flex(200px);
+                              text-align: left;
+                              font-size: 25px;
+                          }
+
+                          .right{
+                              @include make_children_flex();
+                              text-align: right;
+                          }
+                      }
+                      // Content for the jobbags page
+                      .header.jobbags{
+                          .content{
+                              @extend ._content;
+                              .right{
+                                  .dateType{
+                                      i{
+                                          margin-top: -8px;
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                      // Content for the schedules page
+                      .header.schedules{
+                          .content{
+                              @extend ._content;
+                              .left{
+                                  @include make_children_flex(300px);
+                              }
+                              .right{
+
+                              }
+                          }
+
+                      }
+
+                      .body{
+                          .info{
+                              border-top:    1px solid $main_grey_color;
+                              border-bottom: 1px solid $main_grey_color;
+                              padding: 5px;
+                          }
+                      }
+
+                      // Job rows for each job bag  in Manage Jobs page
+                      .job_row{
+                          margin-bottom: 10px;
+                          // Labels mainly for top row
+                          .job_card{
+                              display: inline-block;
+                              padding-right: 5px;
+                              font-size: 15px;
+                              text-align:  right !important;
+                              .job_card_label{ font-size: 0.55em; }
+                              .job_card_value{ font-weight: bold;  margin-top: -5px; display: block;}
+                          }
+                          // Job title
+                          .job_title{
+                              font-size: 20px;
+                              padding: 7px;
+                              background-color: #eee;
+                          }
+                          .wrapper{
+                              .card{
+                                  border-bottom: 1px solid #ccc;
+                                  padding-bottom: 5px;
+                                  padding-top:    5px;
+                                  .row_1{
+                                      display: flex;
+                                      .left{
+                                          @include  make_children_flex();
+                                          text-align:  left;
+
+                                      }
+                                      .right{
+                                          @include  make_children_flex(190px);
+                                          div{
+                                              float: right;
+                                          }
+                                      }
+                                  }
+                                  .row_2{
+                                      .left{
+                                          text-align: left;
+                                      }
+                                      .right{
+
+                                      }
+                                  }
+                                  .row_3{
+                                      display: flex;
+                                      .left{
+                                          @include  make_children_flex(50%);
+                                      }
+                                      .right{
+                                          @include  make_children_flex(50%);
+                                          text-align: right;
+
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+          // MANAGE JOB - SCHEDULE PAGE
+          .schedule{
+              @extend ._manage_job_page;
+          }
+          // MANAGE JOB - ADD/NEW EDIT PAGE
+          .edit{
+              @extend ._manage_job_page;
+              .job_bag_add_edit {
+                  width: 100%;
+                  td{
+                      padding: 0px;
+                  }
+              }
+              // This is the container of the main create/edit job page
+              .manage_job_ce_container{
+                  $job_assignment_padding: 10px;
+                  // Job edit form assignment programmer box
+                  .job_bag_programmer_assignment{
+
+                      background-color: lighten($main_teal_color,20%);
+                      border: 1px solid lighten($main_teal_color,10%);
+                      border-radius: $managejobs_border_radius;
+                      padding: 15px;
+                      padding-bottom: $job_assignment_padding;
+                      margin-top:     $job_assignment_padding;
+                      margin-bottom:  $job_assignment_padding;
+                  }
+                  .manage_page_ce_header{
+                      .head{
+                          font-size: 25px;
+
+                          .title{
+                              color: darken($main_blue_color,15%);
+                          }
+                      }
+                      margin-bottom: 10px;
+                      border-bottom: 1px solid #eee;
+                      padding: 10px;
+                  }
+                  .status_jobtype_bgcolor{
+                      width:  100% !important;
+                  }
+                  .color_preview{
+                      width: 25px;
+                      height:  25px;
+                      display: inline-block;
+                      border: solid 1px #000000;
+                  }
+                  .pick_a_background{
+                      width: 100%;
+                      td:last-child{
+                          text-align: right;
+                      }
+                  }
+
+              }
+          }
+
+        }
+        .ManageTasksPage{
+          padding: 10px;
+          background-color: white;
+          border-radius: $managejobs_border_radius;
+          ._header_page{
+              font-size: 20px;
+              margin-bottom: 5px;
+              padding: 5px;
+          }
+          header{
+            @extend ._header_page;
+          }
+          .first{
+              display: flex;
+              .left{
+                  @include make_children_flex();
+              }
+              .right{
+                  @include make_children_flex(200px);
+              }
+          }
+          article.second{
+             .sidebar_container{
+                border-radius: 0px;
+                box-shadow: none;
+                padding: 0px;
+                border: 1px solid #ccc;
+
+                .sidebar{
+                    @extend .sidebar_container;
+                    border: 0px solid #fff;
+                    background-color: $main_blue_color;
+                }
+                .main_content {
+                    text-align: left;
+                    .header{
+                        background-color: #eee;
+                    }
+                    .content{}
+                }
+             }
+          }
+        }
+        .UserSettingsPage{
+         @extend  .ManageTasksPage;
+
+          header{
+              @extend ._header_page;
+          }
+          article{
+
+          }
+        }
+        .ReportsPage{
+          @extend  .ManageTasksPage;
+
+        }
+        .SchedulingSettingsPage{
+          @extend  .ManageTasksPage;
+            header{
+                @extend ._header_page;
+            }
+            article{
+                .important_note{
+                    background-color: lighten($main_blue_color, 30%);
+                    box-sizing: border-box;
+                    padding: 10px;
+                    border-radius: 5px;
+                    width: 100%;
+                }
+                textarea{
+                    width: 100%;
+                    padding: 5px;
+                    height:100px;
+                    min-height:  100px;
+                    max-height:  100px;
+                }
+
+                table{
+                    width: 100%;
+                    td {
+                        width: 50%;
+                        text-align: left;
+                        vertical-align: top;
+
+                        .user_departments{
+                            .info{
+                                margin-bottom: 10px;
+                            }
+                            .user_selects{
+                                margin-bottom: 10px;
+                                .user_select{
+                                    width: 100%;
+                                }
+                            }
+                            .dept_selects{
+                                .dept_select{
+                                    width: 100%;
+                                }
+                            }
+                        }
+                        label{
+                            width: 50%;
+                            display: inline-block;
+                        }
+                        label+span{ // setting name
+                            float: right;
+                            font-size: 11px;
+                            color: #aaaaaa;
+                        }
+                    }
+                    $three-columns: (
+                        columns: 13,
+                        gutter: 0px
+                    );
+                    $two-columns: (
+                        columns: 12,
+                        gutter: 15px
+                    );
+                    div.wrapper{
+                        border: 1px solid darken($main_grey_color,20);
+                        padding: 10px;
+                        border-radius: $main_border_radius;
+                        margin-bottom: 20px;
+
+                        .header{
+                            background-color: #ffffff;
+                            position: relative;
+                            padding-left: 10px;
+                            padding-right: 10px;
+                            display:  inline-block;
+                            top: -20px;
+                            left: 15px;
+                        }
+                    }
+                    div.two_cols{
+                        @include grid-container;
+                        .column{
+                            @include grid-column(6, $two-columns);
+                        }
+                        .column:first-child{
+                            margin-left:0px;
+                        }
+                    }
+                    div.three_cols{
+                        @include grid-container;
+                        .input_text{
+                            width: 100% !important;
+                        }
+                        .column{
+                            @include grid-column(6, $three-columns);
+                            padding-bottom: 10px;
+                        }
+                        .middle{
+                            @include grid-column(.9, $three-columns);
+                            padding-top: 5px;
+                            .preview_box{
+                                border-radius: 15px;
+                                margin: 0 auto;
+                                border:  1px solid darken($main_grey_color, 15);
+                                display: block;
+                                height: 25px;
+                                width: 25px;
+                            }
+                        }
+                    }
+                }
+            }
+          // Reference container
+          .reference_doc{
+              padding: 10px;
+              .header{
+
+              }
+              .content{
+
+              }
+          }
+        }
+    }
+}
+// CALENDAR JOB CARD WHEN CLICK
+.window_job_card{
+    table{  width: 100%;  }
+
+    $padding: 10px;
+    // main header of the card
+    .modal_header{
+
+        padding: $padding !important;
+        table.job_bag_header{
+            .job_prism_job_id{
+                text-align: right;
+                width: auto;
+            }
+            .job_customer_name{
+                font-size: 14px;
+                font-weight: normal;
+                font-style: italic;
+            }
+            .job_departments{
+                text-align: right;
+            }
+            .job_title{
+                font-size: 22px !important;
+
+            }
+            th{
+                font-size: 11px !important;
+            }
+        }
+    }
+    // main body of the card
+    .modal_body{
+
+        padding: $padding !important;
+
+
+        .edit_button{
+            border: 0px solid #000000 !important;
+            background: none !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            color: #000000 !important;
+            font-weight: bold;
+            font-size: 11px;
+        }
+        // JOB BAG INFORMATION
+        table.job_bag_info{
+            margin-bottom: 5px;
+            tr:first-child{
+
+                th:first-child{
+                    padding-bottom: $padding;
+                }
+                th:last-child{
+                    text-align: right;
+                    padding-bottom: $padding;
+
+                }
+            }
+
+            th{
+                font-size: 11px;
+                font-weight: normal;
+                color: #777777;
+            }
+            td{
+                border-spacing: 10px;
+            }
+            td:nth-child(even) {
+                background-color: #EEEEEE;
+                text-align: center;
+                min-width: 100px;
+            }
+            td:nth-child(odd) {
+                background-color: white;
+                font-weight: bold;
+                width: 120px;
+            }
+            td:nth-child(2n+3){
+                padding-left: 10px;
+            }
+        }
+        // JOB DEPARTMENT INFO
+        table.job_dep_info{
+            @extend table.job_bag_info;
+        }
+    }
+
+
+}
+
+// Individual Job in calendar page width@configuration
+th.jnu{width: $job_table_w_jnu;}
+th.csr{width: $job_table_w_csr;}
+th.cli{width: $job_table_w_cli;}
+th.qty{width: $job_table_w_qty;}
+th.jna{}
+th.dat{width: $job_table_w_dat; }
+th.pri{width: $job_table_w_pri; }
+th.sto{width: $job_table_w_sto; }
+
+// Add recurring window
+.add_recurring{
+    position: relative;
+    margin-right: 35px!important;
+    padding: 5px!important;
+    .add_recurring_window{
+        width: 200px;
+
+        table{
+            width: 100%;
+            td{padding: 6px;}
+            .head{ color: #fff; background-color: darken($main_blue_color,0%); }
+            .day{ font-weight: bold; font-size: 22px; padding-bottom: 0px !important; }
+            .date{ font-size: 11px;  border-bottom: 0px solid #ccc; padding-top: 0px !important; }
+            .body{ }
+            .button{}
+        }
+    }
+}
+// Job card pop up
+.job_card_datepicker{
+    width: 135px!important;
+    font-size: 11px;
+}
+.prism_popup{
+    position: relative;
+    margin-top: -100px!important;
+    padding: 0px!important;
+    // This is the job card
+    .job_card{
+        .schedule_to_container{
+            border: 1px solid #eee;
+            padding: 5px;
+            .job_type {
+                padding-top: 5px !important;
+                padding-bottom: 5px !important;
+            }
+        }
+        border-top: 2px solid darken($main_teal_color,35%)!important;
+
+        ._padding{
+            padding: 5px;
+        }
+        header{
+            background-color: lighten($main_teal_color,20%);
+            border-bottom: 1px solid #eee;
+            @extend ._padding;
+
+            .first{
+                table{
+                    font-size: 10px;
+                    width: 100%;
+                    td{ border: 0px solid #ccc; }
+                    .cell_qty{text-align: right;  }
+                    .cell_prism_number{}
+                    .title{ font-weight: bold; font-size: 15px; color: darken($main_teal_color,30%)}
+                    .customer{ }
+                }
+
+            }
+        }
+        .body{
+            @extend ._padding;
+            table{
+                width: 100%;
+                td{ border-bottom: 1px solid #eee; }
+                .label{ font-weight: bold; }
+                .info{ border-bottom: 0px solid #ccc;}
+            }
+        }
+        footer{
+
+            @extend ._padding;
+
+        }
+    }
+}
+.menu{
+   padding-top: 10px;
+  .RouterLink{
+    color: #fff;
+    padding: 5px 10px;
+    font-size: $main_header_link_size;
+
+  }
+
+  .RouterLinkSelected{
+    background-color: #fff;
+    color: #000;
+    border-radius: $managejobs_border_radius;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    padding-bottom: 15px;
+    border: 0px solid #2C7198 !important;
+  }
+    .RouterLinkSelected.calendar{
+        background-color: $calendar_page_selected_bg;
+        color: #fff;
+
+    }
+
+}
+
