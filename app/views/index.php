@@ -9,7 +9,7 @@
         <title>Smartcomm Schedulling Tool</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="assets/css/styles.css">
+        <link rel="stylesheet" href="assets/css/style.css">
         <!--  Using font-awesome -->
         <script src="https://use.fontawesome.com/7f86d44e53.js"></script>
 
@@ -68,6 +68,5 @@
         </script>
         <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
         <script src="assets/js/bundle.js" type="text/javascript"></script>
-        <script src="../../common/common.js" type="text/javascript"></script>
     </body>
 </html>

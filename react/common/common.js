@@ -5,7 +5,7 @@
         realtime_server_trigger_data: object
         realtime_server_online: bool
  */
-import "../common/autobahn";
+import "./autobahn";
 export function realtimeServer(port){
     const url = 'ws://127.0.0.1:' + port;
     ab.debug(true,true);

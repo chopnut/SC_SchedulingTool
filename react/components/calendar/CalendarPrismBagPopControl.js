@@ -43,8 +43,10 @@ class CalendarPrismBagPopControl extends Component {
             job_type: jobType,
             job_dp_date: date,
             job_departments: this.state.departmentValues,
-            job_status: this.props.default_status[0]
+            job_status: this.props.default_status[0].text
         });
+
+     
         this.props.calendar_page_add_schedule_to(
             this.props.settings,
             postJob

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import util from "../../common/edlibrary";
 import {connect} from 'react-redux';
 
 // Calendar Date picker

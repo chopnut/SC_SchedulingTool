@@ -32,6 +32,7 @@ class SchedulingSettingsPage extends Component {
 
         }
         this.handleSave           = this.handleSave.bind(this);
+
         this.handleUserSelect     = this.handleUserSelect.bind(this);
         this.handleDeptSelect     = this.handleDeptSelect.bind(this);
         this.handleLabelChange    = this.handleLabelChange.bind(this);
@@ -185,7 +186,6 @@ class SchedulingSettingsPage extends Component {
         const selected          = Object.assign({}, this.state.color_selections[setting_name], {[prop]: value});
         const color_selections  = Object.assign({}, this.state.color_selections, {[setting_name]: selected});
 
-        console.log("COLOR CHANGE: ",value,prop);
         this.setState((prevState, props) => (
             {color_selections}
         ));
@@ -193,6 +193,7 @@ class SchedulingSettingsPage extends Component {
 
     renderColourOptions(setting_name){
         const options   = this.state.setting[setting_name].setting_value;
+        const label     = this.state.setting[setting_name].setting_label;
         const original_colour_options = Object.assign( {}, JSON.parse(options));
 
         // For colour picker positioning
@@ -220,15 +221,18 @@ class SchedulingSettingsPage extends Component {
         let colour_options = change_colour_options(original_colour_options);
         return <div className="three_cols">
             <div className="column">
-                <Dropdown placeholder="Select one" fluid selection options={colour_options} onChange={ (e,{value})=>{ this.handleColourType(setting_name, value); }} />
+                <strong>{label}</strong>
+                <Dropdown placeholder="Select one" fluid selection options={colour_options} onChange={ (e,{value})=>{ this.handleColourType(setting_name, value); }} />    
             </div>
             <div className="middle">
+            <br/>
                <div className="preview_box" style={{backgroundColor: this.handleReturnVal(setting_name)}}>
                    &nbsp;
                </div>
             </div>
             <div className="column">
-                <Input className="input_text" placeholder="Select background colour" onClick={ ()=>{  this.handleColorPickerOpen(setting_name) } } readOnly={true} value={ this.state.color_selections[setting_name].color}/>
+                <br/>
+                <Input className="input_text" placeholder="Click to change background colour" onClick={ ()=>{  this.handleColorPickerOpen(setting_name) } } readOnly={true} value={ this.state.color_selections[setting_name].color}/>
                 {this.state.color_selections[setting_name].isOpen ? <div style={ popover }>
                     <div style={ cover } onClick={ ()=>{  this.handleColorPickerClose(setting_name) } }/>
                     <ChromePicker
@@ -264,19 +268,6 @@ class SchedulingSettingsPage extends Component {
             {ltype}
         </div>;
     }
-    renderAddStatusField(setting_name){
-        return <div className="two fields">
-            <div className="field">
-                <label>&nbsp;</label>
-                <input type="text" placeholder="Type status to add"/>
-            </div>
-            <div className="field">
-                <label>&nbsp;</label>
-                <button className="ui fluid blue medium button">Add</button>
-            </div>
-        </div>;
-
-    }
     componentDidMount(){
         this.getSettings();
     }
@@ -289,43 +280,34 @@ class SchedulingSettingsPage extends Component {
                         <td>
                             <div className="wrapper">
                                 <div className="header">MODIFY STATUSES</div>
-                                <div className="two_cols">
-                                    <div className="column">
+                                <div className="content">
+       
                                         <div className="field">
                                             <label contentEditable={true} onBlur={this.handleLabelChange}  id={"job_it_status"} className="job_it_status">{this.state.setting.job_it_status.setting_label}</label>
                                             <span className="setting_name">{this.state.setting.job_it_status.name}</span>
-                                            <input value={this.state.setting.job_it_status.setting_value} name="job_it_status" onChange={this.handleOnChangeVal}/>
+                                            <textarea value={this.state.setting.job_it_status.setting_value} name="job_it_status" onChange={this.handleOnChangeVal}/>
                                         </div>
                                         <div className="field">
                                             <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_prod_status"} className="job_prod_status">{this.state.setting.job_prod_status.setting_label}</label>
                                             <span className="setting_name">{this.state.setting.job_prod_status.name}</span>
-                                            <input value={this.state.setting.job_prod_status.setting_value} name="job_prod_status" onChange={this.handleOnChangeVal} />
+                                            <textarea value={this.state.setting.job_prod_status.setting_value} name="job_prod_status" onChange={this.handleOnChangeVal} />
                                         </div>
                                         <div className="field">
                                             <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_status"} className="job_status">{this.state.setting.job_status.setting_label}</label>
                                             <span className="setting_name">{this.state.setting.job_status.name}</span>
-                                            <input value={this.state.setting.job_status.setting_value} name="job_status" onChange={this.handleOnChangeVal}/>
+                                            <textarea value={this.state.setting.job_status.setting_value} name="job_status" onChange={this.handleOnChangeVal} />
                                         </div>
                                         <div className="field">
                                             <label contentEditable={true} onBlur={this.handleLabelChange} id={"job_types"} className="job_types">{this.state.setting.job_types.setting_label}</label>
                                             <span className="setting_name">{this.state.setting.job_types.name}</span>
-                                            <input value={this.state.setting.job_types.setting_value} name="job_types" onChange={this.handleOnChangeVal} />
+                                            <textarea value={this.state.setting.job_types.setting_value} name="job_types" onChange={this.handleOnChangeVal} />
                                         </div>
                                         <div className="field">
                                             <label contentEditable={true} onBlur={this.handleLabelChange} id={"colours_setting"} className="colours_setting">{this.state.setting.colours_setting.setting_label}</label>
                                             <span className="setting_name">{this.state.setting.colours_setting.name}</span>
-                                            <input value={this.state.setting.colours_setting.setting_value} name="colours_setting" onChange={this.handleOnChangeVal}/>
+                                            <textarea value={this.state.setting.colours_setting.setting_value} name="colours_setting" onChange={this.handleOnChangeVal} />
                                         </div>
                                     </div>
-                                    <div className="column">
-                                        {this.renderAddStatusField(this.state.setting.job_it_status.name)}
-                                        {this.renderAddStatusField(this.state.setting.job_prod_status.name)}
-                                        {this.renderAddStatusField(this.state.setting.job_status.name)}
-                                        {this.renderAddStatusField(this.state.setting.job_types.name)}
-                                        {this.renderAddStatusField(this.state.setting.colours_setting.name)}
-                                    </div>
-                                </div>
-
                             </div>
                             <div className="wrapper">
                                 <div className="header">PRODUCTION SET UP</div>

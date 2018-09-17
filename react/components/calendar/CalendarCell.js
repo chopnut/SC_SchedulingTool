@@ -11,9 +11,13 @@ import util from '../../common/edlibrary';
 class CalendarCell extends Component {
     constructor(props){
         super(props);
+        
         this.state = {
-            background_color: '#6BACDE',
+            background_color: null,
+            background_color_default: null,
+
             // Job Summary Window Options
+
             is_window_open: false,
             is_working: false,
             is_editing: true
@@ -46,17 +50,17 @@ class CalendarCell extends Component {
         ));
     }
     hover_in_job_bag(){
+        const ind = util.getArrayValueIndex(this.props.colours_setting, "key","hover_calendar_job");
         this.setState((prevState, props) => (
-            {background_color: this.props.colours_setting.hover_calendar_job}
+            {background_color: this.props.colours_setting[ind].color}
         ));
-
     }
     hover_out_job_bag(){
-        if(this.state.is_window_open){
+        // if(this.state.is_window_open){
             this.setState((prevState, props) => (
-                {background_color: 'red'}
+                {background_color: prevState.background_color_default}
             ));
-        }
+        // }
     }
     actionChangeSideToSide(jobId,day,toKey){
         let info = {
@@ -84,7 +88,19 @@ class CalendarCell extends Component {
 
     }
     componentDidMount(){
-        console.log("NON PROGRAMMERS JOBS");
+        
+        // Get the production status colour scheme as the main background colour in the calendar
+        const dep       = this.props.jd.dep;
+        const depStatus = dep.job_dp_status;
+        const ind       = util.getArrayValueIndex(this.props.job_prod_status, "text",depStatus);
+        const defBG     = this.props.job_prod_status[ind].color;
+
+        this.setState((prevState, props) => (
+            {
+                background_color: defBG,
+                background_color_default: defBG
+            }
+        ));
     }
     renderJobFooter(jd,bg,gp){
         return <table className="job_bag_footer">
@@ -108,7 +124,7 @@ class CalendarCell extends Component {
         </table>
     }
     renderJobHeader(jd,bg,gp){
-        console.log("DEPARTMENT: ", jd);
+
         return <table className="job_bag_header">
             <thead>
             <tr>
@@ -202,6 +218,7 @@ class CalendarCell extends Component {
         const jd = this.props.jd.dep;
         const bg = this.props.jd.bag;
         const gp = this.props.jd.grp;
+
         const leftArrowClass  = "chevron left icon";
         const rightArrowClass = "chevron right icon";
 
@@ -245,6 +262,7 @@ class CalendarCell extends Component {
                         </table>
                     </div>
                     <div className="contain cell_child">
+                    
                         <Modal
                             trigger={<div className="cell_title" onClick={this.handleWindowOpen}>{bg.job_title}</div>}
                             dimmer={"blurring"}
@@ -282,6 +300,7 @@ function mapStateToProps(state,ownprops) {
     return({
         settings: state.settings,
         colours_setting: JSON.parse(state.settings.setting.colours_setting),
+        job_prod_status: JSON.parse(state.settings.setting.job_prod_status),
         global_department_id: state.settings.setting.programming_dept_id
     });
 }

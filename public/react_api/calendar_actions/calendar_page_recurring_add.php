@@ -34,7 +34,7 @@ if(count($post)>0){
             $jd_group->job_id        = $job->job_id;
             $jd_group->save();
 
-            // Departments
+            // Create departments for the date
 
             foreach($deps as $dpid){
                 $jd                 = new SchedJobBagDepartment();
@@ -44,6 +44,7 @@ if(count($post)>0){
                 $jd->job_dp_created_date = $date;
                 $jd->job_dp_qty     = $job->qty;
                 $jd->job_group_id   = $jd_group->job_group_id;
+                $jd->job_dp_status  = "stand by";
                 $tmp[] = $jd;
             }
 

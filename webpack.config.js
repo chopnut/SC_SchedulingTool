@@ -43,7 +43,10 @@ module.exports = {
                 }),
                 
             },
-            { test: /\.css$/, loader: "style-loader!css-loader!resolve-url-loader" },
+            { 
+                test: /\.css$/, 
+                loader: "style-loader!css-loader!resolve-url-loader" 
+            },
             {
                 test: /\.(png|jpg|gif|eot|woff2|svg|ttf|woff)$/,
                 loader: "url-loader",
@@ -51,7 +54,7 @@ module.exports = {
                     limit: 5000,
                     name: 'img-[hash:6].[ext]',
                     outputPath: 'assets/img/',
-                    publicPath: 'assets/img/'
+                    publicPath: ''
                 }
             },
             { test: /\.js?$/, exclude: /node_modules/, loader: "babel-loader", query: { presets: ["react", "es2015"],plugins: ["transform-es2015-destructuring","transform-object-rest-spread"] }}
@@ -63,6 +66,6 @@ module.exports = {
             jQuery: "jquery",
             jquery: "jquery"
         }), 
-        new ExtractTextPlugin("assets/css/styles.css")
+        new ExtractTextPlugin("assets/css/style.css")
     ]
 }

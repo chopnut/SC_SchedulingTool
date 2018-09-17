@@ -47,6 +47,7 @@
         .left{
             padding-bottom: 10px;
             vertical-align: top;
+            font-weight: bold;
             .logo{
                 width: 230px;
                 img{
@@ -278,7 +279,7 @@
                                           cursor: w-resize;
                                       }
 
-                                      // IND CELL
+                                      // INDIVIDUAL CELL
                                       .cell{
                                           border-radius: $calendar_job_cell_raius;
                                           box-sizing: border-box;
@@ -900,9 +901,9 @@
                 textarea{
                     width: 100%;
                     padding: 5px;
-                    height:100px;
-                    min-height:  100px;
-                    max-height:  100px;
+                    height: 70px;
+                    min-height:  70px;
+                    max-height:  200px;
                 }
 
                 table{
@@ -1136,7 +1137,8 @@ th.sto{width: $job_table_w_sto; }
 }
 .prism_popup{
     position: relative;
-    margin-top: -100px!important;
+    margin-top: -95px!important;
+    margin-left: -245px!important;
     padding: 0px!important;
     // This is the job card
     .job_card{

@@ -199,6 +199,8 @@ class AddEditJobForm extends Component {
                 }
             });
 
+            
+
     }
 
     isProgrammersDepSelected(){
@@ -301,7 +303,7 @@ class AddEditJobForm extends Component {
                 return (
                     <div>
                         <div className="field">
-                            <label><i className="file text outline icon"></i>Select existing departments</label>
+                            <label><i className="file text outline icon"></i>Select existing department</label>
                         </div>
                         <div className="two fields">
                             <div className="field">
@@ -385,10 +387,9 @@ class AddEditJobForm extends Component {
                 programming_dept_id: this.props.programming_dept_id
             });
 
-
-        console.log("SAVING: ", jobData);
         // Validate your Job creation here
         if($('.ui.form').form("is valid")){
+            
             this.setState((prevState, props) => ({isSaving: 1}) );
             this.props.manage_job_add_new_edit(this.props.settings,jobData);
         }
@@ -828,16 +829,16 @@ class AddEditJobForm extends Component {
                         </tr>
                         <tr>
                             <td>
-                                { this.renderAssignProgrammer()}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
                                 <div className="field">
                                     <label><i className="fa fa-comment" aria-hidden="true"></i> Comments</label>
                                     <textarea name="job_comments" onChange={this.changeValue} value={this.state.job.job_comments}></textarea>
                                 </div>
 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                { this.renderAssignProgrammer()}
                             </td>
                         </tr>
                         <tr>

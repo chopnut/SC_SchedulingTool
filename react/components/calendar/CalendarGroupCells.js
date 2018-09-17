@@ -95,10 +95,11 @@ class CalendarGroupCells extends Component {
             return(
             <div className="group">
                 {Object.keys(this.props.jobs).map((key,index)=>{
-
+                    const jd = this.props.jobs[key];
+                    
                     return(
                         <CalendarCell key={index}
-                                      jd ={this.props.jobs[key]}
+                                      jd = {jd}
                                       prevDate={prevDate}
                                       nextDate={nextDate}
                                       prevDayKey={prevDayKey}

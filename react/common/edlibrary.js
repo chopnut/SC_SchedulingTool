@@ -159,6 +159,22 @@ this.ucfirst = function(string)
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+this.getArrayValueIndex = function (arrayVal,askingKey,askingValue) {
+    var selected = 0;
+    if(this.isArray(arrayVal)){
+        arrayVal.map( (item, index) =>{
+            const askingKeyIn = item[askingKey];
+        
+            if(askingKeyIn == askingValue){
+               selected = index;               
+            }
+            
+        });
+        
+    }
+    return selected;
 }
-const util = new MyUtil();
-export default util;
+
+}
+
+export default new MyUtil();
