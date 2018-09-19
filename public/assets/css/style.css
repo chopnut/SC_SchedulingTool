@@ -812,7 +812,8 @@ body, div, li, ul{
 .content_holder .page_holder .ManageJobsPage ._manage_job_page,
 .content_holder .page_holder .ManageJobsPage .jobs,
 .content_holder .page_holder .ManageJobsPage .schedule,
-.content_holder .page_holder .ManageJobsPage .edit {
+.content_holder .page_holder .ManageJobsPage .edit,
+.content_holder .page_holder .ManageJobsPage .edit_department {
   z-index: 20;
   position: relative;
   border: 1px solid #ccc;
@@ -1314,6 +1315,16 @@ body, div, li, ul{
   margin-bottom: 5px;
 }
 
+.window_job_card .modal_body table.job_bag_info .buttons,
+.window_job_card .modal_body table.job_dep_info .buttons {
+  text-align: right;
+}
+
+.window_job_card .modal_body table.job_bag_info .buttons .button,
+.window_job_card .modal_body table.job_dep_info .buttons .button {
+  width: 40px;
+}
+
 .window_job_card .modal_body table.job_bag_info tr:first-child th:first-child,
 .window_job_card .modal_body table.job_dep_info tr:first-child th:first-child {
   padding-bottom: 10px;
@@ -1354,6 +1365,14 @@ body, div, li, ul{
 .window_job_card .modal_body table.job_bag_info td:nth-child(2n+3),
 .window_job_card .modal_body table.job_dep_info td:nth-child(2n+3) {
   padding-left: 10px;
+}
+
+.window_job_card .modal_body table.job_dep_info .buttons {
+  text-align: right;
+}
+
+.window_job_card .modal_body table.job_dep_info .buttons .button {
+  width: 40px;
 }
 
 th.jnu {

@@ -279,7 +279,15 @@ class SchedulingSettingsPage extends Component {
                     <tr>
                         <td>
                             <div className="wrapper">
-                                <div className="header">MODIFY STATUSES</div>
+                                <div className="header">PRODUCTION SET UP</div>
+                                <div className="field">
+                                    <label contentEditable={true} onBlur={this.handleLabelChange} id={"production_hours_per_day"} className="production_hours_per_day">{this.state.setting.production_hours_per_day.setting_label}</label>
+                                    <span className="setting_name">{this.state.setting.production_hours_per_day.name}</span>
+                                    <input value={this.state.setting.production_hours_per_day.setting_value} name="production_hours_per_day" onChange={this.handleOnChangeVal} />
+                                </div>
+                            </div>
+                            <div className="wrapper">
+                                <div className="header">MODIFY STATUS</div>
                                 <div className="content">
        
                                         <div className="field">
@@ -309,14 +317,7 @@ class SchedulingSettingsPage extends Component {
                                         </div>
                                     </div>
                             </div>
-                            <div className="wrapper">
-                                <div className="header">PRODUCTION SET UP</div>
-                                <div className="field">
-                                    <label contentEditable={true} onBlur={this.handleLabelChange} id={"production_hours_per_day"} className="production_hours_per_day">{this.state.setting.production_hours_per_day.setting_label}</label>
-                                    <span className="setting_name">{this.state.setting.production_hours_per_day.name}</span>
-                                    <input value={this.state.setting.production_hours_per_day.setting_value} name="production_hours_per_day" onChange={this.handleOnChangeVal} />
-                                </div>
-                            </div>
+
 
                         </td>
                         <td>

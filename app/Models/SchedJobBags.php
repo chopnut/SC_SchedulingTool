@@ -11,7 +11,6 @@ class SchedJobBags extends Model
     protected $primaryKey   = "job_id";
     protected $table        = 'sched_job_bags';
     protected $guarded      = 'job_id';
-//  protected $with         = array('');
 
     protected $fillable     = [
         'job_prism_job_id',

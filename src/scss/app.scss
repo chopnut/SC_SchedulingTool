@@ -826,7 +826,10 @@
 
               }
           }
-
+          // MANAGE JOB - EDIT DEPARTMENT
+          .edit_department{
+            @extend ._manage_job_page;
+          }
         }
         .ManageTasksPage{
           padding: 10px;
@@ -1057,7 +1060,14 @@
         }
         // JOB BAG INFORMATION
         table.job_bag_info{
+            .buttons{
+                text-align: right;
+                .button{
+                    width: 40px;
+                }
+            }
             margin-bottom: 5px;
+
             tr:first-child{
 
                 th:first-child{
@@ -1095,6 +1105,12 @@
         // JOB DEPARTMENT INFO
         table.job_dep_info{
             @extend table.job_bag_info;
+            .buttons{
+                text-align: right;
+                .button{
+                    width: 40px;
+                }
+            }
         }
     }
 

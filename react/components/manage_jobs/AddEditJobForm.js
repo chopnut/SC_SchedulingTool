@@ -413,7 +413,7 @@ class AddEditJobForm extends Component {
 
     // Get the jobbag from database and start editing
     prepopulateJobBag(){
-        console.log("INITIALIZE EDITFORM: ", this.props);
+        
         const {history,match} = this.props;
         const jobId           = parseInt(match.params.jobid);
 
@@ -667,7 +667,6 @@ class AddEditJobForm extends Component {
         // Get status for the job
         let job_status      = JSON.parse(this.job_status);
 
-        console.log('job_status',job_status);
         let SelectJobStatus = (props) =>{
             return (
                 <select name="job_status" value={this.state.job.job_status} onChange={this.changeValue}>

@@ -6,7 +6,7 @@ module.exports = {
     output: {
         path: __dirname+"/public/",
         publicPath: "/public/",
-        filename: "assets/js/bundle.js"
+        filename: "assets/js/bundle1.js"
     },
     resolve: {
         extensions: [ ".js", ".jsx", ".json"]

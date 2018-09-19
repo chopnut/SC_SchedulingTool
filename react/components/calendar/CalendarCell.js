@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {calendar_page_move_dep_side_by_side} from '../../actions/CalendarActions';
-import {Button, Modal, Icon} from 'semantic-ui-react';
+import {Button, Modal, Icon, Popup} from 'semantic-ui-react';
 import {withRouter } from 'react-router-dom';
+
 
 // Custom component
 import JobSummaryWindow from '../../layouts/calendar/JobSummaryWindow';
@@ -33,16 +34,23 @@ class CalendarCell extends Component {
         this.renderJobDepInfo       = this.renderJobDepInfo.bind(this);
         this.renderJobFooter        = this.renderJobFooter.bind(this);
         this.handleEditJobBag       = this.handleEditJobBag.bind(this);
+        this.handleEditJobDepartment= this.handleEditJobDepartment.bind(this);
     }
     handleEditJobBag(){
         const { history } = this.props;
         history.push('/managejobs/newedit/'+this.props.jd.bag.job_id+'/'+ this.props.jd.dep.job_dp_id);
     }
+    handleEditJobDepartment(){
+        const { history } = this.props;
+        history.push('/managejobs/editdep/'+ this.props.jd.dep.job_dp_id);
+    }
+    handleAddJobDepartment(){
+
+    }
     handleWindowClose(){
         this.setState((prevState, props) => (
             {is_window_open: false}
         ));
-        console.log("CLOSE BUTTON CALLED!", this.state.is_window_open);
     }
     handleWindowOpen(){
         this.setState((prevState, props) => (
@@ -150,7 +158,19 @@ class CalendarCell extends Component {
             <tbody>
             <tr>
                 <th colSpan={2}>DEPARTMENT SUMMARY</th>
-                <th colSpan={2}></th>
+                <th colSpan={2} className="buttons">
+                    <Button basic size="tiny" className="edit_button" onClick={this.handleEditJobDepartment}>
+                        <Icon name='write' /> 
+                    </Button>
+                    <Popup 
+                        trigger={<Button basic size="tiny" className="edit_button"><Icon name='plus' /></Button>}
+                        content={<div style={{zIndex: 990 }}>HELLOassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</div>}
+                        on='click' 
+                        position='top center'
+                    />
+                    
+                    
+                </th>
             </tr>
             <tr>
                 <td>Scheduled Date</td>
@@ -185,9 +205,9 @@ class CalendarCell extends Component {
             <tbody>
             <tr>
                 <th colSpan={2}>JOB SUMMARY</th>
-                <th colSpan={2}>
-                    <Button basic size="small" className="edit_button" onClick={this.handleEditJobBag}>
-                        <Icon name='write' /> EDIT JOB
+                <th colSpan={2} className="buttons">
+                    <Button basic size="tiny" className="edit_button" onClick={this.handleEditJobBag}>
+                        <Icon name='write' />
                     </Button>
                 </th>
             </tr>

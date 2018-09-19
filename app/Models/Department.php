@@ -91,6 +91,9 @@ class Department extends Model
         }
         return $temp;
     }
+    /**
+     * This will get all the kids from all the departments you have gotten.
+     */
     static  public function getKidsArray($dept){
         $t        = array();
         $depttemp = Department::getKids($dept);

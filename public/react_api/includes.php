@@ -26,9 +26,13 @@ require_once($myutil);
 require_once($globalvar);
 require_once($myapp);
 
-$db      = new Models\Database();
+$db      	= new Models\Database();
+$app     	= new App();
+$u 		 	= new MyUtil();
+$settings 	= Models\SchedSettings::all();
+
+
 $capsule = $db->getCapsule();
-$app     = new App();
 $user    = $app->check_if_logged_in();
-$u 		 = new MyUtil();
+
 ?>
