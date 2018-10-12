@@ -88,9 +88,9 @@ class ViewDate extends Component {
     renderDepartments(){
 
         let rowsCollection  = [];
-        const that          = this;
         const programmingID = this.props.settings.programmingUsers.deptId;
         const programmingU  = this.props.settings.programmingUsers.value;
+        const departments   = this.props.dep;
 
         // RECURSING OVER DEPARTMENTS ORDER
         function inlineRecursive(item,rowcollection){
@@ -100,7 +100,7 @@ class ViewDate extends Component {
             const isParent  = (numkids>0);
 
             if(numkids>0){
-                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId={id} isViewDate={true}/>);
+                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId={id} isViewDate={true} departments={departments} />);
 
                 // IF DEPARTMENTS ID MATCHED PROGRAMMING ID ADD, ROWS FOR THE PROGRAMMERS
 
@@ -111,14 +111,14 @@ class ViewDate extends Component {
             }else{
 
                 // THIS IS WHERE YOU PRINT OUT THE DEPARTMENT
-                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId= {id} isViewDate={true}/>);
+                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId= {id} isViewDate={true} departments={departments}/>);
 
                 // DISPLAY THE ROW FOR THE PROGRAMMER
                 if(programmingID == id){
                     programmingU.map((item , n)=>{
 
                             // CAPTURE THE JOBS FOR THAT PARTICULAR PROGRAMMER
-                            rowcollection.push(<ProgrammerRow key={"pr_"+ n} user={item} isParent={isParent}  departmentId= {id} counter={n} isViewDate={true}/>);
+                            rowcollection.push(<ProgrammerRow key={"pr_"+ n} user={item} isParent={isParent}  departmentId= {id} counter={n} isViewDate={true} departments={departments}/>);
                         }
                     )
                 }
@@ -227,6 +227,7 @@ class ViewDate extends Component {
         );
     }
     componentDidMount(){
+        // Get the date from the URL and get the jobs for that particular date
         const currentDate = moment(this.props.match.params[0], "DD-MM-YYYY");
         this.setState(function(state,props){
             return (

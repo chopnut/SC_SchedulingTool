@@ -7,6 +7,12 @@ if(!isset($db)){
 }
 // REMOVE ABOVE AFTER DEBUG
 
+// -----------------------  *  -------------------------------
+// This page is use to get the initial value for the entire 
+// web application
+// -----------------------  *  -------------------------------
+
+
 use Models\Department;
 use Models\UserSchedSettings;
 

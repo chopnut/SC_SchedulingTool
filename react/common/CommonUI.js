@@ -33,12 +33,10 @@ export function showDropDown(options,
                              id,
                              multiple,
                              search){
+                                 
     const multiple_prop = (typeof(multiple)=='undefined'); // if multiple is set MULTIPLE IS FALSE
     const search_prop   = !(typeof(search)=='undefined');   // if search   is set SEARCH IS TRUE
 
-    // if(id=='job_departments_recurring_days_ago'){
-    //     console.log("DAYSAGO: ", multiple_prop);
-    // }
 
     return(
         <Dropdown placeholder={placeholder}

@@ -1264,6 +1264,10 @@ body, div, li, ul{
   padding: 10px;
 }
 
+.add_department_window .container > div {
+  margin-top: 10px;
+}
+
 .window_job_card table {
   width: 100%;
 }
@@ -1389,6 +1393,11 @@ th.cli {
 
 th.qty {
   width: 100px;
+}
+
+th.jna {
+  text-align: left;
+  padding: 5px;
 }
 
 th.dat {

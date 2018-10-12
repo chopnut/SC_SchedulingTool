@@ -3,10 +3,10 @@ import {connect} from 'react-redux';
 import {calendar_page_move_dep_side_by_side} from '../../actions/CalendarActions';
 import {Button, Modal, Icon, Popup} from 'semantic-ui-react';
 import {withRouter } from 'react-router-dom';
-
+import axios from 'axios';
 
 // Custom component
-import JobSummaryWindow from '../../layouts/calendar/JobSummaryWindow';
+import CalendarCellAddDep from './CalendarCellAddDep';
 import util from '../../common/edlibrary';
 
 class CalendarCell extends Component {
@@ -16,12 +16,11 @@ class CalendarCell extends Component {
         this.state = {
             background_color: null,
             background_color_default: null,
+            job_departments: [],
 
             // Job Summary Window Options
 
-            is_window_open: false,
-            is_working: false,
-            is_editing: true
+            is_window_open: false
         }
         this.actionChangeSideToSide = this.actionChangeSideToSide.bind(this);
         this.hover_in_job_bag      = this.hover_in_job_bag.bind(this);
@@ -53,9 +52,26 @@ class CalendarCell extends Component {
         ));
     }
     handleWindowOpen(){
-        this.setState((prevState, props) => (
-            {is_window_open: true}
-        ));
+        // Retrieve full information about the job department by its job_group deparment
+        const job_group_id    = this.props.jd.dep.job_group_id;
+        const job_bag_dep_api = this.props.settings.setting.react_api_folder+"job_bag_department/get.php?job_group_id=" + job_group_id;
+        const promise         = axios.get(job_bag_dep_api);
+        promise.then((res)=>{
+            const data          = res.data;
+            const payload       = data.payload;
+
+            if(data.error==0){
+
+                // Opens the window for display                      
+                this.setState((prevState, props) => (
+                    {is_window_open: true, job_departments: payload}
+                ));
+            }else{
+                alert("Error: handleWindowOpen - " + data.message);
+            }
+        });
+        
+
     }
     hover_in_job_bag(){
         const ind = util.getArrayValueIndex(this.props.colours_setting, "key","hover_calendar_job");
@@ -64,11 +80,10 @@ class CalendarCell extends Component {
         ));
     }
     hover_out_job_bag(){
-        // if(this.state.is_window_open){
-            this.setState((prevState, props) => (
-                {background_color: prevState.background_color_default}
-            ));
-        // }
+        // Change background-color when hovering
+        this.setState((prevState, props) => (
+            {background_color: prevState.background_color_default}
+        ));
     }
     actionChangeSideToSide(jobId,day,toKey){
         let info = {
@@ -109,6 +124,8 @@ class CalendarCell extends Component {
                 background_color_default: defBG
             }
         ));
+        
+        
     }
     renderJobFooter(jd,bg,gp){
         return <table className="job_bag_footer">
@@ -163,8 +180,8 @@ class CalendarCell extends Component {
                         <Icon name='write' /> 
                     </Button>
                     <Popup 
-                        trigger={<Button basic size="tiny" className="edit_button"><Icon name='plus' /></Button>}
-                        content={<div style={{zIndex: 990 }}>HELLOassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</div>}
+                        trigger={ <Button basic size="tiny" className="edit_button"><Icon name="plus" /></Button> }
+                        content={ <CalendarCellAddDep departments={this.props.departments} job_departments={this.state.job_departments} /> }
                         on='click' 
                         position='top center'
                     />
@@ -285,7 +302,7 @@ class CalendarCell extends Component {
                     
                         <Modal
                             trigger={<div className="cell_title" onClick={this.handleWindowOpen}>{bg.job_title}</div>}
-                            dimmer={"blurring"}
+                            dimmer={true}
                             size = {"tiny"}
                             className= {"window_job_card"}
                             open = {this.state.is_window_open}

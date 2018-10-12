@@ -5,9 +5,25 @@ require_once("../react_api/includes.php");
 $context    = new \ZMQContext();
 $socket     = $context->getSocket(ZMQ::SOCKET_PUSH,'SCSTRealtimeSubsObject');
 
-$socket->connect('tcp://127.0.0.1:'.RT_CLIENT_PORT);
-echo "SENDING ...\n";
-$socket->send("HELLO WORLD");
+$host = "localhost";
+$dsn  = "tcp://$host:5555";
+// $dsn = "tcp://$host:".RT_CLIENT_PORT;
 
-print_r($socket->getEndpoints());
+
+$endpoints = $socket->getEndpoints();
+
+if (!in_array($dsn, $endpoints['connect'])) {
+    echo "<p>Connecting to $dsn</p>";
+    $socket->connect($dsn);
+    $socket->send("HELLO ");
+
+    
+} else {
+    echo "<p>Already connected to $dsn</p>";
+    $socket->connect($dsn);
+    $socket->send("HI");
+
+}
+
+
 ?>

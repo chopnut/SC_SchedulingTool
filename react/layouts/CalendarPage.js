@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 // User defined modules
 import RouteWrapper from './common/RouteWrapper';
-import Calendar_Manage from './calendar/Manage';
+import CalendarManage from './calendar/Manage';
 import CalendarView from './calendar/View';
 import CalendarViewDate from './calendar/ViewDate';
 import {getLoader} from "../common/CommonUI";
@@ -25,18 +25,33 @@ class CalendarPage extends Component {
 
 	componentDidMount(){
 
-
+        // ----------------------------------------   *   -------------------------------------------//
         // Get the departments from API Call from axios
-        // This will build the rows and cells based on the departments and calendar_page.days
+        // This will build the rows and cells based on the departments and calendar_page.days. 
+        // ----------------------------------------   *   -------------------------------------------//
+
         const calendar_department_api   = this.props.settings.setting.react_api_folder+"calendar_department_structure.php";
         const promiseDepartments        = axios.get(calendar_department_api);
         promiseDepartments.then((res)=>{
             const deps          = res.data;
             this.setState((prevState, props) => ({departments: deps, isLoading: false }));
-
         });
     }
+    //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
+    componentWillReceiveProps(nextProps) {
+        // console.log("CALENDAR JOB CHANGES", nextProps);
+    }
 	renderLinkManager(){
+        // Allow links to be active in certain condition
+        
+        function isActiveManageLink(){
+           const location = this.props.location.pathname.trim().toLowerCase();
+           if(location=="/calendar/" || location=="/calendar"){
+                return false;
+           }
+           return true;
+        }
+        
         return (
             <div className="menu_sub">
                 <div className="left">
@@ -46,7 +61,7 @@ class CalendarPage extends Component {
                 </div>
                 <div className="right">
                     <NavLink exact to="/calendar/" activeClassName="selected" className="links"><i className="grid layout icon"></i> View </NavLink>
-                    <NavLink exact to="/calendar/manage/" activeClassName="selected" className="links"><i className="checked calendar icon"></i> Manage</NavLink>
+                    <NavLink exact to="/calendar/manage/" activeClassName="selected" className="links" isActive={isActiveManageLink.bind(this)}><i className="checked calendar icon"></i> Manage</NavLink>
                 </div>
             </div>
         );
@@ -59,8 +74,8 @@ class CalendarPage extends Component {
                     <div className="body">
                         <RouteWrapper>
                             <Route exact path="/calendar/" render={(props) => <CalendarView   dep={this.state.departments} {...this.props}/>}/>
+                            <Route path="/calendar/manage/" render={(props) => <CalendarManage dep={this.state.departments} {...this.props}/>}/>
                             <Route path="/calendar/(\d+-\d+-\d+)" render={(props) => <CalendarViewDate   dep={this.state.departments} {...this.props}/>}/>
-                            <Route path="/calendar/manage/" render={(props) => <Calendar_Manage dep={this.state.departments} {...this.props}/>}/>
                         </RouteWrapper>
                     </div>
                 </article>
@@ -70,6 +85,7 @@ class CalendarPage extends Component {
                         {this.renderLinkManager()}
                         <div className="body">
                                 <div className="calendar_view">
+                                
                                     <div className="first">
                                         <div className="left">
                                             <h2 className="title">
@@ -77,6 +93,7 @@ class CalendarPage extends Component {
                                             </h2>
                                         </div>
                                         <div className="right">
+                                       
                                         </div>
                                     </div>
                                     <div className="second">
@@ -93,7 +110,8 @@ CalendarPage.propTypes = {
 }
 function mapStateToProps(state,ownprops) {
     return{
-        settings: state.settings
+        settings: state.settings,
+        calendar_page: state.calendar_page
     }
 }
 export default withRouter(connect(mapStateToProps,null,null,{pure: false})(CalendarPage));

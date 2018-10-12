@@ -14,7 +14,7 @@ export function manage_job_add_new_edit(settings, job){
             // If you have the authority proceed with the adding
 
             const req = axios.post(path_api,job);
-            console.log("CALLING: ",path_api,job);
+            console.log("SAVING: ",path_api,job);
             req.then((res)=>{
                 let returndata = res.data;
                 console.log("PROMISE GET: ",returndata);

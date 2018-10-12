@@ -99,12 +99,12 @@ class CalendarGroupCells extends Component {
                     
                     return(
                         <CalendarCell key={index}
-                                      jd = {jd}
+                                      jd={jd}
                                       prevDate={prevDate}
                                       nextDate={nextDate}
                                       prevDayKey={prevDayKey}
                                       nextDayKey={nextDayKey}
-                                      userId = {userId}
+                                      userId={userId}
                                       origDate={currDate}
                                       {... this.props}
                         />

@@ -164,11 +164,13 @@ class Calendar_View extends Component {
 	// RENDER ROWS FOR THE CALENDAR
     renderDepartments(){
         let rowsCollection  = [];
-        const that          = this;
         const programmingID = this.props.settings.programmingUsers.deptId;
         const programmingU  = this.props.settings.programmingUsers.value;
+        const departments   = this.props.dep;
 
         // RECURSING OVER DEPARTMENTS ORDER
+        // This renders programmer row or a normal row for each departments
+
         function inlineRecursive(item,rowcollection){
             const title     = item.title;
             const id        = item.id;
@@ -176,7 +178,7 @@ class Calendar_View extends Component {
             const isParent  = (numkids>0);
 
             if(numkids>0){
-                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId={id} isViewDate={false}/>);
+                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId={id} isViewDate={false} departments={departments} />);
 
                 // IF DEPARTMENTS ID MATCHED PROGRAMMING ID ADD, ROWS FOR THE PROGRAMMERS
 
@@ -186,12 +188,12 @@ class Calendar_View extends Component {
             }else{
                 // THIS IS WHERE YOU PRINT OUT THE DEPARTMENT
 
-                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId= {id} isViewDate={false}/>);
+                rowcollection.push(<CalendarRow key={id} title={title} isParent={isParent}  departmentId= {id} isViewDate={false} departments={departments}/>);
 
                 // DISPLAY THE ROW FOR THE PROGRAMMER
                 if(programmingID == id){
                     programmingU.map((item , n)=>{
-                        rowcollection.push(<ProgrammerRow key={"pr_"+ n} user={item} isParent={isParent}  departmentId= {id} counter={n} isViewDate={false}/>);
+                        rowcollection.push(<ProgrammerRow key={"pr_"+ n} user={item} isParent={isParent}  departmentId= {id} counter={n} isViewDate={false} departments={departments}/>);
                         }
                     )
                 }
@@ -255,11 +257,12 @@ class Calendar_View extends Component {
         const selected_date = moment(this.props.calendar_page.selected_date, "DD/MM/YYYY");
         this.props.calendar_view_day_set_calendar_date(newMoment, selected_date);
         this.setUp(newMoment, true);
-
         this.populate_colour_settings();
+
+        console.log("ALL JOBS:", this.props.calendar_jobs);
     }
     populate_colour_settings(){
-        // Repopulate the colour settings for each job in the calendar
+        // Pre-populate the colour settings for each job in the calendar
 
         // 1. For the non-programmers job
         let colour_jobs_hover_array = [];

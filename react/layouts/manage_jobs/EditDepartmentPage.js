@@ -29,7 +29,7 @@ class EditDepartmentPage extends Component {
 
         if(!isNaN(depId)){
             
-            const stringApi = this.props.api_folder + "job_department/get.php?id=" + depId;
+            const stringApi = this.props.api_folder + "job_bag_department/get.php?id=" + depId;
             const prom      = axios.get(stringApi);
  
             prom.then((res)=>{

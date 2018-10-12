@@ -9,8 +9,6 @@ import moment from 'moment';
 import * as helper from '../../../common/CalendarPageFunctions';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-// User defined components
-import DayRow from '../../../components/calendar/manage/departments_view/day';
 
 class DepartmentView extends Component {
     constructor(props){
@@ -26,11 +24,14 @@ class DepartmentView extends Component {
         this.handleChangeDirection    = this.handleChangeDirection.bind(this);
     }
     handleChangeDirection(direction){
+       
+
         const msunday       = moment(this.state.sunday.date,'DD/MM/YYYY');
         const msaturday     = moment(this.state.saturday.date,'DD/MM/YYYY');
 
         let nextSunday    = moment(msunday);
         let nextSaturday  = moment(msaturday);
+
 
         if(direction=='left'){
             nextSunday.subtract(7,'days');
@@ -41,7 +42,7 @@ class DepartmentView extends Component {
             nextSaturday.add(7, 'days');
         }
         this.setState((prevState,props)=>{
-            return({sunday: nextSunday, saturday:nextSaturday});
+           return({sunday: nextSunday, saturday:nextSaturday});
         });
     }
     handleChangeCalendarDate(newDate){
@@ -172,7 +173,8 @@ class DepartmentView extends Component {
                                         <span className="next">
                                             <a className="click_next" onClick={() => {
                                                 this.handleChangeDirection('right');
-                                            }}><i className="chevron circle right icon"></i></a>
+                                            }}><i className="chevron circle right icon"></i>
+                                            </a>
                                         </span>
                                     </td>
                                 </tr>

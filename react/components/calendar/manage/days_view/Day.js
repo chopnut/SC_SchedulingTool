@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 // User define components
+import ParentDepartment from './ParentDepartment';
 import {getLoader} from '../../../../common/CommonUI';
-import Department from './Department';
 import HeaderLabels from '../../../../layouts/common/calendar/manage/JobHeaderLabels';
 
 class Day extends Component {
@@ -13,30 +13,55 @@ class Day extends Component {
         super(props);
         this.state = {
            isLoading: true,
-           job_departments: []
-        }
-    }
-    componentWillReceiveProps(){
-        console.log("Triggered");
-    }
-    componentDidMount(){
+           job_departments: {},
+           momentDate: props.moment
 
-        // Query the database to get all the job departments
-        const data          = {job_dp_date: this.props.moment.format('YYYY-MM-DD')}
+        }
+        this.prepareData = this.prepareData.bind(this);
+    }
+
+    componentDidMount(){
+        this.prepareData();
+    }
+    //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
+    componentWillReceiveProps(nextProps) {
+        const curr_date = this.state.momentDate.format('YYYY-MM-DD');
+        const next_date = nextProps.moment.format('YYYY-MM-DD');
+
+
+        if( curr_date != next_date){
+            // console.log("Day.js WillReceiveProps",curr_date, next_date);
+            this.setState({ momentDate: nextProps.moment },()=>{
+                this.prepareData();
+            }
+            );
+            
+        }
+
+    }
+    prepareData(){
+
+        // ----------------------------------------   *   -------------------------------------------//
+        //              Query the database to get all the job departments
+        // ----------------------------------------   *   -------------------------------------------//
+
+        const data          = {job_dp_date: this.state.momentDate.format('YYYY-MM-DD')}
         const job_dep_api   = this.props.settings.setting.react_api_folder+"calendar_actions/calendar_manage_jobs_days.php";
         const prom          = axios.post(job_dep_api,data);
 
         prom.then((res)=>{
+
             const jobs = res.data.payload;
-            // console.log("Jobs: ",res.data);
+            console.log("Jobs result",  res.data, this.props);
+            // console.log("Jobs department", this.props.dep);
 
             this.setState(function(state,props){
 
-                console.log(data, jobs);
                 this.props.loaded();
                 return ({
                     isLoading: false,job_departments: jobs});
             });
+
         });
     }
     render(){
@@ -78,11 +103,19 @@ class Day extends Component {
                 </div>
                <div className="body">
                    {
+                       // This LOOP is going through the main category/department
+                       // Programming, Printing, Inserting machine
+
                        this.props.dep.departmentsOrder.map(
-                           function (item,index) {
-                               return (
-                                   <Department key={index} department={item} jobs={parent.state.job_departments} />
-                               );
+                           function (item, index) {
+                         
+                               const department_id = item.id.toString();
+                               let count_jobs = 0;
+                               if(department_id in parent.state.job_departments){
+                                  count_jobs = Object.keys(parent.state.job_departments[department_id]).length;
+                               }
+                                // Display the department
+                                return <ParentDepartment key={index} department={item} all_jobs={parent.state.job_departments} count_jobs={count_jobs} />
                            }
                        )
                    }

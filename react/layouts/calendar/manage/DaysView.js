@@ -13,7 +13,13 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 // User defined components
-import DayRow from '../../../components/calendar/manage/days_view/Day';
+import Day from '../../../components/calendar/manage/days_view/Day';
+
+// Get actions for calendar page
+import {calendar_page_change_days,
+    calendar_page_refresh,
+    calendar_view_day_set_calendar_date,
+    reset_all_action } from '../../../actions/CalendarActions';
 
 class DaysView extends Component {
     constructor(props){
@@ -33,13 +39,31 @@ class DaysView extends Component {
         this.handleChangeCalendarDate = this.handleChangeCalendarDate.bind(this);
         this.handleChangeDirection    = this.handleChangeDirection.bind(this);
         this.handleLoadedDayRow       = this.handleLoadedDayRow.bind(this);
+
+        // PRE-TRIGGERED MAIN ACTION
+        this.updateDateChange         = this.updateDateChange.bind(this);
     }
+    updateDateChange(){
+        // Before updating the views
+
+        const seven_days = helper.getSevenMomentsFromDate(this.state.sunday);
+        const post_data  = helper.getSevenDayAndDatesFormat(seven_days);
+
+        // Update UI/View now
+        this.props.calendar_page_change_days(this.props.settings, post_data);
+    }
+    componentWillReceiveProps(nextProps) {
+       
+    }    
     handleChangeDirection(direction){
-        const msunday       = moment(this.state.sunday.date,'DD/MM/YYYY');
-        const msaturday     = moment(this.state.saturday.date,'DD/MM/YYYY');
+        // Allow to change the display and trigger to update the main caledar_jobs
+        const msunday       = moment(this.state.sunday,'DD/MM/YYYY');
+        const msaturday     = moment(this.state.saturday,'DD/MM/YYYY');
 
         let nextSunday    = moment(msunday);
         let nextSaturday  = moment(msaturday);
+
+       
 
         if(direction=='left'){
             nextSunday.subtract(7,'days');
@@ -49,16 +73,15 @@ class DaysView extends Component {
             nextSunday.add(7,'days');
             nextSaturday.add(7, 'days');
         }
+
         this.setState((prevState,props)=>{
-            return({sunday: nextSunday, saturday:nextSaturday});
-        });
+            return({sunday: nextSunday.format("DD/MM/YYYY"), saturday:nextSaturday.format("DD/MM/YYYY")});
+        }, this.updateDateChange );
+
     }
-    handleLoadedDayRow(){
-        this.setState((prevState, props) => (
-            {loadedDays: prevState.loadedDays+1 }
-        ));
-    }
+
     handleChangeCalendarDate(newDate){
+        // Allow to change the display and trigger to update the main caledar_jobs
         const today         = newDate.format('dddd').toLowerCase();
         let paramsDate      = null
 
@@ -99,11 +122,17 @@ class DaysView extends Component {
                     sunday: nextSunday.format('DD/MM/YYYY'),
                     saturday: nextSaturday.format('DD/MM/YYYY'),
                     paramsDate: paramsDate
-                });
-        });
+                } );
+        },  this.updateDateChange );
+    }
+    handleLoadedDayRow(){
+        this.setState((prevState, props) => (
+            {loadedDays: prevState.loadedDays+1 }
+        ));
     }
     componentDidUpdate(){
         if(this.state.paramsDate){
+            // This will cause the view to go directly to that specific day
             if(this.state.loadedDays==7){
                 $('html, body').animate({
                     scrollTop: $('#'+this.state.paramsDate.format("DD-MM-YYYY")).offset().top
@@ -112,7 +141,6 @@ class DaysView extends Component {
         }
     }
     componentDidMount(){
-        console.log("Daysview",this.props);
 
         const date = this.props.match.params.date;
         let   paramsDate = null;
@@ -134,11 +162,12 @@ class DaysView extends Component {
 
         content = ()=>{
             return (
-                <div className="all_days">
+                <div className="all_days"> 
                     {
+
                         moments.map(function (item,index) {
 
-                            return (<DayRow key={index} moment = {item} web={parent.props.web} dep = {parent.props.dep} loaded={parent.handleLoadedDayRow}/>);
+                            return (<Day key={index} moment = {item} web={parent.props.web} dep = {parent.props.dep} loaded={parent.handleLoadedDayRow} />);
                         })
                     }
                 </div>
@@ -238,11 +267,16 @@ class DaysView extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return ({
+        settings: state.settings,
         calendar_page: state.calendar_page
     })
 }
 function mapDispatchToProps(dispatch){
-    return({})
+    return({
+        calendar_page_change_days: (settings, days)=>{
+             dispatch(calendar_page_change_days(settings, days));
+        }
+    })
 }
 DaysView.propTypes = {
     web: PropTypes.object, // web is storage for user_log information

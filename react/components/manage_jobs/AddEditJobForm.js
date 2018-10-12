@@ -7,7 +7,7 @@ import { ChromePicker } from 'react-color';
 
 // UI Common functionality
 import {showJobType,showDropDown} from "../../common/CommonUI";
-
+import {Message} from "semantic-ui-react";
 
 // Get actions to save/new/edit
 import {manage_job_add_new_edit} from '../../actions/ManageJobsActions';
@@ -99,6 +99,7 @@ class AddEditJobForm extends Component {
 
         // Render Functions for other parts
         this.renderAssignProgrammer     = this.renderAssignProgrammer.bind(this);
+        this.showMessage                = this.showMessage.bind(this);
     }
     handleColorPickerOpen(){ this.setState({ displayColorPicker: !this.state.displayColorPicker })}
     handleColorPickerClose(){this.setState({ displayColorPicker: false }) }
@@ -119,7 +120,7 @@ class AddEditJobForm extends Component {
             console.log("Component will received from api: ",nextProps);
             const job  = newData.job;
             const msg  = newData.msg;
-            const err  = newData.err;
+            const err  = newData.error;
 
 
             // UPDATE THE STATE NOW TO THE NEWLY CREATED JOB
@@ -138,7 +139,7 @@ class AddEditJobForm extends Component {
     componentDidMount(){
         // Get job bag from url ID
         this.prepopulateJobBag();
-
+        console.log("AddEditJobForm: ",this.props);
 
 
 
@@ -224,13 +225,13 @@ class AddEditJobForm extends Component {
         }else{
             // Else empty the array of the programmers
             this.setState((prevState, props) => (
-                { programmers_selection: [], programmers_options: []}
+                { programmers_selection: "", programmers_options: []}
             ));
         }
     }
 
 
-    // API QUERY: For the assign programmers section
+    // Query all programmers to be use for the programmer combo box
     getApiProgrammers(){
 
         const req               = this.props.settings.setting.react_api_folder+'misc_actions/get_programmers.php';
@@ -346,7 +347,7 @@ class AddEditJobForm extends Component {
         const ProgrammersDropdown = ()=>{
             return(
                 <div className="field">
-                    <label><i className="user circle icon" aria-hidden="true"></i> Assign programmer to a job</label>
+                    <label><i className="user circle icon" aria-hidden="true"></i> Assign programmer to a job </label>
                     <input type="hidden" name="job_dp_allocated_to" id="job_dp_allocated_to" value={this.state.programmers_selection}/>
                     {
                         showDropDown
@@ -367,9 +368,12 @@ class AddEditJobForm extends Component {
 
         // Only show the programming department is selected.
         if(this.isProgrammersDepSelected()){
+
+            
+            
             return (
                 <div className="job_bag_programmer_assignment">
-                    <RecurringDepartmentsDropDown />
+                    <RecurringDepartmentsDropDown /> 
                     <ProgrammersDropdown/>
                 </div>
             );
@@ -422,24 +426,35 @@ class AddEditJobForm extends Component {
         if(jobId!="NaN" && jobId>0){
             const req  = this.props.settings.setting.react_api_folder+'/manage_jobs_actions/manage_jobs_get.php?job_id='+jobId;
 
+            console.log("Prepopulate Request:  ", req);
+
             // Acquire from Prism get API
             axios.get(req).then(function(res){
-                const job = res.data.job;
+                const job       = res.data.job;
+
+                // ----------------------------
+                // Preselect the programmer
+                let programmer  = "";
+                if("programmer" in job){
+                    programmer  = job.programmer.userid;
+                }
+                // ----------------------------
 
                 // CONTINUE WITH EDITING EXISTING
                 if(res.data.error==0 ){
                     this.setState((prevState, props) => (
                         {
-                            job: job
+                            job: job ,
+                            programmers_selection: programmer
                         }
                     ), ()=>
                         {
-                            // Initialize when Editing a job
+                            // Check the programmer section the form
                             this.getApiProgrammersSection();
                         }
                     );
 
-                    console.log("THIS IS JOB: ",job);
+                    console.log("Prepopulate Result: ",job);
 
 
                     // VALIDATION INITIALIZATION 2: FOR EDITING
@@ -468,7 +483,7 @@ class AddEditJobForm extends Component {
                             }
                         });
                 }else{
-                   // NO AVAILABLE JOB WITH THE PARTICULAR JOB ID REDIRECT
+                   // NO AVAILABLE JOB WITH THE PARTICULAR JOB ID REDIRECT 
                     history.push('/managejobs/newedit/');
                 }
 
@@ -602,7 +617,14 @@ class AddEditJobForm extends Component {
             return ({jobsFound: [] });
         });
     }
-
+    // This will display a message after editing or creating new
+    showMessage(){
+        if(this.state.msg !=""){
+            return (<Message success={(this.state.err==0)} negative={(this.state.err==1)}>
+                <Message.Header>{this.state.msg}</Message.Header>
+            </Message>);
+        }
+    }
     showHeader(){
         if(this.state.job.job_id>0){
             return (
@@ -738,6 +760,10 @@ class AddEditJobForm extends Component {
                     {
                         this.showHeader()
                     }
+                    {
+                        this.showMessage()
+                    }
+
                     <table className="job_bag_add_edit">
                         <tbody>
                         <tr>

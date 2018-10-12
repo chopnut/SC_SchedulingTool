@@ -16,8 +16,9 @@ $sched       = new SchedSettings();
 // This is the output you want to return as JSON
 
 $output = array();
-$output["payload"] = "";
-$output["message"] = "";
+$output["payload"]  = "";
+$output["message"]  = "You are calling for the page for nothing";
+$output["error"]    = 0;
 $output["returned"] = false;
 
 

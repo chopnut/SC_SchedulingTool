@@ -1012,6 +1012,14 @@
         }
     }
 }
+// CALENDAR JOB CARD WHEN ADD DEPARTMENT IS CLICKED
+.add_department_window{
+   .container{
+       &>div{
+           margin-top: 10px;
+       }
+   }
+}
 // CALENDAR JOB CARD WHEN CLICK
 .window_job_card{
     table{  width: 100%;  }
@@ -1058,6 +1066,7 @@
             font-weight: bold;
             font-size: 11px;
         }
+
         // JOB BAG INFORMATION
         table.job_bag_info{
             .buttons{
@@ -1122,7 +1131,7 @@ th.jnu{width: $job_table_w_jnu;}
 th.csr{width: $job_table_w_csr;}
 th.cli{width: $job_table_w_cli;}
 th.qty{width: $job_table_w_qty;}
-th.jna{}
+th.jna{text-align: left; padding: 5px }
 th.dat{width: $job_table_w_dat; }
 th.pri{width: $job_table_w_pri; }
 th.sto{width: $job_table_w_sto; }

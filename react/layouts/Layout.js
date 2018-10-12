@@ -14,7 +14,7 @@ import ReportsPage from './ReportsPage';
 // Import needed functions for realtime behaviour
 
 
-import {realtimeServer} from "../common/common";
+import { server } from "../common/common";
 
 class Layout extends Component {
     // Do some initiliazing in the constructor
@@ -26,14 +26,20 @@ class Layout extends Component {
             realtime_server_trigger_data: {},
             realtime_server_online: false
         };
-        this.realtimeServer = realtimeServer.bind(this);
+        this.realtimeServer  = this.realtimeServer.bind(this);
         this.renderTop       = this.renderTop.bind(this);
+    }
+    realtimeServer(){
+
     }
     componentDidMount(){
         // this.realtimeServer(this.props.settings.clientPort);
 
+        // ----------------------------------------   *   -------------------------------------------//
         // Get the persistent/readonly data
         // userlog details , and todays date
+        // ----------------------------------------   *   -------------------------------------------//
+
         const promise = app(this.props.settings);
         promise.then((res)=>{
             console.log("From Layout Web: ",res.data);

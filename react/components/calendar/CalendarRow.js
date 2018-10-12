@@ -228,7 +228,8 @@ class CalendarRow extends Component {
                                 departmentId    = {this.props.departmentId}
                                 initDrag        = {this.handleDragging}
                                 initDragEnd     = {this.handleDragEnd}
-                                jobs            = {jobs}
+                                jobs            = {jobs}                    //  Jobs that are inside each cell
+                                departments     = {this.props.departments}  // Will be used for the add department pop-up
                             />
                         </td>
                     );

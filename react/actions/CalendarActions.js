@@ -3,7 +3,6 @@ import { CALENDAR_PAGE_ADD_SCHEDULE_TO,
          CALENDAR_PAGE_CHANGE_GET_JOBS,
          CALENDAR_PAGE_MOVE_DEP_SIDE_BY_SIDE,
          CALENDAR_PAGE_ADD_RECURRING_TO_DATE,
-         CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB,
          CALENDAR_VIEW_DAY_SET_CALENDAR_DATE,
          CALENDAR_PAGE_REFRESH,
          CALENDAR_PAGE_VIEW_DATE_GET_JOBS,
@@ -146,9 +145,6 @@ export function calendar_page_move_dep_side_by_side(settings, info){
             req.then((res)=>{
                 console.log("POST SIDE BY SIDE: RECEIVED ",res.data);
 
-                // This is to update the database itself, there is no return value being used.
-                // dispatch({type: CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB });
-
                 // Update the state of the calendar now
 
                 dispatch({type: CALENDAR_PAGE_MOVE_DEP_SIDE_BY_SIDE , info});
@@ -247,15 +243,7 @@ export function calendar_page_add_recurring_to_date(settings,jobsIds,date){
 
     });
 }
-/*
-* This is for updating the schedule date for department bag when calendar_page_move_dep_side_by_side is invoke
-* @info is the same variable used when changing the position of the dep bag.
-* */
-export function calendar_page_move_dep_sbs_update_db(info){
-    return ((dispatch)=>{
-        dispatch({type: CALENDAR_PAGE_MOVE_DEP_SBS_UPDATE_DB , info});
-    });
-}
+
 // VIEW DAY
 /* This is for changing the global state of the calendar_page days to weeks and day, or vice-versa
    @days is array of moments
@@ -299,17 +287,24 @@ export function calendar_page_view_date_get_jobs(settings,date){
                 // ACTION NAME IS USE TO KNOW WHICH ACTION IS BEING EXECUTED
                 const action = {type: CALENDAR_PAGE_VIEW_DATE_GET_JOBS, payload: jobs};
                 dispatch({type: CALENDAR_PAGE_VIEW_DATE_GET_JOBS, action});
+
+                // SET WORKING TO FALSE
                 dispatch({type: IS_WORKING, isWorking: false });
             });
         })
     });
 }
 
+// =======================================================================================
 // TEMPLATE FOR CREATING ACTION
 export function TEMPLATE(settings,data_to_pass){
     return ((dispatch)=>{
-        //  SET THE IS_WORKING VARIABLES FOR EVERY ACTION
+        //-----------------------------------------------------
+        // SET THE IS_WORKING VARIABLES FOR EVERY ACTION
+        // This is to display a loading image
         dispatch({type: IS_WORKING, isWorking: true });
+        //-----------------------------------------------------
+
 
         // DO PROCESSING BELOW
         const prom = app(settings);
@@ -324,7 +319,12 @@ export function TEMPLATE(settings,data_to_pass){
                 const action = {type: CALENDAR_PAGE_ADD_RECURRING_TO_DATE, payload: payload};
                 dispatch({type: REPLACE_THIS_WITH_ACTUAL_ACTION , action});
 
+                //-----------------------------------------------------
+                // SET WORKING TO FALSE 
+                // To disable the loading image
                 dispatch({type: IS_WORKING, isWorking: false });
+                //-----------------------------------------------------
+
             });
         })
 
@@ -332,3 +332,5 @@ export function TEMPLATE(settings,data_to_pass){
 
     });
 }
+// =======================================================================================
+

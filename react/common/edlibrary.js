@@ -72,6 +72,7 @@ this.getWeekFromDate = function(newDate,includeDayAndDate=true){
     })
     return daysArray;
 }
+// Get the value of the Get variable from the URL
 this.getParameterByName = function(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, "\\$&");
@@ -136,6 +137,7 @@ this.getDate = function (padding=true){
     }
     return d;
 }
+// Returns the name of the day according to its number
 this.getWordDate = function (dayNum=-1){
     var now = new Date();
     var d   = dayNum;
@@ -154,11 +156,13 @@ this.getWordDate = function (dayNum=-1){
     }
     return "undefined";
 }
+// Make first letter of a text capital
 this.ucfirst = function(string)
 {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+// Gets the index of the asking value you want to get from the array specified.
 this.getArrayValueIndex = function (arrayVal,askingKey,askingValue) {
     var selected = 0;
     if(this.isArray(arrayVal)){

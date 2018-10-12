@@ -28,12 +28,8 @@ class JobGroup extends Component {
             <div className="job_group">
                 <ul className="sortable list">
                 {
-                    this.props.jobs.map((item,index)=>{
-                        return (
-
-                                <JobIndividual key={index} job={item}/>
-
-                        );
+                    Object.keys(this.props.jobs).map((item,index)=>{
+                        return (<JobIndividual key={index} job={this.props.jobs[item]}/>);
                     })
                 }
                 </ul>
@@ -43,7 +39,6 @@ class JobGroup extends Component {
 }
 function mapStateToProps(state,ownprops) {
     return ({
-        calendar_pagep: state.calendar,
         settings: state.settings
     })
 }

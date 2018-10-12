@@ -12,7 +12,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 $data = $u::getRequestData();
 
 /*
- * This Api gets the job departments for a particular dates
+ * This Api gets the job departments for a particular date
  * required data:
  * @job_dp_date: Date eg. 2017-09-09 Already formatted to be used in the database
  */
@@ -34,9 +34,9 @@ if(isset($data['job_dp_date'])){
          * data[job_dept_id][] = job_departments
          */
         $json = json_encode($t);
-        echo "{\"payload\": $json }";
+        echo '{"payload": '.$json.', "post": "'.$job_dp_date.'" }';
     }else{
-        echo "{\"payload\": {}";
+        echo '{"payload": {}, "post": "'.$job_dp_date.'"}';
     }
 }
 
