@@ -6,9 +6,7 @@ $context    = new \ZMQContext();
 $socket     = $context->getSocket(ZMQ::SOCKET_PUSH,'SCSTRealtimeSubsObject');
 
 $host = "localhost";
-$dsn  = "tcp://$host:5555";
-// $dsn = "tcp://$host:".RT_CLIENT_PORT;
-
+$dsn  = "tcp://$host:".RT_SERVER_PORT;
 
 $endpoints = $socket->getEndpoints();
 
@@ -17,7 +15,6 @@ if (!in_array($dsn, $endpoints['connect'])) {
     $socket->connect($dsn);
     $socket->send("HELLO ");
 
-    
 } else {
     echo "<p>Already connected to $dsn</p>";
     $socket->connect($dsn);
